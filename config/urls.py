@@ -2,7 +2,6 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls.static import static
 
 from rest_framework import permissions
 from rest_framework.documentation import include_docs_urls
@@ -30,10 +29,6 @@ urlpatterns = [
     path(f'api-token-auth/', authtoken_view.obtain_auth_token),
 ]
 
-# 调试模式下的静态文件服务
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # 接口文档 仅调试模式可用
 if settings.DEBUG:
