@@ -178,3 +178,8 @@ SIMPLEUI_ICON = {
     '认证令牌': 'fa fa-lock',
     '用户分享记录': 'fa fa-share',
 }
+
+# Swagger 配置
+SWAGGER_SETTINGS = {
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'config.swagger.SquadSwaggerAutoSchema',
+}
