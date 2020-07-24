@@ -18,8 +18,9 @@
 - 基于SimpleUI定制的管理后台
 - 管理后台支持登录验证码和登录尝试次数限制
 - 集成RestFramework，默认屏蔽了链接主页，即对外隐藏API
-- 对默认的settings进行拆分
+- 对默认的`settings`进行拆分
 - 默认使用Redis缓存
+- 优化`drf_yasg`的Swagger分组
 
 ## 文件结构
 
@@ -81,6 +82,7 @@ http://127.0.0.1/test/admin
 - [ ] 集成微信公众号、小程序SDK
 - [ ] 集成单点登录认证
 - [ ] 集成消息队列
+- [ ] 进一步优化`settings`拆分
 
 
 ## 相关博文
