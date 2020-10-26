@@ -181,5 +181,5 @@ SIMPLEUI_ICON = {
 
 # Swagger 配置
 SWAGGER_SETTINGS = {
-    'DEFAULT_AUTO_SCHEMA_CLASS': 'config.swagger.SquadSwaggerAutoSchema',
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'config.swagger.CustomSwaggerAutoSchema',
 }
