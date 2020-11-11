@@ -10,7 +10,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@4gkf7*k+_1@u8z$2*ila%%)ck&i=o$g1lnr40=%mlt-4rh+xd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# 读取环境变量判断是否开启Debug模式，无须手动设置
+DEBUG = os.environ.get('DEBUG', 'true') == 'true'
 
 # 读取环境变量判断是否docker环境，无须手动设置
 DOCKER = os.environ.get('ENVIRONMENT', 'default') == 'docker'

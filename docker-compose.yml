@@ -9,9 +9,10 @@ services:
     build: .
     environment:
       - ENVIRONMENT=docker
-      - URL_PREFIX=django_rails
-#    command: python3 manage.py runserver 0.0.0.0:8001
-    command: uwsgi uwsgi.ini
+      - URL_PREFIX=django_starter
+      - DEBUG=true
+    command: python3 manage.py runserver 0.0.0.0:8000
+#    command: uwsgi uwsgi.ini
     volumes:
       - .:/code
     ports:
