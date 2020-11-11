@@ -16,6 +16,9 @@ from apps.core import views
 urlpatterns = [
     path(f'core/', include('apps.core.urls')),
 
+    # Django-RQ
+    path('django-rq/', include('django_rq.urls')),
+
     # 管理后台
     path(f'admin/login/', views.extend_admin_login),
     path(f'admin/', admin.site.urls),

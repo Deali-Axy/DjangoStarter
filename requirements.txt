@@ -1,6 +1,7 @@
 asgiref==3.2.7
 certifi==2020.6.20
 chardet==3.0.4
+click==7.1.2
 coreapi==2.3.3
 coreschema==0.0.4
 Django==3.0.3
@@ -9,6 +10,7 @@ django-multi-captcha-admin==1.0.0
 django-ranged-response==0.2.0
 django-ratelimit==3.0.0
 django-redis==4.12.1
+django-rq==2.4.0
 django-simple-captcha==0.5.12
 django-simpleui==4.0.3
 djangorestframework==3.11.0
@@ -24,6 +26,7 @@ pyparsing==2.4.7
 pytz==2020.1
 redis==3.5.3
 requests==2.24.0
+rq==1.6.1
 ruamel.yaml==0.16.10
 ruamel.yaml.clib==0.2.0
 six==1.15.0

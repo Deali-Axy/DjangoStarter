@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_rq',
 
     # 我们自己的应用
     'apps.core',
@@ -187,4 +188,12 @@ SWAGGER_SETTINGS = {
     # Controls the default expansion setting for the operations and tags.
     # ‘none’: everything is collapsed
     'DOC_EXPANSION': 'none',
+}
+
+# Django-RQ 消息队列配置
+RQ_QUEUES = {
+    'default': {
+        # 使用项目配置的 Redis Cache
+        'USE_REDIS_CACHE': 'default',
+    },
 }
