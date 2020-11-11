@@ -4,9 +4,7 @@ from django.utils import timezone
 
 
 class UserProfile(models.Model):
-    """
-    用户资料
-    """
+    """用户资料"""
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     phone = models.CharField('手机号', max_length=11, blank=True, null=True)
 
