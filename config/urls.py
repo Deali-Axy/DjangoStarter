@@ -13,7 +13,6 @@ from drf_yasg import openapi
 
 from apps.core import views
 
-
 urlpatterns = [
     path(f'core/', include('apps.core.urls')),
 
@@ -29,7 +28,6 @@ urlpatterns = [
     path(f'api-token-auth/', authtoken_view.obtain_auth_token),
 ]
 
-
 # 接口文档 仅调试模式可用
 if settings.DEBUG:
     openapi_obj = openapi.Info(
@@ -43,6 +41,7 @@ if settings.DEBUG:
     schema_view = get_schema_view(
         openapi_obj,
         public=True,
+        # permission_classes=(permissions.AllowAny,),
         permission_classes=(permissions.IsAdminUser,),
     )
     urlpatterns.extend([
