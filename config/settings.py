@@ -182,4 +182,8 @@ SIMPLEUI_ICON = {
 # Swagger 配置
 SWAGGER_SETTINGS = {
     'DEFAULT_AUTO_SCHEMA_CLASS': 'config.swagger.CustomSwaggerAutoSchema',
+    'DEFAULT_GENERATOR_CLASS': 'config.swagger.CustomOpenAPISchemaGenerator',
+    # Controls the default expansion setting for the operations and tags.
+    # ‘none’: everything is collapsed
+    'DOC_EXPANSION': 'none',
 }
