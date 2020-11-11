@@ -13,14 +13,16 @@
 - admin后台安全限制中间件（需手动启用）
 - 非debug模式下管理员可以查看报错信息（需手动启用）
 - 自定义访问前缀
-- 支持Docker部署
-- 支持Uwsgi部署
+- 支持Docker部署（使用`docker-compose`方式）
+- 支持Uwsgi部署，支持Uwsgi自动重启
+- 默认启用`CORS_ALLOW`实现接口跨域
 - 基于SimpleUI定制的管理后台
 - 管理后台支持登录验证码和登录尝试次数限制
 - 集成RestFramework，默认屏蔽了链接主页，即对外隐藏API
 - 对默认的`settings`进行拆分
 - 默认使用Redis缓存
-- 优化`drf_yasg`的Swagger分组
+- 优化`drf_yasg`的Swagger分组和文档显示效果（显示分组说明、接口说明等）
+
 
 ## 文件结构
 
@@ -34,6 +36,11 @@
 
 ## 快速开始
 
+### 安装依赖
+
+```python
+pip install -r requirements.txt
+```
 
 ### 迁移数据库
 
@@ -74,6 +81,65 @@ http://127.0.0.1/test/admin
 - **根据实际业务在`apps`包中创建一个新的应用（推荐）**
 - ~~在默认应用`apps/core`里写~~（不推荐）
 
+使用`django-admin`命令创建app：
+
+```bash
+cd apps
+django-admin startapp your_app_name
+```
+
+仿照`apps/core`里的逻辑进行业务开发，每个App需要完成以下代码开发：
+- `models.py`
+- `serializers.py`
+- `viewsets.py`
+
+之后在`urls.py`中注册路由，代码参考`apps/core/urls.py`。
+
+需要在Django后台进行管理的话，在`admin.py`中进行注册，参考`apps/core/admin.py`。
+
+
+## 配置
+
+### 配置Django后台网站名称
+
+编辑`apps/core/admin.py`文件，修改这三行代码：
+
+```python
+admin.site.site_header = 'DjangoStart 管理后台'
+admin.site.site_title = 'DjangoStart 管理后台'
+admin.site.index_title = 'DjangoStart 管理后台'
+```
+
+>PS: 本项目的后台界面基于SimpleUI，更多Django后台配置方法请参考SimpleUI官方文档。
+
+
+### 配置App在后台显示的名称
+
+编辑每个App目录下的`apps.py`文件，在`[AppName]Config`类里配置`verbose_name`，然后在App目录下的`__init__.py`中，设置`default_app_config`即可，具体参照`apps/core`的代码。
+
+
+### 配置app在swagger中的说明
+
+编辑`config/swagger.py`文件，在`CustomOpenAPISchemaGenerator`类的`get_schema`方法中配置`swagger.tags`即可。
+
+
+### 限流配置
+
+编辑`config/rest_framework.py`文件 ，参照注释说明修改`DEFAULT_THROTTLE_RATES`节点即可。
+
+
+### 配置启用*admin后台安全限制中间件*
+
+编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`middleware/admin_secure.AdminSecureMiddleware`即可。
+
+### 配置启用*非debug模式下管理员可以查看报错信息*
+
+编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`middleware/user_base_exception.UserBasedExceptionMiddleware`即可。
+
+
+### Uwsgi自动重启
+
+在`uwsgi.ini`配置文件中，本项目已经配置了监控`readme.md`文件，文件变化就会自动重启服务器，因此在生产环境中可以通过修改`readme.md`文件实现优雅的uwsgi服务重启。
 
 
 ## TODO
@@ -83,6 +149,8 @@ http://127.0.0.1/test/admin
 - [ ] 集成单点登录认证
 - [ ] 集成消息队列
 - [ ] 进一步优化`settings`拆分
+- [ ] 完善项目单元测试
+- [ ] 使用自动构建部署工具实现快速
 
 
 ## 相关博文
