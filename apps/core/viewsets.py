@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
