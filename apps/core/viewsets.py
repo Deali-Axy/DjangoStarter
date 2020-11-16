@@ -40,8 +40,17 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         username = request.data.get('username')
         password = request.data.get('password')
         if User.objects.filter(username=username).exists():
-            user_obj: User = User.objects.get(username=username)
+            # user_obj: User = User.objects.get(username=username)
+            user_obj: User = authenticate(request, username=username, password=password)
+            if user_obj is None:
+                return Response({
+                    'successful': False,
+                    'detail': '登录失败，用户名或密码错误'
+                })
         else:
             user_obj: User = User.objects.create_user(username=username, password=password)
         token, created = Token.objects.get_or_create(user=user_obj)
-        return Response({'token': token.key})
+        return Response({
+            'successful': True,
+            'token': token.key
+        })
