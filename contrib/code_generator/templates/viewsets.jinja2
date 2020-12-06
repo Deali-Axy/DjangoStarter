@@ -1,0 +1,22 @@
+from django.utils.decorators import method_decorator
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import viewsets
+from rest_framework import permissions
+
+from .models import *
+from .serializers import *
+
+{% for model in models %}
+@method_decorator(name='list', decorator=swagger_auto_schema(operation_summary='获取所有{{ model.verbose_name }}资料'))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(operation_summary='获取指定{{ model.verbose_name }}资料'))
+@method_decorator(name='create', decorator=swagger_auto_schema(operation_summary='添加{{ model.verbose_name }}资料'))
+@method_decorator(name='update', decorator=swagger_auto_schema(operation_summary='修改指定{{ model.verbose_name }}资料'))
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(operation_summary='部分修改指定{{ model.verbose_name }}资料'))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(operation_summary='删除指定{{ model.verbose_name }}资料'))
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """{{ model.verbose_name }}相关操作"""
+    serializer_class = serializers.{{ model.name }}Serializer
+    queryset = models.{{ model.name }}.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+{% endfor %}
