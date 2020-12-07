@@ -7,6 +7,9 @@ class DjangoModel(object):
         self.verbose_name = verbose_name
         self.url_name = url_name
 
+    def __str__(self):
+        return f'<DjangoModel>{self.name}:{self.verbose_name}:{self.url_name}'
+
 
 class DjangoApp(object):
     def __init__(self, name: str, name_camel_case: str, verbose_name: str, models: List[DjangoModel]):
@@ -14,3 +17,6 @@ class DjangoApp(object):
         self.name_camel_case = name_camel_case
         self.verbose_name = verbose_name
         self.models: List[DjangoModel] = models
+
+    def __str__(self):
+        return f'<DjangoApp>{self.name}:{self.name_camel_case}:{self.verbose_name}:{self.models}'
