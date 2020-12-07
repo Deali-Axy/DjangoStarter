@@ -2,6 +2,7 @@ import inspect
 from typing import List
 
 from django.apps import apps
+from jinja2 import Environment, PackageLoader
 from contrib.code_generator.utils import camel_to_snake, snake_to_camel
 from contrib.code_generator.models import DjangoModel, DjangoApp
 
@@ -21,7 +22,6 @@ def get_models(app_label: str) -> List[DjangoModel]:
 
 
 def get_app(app_label: str, verbose_name: str) -> DjangoApp:
-    app_obj = apps.get_app_config(app_label)
     django_app = DjangoApp(
         name=app_label,
         name_camel_case=snake_to_camel(app_label),
@@ -38,3 +38,9 @@ if __name__ == '__main__':
     django.setup()
 
     get_models('demo')
+    _d_app = get_app('demo', '博客')
+    print(_d_app)
+
+    env = Environment(loader=PackageLoader('contrib', 'code_generator', 'templates'))
+    template = env.get_template('apps.jinja2')
+    print(template)
