@@ -1,46 +1,43 @@
-import inspect
-from typing import List
+import os
+from jinja2 import Environment, PackageLoader, FileSystemLoader
 
-from django.apps import apps
-from jinja2 import Environment, PackageLoader
-from contrib.code_generator.utils import camel_to_snake, snake_to_camel
-from contrib.code_generator.models import DjangoModel, DjangoApp
+from contrib.code_generator.analyzer import get_models, get_app
+from contrib.code_generator.models import DjangoApp
 
 
-def get_models(app_label: str) -> List[DjangoModel]:
-    django_model_list: List[DjangoModel] = []
-    app_obj = apps.get_app_config(app_label)
-    for model in app_obj.get_models():
-        d_model = DjangoModel(
-            name=model.__name__,
-            verbose_name=model._meta.verbose_name,
-            url_name=camel_to_snake(model.__name__),
-        )
-        print(d_model)
-        django_model_list.append(d_model)
-    return django_model_list
+class Generator(object):
+    """代码生成器"""
+    def __init__(self, django_app: DjangoApp, template_path: str):
+        """
+        初始化代码生成器
 
+        :param django_app: DjangoApp对象
+        :param template_path: 模板文件路径
+        """
+        self.django_app = django_app
+        self.template_path = template_path
+        self.jinja2_env = Environment(loader=FileSystemLoader(template_path))
+        self.default_context = {
+            'app': self.django_app,
+            'models': self.django_app.models
+        }
 
-def get_app(app_label: str, verbose_name: str) -> DjangoApp:
-    django_app = DjangoApp(
-        name=app_label,
-        name_camel_case=snake_to_camel(app_label),
-        verbose_name=verbose_name,
-        models=get_models(app_label)
-    )
-    return django_app
+    def _jinja2_to_py(self, template_filename: str, python_filename: str, context: dict = None):
+        template = self.jinja2_env.get_template(template_filename)
+        with open(os.path.join(self.django_app.path, python_filename), 'w+', encoding='utf-8') as f:
+            f.write(template.render(self.default_context if context is None else context))
 
+    def make_init(self):
+        self._jinja2_to_py('__init__.jinja2', '__init__.py')
 
-if __name__ == '__main__':
-    import os, django
+    def make_apps(self):
+        self._jinja2_to_py('apps.jinja2', 'apps.py')
 
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-    django.setup()
+    def make_serializers(self):
+        self._jinja2_to_py('serializers.jinja2', 'serializers.py')
 
-    get_models('demo')
-    _d_app = get_app('demo', '博客')
-    print(_d_app)
+    def make_urls(self):
+        self._jinja2_to_py('urls.jinja2', 'urls.py')
 
-    env = Environment(loader=PackageLoader('contrib', 'code_generator', 'templates'))
-    template = env.get_template('apps.jinja2')
-    print(template)
+    def make_viewsets(self):
+        self._jinja2_to_py('viewsets.jinja2', 'viewsets.py')

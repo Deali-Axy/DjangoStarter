@@ -18,16 +18,6 @@ def snake_to_camel(word):
     return ''.join(x.capitalize() or '_' for x in word.split('_'))
 
 
-def get_super_class(cls: type) -> type:
-    super_classes = inspect.getmro(cls)
-    if len(super_classes) >= 2:
-        return super_classes[1]
-    else:
-        return type(None)
-
-
-def get_class(cls: type) -> type:
-    return inspect.getmro(cls)[0]
 
 
 if __name__ == '__main__':
