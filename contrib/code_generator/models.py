@@ -17,6 +17,9 @@ class DjangoModel(object):
     def __str__(self):
         return f'<DjangoModel>{self.name}:{self.verbose_name}:{self.url_name}'
 
+    def __repr__(self):
+        return self.__str__()
+
 
 class DjangoApp(object):
     def __init__(
@@ -45,3 +48,6 @@ class DjangoApp(object):
 
     def __str__(self):
         return f'<DjangoApp>{self.name}:{self.name_camel_case}:{self.verbose_name}:{self.models}'
+
+    def __repr__(self):
+        return self.__str__()

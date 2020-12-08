@@ -1,10 +1,13 @@
 import inspect
+import logging
 from typing import List
 
 from django.apps import apps
 from jinja2 import Environment, PackageLoader
 from contrib.code_generator.utils import camel_to_snake, snake_to_camel
 from contrib.code_generator.models import DjangoModel, DjangoApp
+
+logger = logging.getLogger('common')
 
 
 def get_super_class(cls: type) -> type:
@@ -28,7 +31,7 @@ def get_models(app_label: str) -> List[DjangoModel]:
             verbose_name=model._meta.verbose_name,
             url_name=camel_to_snake(model.__name__),
         )
-        print(d_model)
+        logger.debug(f'Found django model: {d_model}')
         django_model_list.append(d_model)
     return django_model_list
 

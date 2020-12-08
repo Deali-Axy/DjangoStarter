@@ -116,8 +116,8 @@ USE_TZ = False
 
 # 日志配置
 # 不是调试模式才开启日志记录
-if not DEBUG:
-    LOGGING = config_logging(BASE_DIR)
+# if not DEBUG:
+LOGGING = config_logging(BASE_DIR)
 
 # 静态文件配置 (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
