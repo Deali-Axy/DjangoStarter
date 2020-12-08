@@ -4,6 +4,7 @@ from .models import *
 {% for model in models %}
 class {{ model.name }}Serializer(serializers.ModelSerializer):
     class Meta:
-        model = models.{{ model.name }}
+        model = {{ model.name }}
         fields = '__all__'
+
 {% endfor %}

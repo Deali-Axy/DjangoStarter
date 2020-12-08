@@ -14,9 +14,10 @@ from .serializers import *
 @method_decorator(name='update', decorator=swagger_auto_schema(operation_summary='修改指定{{ model.verbose_name }}资料'))
 @method_decorator(name='partial_update', decorator=swagger_auto_schema(operation_summary='部分修改指定{{ model.verbose_name }}资料'))
 @method_decorator(name='destroy', decorator=swagger_auto_schema(operation_summary='删除指定{{ model.verbose_name }}资料'))
-class UserProfileViewSet(viewsets.ModelViewSet):
+class {{ model.name }}ViewSet(viewsets.ModelViewSet):
     """{{ model.verbose_name }}相关操作"""
-    serializer_class = serializers.{{ model.name }}Serializer
-    queryset = models.{{ model.name }}.objects.all()
+    serializer_class = {{ model.name }}Serializer
+    queryset = {{ model.name }}.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
 {% endfor %}
