@@ -210,7 +210,7 @@ admin.site.index_title = 'DjangoStart 管理后台'
 
 ## 相关博文
 
-公众号 | test |
+公众号 | 公众号 |
 ------- | ------ | 
 ![](https://gitee.com/deali/CodeZone/raw/master/images/coding_lab_logo.jpg) | ![](https://gitee.com/deali/CodeZone/raw/master/images/coding_lab_qr_code.jpg)   |
 
