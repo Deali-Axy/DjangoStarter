@@ -38,6 +38,9 @@ class Generator(object):
     def make_init(self):
         self._jinja2_to_py('__init__.jinja2', '__init__.py')
 
+    def make_admin(self):
+        self._jinja2_to_py('admin.jinja2', 'admin.py')
+
     def make_apps(self):
         self._jinja2_to_py('apps.jinja2', 'apps.py')
 
@@ -52,6 +55,7 @@ class Generator(object):
 
     def make_all(self):
         self.make_init()
+        self.make_admin()
         self.make_apps()
         self.make_serializers()
         self.make_urls()

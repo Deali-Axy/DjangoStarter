@@ -3,7 +3,7 @@ from django.apps import AppConfig
 
 
 class DjangoModel(object):
-    def __init__(self, name: str, verbose_name: str, url_name: str):
+    def __init__(self, name: str, verbose_name: str, url_name: str, fields: List[str]):
         """
 
         :param name: 模型名称
@@ -13,6 +13,7 @@ class DjangoModel(object):
         self.name = name
         self.verbose_name = verbose_name
         self.url_name = url_name
+        self.fields: List[str] = fields
 
     def __str__(self):
         return f'<DjangoModel>{self.name}:{self.verbose_name}:{self.url_name}'
