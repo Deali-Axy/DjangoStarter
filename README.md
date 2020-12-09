@@ -11,7 +11,7 @@
 - 非debug模式下管理员可以查看报错信息（需手动启用）
 - 自定义访问前缀
 - 支持Docker部署（使用`docker-compose`方式）
-- 支持Uwsgi部署，支持Uwsgi自动重启
+- 支持uWsgi部署，支持uWsgi自动重启
 - 默认启用`CORS_ALLOW`实现接口跨域
 - 基于SimpleUI定制的管理后台
 - 管理后台支持登录验证码和登录尝试次数限制
