@@ -3,6 +3,7 @@
 .scripts
 static/media
 static_collected
+test
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
