@@ -24,7 +24,15 @@
 
 - apps：所有应用
 - apps/core：默认应用，包含已经写好的示例逻辑和后台登录限流逻辑
-- config：Django配置
+- config：框架配置
+  - `caches.py`：缓存配置
+  - `env_init.py`：环境初始化
+  - `logging.py`：日志配置
+  - `rest_framework.py`：DRF配置
+- `swagger.py`：Swagger文档配置
+  - `urls.py`：路由配置文件
+  - `urls_root.py`：DjangoStarter的顶层路由配置，用于实现地址前缀配置
+  
 - static：静态文件
 - static_collected：运行collectstatic命令后把所有静态文件都保存到这个文件夹
 - templates：模板
