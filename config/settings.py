@@ -167,7 +167,7 @@ CORS_ALLOW_HEADERS = (
 )
 
 # SimpleUI 配置
-SIMPLEUI_LOGO = f'/{URL_PREFIX}static/admin/images/1200px-China_Unicom.png'
+# SIMPLEUI_LOGO = f'/{URL_PREFIX}static/admin/images/custom_logo.png'
 SIMPLEUI_HOME_ICON = 'fa fa-home'
 SIMPLEUI_HOME_INFO = False  # 显示服务器信息
 SIMPLEUI_HOME_QUICK = True  # 快速操作
