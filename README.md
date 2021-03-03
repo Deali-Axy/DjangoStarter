@@ -167,6 +167,17 @@ python manage.py generate_code [app_label] [verbose_name]
 - `urls.py`
 - `viewsets.py`
 
+代码生成器会生成你需要的所有代码，之后在`config/urls.py`文件中添加路由：
+
+```python
+urlpatterns = [
+    path(f'core/', include('apps.core.urls')),
+    # 需要根据你的App名称添加这一行路由
+    path(app_label/', include('apps.app_label.urls')),
+    # ...
+]
+```
+
 ## 配置
 
 ### 配置Django后台网站名称
