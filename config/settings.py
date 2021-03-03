@@ -48,7 +48,6 @@ INSTALLED_APPS = [
 
     # 我们自己的应用
     'apps.core',
-    'apps.demo'
 ]
 
 MIDDLEWARE = [
