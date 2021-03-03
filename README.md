@@ -207,7 +207,12 @@ admin.site.index_title = 'DjangoStart 管理后台'
 
 ### 配置启用*admin后台安全限制中间件*
 
-编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`middleware/admin_secure.AdminSecureMiddleware`即可。
+编辑`middleware/admin_secure.py`文件，在`AdminSecureMiddleware`类可修改以下两个字段进行配置：
+
+- `allow_networks`：配置IP段白名单
+- `allow_addresses`：配置IP地址白名单
+
+编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`middleware/admin_secure.AdminSecureMiddleware`即可启用安全限制中间件。
 
 ### 配置启用*非debug模式下管理员可以查看报错信息*
 

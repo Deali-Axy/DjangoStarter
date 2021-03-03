@@ -12,10 +12,12 @@ class AdminSecureMiddleware(object):
 
     admin_url = f'/{settings.URL_PREFIX}admin'
 
+    # IP段白名单
     allow_networks = [
         ipaddress.ip_network('10.53.0.0/20'),
     ]
 
+    # IP地址白名单
     allow_addresses = []
 
     @classmethod
