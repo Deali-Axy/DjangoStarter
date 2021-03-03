@@ -18,7 +18,8 @@
 - 集成RestFramework，默认屏蔽了链接主页，即对外隐藏API
 - 对默认的`settings`进行拆分
 - 默认使用Redis缓存
-- 优化`drf_yasg`的Swagger分组和文档显示效果（显示分组说明、接口说明等）
+- 默认集成Swagger文档，开箱即用，无需额外配置
+
 
 ## 文件结构
 
@@ -167,6 +168,8 @@ python manage.py generate_code [app_label] [verbose_name]
 - `urls.py`
 - `viewsets.py`
 
+#### 添加路由
+
 代码生成器会生成你需要的所有代码，之后在`config/urls.py`文件中添加路由：
 
 ```python
@@ -177,6 +180,19 @@ urlpatterns = [
     # ...
 ]
 ```
+
+### 访问接口文档
+
+本项目默认集成RestFramework自带的AutoScheme和基于drf_yasg的Swagger和ReDoc两种接口文档，并对其进行优化
+
+>- 优化`drf_yasg`的Swagger分组和文档显示效果（显示分组说明、接口说明等）
+>- 支持访问权限配置等
+
+运行项目之后通过以下地址可以访问接口文档：
+
+- `http://localhost:8000/api-docs/swagger`
+- `http://localhost:8000/api-docs/redoc`
+- ~~`http://localhost:8000/api-docs/auto`~~（仅提供兼容支持）
 
 ## 配置
 
