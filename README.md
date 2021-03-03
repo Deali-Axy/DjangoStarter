@@ -149,12 +149,12 @@ class Article(models.Model):
 运行命令：
 
 ```bash
-python manage.py generate_code [app_level] [verbose_name]
+python manage.py generate_code [app_label] [verbose_name]
 ```
 
 参数说明：
 
-- `app_level`: App名称，之前运行 `django-admin` 命令创建的App名称
+- `app_label`: App名称，之前运行 `django-admin` 命令创建的App名称
 - `verbose_name`: 和模型的 `verbose_name` 类似，App的友好名称，一般是其中文名
 
 **注意：运行自动代码生成会覆盖已有的业务代码！**
