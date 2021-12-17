@@ -146,6 +146,12 @@ class Article(models.Model):
 - 定义 `__str__` ，便于在管理后台中表示这个模型的对象
 - 定义 `Meta` 元类，给模型加上一个更友好的名称（一般是中文名）
 
+#### 注册应用
+
+设计好了Model，需要把其App添加到`INSTALLED_APPS`才能被扫描到。
+
+编辑`config/settings.py`文件，在`INSTALLED_APPS`节点添加应用，里面有注释，一看就懂。
+
 #### 运行代码自动生成
 
 运行命令：
