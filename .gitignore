@@ -4,6 +4,8 @@
 static/media
 static_collected
 test/
+log/
+db.sqlite3
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template

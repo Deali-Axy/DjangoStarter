@@ -1,5 +1,5 @@
-from drf_yasg.generators import OpenAPISchemaGenerator
-from drf_yasg.inspectors import SwaggerAutoSchema
+from drf_yasg2.generators import OpenAPISchemaGenerator
+from drf_yasg2.inspectors import SwaggerAutoSchema
 
 
 class CustomSwaggerAutoSchema(SwaggerAutoSchema):

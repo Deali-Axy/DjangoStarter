@@ -198,3 +198,9 @@ RQ_QUEUES = {
         'USE_REDIS_CACHE': 'default',
     },
 }
+
+# 微信企业号配置
+WECHAT_WORK_CONFIG = {
+    'CORP_ID': '',
+    'SECRET': ''
+}
