@@ -41,7 +41,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         username = request.data.get('username')
         password = request.data.get('password')
         if User.objects.filter(username=username).exists():
-            # user_obj: User = User.objects.get(username=username)
             user_obj: User = authenticate(request, username=username, password=password)
             if user_obj is None:
                 return Response({
