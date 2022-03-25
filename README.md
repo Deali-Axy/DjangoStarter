@@ -43,9 +43,27 @@
 
 ### 安装依赖
 
+安装Python依赖：
+
 ```bash
 pip install -r requirements.txt
 ```
+
+安装前端依赖：
+
+```bash
+yarn install
+```
+
+打包前端资源：
+
+```bash
+gulp move
+```
+
+如果没有gulp请先安装：`npm install --global gulp-cli`
+
+前端资源管理参考这篇博客：[使用NPM和gulp管理前端静态文件](https://www.cnblogs.com/deali/p/15905760.html)
 
 ### 迁移数据库
 
@@ -256,6 +274,7 @@ admin.site.index_title = 'DjangoStart 管理后台'
 - [ ] 完善项目单元测试
 - [ ] 使用自动构建部署工具
 - [x] 实现自动的业务代码生成器
+- [x] 使用yarn+gulp管理前端资源
 
 ## 相关博文
 
