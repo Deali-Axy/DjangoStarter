@@ -126,7 +126,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 STATIC_URL = f'/{URL_PREFIX}static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = f'/{URL_PREFIX}media/'
 
 # 配置redis缓存
