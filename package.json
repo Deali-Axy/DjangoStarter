@@ -1,0 +1,25 @@
+{
+  "name": "django_starter",
+  "version": "1.0.0",
+  "description": "基于Django定制的快速Web开发模板，功能包括：Docker-Compose部署，缓存，业务代码生成器，接口限流，DjangoAdmin验证码，登录次数尝试，屏蔽了RestFramework默认的API主页等",
+  "main": "index.js",
+  "repository": "https://github.com/Deali-Axy/DjangoStarter",
+  "author": "DealiAxy <dealiaxy@gmail.com>",
+  "license": "Apache License 2.0",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.0.0",
+    "bootstrap": "^5.1.3",
+    "bootswatch": "^5.1.3",
+    "jquery": "^3.6.0",
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-changed": "^4.0.3",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
+    "rimraf": "^3.0.2"
+  }
+}
