@@ -20,6 +20,8 @@
 - 默认使用Redis缓存
 - 默认集成Swagger文档，开箱即用，无需额外配置
 - 集成微信SDK，支持企业微信登录（依赖wechatpy）
+- [接口返回值统一包装](https://www.cnblogs.com/deali/p/16094959.html)
+- [集成NPM和Gulp管理前端资源](https://www.cnblogs.com/deali/p/16094743.html)
 
 
 ## 文件结构
