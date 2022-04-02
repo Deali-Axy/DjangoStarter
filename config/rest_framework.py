@@ -1,5 +1,11 @@
 def config_rest_framework():
     return {
+        # 全局配置异常模块
+        'EXCEPTION_HANDLER': 'utils.response.exception.custom_handler',
+        # 修改默认返回JSON的renderer的类
+        'DEFAULT_RENDERER_CLASSES': (
+            'utils.response.renderer.CustomRenderer',
+        ),
         # 设置分页
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
         # 默认解析器配置
