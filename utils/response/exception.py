@@ -18,6 +18,8 @@ def custom_handler(err: ValidationError, context: dict):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR, exception=True)
 
     else:
-        res = {'message': response.reason_phrase}
+        # 因为RestFramework默认的报错信息是 detail 字段，这里取出系统的报错信息
+        msg = response.data.pop('detail', response.reason_phrase)
+        res = {'message': msg}
         res.update(response.data)
         return Response(res, status=response.status_code, exception=True)
