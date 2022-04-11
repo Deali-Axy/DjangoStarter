@@ -19,15 +19,17 @@
 - 对默认的`settings`进行拆分
 - 默认使用Redis缓存
 - 默认集成Swagger文档，开箱即用，无需额外配置
-- 集成微信SDK，支持企业微信登录（依赖wechatpy）
-- [接口返回值统一包装](https://www.cnblogs.com/deali/p/16094959.html)
-- [集成NPM和Gulp管理前端资源](https://www.cnblogs.com/deali/p/16094743.html)
+- [集成微信SDK，支持企业微信登录，详见博客](https://www.cnblogs.com/deali/p/16110129.html)
+- [接口返回值统一包装，详见博客](https://www.cnblogs.com/deali/p/16094959.html)
+- [集成NPM和Gulp管理前端资源，详见博客](https://www.cnblogs.com/deali/p/16094743.html)
+- [封装了常用的三种分页功能，详见博客](https://www.cnblogs.com/deali/p/16132905.html)
 
 
 ## 文件结构
 
 - apps：所有应用
 - apps/core：默认应用，包含已经写好的示例逻辑和后台登录限流逻辑
+- apps/demo：示例应用，包含示例接口
 - config：框架配置
   - `caches.py`：缓存配置
   - `env_init.py`：环境初始化
