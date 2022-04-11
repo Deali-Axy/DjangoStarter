@@ -38,7 +38,7 @@ class NumberPaginator(PageNumberPagination):
         self.max_page_size = max_page_size
 
     def get_paginated_response(self, data):
-        paginator : Paginator = self.page.paginator
+        paginator: Paginator = self.page.paginator
 
         return Response(OrderedDict([
             ('total_item_count', paginator.count),
