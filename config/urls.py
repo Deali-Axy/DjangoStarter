@@ -44,8 +44,8 @@ if settings.DEBUG:
     schema_view = get_schema_view(
         openapi_obj,
         public=True,
-        # permission_classes=(permissions.AllowAny,),
-        permission_classes=(permissions.IsAdminUser,),
+        permission_classes=(permissions.AllowAny,),
+        # permission_classes=(permissions.IsAdminUser,),
     )
     urlpatterns.extend([
         # AutoScheme接口文档
