@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>控制面板</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'lib/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/admin-lte/dist/css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/font-awesome/css/all.min.css' %}">
+</head>
+<body>
+<div class="wrapper">
+    <div class="container-fluid mt-3">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>10</h3>
+                        <p>数据卡片</p>
+                    </div>
+                    <div class="icon"><i class="fa fa-user"></i></div>
+                    <a href="#" class="small-box-footer" target="_blank">
+                        更多信息 <i class="fa-solid fa-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>20</h3>
+                        <p>数据卡片</p>
+                    </div>
+                    <div class="icon"><i class="fa-solid fa-apple-whole"></i></div>
+                    <a href="#" class="small-box-footer" target="_blank">
+                        更多信息 <i class="fa-solid fa-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>30</h3>
+                        <p>数据卡片</p>
+                    </div>
+                    <div class="icon"><i class="fa-solid fa-camera"></i></div>
+                    <a href="#" class="small-box-footer" target="_blank">
+                        更多信息 <i class="fa-solid fa-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="small-box bg-secondary">
+                    <div class="inner">
+                        <h3>40</h3>
+                        <p>数据卡片</p>
+                    </div>
+                    <div class="icon"><i class="fa-solid fa-book"></i></div>
+                    <a href="#" class="small-box-footer" target="_blank">
+                        更多信息 <i class="fa-solid fa-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card card-outline card-danger" style="height: 600px;">
+                    <div class="card-header">快捷操作</div>
+                    <div class="card-body">
+                        <a href="#" class="btn btn-block btn-outline-primary" role="button">{% lorem 3 w random %}</a>
+                        <a href="#" class="btn btn-block btn-outline-success" role="button">{% lorem 3 w random %}</a>
+                        <a href="#" class="btn btn-block btn-outline-danger" role="button">{% lorem 3 w random %}</a>
+                        <a href="#" class="btn btn-block btn-outline-secondary" role="button">{% lorem 3 w random %}</a>
+                        <a href="#" class="btn btn-block btn-outline-warning" role="button">{% lorem 3 w random %}</a>
+                        <a href="#" class="btn btn-block btn-outline-info" role="button">{% lorem 3 w random %}</a>
+                        <a href="#" class="btn btn-block btn-outline-dark" role="button">{% lorem 3 w random %}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="card card-outline card-info" style="height: 600px;">
+                    <div class="card-header">新闻</div>
+                    <div class="list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                        <a href="#" class="list-group-item list-group-item-action">{% lorem 6 w random %}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card card-outline card-primary" style="height: 600px;">
+                    <div class="card-header">图表</div>
+                    <div class="card-body">
+                        <canvas class="my-4 w-100" id="myChart" height="600"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'lib/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'lib/admin-lte/dist/js/adminlte.min.js' %}"></script>
+<script src="{% static 'lib/chart.js/dist/chart.min.js' %}"></script>
+<script>
+    /**
+     * 生成随机RGB颜色字符串，例如：rgb(123,123,123)
+     * @returns {string}
+     */
+    function randomRGB() {
+        return 'rgb(' + randomColorArray().join(',') + ')'
+    }
+
+    // 生成随机RGBA字符串，例如：rgba(123,123,123,0.2)
+    function randomRGBA(a) {
+        return convertRGBA(this.randomColorArray(), a)
+    }
+
+    // RGB数组转换成RGBA字符串
+    function convertRGBA(rgbArray, a) {
+        let color = Array.from(rgbArray)
+        color.push(a)
+        return 'rgba(' + color.join(',') + ')'
+    }
+
+    function randomColorArray() {
+        return [
+            Math.round(Math.random() * 255),
+            Math.round(Math.random() * 255),
+            Math.round(Math.random() * 255),
+        ]
+    }
+
+    function initChart() {
+        let chartElem = document.getElementById('myChart')
+        let labels = []
+        let values = []
+        let backgroundColors = []
+        let borderColors = []
+
+        let exampleData = [
+            {label: 'a', value: 10},
+            {label: 'b', value: 10},
+            {label: 'c', value: 10},
+            {label: 'd', value: 10},
+            {label: 'e', value: 10},
+            {label: 'f', value: 10},
+        ]
+
+        exampleData.forEach(item => {
+            labels.push(item.label)
+            values.push(item.value)
+            let color = randomColorArray()
+            backgroundColors.push(convertRGBA(color, 0.9))
+            borderColors.push(convertRGBA(color, 1))
+        })
+        let data = {
+            labels: labels,
+            datasets: [{
+                label: '# of Votes',
+                data: values,
+                backgroundColor: backgroundColors,
+                borderColor: borderColors,
+                borderWidth: 1
+            }]
+        }
+        let config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'chartArea',
+                    },
+                }
+            }
+        }
+
+        let currentChart = new Chart(chartElem, config)
+        currentChart.resize(null, 500)
+    }
+
+    initChart()
+</script>
+
+</body>
+</html>

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.shortcuts import render
 from drf_yasg2 import openapi
 from drf_yasg2.utils import swagger_auto_schema
 from rest_framework import permissions, status
@@ -11,6 +12,11 @@ from ratelimit.decorators import ratelimit
 @ratelimit(key='ip', rate='5/m', block=True)
 def extend_admin_login(request, extra_context=None):
     return admin.site.login(request, extra_context)
+
+
+# 扩展admin主页，美化后台
+def extend_admin_home(request):
+    return render(request, 'admin/extend_home.html')
 
 
 @swagger_auto_schema(method='get', operation_summary='刷新验证码')

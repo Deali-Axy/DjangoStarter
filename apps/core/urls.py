@@ -10,4 +10,5 @@ router.register('user_profile', viewsets.UserProfileViewSet, basename='user_prof
 urlpatterns = [
     path('', include(router.urls)),
     path('refresh_captcha', views.refresh_captcha),
+    path('admin_home', views.extend_admin_home),
 ]
