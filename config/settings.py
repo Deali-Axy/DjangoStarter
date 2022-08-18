@@ -27,8 +27,7 @@ ALLOWED_HOSTS = ['*']
 # 应用定义
 INSTALLED_APPS = [
     # 后台扩展
-    # 'simpleui',
-    'jazzmin',
+    'simpleui',
     'multi_captcha_admin',
 
     # Django核心
