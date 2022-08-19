@@ -1,6 +1,6 @@
 import os
 
-from config.logging import config_logging
+from config.logging import config_logging, config_debug_logging
 from config.caches import config_caches
 from config.rest_framework import config_rest_framework
 
@@ -115,8 +115,10 @@ USE_TZ = False
 
 # 日志配置
 # 不是调试模式才开启日志记录
-# if not DEBUG:
-LOGGING = config_logging(BASE_DIR)
+if DEBUG:
+    LOGGING = config_debug_logging()
+else:
+    LOGGING = config_logging(BASE_DIR)
 
 # 静态文件配置 (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
@@ -166,6 +168,7 @@ CORS_ALLOW_HEADERS = (
 )
 
 # SimpleUI 配置
+SIMPLEUI_DEFAULT_THEME = 'admin.lte.css'  # 默认主题
 # SIMPLEUI_LOGO = f'/{URL_PREFIX}static/admin/images/custom_logo.png'
 SIMPLEUI_HOME_PAGE = f'/{URL_PREFIX}core/admin_home'
 SIMPLEUI_HOME_ICON = 'fa fa-home'
@@ -176,11 +179,8 @@ SIMPLEUI_ANALYSIS = False  # 关闭使用分析
 SIMPLEUI_STATIC_OFFLINE = True  # 离线模式
 SIMPLEUI_ICON = {
     'Core': 'fa fa-cat',
-    '商家': 'fa fa-store',
-    '奖品': 'fas fa-user-tie',
     '令牌': 'fa fa-lock',
     '认证令牌': 'fa fa-lock',
-    '用户分享记录': 'fa fa-share',
 }
 
 # Swagger 配置
