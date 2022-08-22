@@ -1,13 +1,13 @@
 def config_rest_framework():
     return {
-        # 全局配置异常模块
-        'EXCEPTION_HANDLER': 'utils.response.exception.custom_handler',
-        # 修改默认返回JSON的renderer的类
+        # 全局配置异常模块（使用DjangoStarter封装的全局异常处理）
+        'EXCEPTION_HANDLER': 'django_starter.http.response.exception.custom_handler',
+        # 修改默认返回JSON的renderer的类（使用DjangoStarter封装的全局异常处理）
         'DEFAULT_RENDERER_CLASSES': (
-            'utils.response.renderer.CustomRenderer',
+            'django_starter.http.response.renderer.CustomRenderer',
         ),
-        # 设置分页
-        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        # 设置分页（使用DjangoStarter封装的分页器）
+        'DEFAULT_PAGINATION_CLASS': 'django_starter.core.paginator.NumberPaginator',
         # 默认解析器配置
         # 'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer'],
         'PAGE_SIZE': 10,

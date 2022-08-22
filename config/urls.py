@@ -34,7 +34,7 @@ urlpatterns = [
 # 接口文档 仅调试模式可用
 if settings.DEBUG:
     openapi_obj = openapi.Info(
-        title="项目名称",
+        title="DjangoStarter",
         default_version='v1',
         description="说明",
         terms_of_service="https://www.google.com/policies/terms/",
