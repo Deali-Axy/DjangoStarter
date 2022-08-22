@@ -5,12 +5,11 @@ from rest_framework.decorators import action
 from django.contrib.auth.models import User
 from drf_yasg2 import openapi
 from drf_yasg2.utils import swagger_auto_schema
-from utils.response import responses
-from apps.parents.models import Parent
-from apps.parents.serializers import ParentSerializer
+from django_starter.http.response import responses
+
 from apps.user.models import UserProfile
-from apps.user.serializers import UserProfileSerializer, UserSerializer
 from apps.user.services import login_by_password
+from apps.user.view_models import LoginResult
 
 
 class AuthViewSet(viewsets.ViewSet):
@@ -35,15 +34,12 @@ class AuthViewSet(viewsets.ViewSet):
         username = request.data.get('username')
         password = request.data.get('password')
 
-        is_login, user_data, profile_data, token = login_by_password(request, username, password)
-        if not is_login:
+        result: LoginResult = login_by_password(request, username, password)
+
+        if not result.is_successful:
             return responses.unauthorized('登录失败，用户名或密码错误')
 
-        return responses.ok('登录成功', {
-            'user': user_data,
-            'profile': profile_data,
-            'token': token,
-        })
+        return responses.ok('登录成功', result.to_dict())
 
     @swagger_auto_schema(
         method='post', operation_summary='注册',
@@ -56,7 +52,6 @@ class AuthViewSet(viewsets.ViewSet):
                 'name': openapi.Schema(type=openapi.TYPE_STRING, description='姓名'),
                 'alias': openapi.Schema(type=openapi.TYPE_STRING, description='别名'),
                 'gender': openapi.Schema(type=openapi.TYPE_STRING, description='性别（male、female、unknown）'),
-                'family_role': openapi.Schema(type=openapi.TYPE_STRING, description='家庭角色'),
             }
         )
     )
@@ -68,7 +63,6 @@ class AuthViewSet(viewsets.ViewSet):
         name = request.data.get('name')
         alias = request.data.get('alias')
         gender = request.data.get('gender')
-        family_role = request.data.get('family_role')
 
         if User.objects.filter(username=username).exists():
             return responses.bad_request('用户名/手机号已存在！')
@@ -84,23 +78,14 @@ class AuthViewSet(viewsets.ViewSet):
             return responses.bad_request('性别输入错误！')
 
         user_obj = User.objects.create_user(username, None, password)
-        profile = UserProfile.objects.create(
+        UserProfile.objects.create(
             user=user_obj,
             name=name,
             alias=alias,
             gender=gender,
             phone=username
         )
-        parent = Parent.objects.create(
-            user=user_obj,
-            family_role=family_role
-        )
 
-        _, user_data, profile_data, token = login_by_password(request, username, password)
+        result: LoginResult = login_by_password(request, username, password)
 
-        return responses.ok('注册成功！', {
-            'user': user_data,
-            'profile': profile_data,
-            'parent': ParentSerializer(parent).data,
-            'token': token
-        })
+        return responses.ok('注册成功！', result.to_dict())

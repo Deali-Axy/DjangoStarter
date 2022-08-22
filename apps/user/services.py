@@ -6,9 +6,10 @@ from rest_framework.authtoken.models import Token
 
 from apps.user.models import UserProfile
 from apps.user.serializers import UserProfileSerializer, UserSerializer
+from apps.user.view_models import LoginResult
 
 
-def login_by_password(request, username, password) -> Tuple[bool, Optional[dict], Optional[dict], Optional[str]]:
+def login_by_password(request, username, password) -> LoginResult:
     """
     使用用户名、密码登录
 
@@ -19,7 +20,7 @@ def login_by_password(request, username, password) -> Tuple[bool, Optional[dict]
     """
     user_obj: User = authenticate(request, username=username, password=password)
     if user_obj is None:
-        return False, None, None, None
+        return LoginResult(False)
     user_data = UserSerializer(user_obj).data
 
     # 生成token
@@ -32,4 +33,4 @@ def login_by_password(request, username, password) -> Tuple[bool, Optional[dict]
     if profile_set.exists():
         profile_data = UserProfileSerializer(profile_set.first()).data
 
-    return True, user_data, profile_data, token.key
+    return LoginResult(True, user_data, profile_data, token.key)

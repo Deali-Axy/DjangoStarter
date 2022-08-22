@@ -7,8 +7,7 @@ from apps.user import models
 from apps.user.serializers import UserProfileSerializer
 
 
-@method_decorator(name='list', decorator=swagger_auto_schema(
-    operation_summary='获取所有用户资料', operation_id='获取所有用户资料', operation_description='获取所有用户资料'))
+@method_decorator(name='list', decorator=swagger_auto_schema(operation_summary='获取所有用户资料'))
 @method_decorator(name='retrieve', decorator=swagger_auto_schema(operation_summary='获取指定用户资料'))
 @method_decorator(name='create', decorator=swagger_auto_schema(operation_summary='添加用户资料'))
 @method_decorator(name='update', decorator=swagger_auto_schema(operation_summary='修改指定用户资料'))

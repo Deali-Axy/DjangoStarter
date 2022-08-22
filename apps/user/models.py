@@ -11,11 +11,11 @@ class UserProfile(ModelExt):
         FEMALE = 'female', '女'
         UNKNOWN = 'unknown', '未知'
 
-    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE, related_name='profile')
-    name = models.CharField('姓名', max_length=200)
-    alias = models.CharField('别名', max_length=200, blank=True, null=True)
+    user = models.OneToOneField(User, unique=True, on_delete=models.DO_NOTHING, db_constraint=False, related_name='profile')
+    name = models.CharField('姓名', max_length=200, default='')
+    alias = models.CharField('别名', max_length=200, default='')
     gender = models.CharField('性别', max_length=20, choices=GenderChoice.choices, default=GenderChoice.UNKNOWN)
-    phone = models.CharField('手机号', max_length=11, blank=True, null=True)
+    phone = models.CharField('手机号', max_length=11, default='')
 
     def __str__(self):
         return self.name
