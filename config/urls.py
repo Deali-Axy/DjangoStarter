@@ -14,21 +14,22 @@ from drf_yasg2 import openapi
 from apps.core import views
 
 urlpatterns = [
-    path(f'core/', include('apps.core.urls')),
+    path('core/', include('apps.core.urls')),
+    path('user/', include('apps.user.urls')),
 
     # Django-RQ
     path('django-rq/', include('django_rq.urls')),
 
     # 管理后台
-    path(f'admin/login/', views.extend_admin_login),
-    path(f'admin/', admin.site.urls),
+    path('admin/login/', views.extend_admin_login),
+    path('admin/', admin.site.urls),
 
     # 验证码
-    path(f'captcha/', include('captcha.urls')),
+    path('captcha/', include('captcha.urls')),
 
     # API认证
-    path(f'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path(f'api-token-auth/', authtoken_view.obtain_auth_token),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-token-auth/', authtoken_view.obtain_auth_token),
 ]
 
 # 接口文档 仅调试模式可用
