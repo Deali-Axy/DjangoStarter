@@ -38,6 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # DjangoStarter组件
+    'django_starter.contrib.admin',
+    'django_starter.contrib.auth',
+    'django_starter.contrib.config',
+    'django_starter.contrib.code_generator',
+    'django_starter.contrib.oauth',
+    'django_starter.contrib.rest_framework',
+
     # 第三方组件
     'captcha',
     'drf_yasg2',
@@ -47,9 +55,8 @@ INSTALLED_APPS = [
     'django_rq',
 
     # 我们自己的应用
-    'apps.config',
     'apps.core',
-    'apps.user',
+    'apps.demo',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +99,6 @@ DATABASES = {
     }
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 # 密码验证配置
 AUTH_PASSWORD_VALIDATORS = [

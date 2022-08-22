@@ -4,6 +4,6 @@ from .models import *
 
 class CommonConfigSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CommonConfig
+        model = ConfigItem
         fields = '__all__'
 

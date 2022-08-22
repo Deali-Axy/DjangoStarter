@@ -2,8 +2,8 @@ import os
 import logging
 from jinja2 import Environment, PackageLoader, FileSystemLoader
 
-from contrib.code_generator.analyzer import get_models, get_app
-from contrib.code_generator.models import DjangoApp
+from django_starter.contrib.code_generator.analyzer import get_models, get_app
+from django_starter.contrib.code_generator.entities import DjangoApp
 
 logger = logging.getLogger('common')
 

@@ -20,7 +20,7 @@ from .serializers import *
 class CommonConfigViewSet(viewsets.ReadOnlyModelViewSet):
     """通用配置相关操作"""
     serializer_class = CommonConfigSerializer
-    queryset = CommonConfig.objects.all()
+    queryset = ConfigItem.objects.all()
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = None
     filter_backends = [DjangoFilterBackend]
@@ -30,7 +30,7 @@ class CommonConfigViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False, permission_classes=[permissions.IsAuthenticated])
     def to_dict(self, request):
         data = {}
-        for item in CommonConfig.objects.all():
+        for item in ConfigItem.objects.all():
             data[item.key] = item.value
 
         return Response(data)

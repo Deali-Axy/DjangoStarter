@@ -1,26 +1,26 @@
 import json
 from django.utils import timezone
 
-from .models import CommonConfig
+from .models import ConfigItem
 
 
 def get_str(key: str) -> str:
-    queryset = CommonConfig.objects.filter(key=key)
+    queryset = ConfigItem.objects.filter(key=key)
     if queryset.exists():
         return queryset.first().value
     return ''
 
 
 def set_str(key: str, value: str) -> str:
-    queryset = CommonConfig.objects.filter(key=key)
-    item: CommonConfig
+    queryset = ConfigItem.objects.filter(key=key)
+    item: ConfigItem
     if queryset.exists():
         item = queryset.first()
         item.value = value
         item.updated_time = timezone.now()
         item.save()
     else:
-        item = CommonConfig.objects.create(
+        item = ConfigItem.objects.create(
             key=key, value=value, display_name=key
         )
 

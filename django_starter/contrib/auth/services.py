@@ -4,9 +4,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
-from apps.user.models import UserProfile
-from apps.user.serializers import UserProfileSerializer, UserSerializer
-from apps.user.view_models import LoginResult
+from .models import UserProfile
+from .serializers import UserProfileSerializer, UserSerializer
+from .view_models import LoginResult
 
 
 def login_by_password(request, username, password) -> LoginResult:

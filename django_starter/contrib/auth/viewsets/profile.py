@@ -3,8 +3,8 @@ from drf_yasg2.utils import swagger_auto_schema
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from apps.user import models
-from apps.user.serializers import UserProfileSerializer
+from django_starter.contrib.auth import models
+from django_starter.contrib.auth.serializers import UserProfileSerializer
 
 
 @method_decorator(name='list', decorator=swagger_auto_schema(operation_summary='获取所有用户资料'))

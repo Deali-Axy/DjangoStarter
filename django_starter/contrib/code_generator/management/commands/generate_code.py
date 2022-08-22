@@ -4,8 +4,8 @@ import logging
 from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.apps import AppConfig
 from django.conf import settings
-from contrib.code_generator.analyzer import get_app
-from contrib.code_generator.generator import Generator
+from django_starter.contrib.code_generator.analyzer import get_app
+from django_starter.contrib.code_generator.generator import Generator
 
 logger = logging.getLogger('common')
 

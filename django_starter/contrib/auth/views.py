@@ -3,8 +3,8 @@ from drf_yasg2.utils import swagger_auto_schema
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions
 from django_starter.http.response import responses
-from apps.user.models import UserProfile
-from apps.user.serializers import UserSerializer, UserProfileSerializer
+from .models import UserProfile
+from .serializers import UserSerializer, UserProfileSerializer
 
 
 @swagger_auto_schema(method='get', operation_summary='获取当前用户信息')

@@ -7,9 +7,9 @@ from drf_yasg2 import openapi
 from drf_yasg2.utils import swagger_auto_schema
 from django_starter.http.response import responses
 
-from apps.user.models import UserProfile
-from apps.user.services import login_by_password
-from apps.user.view_models import LoginResult
+from django_starter.contrib.auth.models import UserProfile
+from django_starter.contrib.auth.services import login_by_password
+from django_starter.contrib.auth.view_models import LoginResult
 
 
 class AuthViewSet(viewsets.ViewSet):

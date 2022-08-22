@@ -4,8 +4,8 @@ from typing import List
 
 from django.apps import apps
 from jinja2 import Environment, PackageLoader
-from contrib.code_generator.utils import camel_to_snake, snake_to_camel
-from contrib.code_generator.models import DjangoModel, DjangoApp
+from django_starter.contrib.code_generator.utils import camel_to_snake, snake_to_camel
+from django_starter.contrib.code_generator.entities import DjangoModel, DjangoApp
 
 logger = logging.getLogger('common')
 
