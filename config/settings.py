@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_rq',
 
     # 我们自己的应用
+    'apps.config',
     'apps.core',
     'apps.user',
 ]
@@ -90,6 +91,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # 密码验证配置
 AUTH_PASSWORD_VALIDATORS = [
