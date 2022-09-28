@@ -1,10 +1,8 @@
-# Django Starter 基础框架 v2
+# Django Starter 基础框架
 
 这个项目是我为了满足公司安全部门的要求，定制了一个基于Django的Web框架， 功能包括：给DjangoAdmin加上验证码，并且加入登录次数尝试， 屏蔽了RestFramework默认的API主页，使外部访问无法看到所有接口。
 
 后续我会根据实际工作继续添加一些其他功能以方便团队快速搭建应用~
-
-![](docs/images/admin_home.png)
 
 ## features
 
