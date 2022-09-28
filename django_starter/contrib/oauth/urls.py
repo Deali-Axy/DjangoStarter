@@ -5,7 +5,8 @@ from .viewsets import WechatViewSet, WechatWorkViewSet
 
 router = DefaultRouter()
 
-router.register('wechat', WechatViewSet, basename='wechat')
+# todo 等微信公众号登录实现再加上
+# router.register('wechat', WechatViewSet, basename='wechat')
 router.register('wechat_work', WechatWorkViewSet, basename='wechat_work')
 
 urlpatterns = [
