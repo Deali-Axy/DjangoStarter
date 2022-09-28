@@ -13,11 +13,11 @@ from .serializers import *
 
 @method_decorator(name='list', decorator=swagger_auto_schema(operation_summary='获取所有通用配置资料'))
 @method_decorator(name='retrieve', decorator=swagger_auto_schema(operation_summary='获取指定通用配置资料'))
-# @method_decorator(name='create', decorator=swagger_auto_schema(operation_summary='添加通用配置资料'))
-# @method_decorator(name='update', decorator=swagger_auto_schema(operation_summary='修改指定通用配置资料'))
-# @method_decorator(name='partial_update', decorator=swagger_auto_schema(operation_summary='部分修改指定通用配置资料'))
-# @method_decorator(name='destroy', decorator=swagger_auto_schema(operation_summary='删除指定通用配置资料'))
-class CommonConfigViewSet(viewsets.ReadOnlyModelViewSet):
+@method_decorator(name='create', decorator=swagger_auto_schema(operation_summary='添加通用配置资料'))
+@method_decorator(name='update', decorator=swagger_auto_schema(operation_summary='修改指定通用配置资料'))
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(operation_summary='部分修改指定通用配置资料'))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(operation_summary='删除指定通用配置资料'))
+class CommonConfigViewSet(viewsets.ModelViewSet):
     """通用配置相关操作"""
     serializer_class = CommonConfigSerializer
     queryset = ConfigItem.objects.all()

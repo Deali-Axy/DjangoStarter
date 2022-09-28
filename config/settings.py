@@ -1,5 +1,6 @@
 import os
 
+from config.django_starter import config_django_starter
 from config.logging import config_logging, config_debug_logging
 from config.caches import config_caches
 from config.rest_framework import config_rest_framework
@@ -41,8 +42,8 @@ INSTALLED_APPS = [
     # DjangoStarter组件
     'django_starter.contrib.admin',
     'django_starter.contrib.auth',
-    'django_starter.contrib.config',
     'django_starter.contrib.code_generator',
+    'django_starter.contrib.config',
     'django_starter.contrib.oauth',
     'django_starter.contrib.rest_framework',
 
@@ -52,10 +53,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_rq',
 
     # 我们自己的应用
-    'apps.core',
     'apps.demo',
 ]
 
@@ -202,16 +201,5 @@ SWAGGER_SETTINGS = {
     'DOC_EXPANSION': 'none',
 }
 
-# Django-RQ 消息队列配置
-RQ_QUEUES = {
-    'default': {
-        # 使用项目配置的 Redis Cache
-        'USE_REDIS_CACHE': 'default',
-    },
-}
-
-# 微信企业号配置
-WECHAT_WORK_CONFIG = {
-    'CORP_ID': '',
-    'SECRET': ''
-}
+# DjangoStarter 框架配置
+DJANGO_STARTER = config_django_starter()

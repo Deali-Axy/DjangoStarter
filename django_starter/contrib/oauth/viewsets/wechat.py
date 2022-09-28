@@ -6,7 +6,7 @@ from drf_yasg2 import openapi
 from wechatpy.oauth import WeChatOAuth
 
 
-# todo 等他公众号申请完再接入
+# todo 公众号登录还未实现，跟企业号差不多的
 class WechatViewSet(viewsets.ViewSet):
     """微信认证服务"""
     oauth = WeChatOAuth('app_id', 'secret', 'redirect_url')

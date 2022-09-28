@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
@@ -11,17 +10,14 @@ from rest_framework.authtoken import views as authtoken_view
 from drf_yasg2.views import get_schema_view
 from drf_yasg2 import openapi
 
-from apps.core import views
-
 urlpatterns = [
-    path('core/', include('apps.core.urls')),
-    path('user/', include('apps.user.urls')),
+    path('demo/', include('apps.demo.urls')),
 
-    # Django-RQ
-    path('django-rq/', include('django_rq.urls')),
+    # DjangoStarter
+    path('django-starter', include('django_starter.urls')),
 
     # 管理后台
-    path('admin/login/', views.extend_admin_login),
+    path('admin/', include('django_starter.contrib.admin.urls')),   # 实现 admin 登录验证码
     path('admin/', admin.site.urls),
 
     # 验证码

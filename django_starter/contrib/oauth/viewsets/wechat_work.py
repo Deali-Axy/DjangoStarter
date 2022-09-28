@@ -15,8 +15,8 @@ from wechatpy.enterprise import WeChatClient
 class WechatWorkViewSet(viewsets.ViewSet):
     """微信企业号相关认证服务"""
     client = WeChatClient(
-        settings.OAUTH_CONFIG['WECHAT_WORK_CONFIG']['CORP_ID'],
-        settings.OAUTH_CONFIG['WECHAT_WORK_CONFIG']['SECRET'],
+        settings.DJANGO_STARTER['OAUTH']['WECHAT_WORK_CONFIG']['CORP_ID'],
+        settings.DJANGO_STARTER['OAUTH']['WECHAT_WORK_CONFIG']['SECRET'],
     )
 
     @swagger_auto_schema(operation_summary='企业微信 - 生成登录链接')
