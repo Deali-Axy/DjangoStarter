@@ -14,7 +14,7 @@ urlpatterns = [
     path('demo/', include('apps.demo.urls')),
 
     # DjangoStarter
-    path('django-starter', include('django_starter.urls')),
+    path('django-starter/', include('django_starter.urls')),
 
     # 管理后台
     path('admin/', include('django_starter.contrib.admin.urls')),   # 实现 admin 登录验证码

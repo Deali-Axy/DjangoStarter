@@ -179,7 +179,7 @@ CORS_ALLOW_HEADERS = (
 # SimpleUI 配置
 SIMPLEUI_DEFAULT_THEME = 'admin.lte.css'  # 默认主题
 # SIMPLEUI_LOGO = f'/{URL_PREFIX}static/admin/images/custom_logo.png'
-SIMPLEUI_HOME_PAGE = f'/{URL_PREFIX}core/admin_home'
+SIMPLEUI_HOME_PAGE = f'/{URL_PREFIX}django-starter/admin/extend_home/'
 SIMPLEUI_HOME_ICON = 'fa fa-home'
 SIMPLEUI_HOME_INFO = False  # 显示服务器信息
 SIMPLEUI_HOME_QUICK = True  # 快速操作
