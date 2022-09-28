@@ -1,5 +1,9 @@
 # Django Starter 基础框架 v2
 
+基于Django的快速开发模板，增强/添加了安全、缓存、第三方登录、接口文档、部署、代码自动生成等方面的功能。
+
+## 项目背景
+
 这个项目是我为了满足公司安全部门的要求，定制了一个基于Django的Web框架， 功能包括：给DjangoAdmin加上验证码，并且加入登录次数尝试， 屏蔽了RestFramework默认的API主页，使外部访问无法看到所有接口。
 
 后续我会根据实际工作继续添加一些其他功能以方便团队快速搭建应用~
@@ -21,26 +25,45 @@
 - 对默认的`settings`进行拆分
 - 默认使用Redis缓存
 - 默认集成Swagger文档，开箱即用，无需额外配置
-- [集成微信SDK，支持企业微信登录，详见博客](https://www.cnblogs.com/deali/p/16110129.html)
+- [集成微信SDK，支持(企业)微信登录，详见博客](https://www.cnblogs.com/deali/p/16110129.html)
 - [接口返回值统一包装，详见博客](https://www.cnblogs.com/deali/p/16094959.html)
 - [集成NPM和Gulp管理前端资源，详见博客](https://www.cnblogs.com/deali/p/16094743.html)
 - [封装了常用的三种分页功能，详见博客](https://www.cnblogs.com/deali/p/16132905.html)
+- [重写admin主页，界面更美观，详见博客](https://www.cnblogs.com/deali/p/16418020.html)
+- 封装了简单的本地配置中心
 
+## v2版本介绍
+
+在v1版本的基础上，新增 `django_starter` 包，将大部分封装的功能都集成在这个包下，加入了更多功能、更方便的版本升级、更低的耦合度~
+
+目前版本与 v1 最大的区别是将框架的功能都集成到 `django_starter` 包中，不会与用户自己的代码产生冲突，后续会根据实际工作持续添加新功能到 `django_starter` 包内，新版本升级只需要根据升级指引替换 `django_starter` 目录的内容即可。
+
+### 历史版本
+
+- [v1](https://github.com/Deali-Axy/DjangoStarter/tree/v1)
 
 ## 文件结构
 
 - apps：所有应用
-- apps/core：默认应用，包含已经写好的示例逻辑和后台登录限流逻辑
-- apps/demo：示例应用，包含示例接口
-- config：框架配置
+  - demo：示例应用，包含示例接口
+
+- config：Django项目配置
   - `caches.py`：缓存配置
+  - `django_starter.py`：框架配置
   - `env_init.py`：环境初始化
   - `logging.py`：日志配置
   - `rest_framework.py`：DRF配置
-- `swagger.py`：Swagger文档配置
+  - `swagger.py`：Swagger文档配置
   - `urls.py`：路由配置文件
   - `urls_root.py`：DjangoStarter的顶层路由配置，用于实现地址前缀配置
-  
+- django_starter：框架代码
+  - contrib：封装好的组件
+  - core：核心功能（比如分页）
+  - db：数据库功能（比如 Model 基类）
+  - drf：RestFramework功能封装
+  - http：接口相关（如 API 接口返回值包装）
+  - middleware：中间件（IP限制、错误处理等功能）
+
 - static：静态文件
 - static_collected：运行collectstatic命令后把所有静态文件都保存到这个文件夹
 - templates：模板
@@ -229,12 +252,15 @@ urlpatterns = [
 
 ### 配置Django后台网站名称
 
-编辑`apps/core/admin.py`文件，修改这三行代码：
+编辑`config/django_starter.py`文件，修改这三行代码：
 
 ```bash
-admin.site.site_header = 'DjangoStart 管理后台'
-admin.site.site_title = 'DjangoStart 管理后台'
-admin.site.index_title = 'DjangoStart 管理后台'
+'admin': {
+  'site_header': 'DjangoStarter 管理后台',
+  'site_title': 'DjangoStarter',
+  'index_title': 'DjangoStarter',
+  'list_per_page': 20
+}
 ```
 
 > PS: 本项目的后台界面基于SimpleUI，更多Django后台配置方法请参考SimpleUI官方文档。
@@ -242,7 +268,7 @@ admin.site.index_title = 'DjangoStart 管理后台'
 ### 配置App在后台显示的名称
 
 编辑每个App目录下的`apps.py`文件，在`[AppName]Config`类里配置`verbose_name`，然后在App目录下的`__init__.py`中，设置`default_app_config`
-即可，具体参照`apps/core`的代码。
+即可，具体参照`apps/demo`的代码。
 
 ### 配置app在swagger中的说明
 
@@ -254,20 +280,20 @@ admin.site.index_title = 'DjangoStart 管理后台'
 
 ### 配置启用*admin后台安全限制中间件*
 
-编辑`middleware/admin_secure.py`文件，在`AdminSecureMiddleware`类可修改以下两个字段进行配置：
+编辑`django_starter/middleware/admin_secure.py`文件，在`AdminSecureMiddleware`类可修改以下两个字段进行配置：
 
 - `allow_networks`：配置IP段白名单
 - `allow_addresses`：配置IP地址白名单
 
-编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`middleware/admin_secure.AdminSecureMiddleware`即可启用安全限制中间件。
+编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`django_starter.middleware.admin_secure.AdminSecureMiddleware`即可启用安全限制中间件。
 
 ### 配置启用*非debug模式下管理员可以查看报错信息*
 
-编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`middleware/user_base_exception.UserBasedExceptionMiddleware`即可。
+编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`django_starter.middleware/user_base_exception.UserBasedExceptionMiddleware`即可。
 
-### Uwsgi自动重启
+### uWsgi自动重启
 
-在`uwsgi.ini`配置文件中，本项目已经配置了监控`readme.md`文件，文件变化就会自动重启服务器，因此在生产环境中可以通过修改`readme.md`文件实现优雅的uwsgi服务重启。
+在`uwsgi.ini`配置文件中，本项目已经配置了监控`readme.md`文件，文件变化就会自动重启服务器，因此在生产环境中可以通过修改`README.md`文件实现优雅的uwsgi服务重启。
 
 ## TODO
 
@@ -281,6 +307,7 @@ admin.site.index_title = 'DjangoStart 管理后台'
 - [ ] 使用自动构建部署工具
 - [x] 实现自动的业务代码生成器
 - [x] 使用yarn+gulp管理前端资源
+- [x] 框架功能集成在`django_starter`包中
 
 ## 相关博文
 
@@ -292,12 +319,16 @@ admin.site.index_title = 'DjangoStart 管理后台'
 
 知乎专栏：[程序设计实验室](https://www.zhihu.com/column/deali)
 
+Django博客合集：https://www.cnblogs.com/deali/category/1799362.html
+
 - [聊聊Django应用的部署和性能的那些事儿](https://zhuanlan.zhihu.com/p/152679805)
 - [给Django Admin添加验证码和多次登录尝试限制](https://zhuanlan.zhihu.com/p/138955540)
 - [Python后端日常操作之在Django中「强行」使用MVVM设计模式](https://zhuanlan.zhihu.com/p/136571773)
 - [Python后端必须知道的Django的信号机制！](https://zhuanlan.zhihu.com/p/135361621)
 - [一小时完成后台开发：DjangoRestFramework开发实践](https://zhuanlan.zhihu.com/p/113367282)
 - [Django快速开发实践：Drf框架和xadmin配置指北](https://zhuanlan.zhihu.com/p/100135134)
+- [DjangoAdmin使用合集，DjangoAdmin的功能比你想象的强大！](https://www.cnblogs.com/deali/p/16678014.html)
+- [轻量级消息队列 Django-Q 轻度体验](https://www.cnblogs.com/deali/p/16644989.html)
 
 ## LICENSE
 
