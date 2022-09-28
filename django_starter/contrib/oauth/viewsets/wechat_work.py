@@ -7,8 +7,8 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.request import HttpRequest
 from rest_framework.decorators import action
-from drf_yasg2.utils import swagger_auto_schema
-from drf_yasg2 import openapi
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from wechatpy.enterprise import WeChatClient
 
 

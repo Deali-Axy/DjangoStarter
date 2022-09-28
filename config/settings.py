@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
     # 第三方组件
     'captcha',
-    'drf_yasg2',
+    'drf_yasg',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',

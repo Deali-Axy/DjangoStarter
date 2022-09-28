@@ -1,6 +1,7 @@
-from drf_yasg2 import openapi
-from drf_yasg2.utils import swagger_auto_schema
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view, permission_classes
+from django_starter.core.paginator import NumberPaginator
 
 
 @swagger_auto_schema(
@@ -11,7 +12,6 @@ from rest_framework.decorators import api_view, permission_classes
     ])
 @api_view()
 def test_page(request):
-    from utils.paginator import NumberPaginator
     data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     paginator = NumberPaginator(request.query_params.get('page_size', 10))
     return paginator.get_paginated_response({

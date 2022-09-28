@@ -3,8 +3,8 @@ import re
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
-from drf_yasg2 import openapi
-from drf_yasg2.utils import swagger_auto_schema
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from django_starter.http.response import responses
 
 from django_starter.contrib.auth.models import UserProfile

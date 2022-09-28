@@ -7,8 +7,8 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.authtoken import views as authtoken_view
 
 # drf_yasg文档工具
-from drf_yasg2.views import get_schema_view
-from drf_yasg2 import openapi
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
 urlpatterns = [
     path('demo/', include('apps.demo.urls')),
