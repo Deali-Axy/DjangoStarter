@@ -45,7 +45,7 @@ class Command(BaseCommand):
 
         Generator(
             django_app=django_app,
-            template_path=os.path.join(settings.BASE_DIR, 'contrib', 'code_generator', 'templates')
+            template_path=os.path.join(settings.BASE_DIR, 'django_starter', 'contrib', 'code_generator', 'templates')
         ).make_all()
 
         self.stdout.write(self.style.SUCCESS('Generating code finished.'))
