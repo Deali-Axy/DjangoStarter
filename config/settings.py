@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_starter.contrib.auth',
     'django_starter.contrib.code_generator',
     'django_starter.contrib.config',
+    'django_starter.contrib.guide',
     'django_starter.contrib.oauth',
     'django_starter.contrib.rest_framework',
 

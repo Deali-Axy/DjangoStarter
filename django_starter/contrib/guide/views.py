@@ -26,4 +26,4 @@ def index(request):
         'projects': projects,
         'blogs': blogs
     }
-    return render(request, 'django_starter/index.html', ctx)
+    return render(request, 'django_starter/guide/index.html', ctx)

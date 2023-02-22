@@ -25,7 +25,7 @@ class CustomOpenAPISchemaGenerator(OpenAPISchemaGenerator):
 
         swagger.tags = [
             {
-                'name': 'demo',
+                'name': 'guide',
                 'description': '例子代码'
             },
             {
