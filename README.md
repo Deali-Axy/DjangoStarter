@@ -101,9 +101,23 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 配置Redis缓存
+### 配置缓存
 
-请先在本机安装Redis服务，即可正常使用
+本项目的限流、安全限制等功能依赖Redis、Memcache等缓存服务，这里以Redis为例。
+
+先在本机安装Redis服务，即可正常使用。
+
+如果要自定义Redis服务器，可以编辑 `config/caches.py` 文件，修改以下配置。
+
+```python
+'LOCATION': [
+    'redis://redis:6379/0' if is_docker else 'redis://localhost:6379/0',
+]
+```
+
+支持一主多从，默认是单Redis，会自动根据是否docker环境来切换服务器，请根据实际情况自行配置。
+
+更多配置请参考Django文档: https://docs.djangoproject.com/en/4.1/topics/cache/
 
 ### 配置URL前缀
 
