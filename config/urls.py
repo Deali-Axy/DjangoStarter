@@ -10,14 +10,18 @@ from rest_framework.authtoken import views as authtoken_view
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+# DjangoStarter 主页
+from django_starter.core import views
+
 urlpatterns = [
+    path('', views.index),
     path('demo/', include('apps.demo.urls')),
 
     # DjangoStarter
     path('django-starter/', include('django_starter.urls')),
 
     # 管理后台
-    path('admin/', include('django_starter.contrib.admin.urls')),   # 实现 admin 登录验证码
+    path('admin/', include('django_starter.contrib.admin.urls')),  # 实现 admin 登录验证码
     path('admin/', admin.site.urls),
 
     # 验证码

@@ -1,6 +1,8 @@
 from django.urls import path, include
+from django_starter.core import views
 
 urlpatterns = [
+    path('', views.index),
     path('admin/', include('django_starter.contrib.admin.urls')),
     path('auth/', include('django_starter.contrib.auth.urls')),
     path('captcha/', include('django_starter.contrib.captcha.urls')),
