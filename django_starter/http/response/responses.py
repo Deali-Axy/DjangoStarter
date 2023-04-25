@@ -17,6 +17,10 @@ def ok(message, data=None):
     return _gen_resp(message, data, status.HTTP_200_OK)
 
 
+def forbidden(message, data=None):
+    return _gen_resp(message, data, status.HTTP_403_FORBIDDEN)
+
+
 def bad_request(message, data=None):
     return _gen_resp(message, data, status.HTTP_400_BAD_REQUEST)
 
