@@ -31,3 +31,7 @@ def not_found(message, data=None):
 
 def unauthorized(message, data=None):
     return _gen_resp(message, data, status.HTTP_401_UNAUTHORIZED)
+
+
+def error(message, data=None):
+    return _gen_resp(message, data, status.HTTP_500_INTERNAL_SERVER_ERROR)
