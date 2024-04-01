@@ -11,9 +11,16 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from wechatpy.enterprise import WeChatClient
 
+from django_starter.contrib.oauth.models import OAuthClaim
+
 
 class WechatWorkViewSet(viewsets.ViewSet):
-    """微信企业号相关认证服务"""
+    """
+    微信企业号相关认证服务
+
+    https://developer.work.weixin.qq.com/document/path/91023
+    """
+
     client = WeChatClient(
         settings.DJANGO_STARTER['oauth']['wechat_work_config']['corp_id'],
         settings.DJANGO_STARTER['oauth']['wechat_work_config']['secret'],
@@ -33,11 +40,12 @@ class WechatWorkViewSet(viewsets.ViewSet):
         print(f'wechat code={code}')
         return Response({'code': code})
 
-    @swagger_auto_schema(operation_summary='企业微信 - 通过code登录',
-                         manual_parameters=[
-                             openapi.Parameter(name='code', in_=openapi.IN_QUERY,
-                                               description='从微信企业号服务器获取到的code', type=openapi.TYPE_STRING)
-                         ])
+    @swagger_auto_schema(
+        operation_summary='企业微信 - 通过code登录',
+        manual_parameters=[
+            openapi.Parameter(name='code', in_=openapi.IN_QUERY,
+                              description='从微信企业号服务器获取到的code', type=openapi.TYPE_STRING)
+        ])
     @action(detail=False)
     def login_by_code(self, request: HttpRequest):
         code = request.GET.get('code', None)
@@ -46,14 +54,18 @@ class WechatWorkViewSet(viewsets.ViewSet):
         except Exception as e:
             raise APIException(detail=e)
 
-        phone = user_info['UserId']
+        # 这个在企业微信转就是手机号
+        userid = user_info['UserId']
         is_created_user = False
 
-        if User.objects.filter(username=phone).exists():
-            user_obj: User = User.objects.get(username=phone)
+        if User.objects.filter(username=userid).exists():
+            user_obj: User = User.objects.get(username=userid)
         else:
             is_created_user = True
-            user_obj: User = User.objects.create_user(username=phone, password=phone)
+            user_obj: User = User.objects.create_user(username=userid, password=userid)
+
+        # 添加到 OAuthClaim
+        OAuthClaim.objects.get_or_create(user=user_obj, name='wechat_work_userid', value=userid)
 
         # 记录Django登录状态
         login(request, user_obj)
