@@ -46,14 +46,10 @@ INSTALLED_APPS = [
     'django_starter.contrib.config',
     'django_starter.contrib.guide',
     'django_starter.contrib.oauth',
-    'django_starter.contrib.rest_framework',
 
     # 第三方组件
     'captcha',
-    'drf_yasg',
     'corsheaders',
-    'rest_framework',
-    'rest_framework.authtoken',
 
     # 我们自己的应用
     'apps.demo',

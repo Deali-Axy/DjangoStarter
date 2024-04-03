@@ -1,0 +1,18 @@
+[project]
+name = "DjangoStarter"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "DealiAxy", email = "dealiaxy@gmail.com"},
+]
+dependencies = [
+    "django>=5.0.3",
+    "django-ninja>=1.1.0",
+]
+requires-python = "==3.11.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false

@@ -1,14 +1,26 @@
-# Django Starter 基础框架 v2
+# Django Starter 基础框架 v3
 
-基于Django的快速开发模板，增强/添加了安全、缓存、第三方登录、接口文档、部署、代码自动生成等方面的功能。
+DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设计。
 
-## 项目背景
+结合了 Django 的丰富功能和 Django-Ninja 的性能、灵活、简洁特性，v3 版本旨在为开发者提供一个更加强大、简洁和高速的开发体验。
 
-这个项目是我为了满足公司安全部门的要求，定制了一个基于Django的Web框架， 功能包括：给DjangoAdmin加上验证码，并且加入登录次数尝试， 屏蔽了RestFramework默认的API主页，使外部访问无法看到所有接口。
-
-后续我会根据实际工作继续添加一些其他功能以方便团队快速搭建应用~
+通过这个全新的框架版本，开发者能够迅速搭建起符合现代 web 应用标准的项目基础架构。
 
 ![](docs/images/admin_home.png)
+
+## 核心特性
+
+- **Django Ninja 集成**：采用 Django Ninja 替代传统的 Django Rest Framework，为你的 API 开发带来了极致的性能优化和更简洁的编码体验。利用 Python 类型提示，自动生成交互式 API 文档，不再需要 drf-yasg 那一堆繁琐的手动配置文档，同时提升了代码的可读性和维护性。
+- **增强的安全性**：内置了多项安全功能，包括但不限于 Admin 登录验证码、IP 限制等，确保应用的安全性。
+- **代码自动生成**：v3 版本进一步优化了代码生成器，丢掉了 DRF 这个包袱，只需要定义模型，就可以生成 schema 以及 RESTFul API，还能根据定义自动创建测试用例，大大提高开发效率。
+- **模块化项目结构**：推出了更加模块化的项目结构设计，方便开发者根据需要添加或移除功能模块，使项目维护更为简单。
+- **现代化前端集成**：提供了对现代化前端技术的集成示例，以及如何利用 NPM 和 gulp 管理前端资源的指导，帮助开发者打造富交互式的用户界面。
+- **容器化支持**：内置 Dockerfile 和 docker-compose.yml 配置示例，简化了容器化部署的过程，支持一键部署到任何支持 Docker 的环境。
+- **详尽的文档与社区支持**：提供全面的文档和指南，覆盖从项目启动到部署的每一个步骤。同时，基于活跃的 Django 开源社区，开发者可以轻松获取支持和反馈。
+
+## 适用场景
+
+DjangoStarter v3 是为那些追求高效开发流程、重视应用性能与安全性的 Django 开发者设计的。无论是构建复杂的企业级应用、快速开发 MVP 还是学习最佳实践，DjangoStarter v3 都是一个优秀的选择。
 
 ## features
 
@@ -25,6 +37,7 @@
 - 对默认的`settings`进行拆分
 - 默认使用Redis缓存
 - 默认集成Swagger文档，开箱即用，无需额外配置
+- 集成了微信小程序登录功能
 - [集成微信SDK，支持(企业)微信登录，详见博客](https://www.cnblogs.com/deali/p/16110129.html)
 - [接口返回值统一包装，详见博客](https://www.cnblogs.com/deali/p/16094959.html)
 - [集成NPM和Gulp管理前端资源，详见博客](https://www.cnblogs.com/deali/p/16094743.html)
@@ -292,7 +305,9 @@ urlpatterns = [
 
 编辑`config/rest_framework.py`文件 ，参照注释说明修改`DEFAULT_THROTTLE_RATES`节点即可。
 
-### 配置启用*admin后台安全限制中间件*
+### 中间件
+
+#### 配置启用*admin后台安全限制中间件*
 
 编辑`django_starter/middleware/admin_secure.py`文件，在`AdminSecureMiddleware`类可修改以下两个字段进行配置：
 
@@ -301,9 +316,29 @@ urlpatterns = [
 
 编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`django_starter.middleware.admin_secure.AdminSecureMiddleware`即可启用安全限制中间件。
 
-### 配置启用*非debug模式下管理员可以查看报错信息*
+#### 配置启用*非debug模式下管理员可以查看报错信息*
 
 编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`django_starter.middleware/user_base_exception.UserBasedExceptionMiddleware`即可。
+
+## 部署
+
+### 收集静态文件
+
+```bash
+python manage.py collectstatic
+```
+
+把 `static_collect` 目录上传
+
+### docker 部署
+
+根据需要修改 `docker-compose.yaml` 文件
+
+然后启动
+
+```bash
+docker compose up --build
+```
 
 ### uWsgi自动重启
 
@@ -314,7 +349,7 @@ urlpatterns = [
 - [x] 集成IP段限制中间件
 - [x] 集成企业微信第三方登录
 - [x] 集成微信公众号SDK
-- [ ] 集成小程序SDK
+- [x] 集成小程序登录功能
 - [x] 集成消息队列
 - [ ] 进一步优化`settings`拆分
 - [ ] 完善项目单元测试

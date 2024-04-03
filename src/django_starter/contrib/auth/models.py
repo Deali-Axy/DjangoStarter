@@ -11,7 +11,8 @@ class UserProfile(ModelExt):
         FEMALE = 'female', '女'
         UNKNOWN = 'unknown', '未知'
 
-    user = models.OneToOneField(User, unique=True, on_delete=models.DO_NOTHING, db_constraint=False, related_name='profile')
+    user = models.OneToOneField(User, unique=True, on_delete=models.DO_NOTHING, db_constraint=False,
+                                related_name='profile')
     name = models.CharField('姓名', max_length=200, default='')
     alias = models.CharField('别名', max_length=200, default='')
     gender = models.CharField('性别', max_length=20, choices=GenderChoice.choices, default=GenderChoice.UNKNOWN)
@@ -23,4 +24,15 @@ class UserProfile(ModelExt):
     class Meta:
         db_table = 'user_profile'
         verbose_name = '用户资料'
+        verbose_name_plural = verbose_name
+
+
+class UserClaim(models.Model):
+    user = models.ForeignKey(User, db_constraint=False, on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=255)
+    value = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'ds_user_claims'
+        verbose_name = 'UserClaim'
         verbose_name_plural = verbose_name
