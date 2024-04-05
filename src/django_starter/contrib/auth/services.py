@@ -1,36 +1,93 @@
-from typing import Tuple, Optional
+import logging
+import uuid
+from typing import Optional
+import jwt
+from django.contrib.auth.models import User
+from django.http import HttpRequest
+from django.utils import timezone
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
 
-from .models import UserProfile
-from .serializers import UserProfileSerializer, UserSerializer
-from .view_models import LoginResult
+from .schemas import LoginToken
+
+logger = logging.getLogger('common')
+
+# 算法
+algo = 'HS256'
+# 随机的salt密钥，只有token生成者（同时也是校验者）自己能有，用于校验生成的token是否合法
+salt = "CUeeG5Ez56d2GCd5pfqvkXwVMGTvzdwo"
+# token 有效时间 （单位：秒）
+TOKEN_LIFETIME = 12 * 60 * 60
+
+# 设置headers，即加密算法的配置
+headers = {
+    "alg": algo,
+    "typ": "JWT"
+}
 
 
-def login_by_password(request, username, password) -> LoginResult:
+def get_token(payload: dict) -> LoginToken:
     """
-    使用用户名、密码登录
+    生成 jwt token
+
+    参考： https://www.jianshu.com/p/03ad32c1586c
+
+    :param payload:
+    :return:
+    """
+    exp = int(timezone.now().timestamp() + TOKEN_LIFETIME)
+    # 配置主体信息，一般是登录成功的用户之类的，因为jwt的主体信息很容易被解码，所以不要放敏感信息
+    # 当然也可以将敏感信息加密后再放进payload
+    token = jwt.encode(payload={
+        'exp': exp,
+        'iss': 'DjangoStarter-Sales',
+        'sub': 'antd-admin',
+        # jwt的签发时间
+        'iat': timezone.now().timestamp(),
+        # jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。
+        'jti': uuid.uuid4().hex,
+        **payload
+    }, key=salt, algorithm=algo, headers=headers)
+
+    return LoginToken(token=token, exp=exp)
+
+
+def decode(token: str) -> Optional[dict]:
+    """
+    从 JWT 中获取 payload
+
+    :param token:
+    :return:
+    """
+
+    try:
+        # 第三个参数代表是否校验，如果设置为False，那么只要有token，就能够对其进行解码
+        info = jwt.decode(token, salt, verify=True, algorithms=algo)
+        return info
+    except jwt.ExpiredSignatureError as e:
+        logger.error(e)
+        return None
+
+
+def get_user(request: HttpRequest) -> Optional[User]:
+    """
+    从 `HttpRequest` 的 `Authorization` header 中获取 `JWT`, 查询数据库获取用户
 
     :param request:
-    :param username:
-    :param password:
-    :return: 是否成功, user_data, profile_data, token
+    :return:
     """
-    user_obj: User = authenticate(request, username=username, password=password)
-    if user_obj is None:
-        return LoginResult(False)
-    user_data = UserSerializer(user_obj).data
 
-    # 生成token
-    token, created = Token.objects.get_or_create(user=user_obj)
-    # 记录登录状态
-    login(request, user_obj)
+    auth_header: str = request.headers.get('Authorization', '')
+    if len(auth_header.split(' ')) <= 1:
+        return None
 
-    profile_data = None
-    profile_set = UserProfile.objects.filter(user=user_obj)
-    if profile_set.exists():
-        profile_data = UserProfileSerializer(profile_set.first()).data
+    token = auth_header.split(' ')[1]
+    payload = decode(token)
 
-    return LoginResult(True, user_data, profile_data, token.key)
+    if not payload:
+        return None
+
+    user_qs = User.objects.filter(username=payload.get('username', ''))
+
+    return user_qs.first()

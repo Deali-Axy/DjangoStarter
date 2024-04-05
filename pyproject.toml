@@ -8,6 +8,14 @@ authors = [
 dependencies = [
     "django>=5.0.3",
     "django-ninja>=1.1.0",
+    "django-simpleui>=2024.4.1",
+    "django-multi-captcha-admin>=2.0.0",
+    "django-simple-captcha>=0.6.0",
+    "django-cors-headers>=4.3.1",
+    "django-ratelimit>=4.1.0",
+    "orjson>=3.10.0",
+    "pyjwt>=2.8.0",
+    "wechatpy>=1.8.18",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"
@@ -16,3 +24,9 @@ license = {text = "MIT"}
 
 [tool.pdm]
 distribution = false
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=8.1.1",
+    "django-debug-toolbar>=4.3.0",
+]

@@ -23,5 +23,10 @@ def config_django_starter():
                 'corp_id': '',
                 'secret': ''
             },
+            # 微信小程序配置
+            'wechat_app_config': {
+                'appid': '',
+                'secret': ''
+            }
         }
     }

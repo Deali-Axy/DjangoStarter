@@ -1,5 +1,4 @@
-from rest_framework import status
-from rest_framework.response import Response
+from ninja.errors import HttpError
 
 
 def _gen_resp(message, resp_data, status_code):
@@ -7,31 +6,32 @@ def _gen_resp(message, resp_data, status_code):
         data = {'message': message, **resp_data}
     else:
         data = {'message': message}
-    return Response(
-        data,
-        status=status_code
-    )
+
+    if status_code >= 400:
+        raise HttpError(status_code, data['message'])
+
+    return data
 
 
 def ok(message, data=None):
-    return _gen_resp(message, data, status.HTTP_200_OK)
+    return _gen_resp(message, data, 200)
 
 
 def forbidden(message, data=None):
-    return _gen_resp(message, data, status.HTTP_403_FORBIDDEN)
+    return _gen_resp(message, data, 403)
 
 
 def bad_request(message, data=None):
-    return _gen_resp(message, data, status.HTTP_400_BAD_REQUEST)
+    return _gen_resp(message, data, 400)
 
 
 def not_found(message, data=None):
-    return _gen_resp(message, data, status.HTTP_404_NOT_FOUND)
+    return _gen_resp(message, data, 404)
 
 
 def unauthorized(message, data=None):
-    return _gen_resp(message, data, status.HTTP_401_UNAUTHORIZED)
+    return _gen_resp(message, data, 401)
 
 
 def error(message, data=None):
-    return _gen_resp(message, data, status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return _gen_resp(message, data, 500)
