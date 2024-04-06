@@ -16,6 +16,7 @@ dependencies = [
     "orjson>=3.10.0",
     "pyjwt>=2.8.0",
     "wechatpy>=1.8.18",
+    "django-redis>=5.4.0",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"

@@ -83,13 +83,47 @@ DjangoStarter v3 是为那些追求高效开发流程、重视应用性能与安
 
 ## 快速开始
 
+v3 版本开始我使用了 [pdm](https://pdm-project.org/en/latest/) 作为包管理器，这是一个现代化的包管理和项目管理工具，它专为 Python 项目设计，提供了诸如依赖解析、包安装以及虚拟环境管理等功能。
+
+首先需要安装 pdm ，请参考官网的推荐安装方式进行安装，如果实在是懒得看官网可以按照本文档是懒人版方式安装。
+
+关于 pdm 的一些扩展文档: [./docs/pdm-usage.md](docs/pdm-usage.md)
+
+### 虚拟环境
+
+推荐使用 conda 来管理 python 环境。
+
+首先创建一个虚拟环境
+
+```bash
+conda create -n django-starter python=3.11
+```
+
+启用虚拟环境
+
+```bash
+conda activate django-starter
+```
+
+如果没有使用其他方式安装 pdm，可以使用 pip 安装 pdm 包管理器。
+
+```bash
+pip install pdm
+```
+
 ### 安装依赖
+
+#### Python 依赖
 
 安装Python依赖：
 
 ```bash
-pip install -r requirements.txt
+pdm install
 ```
+
+#### 前端资源
+
+前端资源管理参考这篇博客：[使用NPM和gulp管理前端静态文件](https://www.cnblogs.com/deali/p/15905760.html)
 
 安装前端依赖：
 
@@ -105,9 +139,7 @@ gulp move
 
 如果没有gulp请先安装：`npm install --global gulp-cli`
 
-前端资源管理参考这篇博客：[使用NPM和gulp管理前端静态文件](https://www.cnblogs.com/deali/p/15905760.html)
-
-### 迁移数据库
+### 数据库迁移
 
 ```
 python manage.py makemigrations

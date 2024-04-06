@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django_starter.contrib.code_generator',
     'django_starter.contrib.config',
     'django_starter.contrib.guide',
-    'django_starter.contrib.oauth',
 
     # 第三方组件
     'captcha',
@@ -71,8 +70,7 @@ ROOT_URLCONF = 'config.urls_root'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,7 +89,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
     }
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -128,13 +126,13 @@ else:
 
 # 静态文件配置 (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, '..', 'static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static_collected')
 STATIC_URL = f'/{URL_PREFIX}static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 MEDIA_URL = f'/{URL_PREFIX}media/'
 
 # 配置redis缓存
