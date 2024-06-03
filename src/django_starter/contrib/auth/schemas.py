@@ -39,4 +39,4 @@ class UserSchema(ModelSchema):
 
     @staticmethod
     def resolve_groups(obj: User):
-        return [g.name for g in obj.groups.all()]
+        return [g.full_name for g in obj.groups.all()]

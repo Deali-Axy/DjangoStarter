@@ -57,6 +57,4 @@ class Generator(object):
         self.make_init()
         self.make_admin()
         self.make_apps()
-        self.make_serializers()
         self.make_urls()
-        self.make_viewsets()

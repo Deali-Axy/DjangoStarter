@@ -30,7 +30,7 @@ def get_models(app_label: str) -> List[DjangoModel]:
         field_names: List[str] = ['pk']
         for field in model._meta.fields:
             if type(field).__name__ not in unsupported_field_types:
-                field_names.append(field.name)
+                field_names.append(field.full_name)
         d_model = DjangoModel(
             name=model.__name__,
             verbose_name=model._meta.verbose_name,

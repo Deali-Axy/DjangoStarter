@@ -1,6 +1,6 @@
 from django.db import models
 from django_starter.db.models import ModelExt
-
+from django_starter.constants import db_table_prefix
 
 class ConfigItem(ModelExt):
     key = models.CharField('配置项名称', unique=True, max_length=200)
@@ -11,6 +11,6 @@ class ConfigItem(ModelExt):
         return self.key
 
     class Meta:
-        db_table = 'django_starter_config'
+        db_table = f'{db_table_prefix}_config'
         verbose_name = '通用配置'
         verbose_name_plural = verbose_name

@@ -19,4 +19,6 @@ def snake_to_camel(word):
 
 
 if __name__ == '__main__':
-    print(snake_to_camel('demo_test'))
+    c = snake_to_camel('demo_test')
+    s = camel_to_snake(c)
+    print(c, s)

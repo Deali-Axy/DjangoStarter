@@ -4,9 +4,10 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from ninja.router import Router
 from ninja.errors import HttpError
+
+from django_starter.http.response import responses
 from .services import get_token, get_user
 from .schemas import LoginSchema, LoginToken, UserSchema, RegisterSchema
-from ...http.response import responses
 
 router = Router(tags=['auth'])
 

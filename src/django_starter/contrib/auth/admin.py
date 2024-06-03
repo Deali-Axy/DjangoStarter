@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import *
+from .models import UserClaim
 
 
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'name', 'alias', 'gender', 'phone']
+@admin.register(UserClaim)
+class UserClaimAdmin(admin.ModelAdmin):
+    list_display = ['user', 'name', 'value']
