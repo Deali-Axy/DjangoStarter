@@ -29,21 +29,24 @@ def config_django_starter():
             }
         },
         # 第三方登录配置
-        'oauth': {
+        'oauth2': {
             # 微信登录配置
             'wechat': {
+                'enabled': False,
                 'app_id': '',
                 'secret': '',
-                'redirect_url': ''
+                'redirect_uri': '',
             },
             # 企业微信配置
             'wecom': {
+                'enabled': False,
                 'corp_id': '',
                 'secret': '',
-                'redirect_url': ''
+                'redirect_uri': '',
             },
             # 微信小程序配置
             'weapp': {
+                'enabled': False,
                 'appid': '',
                 'secret': ''
             }

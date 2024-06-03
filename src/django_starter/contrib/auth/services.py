@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-from .schemas import LoginToken
+from apps.account.apis.auth.schemas import LoginToken
 
 logger = logging.getLogger('common')
 

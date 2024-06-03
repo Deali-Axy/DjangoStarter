@@ -4,7 +4,8 @@ import orjson
 from django.http import HttpRequest
 from ninja import NinjaAPI
 from ninja.renderers import JSONRenderer, BaseRenderer
-from django_starter.api import router
+from django_starter.apis import router
+from apps.account.apis import router as account_router
 
 
 class ORJSONRenderer(JSONRenderer):
@@ -27,3 +28,4 @@ class ORJSONRenderer(JSONRenderer):
 api = NinjaAPI(renderer=ORJSONRenderer())
 
 api.add_router('django-starter', router)
+api.add_router('account', account_router)

@@ -6,7 +6,7 @@ from ninja.router import Router
 from ninja.errors import HttpError
 
 from django_starter.http.response import responses
-from .services import generate_token, get_user
+from django_starter.contrib.auth.services import generate_token, get_user
 from .schemas import LoginSchema, LoginToken, UserSchema, RegisterSchema
 
 router = Router(tags=['auth'])

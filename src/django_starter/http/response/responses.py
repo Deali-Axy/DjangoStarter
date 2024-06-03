@@ -1,11 +1,12 @@
+from typing import Optional
 from ninja.errors import HttpError
 
 
-def _gen_resp(message, resp_data, status_code):
+def _gen_resp(message, resp_data: Optional[dict], status_code):
     if resp_data:
-        data = {'message': message, **resp_data}
+        data = {'detail': message, **resp_data}
     else:
-        data = {'message': message}
+        data = {'detail': message}
 
     if status_code >= 400:
         raise HttpError(status_code, data['message'])
@@ -13,25 +14,25 @@ def _gen_resp(message, resp_data, status_code):
     return data
 
 
-def ok(message, data=None):
+def ok(message: str, data: Optional[dict] = None):
     return _gen_resp(message, data, 200)
 
 
-def forbidden(message, data=None):
+def forbidden(message: str, data: Optional[dict] = None):
     return _gen_resp(message, data, 403)
 
 
-def bad_request(message, data=None):
+def bad_request(message: str, data: Optional[dict] = None):
     return _gen_resp(message, data, 400)
 
 
-def not_found(message, data=None):
+def not_found(message: str, data: Optional[dict] = None):
     return _gen_resp(message, data, 404)
 
 
-def unauthorized(message, data=None):
+def unauthorized(message: str, data: Optional[dict] = None):
     return _gen_resp(message, data, 401)
 
 
-def error(message, data=None):
+def error(message: str, data: Optional[dict] = None):
     return _gen_resp(message, data, 500)
