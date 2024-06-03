@@ -1,15 +1,17 @@
-from django.db import models
 from django.db.models import signals
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 
 from django_starter.contrib.auth.models import UserProfileAbstract
+from django_starter.utilities import table_name_wrapper
 
 
 # Create your models here.
 class UserProfile(UserProfileAbstract):
     class Meta:
-        db_table = 'user_profile'
+        db_table = table_name_wrapper('user_profile')
+        verbose_name = '用户资料'
+        verbose_name_plural = verbose_name
 
 
 # 创建用户的时候自动创建 profile

@@ -17,6 +17,7 @@ dependencies = [
     "pyjwt>=2.8.0",
     "wechatpy>=1.8.18",
     "django-redis>=5.4.0",
+    "simpleui>=2024.4.1",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"

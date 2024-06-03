@@ -1,7 +1,7 @@
 from ninja import Router
 from django_starter.contrib import captcha
 
-router = Router()
+router = Router(tags=['captcha'])
 
 
 @router.get('refresh')

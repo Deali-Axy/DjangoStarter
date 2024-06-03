@@ -1,13 +1,10 @@
-from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
-# DjangoStarter 配置
-from config.django_starter import project_info
 # DjangoStarter 主页
 from django_starter.contrib.guide import views
 
-from config.api import api
+from config.apis import api
 
 urlpatterns = [
     path('', views.index),

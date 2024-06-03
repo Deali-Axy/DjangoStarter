@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:827a049e93d48c0618111a532d4fc55138cd992a80645f1952453879d39d4633"
+content_hash = "sha256:3c9b7a87024061caf97e750e18c923e6a1f0b716b786831f9e1c8b2ced61c56e"
 
 [[package]]
 name = "annotated-types"
@@ -467,6 +467,18 @@ dependencies = [
 files = [
     {file = "requests-2.31.0-py3-none-any.whl", hash = "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f"},
     {file = "requests-2.31.0.tar.gz", hash = "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"},
+]
+
+[[package]]
+name = "simpleui"
+version = "2024.4.1"
+summary = "django admin theme 后台模板"
+groups = ["default"]
+dependencies = [
+    "django",
+]
+files = [
+    {file = "simpleui-2024.4.1.tar.gz", hash = "sha256:c34d567fce9a46e49b3a8375a8d44832e05cad2a0949917ed6cf57f4cdcbb8cb"},
 ]
 
 [[package]]

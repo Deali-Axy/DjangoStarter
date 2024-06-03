@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # 我们自己的应用
+    'apps.account',
     'apps.demo',
 ]
 
@@ -198,3 +199,6 @@ SWAGGER_SETTINGS = {
 
 # DjangoStarter 框架配置
 DJANGO_STARTER = config_django_starter()
+
+# Django Ninja 配置
+NINJA_PAGINATION_PER_PAGE = 10
