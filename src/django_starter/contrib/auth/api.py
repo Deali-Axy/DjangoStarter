@@ -6,7 +6,7 @@ from ninja.router import Router
 from ninja.errors import HttpError
 
 from django_starter.http.response import responses
-from .services import get_token, get_user
+from .services import generate_token, get_user
 from .schemas import LoginSchema, LoginToken, UserSchema, RegisterSchema
 
 router = Router(tags=['auth'])
@@ -16,7 +16,7 @@ router = Router(tags=['auth'])
 def login(request, data: LoginSchema):
     user: User = authenticate(username=data.username, password=data.password)
     if user is not None:
-        return responses.ok('登录成功', get_token({'username': user.username}))
+        return responses.ok('登录成功', generate_token({'username': user.username}))
     else:
         raise HttpError(401, '用户名或密码错误')
 
@@ -44,4 +44,4 @@ def register(request, data: RegisterSchema):
 
     user_obj = User.objects.create_user(data.username, None, data.password)
 
-    return responses.ok('注册成功！', get_token({'username': user_obj.username}))
+    return responses.ok('注册成功！', generate_token({'username': user_obj.username}))

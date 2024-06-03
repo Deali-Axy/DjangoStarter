@@ -3,6 +3,7 @@ import uuid
 from typing import Optional
 import jwt
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.http import HttpRequest
 from django.utils import timezone
 
@@ -14,11 +15,11 @@ from .schemas import LoginToken
 logger = logging.getLogger('common')
 
 # 算法
-algo = 'HS256'
+algo = settings.DJANGO_STARTER['auth']['jwt']['algo']
 # 随机的salt密钥，只有token生成者（同时也是校验者）自己能有，用于校验生成的token是否合法
-salt = "CUeeG5Ez56d2GCd5pfqvkXwVMGTvzdwo"
+salt = settings.DJANGO_STARTER['auth']['jwt']['salt']
 # token 有效时间 （单位：秒）
-TOKEN_LIFETIME = 12 * 60 * 60
+TOKEN_LIFETIME = settings.DJANGO_STARTER['auth']['jwt']['lifetime']
 
 # 设置headers，即加密算法的配置
 headers = {
@@ -27,7 +28,7 @@ headers = {
 }
 
 
-def get_token(payload: dict) -> LoginToken:
+def generate_token(payload: dict) -> LoginToken:
     """
     生成 jwt token
 
@@ -58,7 +59,7 @@ def decode(token: str) -> Optional[dict]:
     从 JWT 中获取 payload
 
     :param token:
-    :return:
+    :return: 返回payload信息，如果验证失败返回 None
     """
 
     try:
@@ -75,7 +76,7 @@ def get_user(request: HttpRequest) -> Optional[User]:
     从 `HttpRequest` 的 `Authorization` header 中获取 `JWT`, 查询数据库获取用户
 
     :param request:
-    :return:
+    :return: 如果没有 `Authorization` header 或者 JWT 失效，返回 None
     """
 
     auth_header: str = request.headers.get('Authorization', '')
