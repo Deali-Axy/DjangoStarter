@@ -3,7 +3,7 @@ from ninja import ModelSchema
 from .models import ConfigItem
 
 
-class ConfigSchema(ModelSchema):
+class ConfigItemOut(ModelSchema):
     class Meta:
         model = ConfigItem
-        fields = "__all__"
+        fields = ['key', 'value', 'display_name']
