@@ -25,17 +25,19 @@ def get_models(app_label: str) -> List[DjangoModel]:
     unsupported_field_types: List[str] = ['ManyToManyField']
 
     django_model_list: List[DjangoModel] = []
-    app_obj = apps.get_app_config(app_label)
-    for model in app_obj.get_models():
-        field_names: List[str] = ['pk']
-        for field in model._meta.fields:
-            if type(field).__name__ not in unsupported_field_types:
-                field_names.append(field.full_name)
+    app = apps.get_app_config(app_label)
+    for model in app.get_models():
+        model_name = model.__name__
+        verbose_name = model._meta.verbose_name
+        url_name = camel_to_snake(model_name)
+        # todo 需要增加判断 field.primary_key 以应对不同场景
+        field_names = [field.name for field in model._meta.fields if
+                       type(field).__name__ not in unsupported_field_types]
 
         d_model = DjangoModel(
-            name=model.__name__,
-            verbose_name=model._meta.verbose_name,
-            url_name=camel_to_snake(model.__name__),
+            name=model_name,
+            verbose_name=verbose_name,
+            url_name=url_name,
             fields=field_names
         )
         logger.debug(f'Found django model: {d_model}')
