@@ -20,7 +20,6 @@ class RegisterSchema(Schema):
     confirm_password: str
     phone: Optional[str] = None
     full_name: Optional[str] = None
-    alias: Optional[str] = None
     gender: Optional[str] = None
 
 

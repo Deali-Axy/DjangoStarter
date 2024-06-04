@@ -9,7 +9,7 @@ def _gen_resp(message, resp_data: Optional[dict], status_code):
         data = {'detail': message}
 
     if status_code >= 400:
-        raise HttpError(status_code, data['message'])
+        raise HttpError(status_code, data['detail'])
 
     return data
 

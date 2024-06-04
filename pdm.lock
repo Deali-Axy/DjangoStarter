@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:186e6eae0f9f7fa4d0c1d51388f88b7db185454145bfc3158ede4939d3f6dbad"
+content_hash = "sha256:ba4e7837c79bad261904ab59f5347d25f5565f684b429e73b079a7812e8dd9ce"
 
 [[package]]
 name = "annotated-types"
@@ -531,6 +531,17 @@ groups = ["default", "dev"]
 files = [
     {file = "sqlparse-0.4.4-py3-none-any.whl", hash = "sha256:5430a4fe2ac7d0f93e66f1efc6e1338a41884b7ddf2a350cedd20ccc4d9d28f3"},
     {file = "sqlparse-0.4.4.tar.gz", hash = "sha256:d446183e84b8349fa3061f0fe7f06ca94ba65b426946ffebe6e3e8295332420c"},
+]
+
+[[package]]
+name = "tblib"
+version = "3.0.0"
+requires_python = ">=3.8"
+summary = "Traceback serialization library."
+groups = ["default"]
+files = [
+    {file = "tblib-3.0.0-py3-none-any.whl", hash = "sha256:80a6c77e59b55e83911e1e607c649836a69c103963c5f28a46cbeef44acf8129"},
+    {file = "tblib-3.0.0.tar.gz", hash = "sha256:93622790a0a29e04f0346458face1e144dc4d32f493714c6c3dff82a4adb77e6"},
 ]
 
 [[package]]
