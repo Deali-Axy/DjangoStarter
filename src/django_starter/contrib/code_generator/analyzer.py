@@ -3,9 +3,8 @@ import logging
 from typing import List
 
 from django.apps import apps
-from jinja2 import Environment, PackageLoader
-from django_starter.contrib.code_generator.utils import camel_to_snake, snake_to_camel
 from django_starter.contrib.code_generator.entities import DjangoModel, DjangoApp
+from django_starter.contrib.code_generator.utils import camel_to_snake, snake_to_camel
 
 logger = logging.getLogger('common')
 
@@ -23,14 +22,16 @@ def get_class(cls: type) -> type:
 
 
 def get_models(app_label: str) -> List[DjangoModel]:
+    unsupported_field_types: List[str] = ['ManyToManyField']
+
     django_model_list: List[DjangoModel] = []
     app_obj = apps.get_app_config(app_label)
     for model in app_obj.get_models():
-        unsupported_field_types: List[str] = ['ManyToManyField']
         field_names: List[str] = ['pk']
         for field in model._meta.fields:
             if type(field).__name__ not in unsupported_field_types:
                 field_names.append(field.full_name)
+
         d_model = DjangoModel(
             name=model.__name__,
             verbose_name=model._meta.verbose_name,

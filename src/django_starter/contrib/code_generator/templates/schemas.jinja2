@@ -1,0 +1,16 @@
+from ninja import ModelSchema
+from .models import *
+
+{% for model in models %}
+class {{ model.name }}In(ModelSchema):
+    class Meta:
+        model = {{ model.name }}
+        fields = [{% for field in model.fields %}'{{ field }}', {% endfor %}]
+
+
+class {{ model.name }}Out(ModelSchema):
+    class Meta:
+        model = {{ model.name }}
+        fields = [{% for field in model.fields %}'{{ field }}', {% endfor %}]
+
+{% endfor %}
