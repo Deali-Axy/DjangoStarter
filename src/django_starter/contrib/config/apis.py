@@ -4,18 +4,18 @@ from django.shortcuts import get_object_or_404
 from ninja import Router
 
 from .models import ConfigItem
-from .schemas import ConfigSchema
+from .schemas import ConfigItemOut
 
-router = Router()
+router = Router(tags=['djs-config'])
 
 
-@router.get('/{item_id}', response=ConfigItem)
+@router.get('/{item_id}', response=ConfigItemOut)
 def get_item(request, item_id: int):
     item = get_object_or_404(ConfigItem, id=item_id)
     return item
 
 
-@router.get('/', response=List[ConfigSchema])
+@router.get('/', response=List[ConfigItemOut])
 def get_list(request):
     qs = ConfigItem.objects.all()
     return qs
