@@ -72,3 +72,19 @@ class AuthTestCase(TestCase):
             content_type='application/json'
         )
         self.assertEqual(resp.status_code, 400)
+
+    def test_auth_get_current_user(self):
+        resp = self.client.post(
+            reverse_lazy('api-1.0.0:login'),
+            data={'username': 'test', 'password': 'test'},
+            content_type='application/json'
+        )
+
+        token = resp.json()['data']['token']
+
+        resp = self.client.get(
+            reverse_lazy('api-1.0.0:current_user'),
+            content_type='application/json',
+            headers={'authorization': f'Bearer {token}'},
+        )
+        self.assertEqual(resp.json()['data']['username'], 'test')
