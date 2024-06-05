@@ -14,7 +14,7 @@ from .schemas import LoginSchema, LoginToken, UserSchema, RegisterSchema
 router = Router(tags=['auth'])
 
 
-@router.post('/login', auth=None, response={200: LoginToken}, operation_id='login')
+@router.post('/login', auth=None, response={200: LoginToken}, url_name='account/auth/login')
 def login(request, data: LoginSchema):
     user: User = authenticate(username=data.username, password=data.password)
     if user is not None:
@@ -23,7 +23,7 @@ def login(request, data: LoginSchema):
         raise HttpError(401, '用户名或密码错误')
 
 
-@router.get('/current-user', response=UserSchema, operation_id='current_user')
+@router.get('/current-user', response=UserSchema, url_name='account/auth/current_user')
 def current_user(request):
     user = get_user(request)
     if not user:
@@ -32,7 +32,7 @@ def current_user(request):
     return user
 
 
-@router.post('/register')
+@router.post('/register', url_name='account/auth/register')
 def register(request, data: RegisterSchema):
     if User.objects.filter(username=data.username).exists():
         return responses.bad_request('用户名已存在！')

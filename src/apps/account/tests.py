@@ -14,7 +14,7 @@ class AuthTestCase(TestCase):
 
     def test_auth_login(self):
         resp = self.client.post(
-            reverse_lazy('api-1.0.0:login'),
+            reverse_lazy('api:account/auth/login'),
             data={'username': 'test', 'password': 'test'},
             content_type='application/json'
         )
@@ -22,7 +22,7 @@ class AuthTestCase(TestCase):
 
     def test_auth_login_failed(self):
         resp = self.client.post(
-            reverse_lazy('api-1.0.0:login'),
+            reverse_lazy('api:account/auth/login'),
             data={'username': uuid.uuid4().hex, 'password': uuid.uuid4().hex},
             content_type='application/json'
         )
@@ -32,7 +32,7 @@ class AuthTestCase(TestCase):
         username = uuid.uuid4().hex
         password = uuid.uuid4().hex
         resp = self.client.post(
-            reverse_lazy('api-1.0.0:register'),
+            reverse_lazy('api:account/auth/register'),
             data={'username': username, 'password': password, 'confirm_password': password},
             content_type='application/json'
         )
@@ -41,7 +41,7 @@ class AuthTestCase(TestCase):
     def test_auth_register_failed(self):
         # 注册已存在用户
         resp = self.client.post(
-            reverse_lazy('api-1.0.0:register'),
+            reverse_lazy('api:account/auth/register'),
             data={'username': 'test', 'password': 'test', 'confirm_password': 'test'},
             content_type='application/json'
         )
@@ -51,7 +51,7 @@ class AuthTestCase(TestCase):
         username = uuid.uuid4().hex
         password = uuid.uuid4().hex
         resp = self.client.post(
-            reverse_lazy('api-1.0.0:register'),
+            reverse_lazy('api:account/auth/register'),
             data={'username': username, 'password': password, 'confirm_password': 'another-password'},
             content_type='application/json'
         )
@@ -59,7 +59,7 @@ class AuthTestCase(TestCase):
 
         # 手机号格式错误
         resp = self.client.post(
-            reverse_lazy('api-1.0.0:register'),
+            reverse_lazy('api:account/auth/register'),
             data={'username': username, 'password': password, 'confirm_password': password, 'phone': '1234'},
             content_type='application/json'
         )
@@ -67,7 +67,7 @@ class AuthTestCase(TestCase):
 
         # 注册已存在手机号的用户
         resp = self.client.post(
-            reverse_lazy('api-1.0.0:register'),
+            reverse_lazy('api:account/auth/register'),
             data={'username': username, 'password': password, 'confirm_password': password, 'phone': '13812341234'},
             content_type='application/json'
         )
@@ -75,7 +75,7 @@ class AuthTestCase(TestCase):
 
     def test_auth_get_current_user(self):
         resp = self.client.post(
-            reverse_lazy('api-1.0.0:login'),
+            reverse_lazy('api:account/auth/login'),
             data={'username': 'test', 'password': 'test'},
             content_type='application/json'
         )
@@ -83,7 +83,7 @@ class AuthTestCase(TestCase):
         token = resp.json()['data']['token']
 
         resp = self.client.get(
-            reverse_lazy('api-1.0.0:current_user'),
+            reverse_lazy('api:account/auth/current_user'),
             content_type='application/json',
             headers={'authorization': f'Bearer {token}'},
         )
