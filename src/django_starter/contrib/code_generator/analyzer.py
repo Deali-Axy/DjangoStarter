@@ -3,7 +3,7 @@ import logging
 from typing import List
 
 from django.apps import apps
-from django_starter.contrib.code_generator.entities import DjangoModel, DjangoApp
+from django_starter.contrib.code_generator.entities import ModelField, DjangoModel, DjangoApp
 from django_starter.contrib.code_generator.utils import camel_to_snake, snake_to_camel
 
 logger = logging.getLogger('common')
@@ -30,18 +30,23 @@ def get_models(app_label: str) -> List[DjangoModel]:
         model_name = model.__name__
         verbose_name = model._meta.verbose_name
         url_name = camel_to_snake(model_name)
-        # todo 需要增加判断 field.primary_key 以应对不同场景
-        field_names = [field.name for field in model._meta.fields if
-                       type(field).__name__ not in unsupported_field_types]
+
+        fields = [ModelField(field.name, type(field).__name__,
+                             primary_key=field.primary_key,
+                             verbose_name=field.verbose_name)
+                  for field in model._meta.fields if
+                  type(field).__name__ not in unsupported_field_types]
 
         d_model = DjangoModel(
             name=model_name,
             verbose_name=verbose_name,
-            url_name=url_name,
-            fields=field_names
+            slug=url_name,
+            fields=fields
         )
-        logger.debug(f'Found django model: {d_model}')
+        logger.debug(f'Found django model: {d_model}, fields count: {len(fields)}')
+
         django_model_list.append(d_model)
+
     return django_model_list
 
 

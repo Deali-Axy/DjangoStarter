@@ -1,16 +1,16 @@
 from ninja import ModelSchema
-from .models import *
+from apps.{{ app.name }}.models import *
 
 {% for model in models %}
 class {{ model.name }}In(ModelSchema):
     class Meta:
         model = {{ model.name }}
-        fields = [{% for field in model.fields %}'{{ field }}', {% endfor %}]
+        fields = [{% for field in model.fields if not field.primary_key %}'{{ field.name }}', {% endfor %}]
 
 
 class {{ model.name }}Out(ModelSchema):
     class Meta:
         model = {{ model.name }}
-        fields = [{% for field in model.fields %}'{{ field }}', {% endfor %}]
+        fields = [{% for field in model.fields %}'{{ field.name }}', {% endfor %}]
 
 {% endfor %}

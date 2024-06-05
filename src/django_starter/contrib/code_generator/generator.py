@@ -1,5 +1,6 @@
 import os
 import logging
+from pathlib import Path
 from jinja2 import Environment, PackageLoader, FileSystemLoader
 
 from django_starter.contrib.code_generator.analyzer import get_models, get_app
@@ -44,17 +45,42 @@ class Generator(object):
     def make_apps(self):
         self._jinja2_to_py('apps.jinja2', 'apps.py')
 
-    def make_serializers(self):
-        self._jinja2_to_py('serializers.jinja2', 'serializers.py')
+    def make_schemas_and_apis(self):
+        ctx = {
+            'app': self.django_app,
+            'models': self.django_app.models,
+        }
 
-    def make_urls(self):
-        self._jinja2_to_py('urls.jinja2', 'urls.py')
+        for model in self.django_app.models:
+            ctx['model'] = model
 
-    def make_viewsets(self):
-        self._jinja2_to_py('viewsets.jinja2', 'viewsets.py')
+            model_apis_path = os.path.join(self.django_app.path, 'apis', model.slug)
+            logger.debug(f'create model apis path: {model_apis_path}')
+            os.makedirs(model_apis_path, exist_ok=True)
+
+            logger.debug(f'generating schemas for {model.name}')
+            template = self.jinja2_env.get_template('apis/schemas.jinja2')
+            with open(os.path.join(self.django_app.path, 'apis', model.slug, 'schemas.py'), 'w+',
+                      encoding='utf-8') as f:
+                f.write(template.render(ctx))
+
+            logger.debug(f'generating apis for {model.name}')
+            template = self.jinja2_env.get_template('apis/apis.jinja2')
+            with open(os.path.join(self.django_app.path, 'apis', model.slug, 'apis.py'), 'w+',
+                      encoding='utf-8') as f:
+                f.write(template.render(ctx))
+
+            logger.debug(f'touch __init__ for {model.name}')
+            Path(os.path.join(self.django_app.path, 'apis', model.slug, '__init__.py')).touch()
+
+            logger.debug(f'generating __init__ for {model.name}')
+            template = self.jinja2_env.get_template('apis/__init__.jinja2')
+            with open(os.path.join(self.django_app.path, 'apis', '__init__.py'), 'w+',
+                      encoding='utf-8') as f:
+                f.write(template.render(ctx))
 
     def make_all(self):
         self.make_init()
         self.make_admin()
         self.make_apps()
-        self.make_urls()
+        self.make_schemas_and_apis()

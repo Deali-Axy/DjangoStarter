@@ -5,6 +5,6 @@ from .models import *
 {% for model in app.models %}
 @admin.register({{ model.name }})
 class {{ model.name }}Admin(admin.ModelAdmin):
-    list_display = [{% for field in model.fields %}'{{ field }}', {% endfor %}]
+    list_display = [{% for field in model.fields %}'{{ field.name }}', {% endfor %}]
 
 {% endfor %}

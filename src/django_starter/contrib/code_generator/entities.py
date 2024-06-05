@@ -2,21 +2,36 @@ from typing import List
 from django.apps import AppConfig
 
 
+class ModelField(object):
+    def __init__(
+            self, name: str, field_type: str,
+            primary_key: bool = False,
+            verbose_name: str = None,
+    ):
+        self.name = name
+        self.field_type = field_type
+        self.primary_key = primary_key
+        if verbose_name:
+            self.verbose_name = verbose_name
+        else:
+            self.verbose_name = name
+
+
 class DjangoModel(object):
-    def __init__(self, name: str, verbose_name: str, url_name: str, fields: List[str]):
+    def __init__(self, name: str, verbose_name: str, slug: str, fields: List[ModelField]):
         """
 
         :param name: 模型名称
         :param verbose_name: 中文名
-        :param url_name: 路由名称
+        :param slug: URL名称
         """
         self.name = name
         self.verbose_name = verbose_name
-        self.url_name = url_name
-        self.fields: List[str] = fields
+        self.slug = slug
+        self.fields: List[ModelField] = fields
 
     def __str__(self):
-        return f'<DjangoModel>{self.name}:{self.verbose_name}:{self.url_name}'
+        return f'<DjangoModel>{self.name}:{self.verbose_name}:{self.slug}'
 
     def __repr__(self):
         return self.__str__()
