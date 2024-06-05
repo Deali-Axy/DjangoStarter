@@ -8,17 +8,11 @@ if __name__ == '__main__':
     django.setup()
 
     from django.db import models
+    from django.utils.text import slugify
     from django_starter.contrib.seed import Seeder
-    from apps.demo.models import TestModel
+    from django_starter.contrib.seed.models import SeedTestModel
 
     seeder = Seeder()
-    data = seeder.seed(TestModel)
+    data = seeder.seed(SeedTestModel)
     pprint.pprint(data)
-    print('email', seeder.fake.email())
 
-    # field = TestModel._meta.get_field('email_field')
-    # print('internal type', field.get_internal_type())
-    # print('type', type(field))
-    # print('__class__', field.__class__, 'eq to models.EmailField?', field.__class__ == models.EmailField)
-    # print('is sub class to models.EmailField?', issubclass(field.__class__, models.EmailField))
-    # print('is sub class to models.CharField?', issubclass(field.__class__, models.CharField))

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_starter.contrib.code_generator',
     'django_starter.contrib.config',
     'django_starter.contrib.guide',
+    'django_starter.contrib.seed',
 
     # 第三方组件
     'captcha',
