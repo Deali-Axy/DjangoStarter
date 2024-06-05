@@ -1,7 +1,7 @@
 from ninja import ModelSchema
 from apps.{{ app.name }}.models import *
 
-{% for model in models %}
+
 class {{ model.name }}In(ModelSchema):
     class Meta:
         model = {{ model.name }}
@@ -13,4 +13,3 @@ class {{ model.name }}Out(ModelSchema):
         model = {{ model.name }}
         fields = [{% for field in model.fields %}'{{ field.name }}', {% endfor %}]
 
-{% endfor %}
