@@ -7,6 +7,9 @@ if __name__ == '__main__':
 
     django.setup()
 
-    from django_starter.contrib.code_generator.analyzer import get_models
+    from django_starter.contrib.seed import Seeder
+    from apps.demo.models import Movie
 
-    get_models('demo')
+    seeder = Seeder()
+    data = seeder.seed(Movie)
+    print(data)

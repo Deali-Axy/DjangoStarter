@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:6a866346a45093cc2eaf7d523b362d5c27673512be2f341655bcdbcecff14d22"
+content_hash = "sha256:b0cab999d52bc1970b9fb760e382afb3f346b908ea5331712391fed8288a6e9b"
 
 [[package]]
 name = "annotated-types"
@@ -227,6 +227,20 @@ dependencies = [
 ]
 files = [
     {file = "django-simpleui-2024.4.1.tar.gz", hash = "sha256:d2d5556b1b6dcb6a06df6e70c2f0840bd8267e9712064c82151e1280d57f893d"},
+]
+
+[[package]]
+name = "faker"
+version = "25.5.0"
+requires_python = ">=3.8"
+summary = "Faker is a Python package that generates fake data for you."
+groups = ["default"]
+dependencies = [
+    "python-dateutil>=2.4",
+]
+files = [
+    {file = "Faker-25.5.0-py3-none-any.whl", hash = "sha256:edb85040a47ef1b30ccd8c4b6f07ee3cb4bd64aab1483be4efe75816ee2e2e36"},
+    {file = "Faker-25.5.0.tar.gz", hash = "sha256:84d454fc9fef0b73428e00bdf45a36c04568c75f22727e990071580840cfbb84"},
 ]
 
 [[package]]
