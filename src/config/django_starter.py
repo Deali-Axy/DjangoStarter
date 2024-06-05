@@ -9,6 +9,10 @@ project_info = ProjectInfo('DjangoStarter')
 
 def config_django_starter():
     return {
+        'project_info': {
+            'name': project_info.name,
+            'description': project_info.description,
+        },
         # 管理后台的配置
         'admin': {
             'site_header': project_info.name,

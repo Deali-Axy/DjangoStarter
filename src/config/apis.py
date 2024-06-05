@@ -1,6 +1,7 @@
 from typing import Any, Mapping
 
 import orjson
+from django.conf import settings
 from django.http import HttpRequest
 from ninja import NinjaAPI
 from ninja.renderers import JSONRenderer, BaseRenderer
@@ -26,7 +27,12 @@ class ORJSONRenderer(JSONRenderer):
         return orjson.dumps(ret, **self.json_dumps_params)
 
 
-api = NinjaAPI(renderer=ORJSONRenderer())
+api = NinjaAPI(
+    title=f'{settings.DJANGO_STARTER["project_info"]["name"]} APIs',
+    description=settings.DJANGO_STARTER["project_info"]["description"],
+    renderer=ORJSONRenderer(),
+    urls_namespace='api',
+)
 
 api.add_router('django-starter', router)
 api.add_router('account', account_router)
