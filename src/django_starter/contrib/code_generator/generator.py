@@ -79,6 +79,21 @@ class Generator(object):
                       encoding='utf-8') as f:
                 f.write(template.render(ctx))
 
+    def make_tests(self):
+        ctx = {
+            'app': self.django_app,
+            'models': self.django_app.models,
+        }
+        for model in self.django_app.models:
+            ctx['model'] = model
+
+            model_tests_path = os.path.join(self.django_app.path, 'tests', model.slug)
+            logger.debug(f'create model apis path: {model_tests_path}')
+            os.makedirs(model_tests_path, exist_ok=True)
+
+            logger.debug(f'touch __init__ for tests')
+            Path(os.path.join(self.django_app.path, 'tests', '__init__.py')).touch()
+
     def make_all(self):
         self.make_init()
         self.make_admin()
