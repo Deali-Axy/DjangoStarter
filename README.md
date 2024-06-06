@@ -187,7 +187,7 @@ http://127.0.0.1/test/admin
 ### 开始写业务逻辑
 
 - **根据实际业务在`apps`包中创建新的应用并使用代码生成器生成CRUD代码（推荐）**
-- ~~在默认应用`apps/core`里写~~（不推荐）
+- ~~在默认应用`apps/demo`里写~~（不推荐）
 
 使用`django-admin`命令创建app：
 
@@ -196,21 +196,31 @@ cd apps
 django-admin startapp [your_app_name]
 ```
 
-仿照`apps/core`里的逻辑进行业务开发，每个App需要完成以下代码开发：
+仿照`apps/demo`里的逻辑进行业务开发，每个App需要完成以下代码开发：
 
 - `models.py`
-- `serializers.py`
-- `viewsets.py`
 
 **建议使用DjangoStarter代码生成器来生成这些重复的业务代码**（见下节）
 
-之后在`urls.py`中注册路由，代码参考`apps/core/urls.py`。
+之后在`config/apis.py`中注册 Ninja 路由。
 
-需要在Django后台进行管理的话，在`admin.py`中进行注册，参考`apps/core/admin.py`。
+需要在Django后台进行管理的话，在`admin.py`中进行注册，参考`apps/demo/admin.py`。
+
+### 随机种子数据生成
+
+DjangoStarter 内置种子数据生成功能，可以在开发环境下快速在数据库中填充随机假数据，方便测试。
+
+使用以下命令即可自动生成
+
+```bash
+python manage.py seed app_label 10
+```
+
+其中 app_label 是开发者自行创建的 App 名称，比如 DjangoStarter 中的示例应用 demo
 
 ### 使用代码生成器
 
-DjangoStarter内置业务代码生成器，开发者只需要专注于编写最核心的 `models.py` 完成模型定义，其他代码自动生成，减少重复劳动，解放生产力。
+DjangoStarter 内置业务代码生成器，开发者只需要专注于编写最核心的 `models.py` 完成模型定义，其他代码自动生成，减少重复劳动，解放生产力。
 
 #### 设计模型
 
@@ -275,37 +285,29 @@ python manage.py generate_code [app_label] [verbose_name]
 
 自动代码生成会创建(覆盖)以下文件：
 
+- `apis` 目录下，按照每个 model 一个 python package 自动生成 ninja 的 crud 代码
 - `__init__.py`
+- `admin.py`
 - `apps.py`
-- `serializers.py`
-- `urls.py`
-- `viewsets.py`
+- `tests.py`
 
 #### 添加路由
 
-代码生成器会生成你需要的所有代码，之后在`config/urls.py`文件中添加路由：
+代码生成器会生成你需要的所有代码，之后在`config/apis.py`文件中添加路由：
 
 ```python
-urlpatterns = [
-    path(f'core/', include('apps.core.urls')),
-    # 需要根据你的App名称添加这一行路由
-    path(app_label/', include('apps.app_label.urls')),
-    # ...
-]
+# 根据你的 App 名称和路径，引入 router
+from apps.demo.apis import router as demo_router
+
+# 添加到 ninja 的路由配置里
+api.add_router('demo', demo_router)
 ```
 
 ### 访问接口文档
 
-本项目默认集成RestFramework自带的AutoScheme和基于drf_yasg的Swagger和ReDoc两种接口文档，并对其进行优化
+本项目使用 django-ninja 实现 API 接口，其提供了 OpenAPI 的集成功能。
 
->- 优化`drf_yasg`的Swagger分组和文档显示效果（显示分组说明、接口说明等）
->- 支持访问权限配置等
-
-运行项目之后通过以下地址可以访问接口文档：
-
-- `http://localhost:8000/api-docs/swagger`
-- `http://localhost:8000/api-docs/redoc`
-- ~~`http://localhost:8000/api-docs/auto`~~（仅提供兼容支持）
+启动项目之后访问 http://localhost:8000/api/doc 即可查看和进行接口测试
 
 ## 配置
 
@@ -384,7 +386,7 @@ docker compose up --build
 - [x] 集成小程序登录功能
 - [x] 集成消息队列
 - [ ] 进一步优化`settings`拆分
-- [ ] 完善项目单元测试
+- [x] 完善项目单元测试
 - [ ] 使用自动构建部署工具
 - [x] 实现自动的业务代码生成器
 - [x] 使用yarn+gulp管理前端资源
