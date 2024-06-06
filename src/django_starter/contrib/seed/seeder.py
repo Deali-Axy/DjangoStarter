@@ -56,5 +56,12 @@ class Seeder(object):
                     fake_data[field.name] = self.fake.ipv6()
             elif field_class == models.JSONField:
                 fake_data[field.name] = self.fake.pydict()
+            elif field_class == models.ForeignKey:
+                related_model = field.related_model
+                # Ensure there is at least one instance of the related model
+                related_instance = related_model.objects.order_by('?').first()
+                if not related_instance:
+                    related_instance = related_model.objects.create(**self.seed(related_model))
+                fake_data[field.name] = related_instance
             # Add more field types as needed
         return fake_data

@@ -2,10 +2,10 @@ import os
 import logging
 
 from django.core.management.base import BaseCommand, CommandError, CommandParser
-from django.apps import AppConfig
-from django.conf import settings
+from django.apps import apps
 from django_starter.contrib.code_generator.analyzer import get_app
 from django_starter.contrib.code_generator.generator import Generator
+from django_starter.contrib.seed import Seeder
 
 logger = logging.getLogger('common')
 
@@ -22,19 +22,33 @@ class Command(BaseCommand):
             help='One or more application label'
         )
 
+        parser.add_argument(
+            'seed_data_count',
+            nargs=1,
+            type=int,
+            help='Number of seeding data to generate'
+        )
+
     def handle(self, *args, **options):
         logger.debug(options.__repr__())
 
         app_label = options['app_label'][0]
+        seed_data_count = options['seed_data_count'][0]
 
-        logger.debug(f'app_label={app_label}')
+        logger.debug(f'app_label: {app_label}, seed_data_count: {seed_data_count}')
 
-        django_app = get_app(
-            app_label=app_label,
-            verbose_name=''
-        )
+        seeder = Seeder()
 
-        self.stdout.write(self.style.SUCCESS(f'Load django app info finished. {django_app}'))
+        app = apps.get_app_config(app_label)
+        self.stdout.write(self.style.SUCCESS(f'Load django app info finished. {app_label}'))
 
+        for model in app.get_models():
+            instances = []
+            for i in range(seed_data_count):
+                data = seeder.seed(model)
+                instances.append(model(**data))
 
-        self.stdout.write(self.style.SUCCESS('Generating code finished.'))
+            logger.debug(f'bulk_data length: {len(instances)}, inserting to model: {model.__name__}')
+            model.objects.bulk_create(instances)
+
+        self.stdout.write(self.style.SUCCESS('Generating seeding data finished.'))
