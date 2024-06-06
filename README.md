@@ -224,7 +224,7 @@ DjangoStarter 内置业务代码生成器，开发者只需要专注于编写最
 
 #### 设计模型
 
-首先完成 `models.py` 里的模型设计，编写规范可以参照 `apps/core/models.py`。
+首先完成 `models.py` 里的模型设计，编写规范可以参照 `apps/demo/models.py`。
 
 下面是一个简单的模型设计例子：
 
@@ -273,7 +273,7 @@ class Article(models.Model):
 运行命令：
 
 ```bash
-python manage.py generate_code [app_label] [verbose_name]
+python manage.py autocode [app_label] [verbose_name]
 ```
 
 参数说明：

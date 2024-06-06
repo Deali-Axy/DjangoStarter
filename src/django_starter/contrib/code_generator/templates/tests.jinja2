@@ -11,7 +11,7 @@ class {{ model.Name }}Test(TestCase):
 
         instances = []
         for i in range(10):
-            instances.append({{ model.Name }}(**self.seeder.seed({{ model.name }})))
+            instances.append({{ model.name }}(**self.seeder.seed({{ model.name }})))
         {{ model.name }}.objects.bulk_create(instances)
 
     def test_query(self):
@@ -20,7 +20,7 @@ class {{ model.Name }}Test(TestCase):
     def test_api_create(self):
         data = self.seeder.seed({{ model.name }})
         resp = self.client.post(
-            reverse_lazy('api:demo/{{ model.slug }}/create'),
+            reverse_lazy('api:{{ app.name }}/{{ model.slug }}/create'),
             data=data,
             content_type='application/json'
         )
@@ -31,7 +31,7 @@ class {{ model.Name }}Test(TestCase):
 
     def test_api_retrieve(self):
         item = self.test_api_create()
-        resp = self.client.get(reverse_lazy('api:{{ app.name }}/{{ model.name }}/retrieve', kwargs={'item_id': item['data']['id']}))
+        resp = self.client.get(reverse_lazy('api:{{ app.name }}/{{ model.slug }}/retrieve', kwargs={'item_id': item['data']['id']}))
         self.assertEqual(resp.status_code, 200)
 
     def test_api_list(self):

@@ -84,18 +84,26 @@ class Generator(object):
             'app': self.django_app,
             'models': self.django_app.models,
         }
+
+        app_tests_path = os.path.join(self.django_app.path, 'tests')
+        logger.debug(f'create model apis path: {app_tests_path}')
+        os.makedirs(app_tests_path, exist_ok=True)
+
+        logger.debug(f'touch __init__ for tests')
+        Path(os.path.join(self.django_app.path, 'tests', '__init__.py')).touch()
+
         for model in self.django_app.models:
             ctx['model'] = model
 
-            model_tests_path = os.path.join(self.django_app.path, 'tests', model.slug)
-            logger.debug(f'create model apis path: {model_tests_path}')
-            os.makedirs(model_tests_path, exist_ok=True)
-
-            logger.debug(f'touch __init__ for tests')
-            Path(os.path.join(self.django_app.path, 'tests', '__init__.py')).touch()
+            logger.debug(f'generating tests for {model.name}')
+            model_test_path = os.path.join(self.django_app.path, 'tests', f'test_{model.slug}.py')
+            template = self.jinja2_env.get_template('tests.jinja2')
+            with open(model_test_path, 'w+', encoding='utf-8') as f:
+                f.write(template.render(ctx))
 
     def make_all(self):
         self.make_init()
         self.make_admin()
         self.make_apps()
         self.make_schemas_and_apis()
+        self.make_tests()
