@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:b0cab999d52bc1970b9fb760e382afb3f346b908ea5331712391fed8288a6e9b"
+content_hash = "sha256:255372dc3265120d5f3b1fa7c27e72c49a272820c675c06440501d53808206e5"
 
 [[package]]
 name = "annotated-types"
@@ -227,6 +227,17 @@ dependencies = [
 ]
 files = [
     {file = "django-simpleui-2024.4.1.tar.gz", hash = "sha256:d2d5556b1b6dcb6a06df6e70c2f0840bd8267e9712064c82151e1280d57f893d"},
+]
+
+[[package]]
+name = "django-split-settings"
+version = "1.3.1"
+requires_python = "<4.0,>=3.9"
+summary = "Organize Django settings into multiple files and directories. Easily override and modify settings. Use wildcards and optional settings files."
+groups = ["default"]
+files = [
+    {file = "django_split_settings-1.3.1-py3-none-any.whl", hash = "sha256:c902ef60d5fe8190ff224284f68e3c9015b6f1aca9e9d6bd70bf86394ff32634"},
+    {file = "django_split_settings-1.3.1.tar.gz", hash = "sha256:c1f57f6b54fc0d93082c12163e76fad082c214f5fa0d16d84a1226d2c9f14f26"},
 ]
 
 [[package]]

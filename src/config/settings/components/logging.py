@@ -1,6 +1,9 @@
 import os
 from datetime import datetime
+
 from config import env_init
+from config.settings import BASE_DIR
+from config.settings.components.common import DEBUG
 
 
 def config_logging(base_dir: str) -> dict:
@@ -157,3 +160,11 @@ def config_debug_logging() -> dict:
             },
         }
     }
+
+
+# 日志配置
+# 不是调试模式才开启日志记录
+if DEBUG:
+    LOGGING = config_debug_logging()
+else:
+    LOGGING = config_logging(BASE_DIR)
