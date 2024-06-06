@@ -1,16 +1,22 @@
-from typing import List
+from typing import List, Optional, Type
 from django.apps import AppConfig
+from django.db.models import Field
 
 
 class ModelField(object):
     def __init__(
-            self, name: str, field_type: str,
+            self, name: str, attname: str, field_type: Type[Field],
             primary_key: bool = False,
+            is_relation: bool = False,
+            python_type: Optional[type] = None,
             verbose_name: str = None,
     ):
         self.name = name
+        self.attname = attname
         self.field_type = field_type
         self.primary_key = primary_key
+        self.is_relation = is_relation
+        self.python_type = python_type
         if verbose_name:
             self.verbose_name = verbose_name
         else:

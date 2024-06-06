@@ -62,6 +62,7 @@ class Seeder(object):
                 related_instance = related_model.objects.order_by('?').first()
                 if not related_instance:
                     related_instance = related_model.objects.create(**self.seed(related_model))
-                fake_data[field.name] = related_instance
+                # Set the foreign key ID field
+                fake_data[field.attname] = related_instance.pk
             # Add more field types as needed
         return fake_data
