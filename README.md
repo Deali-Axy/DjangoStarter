@@ -1,5 +1,7 @@
 # Django Starter 基础框架 v2
 
+[全新的v3版本已基本可用，欢迎测试使用](https://github.com/Deali-Axy/DjangoStarter/tree/v3-alpha)
+
 基于Django的快速开发模板，增强/添加了安全、缓存、第三方登录、接口文档、部署、代码自动生成等方面的功能。
 
 ## 项目背景
