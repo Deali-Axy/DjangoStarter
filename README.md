@@ -6,6 +6,8 @@ DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开�
 
 通过这个全新的框架版本，开发者能够迅速搭建起符合现代 web 应用标准的项目基础架构。
 
+更多新版本的细节，可以查看这篇博客: [关于正在开发中的DjangoStarter v3版本](https://blog.sblt.deali.cn:9000/Blog/Post/a21ab29f70708e15)
+
 ![](docs/images/admin_home.png)
 
 ## 核心特性
