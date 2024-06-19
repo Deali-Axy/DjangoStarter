@@ -1,6 +1,6 @@
 from typing import List, Optional, Type
 from django.apps import AppConfig
-from django.db.models import Field
+from django.db.models import Field, Model, ImageField, TextField
 
 
 class ModelField(object):
@@ -22,19 +22,40 @@ class ModelField(object):
         else:
             self.verbose_name = name
 
+    @property
+    def is_djs_reserve(self):
+        """是否DjangoStarter保留字段"""
+        return self.name in ['is_deleted', 'created_time', 'updated_time']
+
+    @property
+    def is_image(self):
+        """是否图片字段"""
+        return self.field_type == ImageField
+
+    @property
+    def is_text(self):
+        # return self.field_type.__class__ == TextField
+        return self.field_type == TextField
+
 
 class DjangoModel(object):
-    def __init__(self, name: str, verbose_name: str, slug: str, fields: List[ModelField]):
+    def __init__(self, model: Model, name: str, verbose_name: str, slug: str, fields: List[ModelField]):
         """
 
+        :param model: django.db.models.Model 实例
         :param name: 模型名称
         :param verbose_name: 中文名
         :param slug: URL名称
         """
+        self.model = model
         self.name = name
         self.verbose_name = verbose_name
         self.slug = slug
         self.fields: List[ModelField] = fields
+
+    def is_model_ext_instance(self):
+        from django_starter.db.models import ModelExt
+        return isinstance(self.model, ModelExt)
 
     def __str__(self):
         return f'<DjangoModel>{self.name}:{self.verbose_name}:{self.slug}'

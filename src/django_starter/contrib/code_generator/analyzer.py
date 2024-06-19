@@ -77,6 +77,7 @@ def get_models(app_label: str) -> List[DjangoModel]:
                   type(field).__name__ not in unsupported_field_types]
 
         m_obj = DjangoModel(
+            model=model,
             name=model_name,
             verbose_name=verbose_name,
             slug=url_name,
