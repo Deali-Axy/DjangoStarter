@@ -6,7 +6,7 @@ authors = [
     {name = "DealiAxy", email = "dealiaxy@gmail.com"},
 ]
 dependencies = [
-    "django>=5.0.3",
+    "django[argon2]>=5.0.6",
     "django-ninja>=1.1.0",
     "django-simpleui>=2024.4.1",
     "django-multi-captcha-admin>=2.0.0",
