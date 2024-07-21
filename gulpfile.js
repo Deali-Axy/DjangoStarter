@@ -13,10 +13,10 @@ const gulp = require("gulp"),
 
 //定义 static 下的各文件存放路径
 const paths = {
-    root: "./static/",
-    css: './static/css/',
-    js: './static/js/',
-    lib: './static/lib/'
+    root: "./src/static/",
+    css: './src/static/css/',
+    js: './src/static/js/',
+    lib: './src/static/lib/'
 };
 
 //css
@@ -34,6 +34,7 @@ paths.concatJsDist = paths.js + "app.min.js";//将所有的 js 压缩到一个 j
 const libs = [
     {name: "admin-lte", dist: "./node_modules/admin-lte/dist/**/*.*"},
     {name: "chart.js", dist: "./node_modules/chart.js/dist/**/*.*"},
+    {name: "flowbite", dist: "./node_modules/flowbite/dist/**/*.*"},
     {name: "jquery", dist: "./node_modules/jquery/dist/**/*.*"},
     {name: "bootstrap", dist: "./node_modules/bootstrap/dist/**/*.*"},
     {name: "bootswatch", dist: "./node_modules/bootswatch/dist/**/*.*"},

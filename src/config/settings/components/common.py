@@ -46,6 +46,7 @@ INSTALLED_APPS: Tuple[str, ...] = (
     # 第三方组件
     'captcha',
     'corsheaders',
+    'compressor',
 
     # 我们自己的应用
     'apps.account',
@@ -94,10 +95,16 @@ USE_TZ = False
 
 # 静态文件配置 (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '..', 'static')
+    BASE_DIR / 'static',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static_collected')
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static-dist')
 STATIC_URL = f'/{URL_PREFIX}static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')

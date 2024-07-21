@@ -9,6 +9,7 @@ from config.apis import api
 urlpatterns = [
     path('', views.index),
     path('api/', api.urls),
+    path('demo', include('apps.demo.urls')),
 
     # DjangoStarter
     path('django-starter/', include('django_starter.urls')),
