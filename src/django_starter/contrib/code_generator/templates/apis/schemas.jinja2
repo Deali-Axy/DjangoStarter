@@ -1,0 +1,19 @@
+from ninja import ModelSchema
+from apps.{{ app.name }}.models import *
+
+
+class {{ model.name }}In(ModelSchema):
+    {% for field in model.fields if field.is_relation %}
+    {{ field.attname }}: {{ field.python_type.__name__ }}
+    {% endfor %}
+
+    class Meta:
+        model = {{ model.name }}
+        fields = [{% for field in model.fields if not field.primary_key and not field.is_relation %}'{{ field.name }}', {% endfor %}]
+
+
+class {{ model.name }}Out(ModelSchema):
+    class Meta:
+        model = {{ model.name }}
+        fields = [{% for field in model.fields %}'{{ field.name }}', {% endfor %}]
+

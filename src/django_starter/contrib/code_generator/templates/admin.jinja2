@@ -1,0 +1,59 @@
+from django.contrib import admin
+from django_starter.contrib.admin.tags import html_tags
+
+from .models import *
+
+
+{% for model in app.models -%}
+@admin.register({{ model.name }})
+class {{ model.name }}Admin(admin.ModelAdmin):
+    list_display = [
+    {%- for field in model.fields if not field.is_djs_reserve and not field.is_image and not field.is_text -%}
+        '{{ field.name }}',
+    {%- endfor -%}
+    {%- for field in model.fields if field.is_image -%}
+        '{{ field.name }}_thumb_tag',
+    {%- endfor -%}
+    {%- for field in model.fields if field.is_text -%}
+        '{{ field.name }}',
+    {%- endfor -%}
+    ]
+    list_display_links = [{%- for field in model.fields if not field.is_djs_reserve and not field.is_relation and not field.is_image -%}
+        '{{ field.name }}',
+    {%- endfor -%}]
+    readonly_fields = [
+    {%- for field in model.fields if field.primary_key -%}
+    	'{{ field.name }}',
+    {%- endfor -%}
+    {%- if model.is_model_ext_instance -%}
+    	'created_time', 'updated_time', 'is_deleted',
+    {%- endif -%}
+    {%- for field in model.fields if field.is_image -%}
+        '{{ field.name }}_tag',
+    {%- endfor -%}
+    ]
+    fieldsets = (
+        ('{{ model.verbose_name }}', {'fields': ({%- for field in model.fields if not field.is_djs_reserve and not field.is_image -%}
+            '{{ field.name }}', {%- endfor -%}
+        )}),
+        {% for field in model.fields if field.is_image -%}
+        ('{{ field.verbose_name }}', {'fields': ('{{ field.name }}', '{{ field.name }}_tag')}),
+        {%- endfor %}
+        {% if model.is_model_ext_instance -%}
+        ('通用信息', {'fields': ('created_time', 'updated_time', 'is_deleted')}),
+        {%- endif %}
+    )
+
+    {% for field in model.fields if field.is_image -%}
+    @admin.display(description='{{ field.verbose_name }}')
+    def {{ field.name }}_tag(self, obj: {{ model.name }}) -> str:
+        if not obj.{{ field.name }}: return ''
+        return html_tags.image(obj.{{ field.name }}.url, '{{ field.verbose_name }}', width=250)
+
+    @admin.display(description='{{ field.verbose_name }}-缩略图')
+    def {{ field.name }}_thumb_tag(self, obj: {{ model.name }}) -> str:
+        if not obj.{{ field.name }}: return ''
+        return html_tags.image(obj.{{ field.name }}.url, '{{ field.verbose_name }}-缩略图', width=50, height=50)
+    {%- endfor %}
+
+{% endfor %}
