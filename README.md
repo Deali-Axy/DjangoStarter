@@ -30,17 +30,17 @@ DjangoStarter v3 是为那些追求高效开发流程、重视应用性能与安
 - **业务代码生成器**（新）
 - admin后台安全限制中间件（需手动启用）
 - 非debug模式下管理员可以查看报错信息（需手动启用）
-- 自定义访问前缀
+- 自定义URL前缀
 - 支持Docker部署（使用`docker-compose`方式）
 - 支持uWsgi部署，支持uWsgi自动重启
 - 默认启用`CORS_ALLOW`实现接口跨域
 - 基于SimpleUI定制的管理后台
 - 管理后台支持登录验证码和登录尝试次数限制
-- 集成RestFramework，默认屏蔽了链接主页，即对外隐藏API
-- 对默认的`settings`进行拆分
+- 集成Django-Ninja实现RESTFul API
+- 配置模块`settings.py`拆分，支持多环境配置
 - 默认使用Redis缓存
 - 默认集成Swagger文档，开箱即用，无需额外配置
-- 集成了微信小程序登录功能
+- 集成了多种外部登录功能
 - [集成微信SDK，支持(企业)微信登录，详见博客](https://www.cnblogs.com/deali/p/16110129.html)
 - [接口返回值统一包装，详见博客](https://www.cnblogs.com/deali/p/16094959.html)
 - [集成NPM和Gulp管理前端资源，详见博客](https://www.cnblogs.com/deali/p/16094743.html)
@@ -48,41 +48,80 @@ DjangoStarter v3 是为那些追求高效开发流程、重视应用性能与安
 - [重写admin主页，界面更美观，详见博客](https://www.cnblogs.com/deali/p/16418020.html)
 - 封装了简单的本地配置中心
 
-## v2版本介绍
+## v3版本介绍
 
-在v1版本的基础上，新增 `django_starter` 包，将大部分封装的功能都集成在这个包下，加入了更多功能、更方便的版本升级、更低的耦合度~
+v2版本已经定下了大体的框架，v3的主要改动是将 RestFramework 换成了 django-ninja ，在 Django 里实现了 FastApi 风格的接口。
 
-目前版本与 v1 最大的区别是将框架的功能都集成到 `django_starter` 包中，不会与用户自己的代码产生冲突，后续会根据实际工作持续添加新功能到 `django_starter` 包内，新版本升级只需要根据升级指引替换 `django_starter` 目录的内容即可。
+其他的功能目前大概是这些：
+
+- 新的自动代码生成功能
+- 完善了单元测试和集成测试，搭配代码生成，可以为每个应用自动生成 crud 的测试用例
+- 随机种子数据，目前使用 faker 实现假数据，打算进一步实现类似 EFCore 的种子数据机制，使假数据更自然
+- 新的登录接口
+- 多种第三方登录接入（目前接了微信、小程序、企微）
+- 使用 tailwindcss 替换 bootstrap 实现前端（只是一些简单的后台展示，还是以 API 为主）
+- 拆分 settings 配置，像 AspNetCore 那样支持多个环境配置
+- 更换了包管理器为 pdm
+
+功能持续更新中，我会同步发在博客，欢迎关注。
 
 ### 历史版本
 
 - [v1](https://github.com/Deali-Axy/DjangoStarter/tree/v1)
+- v2
 
 ## 文件结构
 
-- apps：所有应用
-  - demo：示例应用，包含示例接口
-
-- config：Django项目配置
-  - `caches.py`：缓存配置
-  - `django_starter.py`：框架配置
-  - `env_init.py`：环境初始化
-  - `logging.py`：日志配置
-  - `rest_framework.py`：DRF配置
-  - `swagger.py`：Swagger文档配置
-  - `urls.py`：路由配置文件
-  - `urls_root.py`：DjangoStarter的顶层路由配置，用于实现地址前缀配置
-- django_starter：框架代码
-  - contrib：封装好的组件
-  - core：核心功能（比如分页）
-  - db：数据库功能（比如 Model 基类）
-  - drf：RestFramework功能封装
-  - http：接口相关（如 API 接口返回值包装）
-  - middleware：中间件（IP限制、错误处理等功能）
-
-- static：静态文件
-- static_collected：运行collectstatic命令后把所有静态文件都保存到这个文件夹
-- templates：模板
+```sql
+ DjangoStarter
+ ├─ media										# 用户上传的文件
+ ├─ src											# 主要源码
+ │  ├─ apps									# 所有应用
+ │  │  ├─ account						# 用户相关的代码，包括登录接口
+ │  │  ├─ demo							# 示例应用
+ │  │  └─ __init__.py
+ │  ├─ config								# Django项目配置
+ │  │  ├─ settings					# 拆分的settings模块
+ │  │  ├─ __init__.py
+ │  │  ├─ apis.py						# ninja API 配置
+ │  │  ├─ asgi.py
+ │  │  ├─ env_init.py				# 环境初始化
+ │  │  ├─ urls.py						# 路由配置文件
+ │  │  ├─ urls_root.py			# DjangoStarter的顶层路由配置，用于实现地址前缀配置
+ │  │  └─ wsgi.py
+ │  ├─ django_starter				# 框架代码
+ │  │  ├─ contrib						# 封装好的组件
+ │  │  ├─ db								# 数据库功能（比如 Model 基类）
+ │  │  ├─ http							# 接口相关（如 API 接口返回值包装）
+ │  │  ├─ middleware				# 中间件（IP限制、错误处理等功能）
+ │  │  ├─ __init__.py
+ │  │  ├─ apis.py
+ │  │  ├─ constants.py
+ │  │  ├─ urls.py
+ │  │  └─ utilities.py
+ │  ├─ static								# 静态文件
+ │  │  ├─ admin
+ │  │  └─ css
+ │  ├─ templates						# Django模板
+ │  │  ├─ demo
+ │  │  └─ _base.html
+ │  ├─ Dockerfile
+ │  ├─ docker-compose.yml
+ │  ├─ manage.py
+ │  ├─ test.py
+ │  └─ uwsgi.ini
+ ├─ static-dist							# 运行collectstatic命令后把所有静态文件都保存到这个文件夹
+ ├─ .gitignore
+ ├─ LICENSE
+ ├─ README.md
+ ├─ clean_pycache.py				# 运行后可以清理 __pycache__ 文件
+ ├─ gulpfile.js
+ ├─ package.json
+ ├─ pdm.lock
+ ├─ pnpm-lock.yaml
+ ├─ pyproject.toml
+ └─ tailwind.config.js
+```
 
 ## 快速开始
 
@@ -132,6 +171,8 @@ pdm install
 
 ```bash
 yarn install
+# 或者使用 pnpm
+pnpm i
 ```
 
 打包前端资源：
@@ -141,6 +182,14 @@ gulp move
 ```
 
 如果没有gulp请先安装：`npm install --global gulp-cli`
+
+如果想使用 tailwindcss ，可以运行。
+
+```bash
+npx tailwindcss -i .\src\static\css\tailwind.src.css -o .\src\static\css\tailwind.css --watch
+```
+
+关于`tailwindcss`，详见这篇文章: [在 DjangoStarter 中集成 TailwindCSS](https://www.cnblogs.com/deali/p/18303538)
 
 ### 数据库迁移
 
