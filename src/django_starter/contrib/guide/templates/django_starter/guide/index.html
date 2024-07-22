@@ -1,0 +1,113 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="DjangoStarter">
+    <meta name="author" content="DealiAxy">
+    <title>欢迎使用 DjangoStarter</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'lib/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .icon-list {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: .25rem;
+        }
+
+        .icon-list li::before {
+            display: block;
+            flex-shrink: 0;
+            width: 1.5em;
+            height: 1.5em;
+            margin-right: .5rem;
+            content: "";
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23212529' viewBox='0 0 16 16'%3E%3Cpath d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z'/%3E%3C/svg%3E") no-repeat center center / 100% auto;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="col-lg-8 mx-auto p-3 py-md-5">
+    <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <svg t="1676972841990" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="2505" width="32" height="32">
+                <path d="M364.218735 512.243462a41.388493 41.388493 0 0 0 40.901569 41.388492H633.000476a40.901569 40.901569 0 0 0 0-82.290061H405.120304a41.388493 41.388493 0 0 0-40.901569 40.901569z m-204.507846 29.70233a40.901569 40.901569 0 0 0 57.94389 0l160.197813-160.684736a40.901569 40.901569 0 0 0 0-57.94389L217.654779 160.684736a40.901569 40.901569 0 1 0-58.430813 57.94389L292.154066 351.558726 159.223966 483.514979a40.901569 40.901569 0 0 0 0 58.430813z m781.999049 399.764146H82.290062V82.290062h859.419876z m0-941.709938H82.290062A82.290062 82.290062 0 0 0 0 82.290062v859.419876A82.290062 82.290062 0 0 0 82.290062 1022.53923h859.419876A82.290062 82.290062 0 0 0 1022.53923 941.709938V82.290062A82.290062 82.290062 0 0 0 941.709938 0z"
+                      fill="#5E5C5C" p-id="2506"></path>
+            </svg>
+            <span class="ms-2 fs-4">DjangoStarter</span>
+        </a>
+    </header>
+
+    <main>
+        <h1>Welcome to <b>DjangoStarter</b>!</h1>
+        <p class="fs-5 col-md-8">
+            基于Django定制的快速Web开发模板😎，功能包括：Docker部署、缓存、消息队列、业务代码生成器、第三方登录接入、接口限流、Admin安全加固、RestFramework默认的API主页屏蔽等
+        </p>
+
+        <div class="mb-5">
+            <a href="https://github.com/Deali-Axy/DjangoStarter"
+               class="btn btn-outline-primary btn-lg px-4">项目主页</a>
+            <a href="/api/docs" class="btn btn-outline-success btn-lg px-4">接口文档</a>
+            <a href="/admin" class="btn btn-outline-secondary btn-lg px-4">管理后台</a>
+        </div>
+
+        <hr class="col-3 col-md-2 mb-5">
+
+        <div class="row g-5">
+            <div class="col-md-6">
+                <h2>相关项目</h2>
+                <p>一些相关项目，可以参考一下，或许能找到有用的代码~</p>
+                <ul class="icon-list">
+                    {% for item in projects %}
+                        <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-md-6">
+                <h2>相关博客</h2>
+                <p>这里有些关于Django开发的博客，可以看看~</p>
+                <ul class="icon-list">
+                    {% for item in blogs %}
+                        <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer class="pt-5 my-5 text-muted border-top">
+        Created by <a href="https://github.com/Deali-Axy" target="_blank">DealiAxy</a> &middot; &copy; CodeLab 2023
+    </footer>
+</div>
+
+
+<script src="{% static 'lib/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+
+</body>
+</html>

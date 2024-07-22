@@ -12,6 +12,7 @@
     "bootstrap": "^4.6.1",
     "bootswatch": "^4.6.1",
     "chart.js": "^3.8.0",
+    "flowbite": "^2.4.1",
     "jquery": "^3.6.0",
     "vue": "^2.6.14"
   },
@@ -22,6 +23,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^3.4.6"
   }
 }

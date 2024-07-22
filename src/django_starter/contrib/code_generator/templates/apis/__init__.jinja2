@@ -1,0 +1,11 @@
+from ninja import Router
+
+{% for model in models %}
+from .{{ model.slug }}.apis import router as {{ model.slug }}_router
+{% endfor %}
+
+router = Router(tags=['{{ app.name }}'])
+
+{% for model in models %}
+router.add_router('{{ model.slug }}', {{ model.slug }}_router)
+{% endfor %}
