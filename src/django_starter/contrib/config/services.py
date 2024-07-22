@@ -4,6 +4,11 @@ from django.utils import timezone
 from .models import ConfigItem
 
 
+def has_key(key: str) -> bool:
+    queryset = ConfigItem.objects.filter(key=key)
+    return queryset.exists()
+
+
 def get_str(key: str) -> str:
     queryset = ConfigItem.objects.filter(key=key)
     if queryset.exists():
