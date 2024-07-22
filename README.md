@@ -10,6 +10,11 @@ DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开�
 
 ![](docs/images/admin_home.png)
 
+## 历史版本
+
+- [v1](https://github.com/Deali-Axy/DjangoStarter/tree/v1)
+- [v2](https://github.com/Deali-Axy/DjangoStarter/tree/v2)
+
 ## 核心特性
 
 - **Django Ninja 集成**：采用 Django Ninja 替代传统的 Django Rest Framework，为 API 开发带来了性能优化和更简洁的编码体验。利用 Python 类型提示，自动生成交互式 API 文档，不再需要 drf-yasg 那一堆繁琐的手动配置文档，同时提升了代码的可读性和维护性。
@@ -64,11 +69,6 @@ v2版本已经定下了大体的框架，v3的主要改动是将 RestFramework �
 - 更换了包管理器为 pdm
 
 功能持续更新中，我会同步发在博客，欢迎关注。
-
-### 历史版本
-
-- [v1](https://github.com/Deali-Axy/DjangoStarter/tree/v1)
-- v2
 
 ## 文件结构
 
