@@ -5,6 +5,7 @@ node_modules/
 static/media
 static/lib
 static_collected
+src/static/CACHE
 test/
 log/
 db.sqlite3
