@@ -41,6 +41,18 @@ def set_int(key: str, value: int) -> int:
     return 0
 
 
+def get_bool(key: str) -> bool:
+    value = get_str(key)
+    if value == '1':
+        return True
+    return False
+
+
+def set_bool(key: str, value: bool) -> bool:
+    value = set_str(key, str('1' if value else '0'))
+    return True if value == '1' else False
+
+
 def get_json(key: str) -> dict:
     value = get_str(key)
     if len(value) > 0:
