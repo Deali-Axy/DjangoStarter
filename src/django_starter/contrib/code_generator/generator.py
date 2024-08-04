@@ -1,10 +1,12 @@
 import os
 import logging
 from pathlib import Path
+from typing import Optional, List, Dict
+
 from jinja2 import Environment, PackageLoader, FileSystemLoader
 
 from django_starter.contrib.code_generator.analyzer import get_models, get_app
-from django_starter.contrib.code_generator.entities import DjangoApp
+from django_starter.contrib.code_generator.entities import DjangoApp, DjangoModel
 
 logger = logging.getLogger('common')
 
@@ -28,6 +30,24 @@ class Generator(object):
             'models': self.django_app.models
         }
 
+    def process_input_models(self, models: Optional[List[str]] = None) -> List[DjangoModel]:
+        """处理输入的 Model 列表"""
+        if not models:
+            models = self.django_app.models
+        else:
+            models_dict: Dict[str, DjangoModel] = {e.name: e for e in self.django_app.models}
+
+            # 找出输入的 models 和 self.django_app.models 都有的 model
+            common_models: List[DjangoModel] = []
+
+            for e in models:
+                if e in models_dict:
+                    common_models.append(models_dict[e])
+
+            models = common_models
+
+        return models
+
     def _jinja2_to_py(self, template_filename: str, python_filename: str, context: dict = None):
         logger.debug(f'load jinja2 template: {template_filename}')
         template = self.jinja2_env.get_template(template_filename)
@@ -45,13 +65,15 @@ class Generator(object):
     def make_apps(self):
         self._jinja2_to_py('apps.jinja2', 'apps.py')
 
-    def make_schemas_and_apis(self):
+    def make_schemas_and_apis(self, models: Optional[List[str]] = None):
         ctx = {
             'app': self.django_app,
             'models': self.django_app.models,
         }
 
-        for model in self.django_app.models:
+        models = self.process_input_models(models)
+
+        for model in models:
             ctx['model'] = model
 
             model_apis_path = os.path.join(self.django_app.path, 'apis', model.slug)
@@ -79,20 +101,22 @@ class Generator(object):
                       encoding='utf-8') as f:
                 f.write(template.render(ctx))
 
-    def make_tests(self):
+    def make_tests(self, models: Optional[List[str]] = None):
         ctx = {
             'app': self.django_app,
             'models': self.django_app.models,
         }
 
+        models = self.process_input_models(models)
+
         app_tests_path = os.path.join(self.django_app.path, 'tests')
-        logger.debug(f'create model apis path: {app_tests_path}')
+        logger.debug(f'create app tests path: {app_tests_path}')
         os.makedirs(app_tests_path, exist_ok=True)
 
         logger.debug(f'touch __init__ for tests')
         Path(os.path.join(self.django_app.path, 'tests', '__init__.py')).touch()
 
-        for model in self.django_app.models:
+        for model in models:
             ctx['model'] = model
 
             logger.debug(f'generating tests for {model.name}')
