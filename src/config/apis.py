@@ -3,7 +3,7 @@ from typing import Any, Mapping
 import orjson
 from django.conf import settings
 from django.http import HttpRequest
-from ninja import NinjaAPI
+from ninja import NinjaAPI, Swagger
 from ninja.renderers import JSONRenderer, BaseRenderer
 from django_starter.apis import router
 from apps.account.apis import router as account_router
@@ -32,6 +32,7 @@ api = NinjaAPI(
     description=settings.DJANGO_STARTER["project_info"]["description"],
     renderer=ORJSONRenderer(),
     urls_namespace='api',
+    docs=Swagger(settings={"persistAuthorization": True})
 )
 
 api.add_router('django-starter', router)
