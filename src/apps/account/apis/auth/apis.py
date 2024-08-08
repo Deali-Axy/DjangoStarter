@@ -7,6 +7,7 @@ from ninja.errors import HttpError
 
 from django_starter.http.response import responses
 from django_starter.contrib.auth.services import generate_token, get_user
+from django_starter.contrib.auth.bearers import JwtBearer
 
 from apps.account.models import UserProfile
 from .schemas import LoginSchema, LoginToken, UserSchema, RegisterSchema
@@ -23,7 +24,7 @@ def login(request, data: LoginSchema):
         raise HttpError(401, '用户名或密码错误')
 
 
-@router.get('/current-user', response=UserSchema, url_name='account/auth/current_user')
+@router.get('/current-user', auth=JwtBearer(), response=UserSchema, url_name='account/auth/current_user')
 def current_user(request):
     user = get_user(request)
     if not user:
