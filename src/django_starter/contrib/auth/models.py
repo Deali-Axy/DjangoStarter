@@ -32,7 +32,7 @@ class UserProfileAbstract(ModelExt):
 class UserClaim(models.Model):
     user = models.ForeignKey(User, db_constraint=False, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=255)
-    value = models.CharField(max_length=255)
+    value = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = table_name_wrapper('user_claims')
