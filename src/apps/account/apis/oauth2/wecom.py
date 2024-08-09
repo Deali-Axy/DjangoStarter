@@ -1,5 +1,6 @@
+import traceback
 from django.conf import settings
-from django.contrib.auth import login
+from django.contrib.auth import login as django_login
 from django.contrib.auth.models import User
 from ninja import Router, Schema
 from ninja.errors import HttpError
@@ -34,6 +35,7 @@ def login(request, payload: WecomLoginSchema):
     try:
         user_info = client.oauth.get_user_info(payload.code)
     except Exception as e:
+        traceback.print_exc()
         raise HttpError(400, f'请求企微登录接口出错：{e}')
 
     # user_id 实际上是手机号
@@ -51,8 +53,8 @@ def login(request, payload: WecomLoginSchema):
         UserClaim.objects.create(user=user, name='oauth2:wecom:userid', value=user_id)
 
     # 记录Django登录状态
-    login(request, user)
+    django_login(request, user)
 
     token = generate_token({'username': user.username})
 
-    return responses.ok('登录成功', token)
+    return responses.ok('登录成功', token.dict())
