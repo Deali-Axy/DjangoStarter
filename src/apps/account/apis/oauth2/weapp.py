@@ -1,5 +1,6 @@
+import traceback
 import requests
-from django.contrib.auth import login
+from django.contrib.auth import login as django_login
 from django.contrib.auth.models import User
 from django.conf import settings
 from ninja import Router, Schema
@@ -34,12 +35,14 @@ def login(request, payload: WeappLoginSchema):
             'grant_type': 'authorization_code'
         }).json()
     except Exception as e:
+        traceback.print_exc()
         raise HttpError(400, f'请求企微登录接口出错：{e}')
 
     if 'errcode' in login_info:
-        return responses.bad_request('小程序登录失败', {
-            'login_info': login_info
-        })
+        return responses.bad_request(
+            f'小程序登录失败。错误代码: {login_info["errcode"]}; {login_info["errmsg"]}',
+            {'login_info': login_info}
+        )
 
     is_created_user = False
 
@@ -60,8 +63,8 @@ def login(request, payload: WeappLoginSchema):
         UserClaim.objects.create(user=user, name='oauth2:weapp:session_key', value=session_key)
 
     # 记录Django登录状态
-    login(request, user)
+    django_login(request, user)
 
     token = generate_token({'username': user.username})
 
-    return responses.ok('登录成功', token)
+    return responses.ok('登录成功', token.dict())

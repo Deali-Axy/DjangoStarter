@@ -1,4 +1,6 @@
 from typing import Optional
+
+from django.http import HttpResponse
 from ninja.errors import HttpError
 
 
@@ -9,7 +11,9 @@ def _gen_resp(message, resp_data: Optional[dict], status_code):
         data = {'detail': message}
 
     if status_code >= 400:
-        raise HttpError(status_code, data['detail'])
+        # 不能使用 ninja 内置的 HttpError，因为这个 HttpError 只能附带 message，导致 resp_data 传不出去
+        # raise HttpError(status_code, data['detail'])
+        HttpResponse(data, status=status_code, content_type='application/json')
 
     return data
 
