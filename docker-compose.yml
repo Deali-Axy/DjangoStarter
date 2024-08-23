@@ -1,0 +1,56 @@
+services:
+  redis:
+    image: redis
+    restart: unless-stopped
+    container_name: $APP_NAME-redis
+    expose:
+      - 6379
+    networks:
+      - default
+  nginx:
+    image: nginx:stable-alpine
+    container_name: $APP_NAME-nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./media:/www/media:ro
+      - static_volume:/www/static-dist:ro
+    ports:
+      - ${APP_PORT}:8001
+    depends_on:
+      - redis
+      - app
+    networks:
+      - default
+  app:
+    image: ${APP_IMAGE_NAME}:${APP_IMAGE_TAG}
+    container_name: $APP_NAME-app
+    build: .
+    restart: always
+    environment:
+      - ENVIRONMENT=docker
+      - URL_PREFIX=
+      - DEBUG=false
+    #    command: python src/manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "
+      echo 'Starting the application...' &&
+      cp -r /project/static-dist/* /project/static-volume/ &&
+      exec daphne -b 0.0.0.0 -p 8000 -v 3 --proxy-headers config.asgi:application
+      "
+    volumes:
+      - ./media:/project/media
+      - ./src:/project/src
+      - ./db.sqlite3:/project/db.sqlite3
+      - static_volume:/project/static-volume
+    depends_on:
+      - redis
+    networks:
+      - default
+
+volumes:
+  static_volume:
+
+networks:
+  default:
+    name: $APP_NAME

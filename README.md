@@ -125,7 +125,7 @@ v2版本已经定下了大体的框架，v3的主要改动是将 RestFramework �
 
 ## 快速开始
 
-v3 版本开始我使用了 [pdm](https://pdm-project.org/en/latest/) 作为包管理器，这是一个现代化的包管理和项目管理工具，它专为 Python 项目设计，提供了诸如依赖解析、包安装以及虚拟环境管理等功能。
+v3 版本开始我使用了 [pdm](https://pdm-project.org/en/latest/) 作为包管理器，这是一个现代化的包管理和项目管理工具，它专为 Python 项目设计，提供了诸如依赖解析、包安装以及虚拟环境管理等功能。参考：[在python项目的docker镜像里使用pdm管理依赖](https://www.cnblogs.com/deali/p/18354017)
 
 首先需要安装 pdm ，请参考官网的推荐安装方式进行安装，如果实在是懒得看官网可以按照本文档是懒人版方式安装。
 
@@ -167,6 +167,8 @@ pdm install
 
 前端资源管理参考这篇博客：[使用NPM和gulp管理前端静态文件](https://www.cnblogs.com/deali/p/15905760.html)
 
+需要先安装 nodejs 环境，推荐使用 nvm 来管理 node 环境。
+
 安装前端依赖：
 
 ```bash
@@ -186,25 +188,26 @@ gulp move
 如果想使用 tailwindcss ，可以运行。
 
 ```bash
-npx tailwindcss -i .\src\static\css\tailwind.src.css -o .\src\static\css\tailwind.css --watch
+npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.css --watch
 ```
 
 关于`tailwindcss`，详见这篇文章: [在 DjangoStarter 中集成 TailwindCSS](https://www.cnblogs.com/deali/p/18303538)
 
 ### 数据库迁移
 
+这个操作会生成一个 `db.sqlite3` 文件，本地测试推荐使用 SQLite 数据库。
+
 ```
-python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 配置缓存
+### 配置缓存（可选）
 
 本项目的限流、安全限制等功能依赖Redis、Memcache等缓存服务，这里以Redis为例。
 
-先在本机安装Redis服务，即可正常使用。
+先在本机安装 Redis 服务并启动。
 
-如果要自定义Redis服务器，可以编辑 `config/caches.py` 文件，修改以下配置。
+如果要自定义 Redis 服务器，可以编辑 `src/config/settings/components/caches.py` 文件，修改以下配置。
 
 ```python
 'LOCATION': [
@@ -216,7 +219,7 @@ python manage.py migrate
 
 更多配置请参考Django文档: https://docs.djangoproject.com/en/4.1/topics/cache/
 
-### 配置URL前缀
+### 配置URL前缀（可选）
 
 在环境变量中指定`URL_PREFIX`地址前缀
 
@@ -239,7 +242,7 @@ http://127.0.0.1/test/admin
 ### 开始写业务逻辑
 
 - **根据实际业务在`apps`包中创建新的应用并使用代码生成器生成CRUD代码（推荐）**
-- ~~在默认应用`apps/demo`里写~~（不推荐）
+- ~~在例子应用`src/apps/demo`里写~~（不推荐）
 
 使用`django-admin`命令创建app：
 
@@ -248,19 +251,19 @@ cd apps
 django-admin startapp [your_app_name]
 ```
 
-仿照`apps/demo`里的逻辑进行业务开发，每个App需要完成以下代码开发：
+仿照`src/apps/demo`里的逻辑进行业务开发，每个App需要完成以下代码开发：
 
 - `models.py`
 
-**建议使用DjangoStarter代码生成器来生成这些重复的业务代码**（见下节）
+**建议使用 DjangoStarter 代码生成器来生成这些重复的业务代码**（见下节）
 
-之后在`config/apis.py`中注册 Ninja 路由。
+之后在`src/config/apis.py`中注册 Ninja 路由。
 
-需要在Django后台进行管理的话，在`admin.py`中进行注册，参考`apps/demo/admin.py`。
+需要在Django后台进行管理的话，在`admin.py`中进行注册，参考`src/apps/demo/admin.py`。
 
-### 随机种子数据生成
+### 随机种子数据生成（可选）
 
-DjangoStarter 内置种子数据生成功能，可以在开发环境下快速在数据库中填充随机假数据，方便测试。
+DjangoStarter 内置种子数据生成功能（基于faker库），可以在开发环境下快速在数据库中填充随机假数据，方便测试。
 
 使用以下命令即可自动生成
 
@@ -270,13 +273,13 @@ python manage.py seed app_label 10
 
 其中 app_label 是开发者自行创建的 App 名称，比如 DjangoStarter 中的示例应用 demo
 
-### 使用代码生成器
+### 使用代码生成器（可选）
 
 DjangoStarter 内置业务代码生成器，开发者只需要专注于编写最核心的 `models.py` 完成模型定义，其他代码自动生成，减少重复劳动，解放生产力。
 
 #### 设计模型
 
-首先完成 `models.py` 里的模型设计，编写规范可以参照 `apps/demo/models.py`。
+首先完成 `models.py` 里的模型设计，编写规范可以参照 `src/apps/demo/models.py`。
 
 下面是一个简单的模型设计例子：
 
@@ -341,11 +344,11 @@ python manage.py autocode [app_label] [verbose_name]
 - `__init__.py`
 - `admin.py`
 - `apps.py`
-- `tests.py`
+- `tests` 目录下，每个 model 会生成一个测试用例脚本
 
 #### 添加路由
 
-代码生成器会生成你需要的所有代码，之后在`config/apis.py`文件中添加路由：
+代码生成器会生成你需要的所有代码，之后在`src/config/apis.py`文件中添加路由：
 
 ```python
 # 根据你的 App 名称和路径，引入 router
@@ -355,6 +358,12 @@ from apps.demo.apis import router as demo_router
 api.add_router('demo', demo_router)
 ```
 
+### 打开欢迎页面
+
+根据配置不同，项目实际运行的端口可能有所不同，以实际情况为准。
+
+这里假设使用 Django 默认端口 8000，启动项目之后打开 http://localhost:8000 即可看到欢迎页面，即表示 DjangoStarter 项目搭建完成~
+
 ### 访问接口文档
 
 本项目使用 django-ninja 实现 API 接口，其提供了 OpenAPI 的集成功能。
@@ -363,17 +372,14 @@ api.add_router('demo', demo_router)
 
 ## 配置
 
-### 配置Django后台网站名称
+与 DjangoStarter 框架有关的配置均在 `src/config/settings/components/django_starter.py` 文件，里面有详细的注释，一看便懂。
 
-编辑`config/django_starter.py`文件，修改这三行代码：
+### 配置网站名称
+
+编辑`src/config/settings/components/django_starter.py`文件，修改以下代码：
 
 ```bash
-'admin': {
-  'site_header': 'DjangoStarter 管理后台',
-  'site_title': 'DjangoStarter',
-  'index_title': 'DjangoStarter',
-  'list_per_page': 20
-}
+project_info = ProjectInfo('DjangoStarter', '网站说明')
 ```
 
 > PS: 本项目的后台界面基于SimpleUI，更多Django后台配置方法请参考SimpleUI官方文档。
@@ -382,14 +388,6 @@ api.add_router('demo', demo_router)
 
 编辑每个App目录下的`apps.py`文件，在`[AppName]Config`类里配置`verbose_name`，然后在App目录下的`__init__.py`中，设置`default_app_config`
 即可，具体参照`apps/demo`的代码。
-
-### 配置app在swagger中的说明
-
-编辑`config/swagger.py`文件，在`CustomOpenAPISchemaGenerator`类的`get_schema`方法中配置`swagger.tags`即可。
-
-### 限流配置
-
-编辑`config/rest_framework.py`文件 ，参照注释说明修改`DEFAULT_THROTTLE_RATES`节点即可。
 
 ### 中间件
 
@@ -408,27 +406,29 @@ api.add_router('demo', demo_router)
 
 ## 部署
 
-### 收集静态文件
+推荐使用 docker 部署，本项目已经有完善的 docker 部署方案，开箱即用。
+
+生产环境使用基于 ASGI 异步接口的 daphne 作为应用服务器，不再使用同步的 uWSGI 的服务器了。
+
+首先配置 docker 的环境变量，复制一下根目录下的 `.env.example` 文件
 
 ```bash
-python manage.py collectstatic
+cp .env.example .env
 ```
 
-把 `static_collect` 目录上传
+根据需要修改其中的应用端口、容器名称和镜像名称（修改为实际项目名称就行）
 
-### docker 部署
-
-根据需要修改 `docker-compose.yaml` 文件
-
-然后启动
+然后使用 docker-compose 启动
 
 ```bash
 docker compose up --build
 ```
 
-### uWsgi自动重启
+完成之后可以在 `.env` 中指定的端口进行访问，默认端口是 9876
 
-在`uwsgi.ini`配置文件中，本项目已经配置了监控`readme.md`文件，文件变化就会自动重启服务器，因此在生产环境中可以通过修改`README.md`文件实现优雅的uwsgi服务重启。
+内置有 nginx 服务器，可以提供 HTTP 服务，如需 HTTPS ，请自行搭配 swag、ACME.sh 之类的方案使用，可以看我博客的介绍。
+
+参考博客文章：[新版的Django Docker部署方案，多阶段构建、自动处理前端依赖](https://www.cnblogs.com/deali/p/18357853)
 
 ## TODO
 
@@ -439,7 +439,7 @@ docker compose up --build
 - [x] 集成消息队列
 - [x] 进一步优化`settings`拆分 (基于 `django-split-settings`)
 - [x] 完善项目单元测试
-- [ ] 使用自动构建部署工具
+- [x] 使用自动构建部署工具
 - [x] 种子数据: 自动为已有模型生成假数据
 - [ ] 种子数据: 允许用户自行定义种子数据(类似EFCore)
 - [x] 代码生成器: 自动生成业务代码
@@ -457,7 +457,9 @@ docker compose up --build
 
 知乎专栏：[程序设计实验室](https://www.zhihu.com/column/deali)
 
-Django博客合集：https://www.cnblogs.com/deali/category/1799362.html
+StarBlog博客主页: [blog.deali.cn](http://blog.deali.cn)
+
+Django博客合集: https://www.cnblogs.com/deali/category/1799362.html
 
 - [聊聊Django应用的部署和性能的那些事儿](https://zhuanlan.zhihu.com/p/152679805)
 - [给Django Admin添加验证码和多次登录尝试限制](https://zhuanlan.zhihu.com/p/138955540)
@@ -474,3 +476,7 @@ Django博客合集：https://www.cnblogs.com/deali/category/1799362.html
 Apache License Version 2.0, January 2004
 http://www.apache.org/licenses/
 ```
+
+## 免责声明
+
+本项目（DjangoStarter）为 DealiAxy 版权所有。本项目代码按“原样”提供，不提供任何明示或暗示的保证，包括但不限于适销性、特定用途的适用性和不侵权的保证。在任何情况下，作者或版权持有者均不对因本软件或本软件的使用或其他交易而引起的或与之相关的任何索赔、损害或其他责任负责，无论是合同、侵权还是其他行为。软件。
