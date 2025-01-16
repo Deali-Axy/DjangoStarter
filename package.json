@@ -6,13 +6,18 @@
   "repository": "https://github.com/Deali-Axy/DjangoStarter",
   "author": "DealiAxy <dealiaxy@gmail.com>",
   "license": "Apache License 2.0",
+  "scripts": {
+    "tailwind:watch": "npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --watch"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.0.0",
     "admin-lte": "3.2",
+    "alpinejs": "^3.14.8",
     "bootstrap": "^4.6.1",
     "bootswatch": "^4.6.1",
     "chart.js": "^3.8.0",
     "flowbite": "^2.4.1",
+    "htmx.org": "^1.9.12",
     "jquery": "^3.6.0",
     "vue": "^2.6.14"
   },

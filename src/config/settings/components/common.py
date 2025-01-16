@@ -86,13 +86,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# 国际化配置
-LANGUAGE_CODE = 'zh-hans'
-TIME_ZONE = 'Asia/Shanghai'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = False
-
 # 静态文件配置 (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
