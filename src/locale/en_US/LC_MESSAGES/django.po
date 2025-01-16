@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-16 11:30+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:16
+#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:115
+msgid "Log in"
+msgstr ""
+
+#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:81
+msgid "Please correct the error below."
+msgstr ""
+
+#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:83
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:94
+msgid "username"
+msgstr ""
+
+#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:100
+msgid "password"
+msgstr ""
+
+#: .\templates\_components\navbar.html:14
+msgid "Open user menu"
+msgstr ""
+
+#: .\templates\_components\navbar.html:27
+msgid "Dashboard"
+msgstr ""

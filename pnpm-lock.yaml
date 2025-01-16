@@ -14,6 +14,9 @@ importers:
       admin-lte:
         specifier: '3.2'
         version: 3.2.0(moment-timezone@0.5.45)(tempusdominus-core@5.19.3(jquery@3.7.1)(moment-timezone@0.5.45)(moment@2.30.1))
+      alpinejs:
+        specifier: ^3.14.8
+        version: 3.14.8
       bootstrap:
         specifier: ^4.6.1
         version: 4.6.2(jquery@3.7.1)(popper.js@1.16.1)
@@ -26,6 +29,9 @@ importers:
       flowbite:
         specifier: ^2.4.1
         version: 2.4.1
+      htmx.org:
+        specifier: ^1.9.12
+        version: 1.9.12
       jquery:
         specifier: ^3.6.0
         version: 3.7.1
@@ -178,8 +184,17 @@ packages:
   '@vue/compiler-sfc@2.7.16':
     resolution: {integrity: sha512-KWhJ9k5nXuNtygPU7+t1rX6baZeqOYLEforUPjgNDBnLicfHCoi48H87Q8XyLZOrNNsmhuwKqtpDQWjEFe6Ekg==}
 
+  '@vue/reactivity@3.1.5':
+    resolution: {integrity: sha512-1tdfLmNjWG6t/CsPldh+foumYFo3cpyCHgBYQ34ylaMsJ+SNHQ1kApMIa8jN+i593zQuaw3AdWH0nJTARzCFhg==}
+
+  '@vue/shared@3.1.5':
+    resolution: {integrity: sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==}
+
   admin-lte@3.2.0:
     resolution: {integrity: sha512-IDUfoU8jo9DVlB59lDEASAJXTesAEXDZ68DOHI3qg93r5ehVTkMl2x0ixgIyff8NiHeNYXpcOZh3tr6oGbvu9g==}
+
+  alpinejs@3.14.8:
+    resolution: {integrity: sha512-wT2fuP2DXpGk/jKaglwy7S/IJpm1FD+b7U6zUrhwErjoq5h27S4dxkJEXVvhbdwyPv9U+3OkUuNLkZT4h2Kfrg==}
 
   ansi-colors@1.1.0:
     resolution: {integrity: sha512-SFKX67auSNoVR38N3L+nvsPjOE0bybKTYbkf5tRvushrAPQ9V75huw0ZxBkKVeRU9kqH3d6HA4xTckbwZ4ixmA==}
@@ -876,7 +891,7 @@ packages:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
     engines: {node: '>= 4.0'}
     os: [darwin]
-    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
+    deprecated: Upgrade to fsevents v2 to mitigate potential security issues
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -1030,6 +1045,9 @@ packages:
 
   hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
+
+  htmx.org@1.9.12:
+    resolution: {integrity: sha512-VZAohXyF7xPGS52IM8d1T1283y+X4D+Owf3qY1NZ9RuBypyu9l8cGsxUMAG5fEAb/DhT7rDoJ9Hpu5/HxFD3cw==}
 
   icheck-bootstrap@3.0.1:
     resolution: {integrity: sha512-Rj3SybdcMcayhsP4IJ+hmCNgCKclaFcs/5zwCuLXH1WMo468NegjhZVxbSNKhEjJjnwc4gKETogUmPYSQ9lEZQ==}
@@ -2283,6 +2301,12 @@ snapshots:
     optionalDependencies:
       prettier: 2.8.8
 
+  '@vue/reactivity@3.1.5':
+    dependencies:
+      '@vue/shared': 3.1.5
+
+  '@vue/shared@3.1.5': {}
+
   admin-lte@3.2.0(moment-timezone@0.5.45)(tempusdominus-core@5.19.3(jquery@3.7.1)(moment-timezone@0.5.45)(moment@2.30.1)):
     dependencies:
       '@fortawesome/fontawesome-free': 5.15.4
@@ -2349,6 +2373,10 @@ snapshots:
     transitivePeerDependencies:
       - moment-timezone
       - tempusdominus-core
+
+  alpinejs@3.14.8:
+    dependencies:
+      '@vue/reactivity': 3.1.5
 
   ansi-colors@1.1.0:
     dependencies:
@@ -3414,6 +3442,8 @@ snapshots:
       parse-passwd: 1.0.0
 
   hosted-git-info@2.8.9: {}
+
+  htmx.org@1.9.12: {}
 
   icheck-bootstrap@3.0.1: {}
 

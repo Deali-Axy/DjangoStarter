@@ -404,6 +404,51 @@ project_info = ProjectInfo('DjangoStarter', '网站说明')
 
 编辑`config/settings.py`文件，在`MIDDLEWARE`节点中添加`django_starter.middleware/user_base_exception.UserBasedExceptionMiddleware`即可。
 
+## 国际化支持 (beta)
+
+DjangoStarter 3.1版本加入了国际化支持（基于Django的国际化框架）
+
+### 生成翻译文件
+
+在 `src` 目录下执行
+
+```bash
+django-admin.exe makemessages -l [language_code]
+```
+
+language_code:
+
+- zh_HAns
+- en_US
+
+其他语言可以参考Django官网
+
+### 编译消息文件
+
+依然是在 `src` 目录下执行
+
+```bash
+django-admin compilemessages
+```
+
+### Windows 开发环境
+
+如果是使用 windows 开发，需要先安装 `gettext` 工具
+
+推荐使用 scoop 包管理器
+
+```bash
+scoop install gettext
+```
+
+安装完成之后，执行以下命令验证
+
+```bash
+xgettext --version
+```
+
+
+
 ## 部署
 
 推荐使用 docker 部署，本项目已经有完善的 docker 部署方案，开箱即用。
