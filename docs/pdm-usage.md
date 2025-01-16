@@ -9,14 +9,12 @@ PDM (Python Development Master) 一个现代化的包管理和项目管理工具
 1. 确保已安装 PDM。如果未安装，可以通过 pip 安装：
 
    ```
-   bashCopy code
    pip install pdm
    ```
 
 2. 在项目根目录下运行以下命令初始化项目：
 
    ```
-   bashCopy code
    pdm init
    ```
 
@@ -27,7 +25,7 @@ PDM (Python Development Master) 一个现代化的包管理和项目管理工具
 为了将 Django 和 Django Ninja 添加到你的项目中，你可以使用以下命令：
 
 ```
-bashCopy codepdm add django
+pdm add django
 pdm add django-ninja
 ```
 
@@ -38,7 +36,6 @@ PDM 会自动解析这些包的依赖并将它们添加到 `pyproject.toml` 文�
 如果你有一些只在开发时需要的依赖（比如 linters、测试框架等），可以将它们添加为开发依赖：
 
 ```
-bashCopy code
 pdm add --dev pytest django-debug-toolbar
 ```
 
@@ -47,7 +44,6 @@ pdm add --dev pytest django-debug-toolbar
 PDM 默认使用项目本地的 `__pypackages__` 目录来存放依赖，而不是创建一个虚拟环境。这意味着你可以直接运行命令来执行你的应用，而无需激活虚拟环境。例如：
 
 ```
-bashCopy code
 pdm run python manage.py runserver
 ```
 
@@ -58,7 +54,6 @@ pdm run python manage.py runserver
 要更新项目的依赖，可以使用：
 
 ```
-bashCopy code
 pdm update
 ```
 
