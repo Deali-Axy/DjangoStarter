@@ -24,7 +24,7 @@ WORKDIR /project
 RUN pdm install --check --prod --no-editable
 
 # node 构建
-FROM node:$NODE_BASE as node_builder
+FROM node:$NODE_BASE AS node_builder
 
 # 配置镜像 && 安装 pnpm
 RUN npm config set registry https://registry.npmmirror.com && \
@@ -39,7 +39,7 @@ RUN pnpm i
 
 
 # gulp 构建
-FROM node:$NODE_BASE as gulp_builder
+FROM node:$NODE_BASE AS gulp_builder
 
 # 配置镜像 && 安装 pnpm
 RUN npm --registry https://registry.npmmirror.com install -g gulp-cli
@@ -56,7 +56,7 @@ RUN gulp move
 
 
 # django 构建
-FROM python:$PYTHON_BASE as django_builder
+FROM python:$PYTHON_BASE AS django_builder
 
 COPY . /project/
 
@@ -71,7 +71,7 @@ RUN python ./src/manage.py collectstatic
 
 
 # 运行阶段
-FROM python:$PYTHON_BASE as final
+FROM python:$PYTHON_BASE AS final
 
 # 从构建阶段获取包
 COPY --from=python_builder /project/.venv/ /project/.venv
