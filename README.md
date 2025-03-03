@@ -413,7 +413,7 @@ DjangoStarter 3.1版本加入了国际化支持（基于Django的国际化框架
 在 `src` 目录下执行
 
 ```bash
-django-admin.exe makemessages -l [language_code]
+django-admin makemessages -l [language_code]
 ```
 
 language_code:

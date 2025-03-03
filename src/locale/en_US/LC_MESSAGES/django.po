@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-16 11:30+0800\n"
+"POT-Creation-Date: 2025-03-03 15:22+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,55 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:16
-#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:115
+#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:16
+#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:115
 msgid "Log in"
 msgstr ""
 
-#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:81
+#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:81
 msgid "Please correct the error below."
 msgstr ""
 
-#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:83
+#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:83
 msgid "Please correct the errors below."
 msgstr ""
 
-#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:94
+#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:94
 msgid "username"
 msgstr ""
 
-#: .\django_starter\contrib\admin\templates\django_starter\admin\login.html:100
+#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:100
 msgid "password"
 msgstr ""
 
-#: .\templates\_components\navbar.html:14
+#: .\src\templates\_components\navbar.html:14
 msgid "Open user menu"
 msgstr ""
 
-#: .\templates\_components\navbar.html:27
+#: .\src\templates\_components\navbar.html:27
 msgid "Dashboard"
+msgstr ""
+
+#: .\src\templates\_components\navbar.html:61
+msgid "Home"
+msgstr ""
+
+#: .\src\templates\_components\navbar.html:67
+msgid "About"
+msgstr ""
+
+#: .\src\templates\_components\navbar.html:73
+msgid "Services"
+msgstr ""
+
+#: .\src\templates\_components\navbar.html:79
+msgid "Pricing"
+msgstr ""
+
+#: .\src\templates\_components\navbar.html:85
+msgid "Contact"
+msgstr ""
+
+#: .\src\templates\_components\navbar.html:91
+msgid "Archive"
 msgstr ""
