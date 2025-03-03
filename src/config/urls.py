@@ -6,9 +6,12 @@ from django_starter.contrib.guide import views
 
 from config.apis import api
 
+from apps.home.views import index
+
 urlpatterns = [
-    path('', views.index),
+    path('', index, name='index'),
     path('api/', api.urls),
+    path('accounts/', include('apps.account.urls')),
     path('demo', include('apps.demo.urls')),
 
     # DjangoStarter

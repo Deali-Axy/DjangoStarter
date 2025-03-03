@@ -1,0 +1,13 @@
+{% for field in form %}
+    <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+               for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        <div class="mt-2 text-sm text-gray-500 dark:text-gray-200">
+            {{ field.help_text }}
+        </div>
+        <div class="mt-2 text-sm text-red-600 dark:text-red-500">
+            {{ field.errors }}
+        </div>
+    </div>
+{% endfor %}
