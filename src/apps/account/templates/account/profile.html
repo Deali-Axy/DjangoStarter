@@ -1,0 +1,27 @@
+{% extends 'account/_profile_layout.html' %}
+
+{% block title %}个人资料{% endblock %}
+
+{% block breadcrumb_title %}修改资料{% endblock %}
+
+{% block sub_content %}
+    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-8">修改个人资料</h3>
+    <form method="POST" class="max-w-sm mx-auto">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-5">
+                <label for="{{ field.id_for_label }}"
+                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ field.label }}</label>
+                {{ field }}
+                <div class="mt-2 text-sm text-red-600 dark:text-red-500">
+                    {{ field.errors }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            保存资料
+        </button>
+    </form>
+{% endblock %}

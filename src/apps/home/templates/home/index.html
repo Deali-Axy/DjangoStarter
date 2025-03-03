@@ -1,0 +1,57 @@
+{% extends '_base.html' %}
+
+{% block title %}
+	主页
+{% endblock %}
+
+{% block content %}
+    <section class="container p-6 mx-auto space-y-3 md:h-screen dark:bg-gray-800 dark:text-white">
+
+        <h4 class="text-xl font-bold text-gray-700 capitalize dark:text-gray-300 md:text-3xl text-center">
+            ⚒️ DjangoStarter 快速开发框架 🛠️
+        </h4>
+        <p class="text-center dark:text-gray-400">Tools that will help you get things done in less time.</p>
+
+        <div class="flex items-center justify-center">
+            <div class="grid gap-8 my-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <!-- cards -->
+                <div class="w-full max-w-xs text-center">
+                    <a href="/api/docs">
+                        <div class="object-cover object-center w-full h-48 mx-auto rounded-lg bg-blue-100 border-4 border-blue-200 dark:bg-gray-900 dark:border-gray-600">
+                            <div class="py-16 px-4">
+                                <h5 class="text-lg font-bold t dark:text-white">接口文档</h5>
+                                <span class="mt-1 font-medium dark:text-gray-400">In new tab/windows</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="w-full max-w-xs text-center">
+                    <a href="/admin">
+                        <div class="object-cover object-center w-full h-48 mx-auto rounded-lg bg-blue-100 border-4 border-blue-200 dark:bg-gray-900 dark:border-gray-600">
+                            <div class="py-16 px-4">
+                                <h5 class="text-lg font-bold dark:text-white">管理后台</h5>
+                                <span class="mt-1 font-medium dark:text-gray-400">Random but Useful websites</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="w-full max-w-xs text-center">
+                    <a href="#">
+                        <div class="object-cover object-center w-full h-48 mx-auto rounded-lg bg-gray-100 border-4 border-gray-200 dark:bg-gray-900 dark:border-gray-600">
+                            <div class="py-16 px-4">
+                                <h5 class="text-lg font-bold dark:text-white">Coming Soon</h5>
+                                <span class="mt-1 font-medium dark:text-gray-400">More tools</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

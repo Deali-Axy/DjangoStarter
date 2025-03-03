@@ -1,0 +1,83 @@
+<section class="relative pt-40 pb-24 bg-gray-50">
+    <img src="https://blog.sblt.deali.cn:9000/Api/PicLib/Random/{{ request.user.username }}/1440/240" alt="cover-image"
+         class="w-full absolute top-0 left-0 z-0 h-60">
+    <div class="w-full max-w-7xl mx-auto px-6 md:px-8">
+        <div class="flex items-center justify-center sm:justify-start relative z-10 mb-5">
+            <img src="https://blog.sblt.deali.cn:9000/Api/PicLib/Random/{{ request.user.username }}/150/150" alt="user-avatar-image"
+                 class="border-4 border-solid border-white rounded-full">
+        </div>
+        <div class="flex flex-col sm:flex-row max-sm:gap-5 items-center justify-between mb-5">
+            <div class="block">
+                <div class="flex items-center gap-4">
+                    <h3 class="font-manrope font-bold text-4xl text-gray-900 mb-1">
+                        {{ request.user.username }}
+                    </h3>
+                    <div class="text-2xl">
+                        {% if request.user.profile.gender == 'male' %}
+                            <i class="fa-solid fa-mars text-blue-500"></i>
+                        {% elif request.user.profile.gender == 'female' %}
+                            <i class="fa-solid fa-venus text-pink-500"></i>
+                        {% elif request.user.profile.gender == 'unknown' %}
+                            <i class="fa-regular fa-circle-question text-gray-500"></i>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if request.user.profile.full_name %}
+                    <p class="font-normal text-base leading-7 text-gray-500">
+                        <i class="fa-regular fa-id-card"></i>
+                        {{ request.user.profile.full_name }}
+                    </p>
+                {% endif %}
+
+                {% if request.user.profile.phone %}
+                    <p class="font-normal text-base leading-7 text-gray-500">
+                        <i class="fa-solid fa-mobile-screen me-1"></i>
+                        {{ request.user.profile.phone }}
+                    </p>
+                {% endif %}
+            </div>
+            <button
+                    class="rounded-full py-3.5 px-5 bg-gray-100 flex items-center group transition-all duration-500 hover:bg-indigo-100 ">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span class="px-2 font-medium text-base leading-7 text-gray-700 transition-all duration-500 group-hover:text-indigo-600">
+                        SoftwareEngineer
+                    </span>
+            </button>
+        </div>
+        <div class="flex flex-col lg:flex-row max-lg:gap-5 items-center justify-between py-0.5">
+            <div class="flex items-center gap-4">
+                <a role="button" href="{% url 'account:profile' %}"
+                   class="py-3.5 px-5 rounded-full bg-indigo-200 text-indigo-500 font-semibold text-base leading-7 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-100 hover:bg-indigo-700 hover:text-white">
+                    修改资料
+                </a>
+                <button class="py-3.5 px-5 rounded-full bg-indigo-200 text-indigo-500 font-semibold text-base leading-7 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-100 hover:bg-indigo-700 hover:text-white">
+                    个人设置
+                </button>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-6 ">
+                <p class="flex items-center gap-2 font-medium text-lg leading-8 text-gray-400 ">
+                    Skills
+                    <i class="fa-regular fa-star"></i>
+                </p>
+                <ul class="flex items-center max-sm:justify-center max-sm:flex-wrap gap-2.5">
+                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
+                        HTML
+                    </li>
+                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
+                        CSS
+                    </li>
+                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
+                        Dart
+                    </li>
+                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
+                        C++
+                    </li>
+                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
+                        UI Design
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
