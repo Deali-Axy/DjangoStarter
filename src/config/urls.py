@@ -11,7 +11,7 @@ urlpatterns = [
     path('about/', include('django_starter.contrib.about.urls')),
     path('api/', api.urls),
     path('accounts/', include('apps.account.urls')),
-    path('demo', include('apps.demo.urls')),
+    path('demo/', include('apps.demo.urls')),
 
     # DjangoStarter
     path('django-starter/', include('django_starter.urls')),
