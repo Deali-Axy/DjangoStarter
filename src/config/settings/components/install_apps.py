@@ -21,6 +21,7 @@ INSTALLED_APPS: Tuple[str, ...] = (
     'django_starter.contrib.code_generator',
     'django_starter.contrib.config',
     'django_starter.contrib.guide',
+    'django_starter.contrib.navbar',
     'django_starter.contrib.seed',
 
     # 第三方组件
