@@ -30,5 +30,4 @@ INSTALLED_APPS: Tuple[str, ...] = (
     # 我们自己的应用
     'apps.account',
     'apps.demo',
-    'apps.home',
 )
