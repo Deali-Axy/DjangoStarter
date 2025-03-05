@@ -1,0 +1,95 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <!-- 标题区域 -->
+    <div class="text-center py-12 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl mb-12">
+        <h1 class="text-4xl font-bold text-green-800 mb-4">Django + Tailwind CSS + Flowbite</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            {% translate '一个现代化的Django启动模板，集成了最新的前端技术栈和最佳实践。' %}
+        </p>
+    </div>
+
+    <!-- 特性展示区域 -->
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="text-green-600 mb-4">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">快速开发</h3>
+            <p class="text-gray-600">集成常用组件和工具，助您快速构建现代化Web应用</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="text-blue-600 mb-4">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">现代UI</h3>
+            <p class="text-gray-600">基于Tailwind CSS和Flowbite，打造精美的用户界面</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="text-purple-600 mb-4">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">最佳实践</h3>
+            <p class="text-gray-600">遵循Django最佳实践，确保代码质量和安全性</p>
+        </div>
+    </div>
+
+    <!-- 示例卡片 -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mb-12">
+        <div class="md:flex">
+            <div class="md:flex-shrink-0">
+                <img class="h-48 w-full object-cover md:w-48" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="示例图片"/>
+            </div>
+            <div class="p-8">
+                <div class="uppercase tracking-wide text-sm text-green-600 font-semibold">示例展示</div>
+                <h2 class="block mt-1 text-2xl font-semibold text-gray-900">技术整合演示</h2>
+                <p class="mt-2 text-gray-600">
+                    这个示例展示了如何将Django、Tailwind CSS和Flowbite完美结合，创建现代化的Web应用界面。
+                </p>
+                <div class="mt-4">
+                    <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300">
+                        了解更多
+                        <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 测试页面链接 -->
+    <div class="bg-gray-50 rounded-xl p-8">
+        <h3 class="text-2xl font-semibold text-gray-800 mb-6">功能测试</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+            <a href="{% url 'demo:test_403' %}" class="flex items-center justify-center px-6 py-4 text-sm font-medium text-white bg-yellow-600 rounded-lg hover:bg-yellow-700 focus:ring-4 focus:ring-yellow-300 transition-colors duration-300">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+                403 - 禁止访问页面
+            </a>
+            <a href="{% url 'demo:test_404' %}" class="flex items-center justify-center px-6 py-4 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition-colors duration-300">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                404 - 页面未找到
+            </a>
+            <a href="{% url 'demo:test_500' %}" class="flex items-center justify-center px-6 py-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:ring-red-300 transition-colors duration-300">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                500 - 服务器错误页面
+            </a>
+        </div>
+    </div>
+{% endblock content %}
