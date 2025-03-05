@@ -15,6 +15,7 @@ INSTALLED_APPS: Tuple[str, ...] = (
     'django.contrib.staticfiles',
 
     # DjangoStarter组件
+    'django_starter.contrib.about',
     'django_starter.contrib.admin',
     'django_starter.contrib.auth',
     'django_starter.contrib.code_generator',
