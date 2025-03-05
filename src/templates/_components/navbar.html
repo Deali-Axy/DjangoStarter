@@ -1,8 +1,10 @@
 {% load i18n %}
+{% load nav_menu_tags %}
+
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
     <div class="container flex flex-wrap items-center justify-between mx-auto px-4 py-4 lg:px-0">
-        <a href="{% url 'index' %}" class="flex items-center text-2xl space-x-3 rtl:space-x-reverse">
+        <a href="{% url 'djs_guide:index' %}" class="flex items-center text-2xl space-x-3 rtl:space-x-reverse">
             <i class="fa-brands fa-python text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-red-600"></i>
             <span class="self-center font-semibold whitespace-nowrap dark:text-white">DjangoStarter</span>
         </a>
@@ -14,20 +16,16 @@
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">
             <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                    <a href="{% url 'index' %}"
-                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                        <i class="fa-solid fa-house-laptop"></i>
-                        主页
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                        <i class="fa-solid fa-tv"></i>
-                        电视
-                    </a>
-                </li>
+                {% get_nav_menu as nav_menu %}
+                {% for menu_item in nav_menu %}
+                    <li>
+                        <a href="{{ menu_item.url }}"
+                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            <i class="{{ menu_item.icon }}"></i>
+                            {{ menu_item.name }}
+                        </a>
+                    </li>
+                {% endfor %}
                 {% if user.is_authenticated %}
                     <li>
                         <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
