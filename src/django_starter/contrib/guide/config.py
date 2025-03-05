@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class Uri:
     title: str
     url: str
+    description: str = ''
 
 
 # 相关博客列表
@@ -14,14 +15,13 @@ BLOGS = [
     Uri('DjangoAdmin使用合集，它的功能比你想象的强大！', 'https://www.cnblogs.com/deali/p/16678014.html'),
     Uri('轻量级消息队列 Django-Q 轻度体验', 'https://www.cnblogs.com/deali/p/16644989.html'),
     Uri('Django数据库性能优化之 - 使用Python集合操作', 'https://www.cnblogs.com/deali/p/16449011.html'),
-    Uri('如何优雅地在django项目里生成不重复的ID？', 'https://www.cnblogs.com/deali/p/18593862'),
-    Uri('新版的Django Docker部署方案，多阶段构建、自动处理前端依赖', 'https://www.cnblogs.com/deali/p/18357853'),
+    Uri('如何优雅地在<strong>django</strong>项目里生成不重复的ID？', 'https://www.cnblogs.com/deali/p/18593862')
 ]
 
 # 相关项目列表
 PROJECTS = [
-    Uri('SiteDirectory', 'https://github.com/Deali-Axy/SiteDirectory'),
-    Uri('CodePackager', 'https://github.com/star-plan/code-packager'),
-    Uri('django / channels', 'https://github.com/django/channels'),
-    Uri('excel_to_model', 'https://github.com/Deali-Axy/excel_to_model'),
+    Uri('SiteDirectory', 'https://github.com/Deali-Axy/SiteDirectory', '一个基于Django的网站目录管理系统，支持多级分类和标签管理'),
+    Uri('CodePackager', 'https://github.com/star-plan/code-packager', '代码打包工具，帮助开发者快速整理和分享代码片段'),
+    Uri('django / channels', 'https://github.com/django/channels', 'Django的WebSocket支持库，为Django提供异步和实时通信功能'),
+    Uri('excel_to_model', 'https://github.com/Deali-Axy/excel_to_model', 'Excel数据导入工具，支持将Excel数据快速导入Django模型'),
 ]
