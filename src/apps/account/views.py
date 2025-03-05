@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models import QuerySet
 from django.shortcuts import render, redirect, reverse
 
-from .forms import UserProfileForm, RegisterForm
+from .forms import UserProfileForm, RegisterForm, LoginForm
 
 
 @login_required()
@@ -52,6 +52,7 @@ def login_view(request):
     ctx = {
         # 'sso_url': ids_lite.get_authorize_url(sso_redirect_url, state=next_url),
         'sso_url': '',
+        'form': LoginForm(),
     }
 
     if request.user.is_authenticated:
@@ -62,18 +63,20 @@ def login_view(request):
             return redirect(reverse('index'))
 
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            messages.success(request, f'Welcome {user.username}')
-            login(request, user)
-            if next_url:
-                return redirect(next_url)
-            else:
-                return redirect(reverse('index'))
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                messages.success(request, f'Welcome {user.username}')
+                login(request, user)
+                if next_url:
+                    return redirect(next_url)
+                else:
+                    return redirect(reverse('index'))
         else:
-            messages.error(request, 'Invalid username or password.')
+            messages.error(request, '请输入有效的用户名和密码（至少4个字符）')
 
     return render(request, 'account/login.html', ctx)
 
