@@ -13,9 +13,10 @@
                     Welcome to <span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 font-extrabold">DjangoStarter</span>!
                 </h1>
-                <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                    基于Django定制的快速Web开发模板😎，功能包括：Docker部署、缓存、消息队列、业务代码生成器、第三方登录接入、接口限流、Admin安全加固、RestFramework默认的API主页屏蔽等
-                </p>
+                <div class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+                    <p>DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设计。</p>
+                    <p>结合了 Django 的丰富功能和 Django-Ninja 的性能、灵活、简洁特性，v3 版本旨在为开发者提供一个更加强大、简洁和高速的开发体验。</p>
+                </div>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank"
                        class="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors">
@@ -94,7 +95,7 @@
                         {% for item in projects %}
                             <li class="flex items-center">
                                 <i class="fas fa-chevron-right text-blue-600 dark:text-blue-400 mr-3"></i>
-                                <a href="{{ item.url }}"
+                                <a href="{{ item.url }}" target="_blank"
                                    class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                                     {{ item.title }}
                                 </a>
@@ -111,12 +112,19 @@
                         {% for item in blogs %}
                             <li class="flex items-center">
                                 <i class="fas fa-chevron-right text-green-600 dark:text-green-400 mr-3"></i>
-                                <a href="{{ item.url }}"
+                                <a href="{{ item.url }}" target="_blank"
                                    class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                                     {{ item.title }}
                                 </a>
                             </li>
                         {% endfor %}
+                        <li class="flex items-center mt-4">
+                            <i class="fas fa-external-link-alt text-green-600 dark:text-green-400 mr-3"></i>
+                            <a href="https://www.cnblogs.com/deali/category/1799362.html" target="_blank"
+                               class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                                查看更多
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
