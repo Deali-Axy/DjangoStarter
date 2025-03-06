@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+
+{% block title %}隐私政策 - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-3xl font-bold mb-6">隐私政策</h1>
+    
+    <article class="prose">
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">引言</h2>
+            <p>[公司名称]（以下简称"我们"）高度重视用户的隐私保护。您在使用我们的服务时，我们可能会收集和使用您的相关信息。本政策将帮助您了解以下内容：</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">信息收集与使用</h2>
+            <ul class="list-disc pl-6">
+                <li class="mb-2">在您注册账户时收集的个人身份信息（如姓名、电子邮件地址等）</li>
+                <li class="mb-2">使用服务时自动收集的技术信息（如IP地址、浏览器类型、访问时间等）</li>
+                <li class="mb-2">通过Cookies和类似技术收集的信息</li>
+            </ul>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">信息共享与披露</h2>
+            <p>我们承诺不会将您的个人信息出售给第三方。仅在以下情况可能共享信息：</p>
+            <ul class="list-disc pl-6">
+                <li class="mb-2">获得您明确同意或授权</li>
+                <li class="mb-2">根据法律法规要求或司法程序需要</li>
+                <li class="mb-2">维护社会公共利益</li>
+            </ul>
+        </section>
+
+        <p class="text-sm text-gray-600 mt-8">最后更新日期：[更新日期]</p>
+    </article>
+</div>
+{% endblock %}
