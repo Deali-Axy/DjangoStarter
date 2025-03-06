@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+
+{% block title %}服务条款 - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-3xl font-bold mb-6">服务条款</h1>
+    
+    <article class="prose">
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">接受条款</h2>
+            <p>通过访问或使用[公司名称]的服务，即表示您同意遵守本服务条款的所有内容。</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">服务内容</h2>
+            <ul class="list-disc pl-6">
+                <li class="mb-2">我们保留随时修改或中断服务的权利</li>
+                <li class="mb-2">用户需对账户活动承担全部责任</li>
+                <li class="mb-2">禁止使用服务进行任何非法活动</li>
+            </ul>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">免责声明</h2>
+            <p>服务按"现状"提供，我们不承诺：</p>
+            <ul class="list-disc pl-6">
+                <li class="mb-2">服务将完全符合您的需求</li>
+                <li class="mb-2">服务不会中断或没有错误</li>
+                <li class="mb-2">使用结果绝对准确可靠</li>
+            </ul>
+        </section>
+
+        <p class="text-sm text-gray-600 mt-8">最后更新日期：[更新日期]</p>
+    </article>
+</div>
+{% endblock %}
