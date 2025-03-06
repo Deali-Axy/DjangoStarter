@@ -3,35 +3,153 @@
 {% block title %}隐私政策 - {{ site_name }}{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8 max-w-4xl">
-    <h1 class="text-3xl font-bold mb-6">隐私政策</h1>
-    
-    <article class="prose">
-        <section class="mb-8">
-            <h2 class="text-xl font-semibold mb-4">引言</h2>
-            <p>[公司名称]（以下简称"我们"）高度重视用户的隐私保护。您在使用我们的服务时，我们可能会收集和使用您的相关信息。本政策将帮助您了解以下内容：</p>
-        </section>
-
-        <section class="mb-8">
-            <h2 class="text-xl font-semibold mb-4">信息收集与使用</h2>
-            <ul class="list-disc pl-6">
-                <li class="mb-2">在您注册账户时收集的个人身份信息（如姓名、电子邮件地址等）</li>
-                <li class="mb-2">使用服务时自动收集的技术信息（如IP地址、浏览器类型、访问时间等）</li>
-                <li class="mb-2">通过Cookies和类似技术收集的信息</li>
+<div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 relative">
+        <!-- 目录导航 -->
+        <nav aria-label="隐私政策目录" class="lg:sticky top-24 h-min bg-white shadow-md rounded-lg p-6 border border-gray-100"
+             style="scroll-margin-top: 100px;">
+            <div class="flex items-center gap-2 mb-4 border-b pb-4">
+                <i class="fas fa-list-ul text-blue-600"></i>
+                <h2 class="font-semibold text-lg">内容目录</h2>
+            </div>
+            <ul class="space-y-3">
+                <li><a href="#introduction" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
+                      data-section="introduction">
+                    <i class="fas fa-chevron-right text-xs opacity-70"></i>
+                    引言
+                </a></li>
+                <li><a href="#data-collection" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
+                      data-section="data-collection">
+                    <i class="fas fa-chevron-right text-xs opacity-70"></i>
+                    信息收集
+                </a></li>
+                <li><a href="#data-sharing" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
+                      data-section="data-sharing">
+                    <i class="fas fa-chevron-right text-xs opacity-70"></i>
+                    信息共享
+                </a></li>
             </ul>
-        </section>
+        </nav>
 
-        <section class="mb-8">
-            <h2 class="text-xl font-semibold mb-4">信息共享与披露</h2>
-            <p>我们承诺不会将您的个人信息出售给第三方。仅在以下情况可能共享信息：</p>
-            <ul class="list-disc pl-6">
-                <li class="mb-2">获得您明确同意或授权</li>
-                <li class="mb-2">根据法律法规要求或司法程序需要</li>
-                <li class="mb-2">维护社会公共利益</li>
-            </ul>
-        </section>
+        <!-- 主内容 -->
+        <main class="relative" role="main">
+            <!-- 合规徽章 -->
+            <div class="flex items-center gap-2 bg-emerald-50 text-emerald-800 px-4 py-3 rounded-lg mb-8 border border-emerald-200">
+                <i class="fas fa-shield-alt"></i>
+                <span class="font-medium">GDPR合规标准</span>
+                <span class="text-sm ml-2">(EEA通用数据保护条例)</span>
+            </div>
 
-        <p class="text-sm text-gray-600 mt-8">最后更新日期：[更新日期]</p>
-    </article>
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">隐私政策</h1>
+
+            <article class="space-y-10">
+                <!-- 引言 -->
+                <section id="introduction" class="scroll-mt-24 bg-white shadow-lg rounded-lg p-8 border border-gray-100"
+                         role="region" aria-labelledby="introduction-heading">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
+                        <i class="fas fa-info-circle text-blue-600 text-xl"></i>
+                        <h2 id="introduction-heading" class="text-2xl font-semibold text-gray-800">引言</h2>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed">[公司名称]（以下简称"我们"）高度重视用户的隐私保护。您在使用我们的服务时，我们可能会收集和使用您的相关信息。本政策将帮助您了解以下内容：</p>
+                </section>
+
+                <!-- 信息收集 -->
+                <section id="data-collection" class="scroll-mt-24 bg-white shadow-lg rounded-lg p-8 border border-gray-100"
+                         role="region" aria-labelledby="data-collection-heading">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
+                        <i class="fas fa-database text-purple-600 text-xl"></i>
+                        <h2 id="data-collection-heading" class="text-2xl font-semibold text-gray-800">信息收集与使用</h2>
+                    </div>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-id-card mt-1 text-gray-500"></i>
+                            <div>在您注册账户时收集的个人身份信息（如姓名、电子邮件地址等）</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-network-wired mt-1 text-gray-500"></i>
+                            <div>使用服务时自动收集的技术信息（如IP地址、浏览器类型、访问时间等）</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-cookie-bite mt-1 text-gray-500"></i>
+                            <div>通过Cookies和类似技术收集的信息</div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 信息共享 -->
+                <section id="data-sharing" class="scroll-mt-24 bg-white shadow-lg rounded-lg p-8 border border-gray-100"
+                         role="region" aria-labelledby="data-sharing-heading">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
+                        <i class="fas fa-share-alt text-teal-600 text-xl"></i>
+                        <h2 id="data-sharing-heading" class="text-2xl font-semibold text-gray-800">信息共享与披露</h2>
+                    </div>
+                    <p class="text-gray-700 mb-4">我们承诺不会将您的个人信息出售给第三方。仅在以下情况可能共享信息：</p>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle mt-1 text-green-500"></i>
+                            <div>获得您明确同意或授权</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-gavel mt-1 text-yellow-600"></i>
+                            <div>根据法律法规要求或司法程序需要</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-users mt-1 text-blue-500"></i>
+                            <div>维护社会公共利益</div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 最后更新 -->
+                <div class="mt-12 pt-6 border-t border-gray-200">
+                    <p class="text-sm text-gray-500 flex items-center gap-2">
+                        <i class="fas fa-sync-alt"></i>
+                        最后更新日期：[更新日期]
+                    </p>
+                </div>
+            </article>
+        </main>
+    </div>
 </div>
+
+<style>
+.border-gradient {
+    border-image: linear-gradient(to right, transparent 10%, #e5e7eb 50%, transparent 90%);
+    border-image-slice: 1;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // 目录高亮
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            if (entry.intersectionRatio > 0) {
+                document.querySelector(`a[href="#${id}"]`).classList.add('text-blue-600', 'font-medium');
+            } else {
+                document.querySelector(`a[href="#${id}"]`).classList.remove('text-blue-600', 'font-medium');
+            }
+        });
+    }, {threshold: 0.5});
+
+    document.querySelectorAll('section[id]').forEach((section) => {
+        observer.observe(section);
+    });
+});
+</script>
 {% endblock %}
