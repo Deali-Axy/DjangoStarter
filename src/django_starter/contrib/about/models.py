@@ -19,3 +19,19 @@ class About(ModelExt):
 
     def __str__(self):
         return self.title
+
+
+class Contact(ModelExt):
+    """联系我们表单提交记录"""
+    name = models.CharField('姓名', max_length=100)
+    email = models.EmailField('邮箱', max_length=100)
+    phone = models.CharField('电话', max_length=20)
+    message = models.TextField('留言内容')
+
+    class Meta:
+        db_table = table_name_wrapper('contact')
+        verbose_name = '联系我们'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return f'{self.name} - {self.email}'
