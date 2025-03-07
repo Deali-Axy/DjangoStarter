@@ -45,6 +45,7 @@ const libs = [
 // 使用 npm 下载的前端组件，自定义存放位置
 const customLibs = [
     {name: 'font-awesome', dist: './node_modules/@fortawesome/fontawesome-free/**/*.*'},
+    {name: 'aos', dist: './node_modules/aos/dist/**/*.*'},
 ]
 
 //清除压缩后的文件

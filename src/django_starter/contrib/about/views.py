@@ -30,10 +30,10 @@ def get_about():
                 {'year': '2023', 'title': 'A轮融资', 'description': '获得A轮融资，加速产品迭代和市场扩张'}
             ],
             'metrics': [
-                {'label': '服务用户', 'value': '100,000+'},
-                {'label': '项目案例', 'value': '1,000+'},
-                {'label': '合作伙伴', 'value': '50+'},
-                {'label': '客户满意度', 'value': '98%'}
+                {'label': '服务用户', 'value': '100000'},
+                {'label': '项目案例', 'value': '1000'},
+                {'label': '合作伙伴', 'value': '50'},
+                {'label': '客户满意度', 'value': '100'}
             ],
             'email': 'contact@example.com',
             'phone': '400-123-4567',
