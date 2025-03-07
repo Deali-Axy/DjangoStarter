@@ -1,5 +1,6 @@
-{% extends "_base.html" %}
+{% extends "django_starter/about/_base.html" %}
 
+{% load static %}
 {% load math_extras %}
 
 {% block title %}关于我们{% endblock %}
@@ -49,9 +50,9 @@
                     <div class="bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-gray-700 dark:to-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
                          data-aos="fade-left">
                         <div class="flex items-center gap-4 mb-6">
-                        <div class="p-4 flex items-center justify-center bg-indigo-600 text-white rounded-lg">
-                            <i class="fa-solid fa-lightbulb text-xl"></i>
-                        </div>
+                            <div class="p-4 flex items-center justify-center bg-indigo-600 text-white rounded-lg">
+                                <i class="fa-solid fa-lightbulb text-xl"></i>
+                            </div>
                             <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">我们的愿景</h3>
                         </div>
                         <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -134,19 +135,16 @@
                     <div class="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </div>
 
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {% for metric in about.metrics %}
                         <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-all duration-300"
                              data-aos="zoom-in" data-aos-delay="{{ forloop.counter|multiply:100 }}">
                             <div class="text-blue-600 dark:text-blue-400 mb-4">
-                                <svg class="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="{{ metric.icon|default:'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' }}"/>
-                                </svg>
+                                <i class="fa-solid fa-arrow-trend-up text-4xl"></i>
                             </div>
-                            <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2"
-                                 data-count="{{ metric.value }}">
-                                {{ metric.value }}
+                            <div class="counter text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+                                 data-aos="zoom-in" data-aos-delay="100"
+                                 data-count="{{ metric.value }}">0
                             </div>
                             <p class="text-gray-600 dark:text-gray-300 font-medium">{{ metric.label }}</p>
                         </div>
@@ -244,3 +242,4 @@
         </div>
     </section>
 {% endblock %}
+

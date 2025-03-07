@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+
+{% load static %}
+{% load math_extras %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'lib/aos/aos.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'lib/aos/aos.js' %}"></script>
+    <script>
+        AOS.init({
+            duration: 800,   // 动画持续时间（毫秒）
+            easing: 'ease-in-out',  // 动画缓动效果
+        });
+
+        document.addEventListener("aos:in", ({detail}) => {
+            const counter = detail; // 当前进入视窗的元素
+            if (counter.classList.contains('counter') && !counter.classList.contains('counted')) {
+                const target = +counter.getAttribute('data-count');
+                let count = 0;
+                const increment = Math.ceil(target / 100);
+
+                const updateCounter = () => {
+                    count += increment;
+                    if (count >= target) {
+                        counter.textContent = target;
+                        counter.classList.add('counted'); // 防止重复执行
+                    } else {
+                        counter.textContent = count;
+                        requestAnimationFrame(updateCounter);
+                    }
+                };
+
+                updateCounter();
+            }
+        });
+    </script>
+{% endblock %}
