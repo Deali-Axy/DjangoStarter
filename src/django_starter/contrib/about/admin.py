@@ -12,6 +12,9 @@ class AboutAdmin(admin.ModelAdmin):
         ('基本信息', {
             'fields': ['title', 'story', 'mission']
         }),
+        ('企业信息', {
+            'fields': ['values', 'milestones', 'metrics']
+        }),
         ('联系方式', {
             'fields': ['email', 'phone', 'address']
         }),
