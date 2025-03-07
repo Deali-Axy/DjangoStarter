@@ -1,0 +1,70 @@
+{% extends '_base.html' %}
+
+{% block title %}联系我们{% endblock %}
+
+{% block content %}
+<div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl space-y-16">
+            <div class="mx-auto max-w-xl text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">联系我们</h2>
+                <p class="mt-2 text-lg leading-8 text-gray-600">我们期待听到您的声音</p>
+            </div>
+
+            <!-- 联系信息 -->
+            <div class="mx-auto grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-3">
+                <div class="flex gap-x-4">
+                    <div class="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-indigo-600">
+                        <i class="fas fa-envelope text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 text-gray-900">邮箱</h3>
+                        <p class="mt-2 leading-7 text-gray-600">{{ about.email }}</p>
+                    </div>
+                </div>
+                <div class="flex gap-x-4">
+                    <div class="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-indigo-600">
+                        <i class="fas fa-phone text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 text-gray-900">电话</h3>
+                        <p class="mt-2 leading-7 text-gray-600">{{ about.phone }}</p>
+                    </div>
+                </div>
+                <div class="flex gap-x-4">
+                    <div class="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-indigo-600">
+                        <i class="fas fa-location-dot text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 text-gray-900">地址</h3>
+                        <p class="mt-2 leading-7 text-gray-600">{{ about.address }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联系表单 -->
+            <div class="mx-auto max-w-xl">
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div>
+                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium leading-6 text-gray-900">{{ field.label }}</label>
+                        <div class="mt-2">
+                            {{ field }}
+                        </div>
+                        {% if field.errors %}
+                        <div class="mt-2 text-sm text-red-600">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <button type="submit" class="w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            发送消息
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
