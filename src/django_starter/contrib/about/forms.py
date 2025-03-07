@@ -1,5 +1,6 @@
 from django import forms
 
+# todo 换成 from django_starter.contrib.forms import BaseModelForm, BaseForm 可以减少代码
 class ContactForm(forms.Form):
     name = forms.CharField(
         label='姓名',
