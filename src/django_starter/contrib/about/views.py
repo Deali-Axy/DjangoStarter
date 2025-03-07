@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
+from types import SimpleNamespace
+from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
+from django.conf import settings
 from .models import About, Contact
 from .forms import ContactForm
 
 
-def index(request):
+def get_about():
     # 获取最新的About数据
     about = About.objects.first()
 
@@ -37,13 +39,34 @@ def index(request):
             'phone': '400-123-4567',
             'address': '中国北京市朝阳区科技园区888号'
         }
+        about = SimpleNamespace(**about)
 
+    return about
+
+
+def index(request):
+    about = get_about()
     return render(request, 'django_starter/about/index.html', {'about': about})
 
 
 def contact(request):
-    about = About.objects.first()
+    about = get_about()
+    contact_info = [
+        {'icon': 'fas fa-envelope', 'name': '邮箱', 'value': about.email},
+        {'icon': 'fas fa-phone', 'name': '电话', 'value': about.phone},
+        {'icon': 'fas fa-location-dot', 'name': '地址', 'value': about.address},
+        {'icon': 'fa-solid fa-earth-americas', 'name': '网站', 'value': 'https://github.com/Deali-Axy/django-starter'},
+        {'icon': 'fa-brands fa-x-twitter', 'name': 'Twitter', 'value': 'DjangoStarter'},
+        {'icon': 'fa-brands fa-facebook-f', 'name': 'Facebook', 'value': 'DjangoStarter'},
+        {'icon': 'fa-brands fa-weixin', 'name': '微信', 'value': 'DjangoStarter'},
+        {'icon': 'fa-brands fa-weibo', 'name': '微博', 'value': 'DjangoStarter'},
+    ]
+
     if request.method == 'POST':
+        if not settings.DJANGO_STARTER['site']['enable_contact_form']:
+            messages.error(request, '留言功能未启用！')
+            return redirect(reverse('djs_about:contact'))
+
         form = ContactForm(request.POST)
         if form.is_valid():
             Contact.objects.create(
@@ -53,13 +76,13 @@ def contact(request):
                 message=form.cleaned_data['message']
             )
             messages.success(request, '感谢您的留言，我们会尽快与您联系！')
-            return redirect('about/contact')
+            return redirect(reverse('djs_about:contact'))
     else:
         form = ContactForm()
 
     return render(request, 'django_starter/about/contact.html', {
         'form': form,
-        'about': about
+        'contact_info': contact_info
     })
 
 

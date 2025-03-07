@@ -12,6 +12,10 @@ DJANGO_STARTER = {
         'name': project_info.name,
         'description': project_info.description,
     },
+    'site': {
+        # 控制是否开启网站留言联系功能
+        'enable_contact_form': False,
+    },
     # 管理后台的配置
     'admin': {
         'site_header': project_info.name,
