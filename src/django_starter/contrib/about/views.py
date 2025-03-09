@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.conf import settings
 from .models import About, Contact
-from .forms import ContactForm
+from .forms import ContactForm, ContactModelForm
 
 
 def get_about():
@@ -30,9 +30,9 @@ def get_about():
                 {'year': '2023', 'title': 'A轮融资', 'description': '获得A轮融资，加速产品迭代和市场扩张'}
             ],
             'metrics': [
-                {'label': '服务用户', 'value': '100000'},
-                {'label': '项目案例', 'value': '1000'},
-                {'label': '合作伙伴', 'value': '50'},
+                {'label': '服务用户', 'value': '150000'},
+                {'label': '项目案例', 'value': '3000'},
+                {'label': '合作伙伴', 'value': '80'},
                 {'label': '客户满意度', 'value': '100'}
             ],
             'email': 'contact@example.com',
@@ -61,13 +61,23 @@ def contact(request):
         {'icon': 'fa-brands fa-weixin', 'name': '微信', 'value': 'DjangoStarter'},
         {'icon': 'fa-brands fa-weibo', 'name': '微博', 'value': 'DjangoStarter'},
     ]
+    template_name = 'django_starter/about/contact.html'
+    context = {
+        'form': ContactModelForm(),
+        'contact_info': contact_info,
+    }
 
     if request.method == 'POST':
         if not settings.DJANGO_STARTER['site']['enable_contact_form']:
             messages.error(request, '留言功能未启用！')
             return redirect(reverse('djs_about:contact'))
 
-        form = ContactForm(request.POST)
+        # todo 这里换成modelForm了，但还没改好
+        form = ContactModelForm(request.POST)
+        context['form'] = form
+        if not form.is_valid():
+            messages.error(request, '信息校验失败，请检查无误再提交')
+            return render(request, template_name, context)
         if form.is_valid():
             Contact.objects.create(
                 name=form.cleaned_data['name'],
@@ -78,12 +88,9 @@ def contact(request):
             messages.success(request, '感谢您的留言，我们会尽快与您联系！')
             return redirect(reverse('djs_about:contact'))
     else:
-        form = ContactForm()
+        form = ContactModelForm()
 
-    return render(request, 'django_starter/about/contact.html', {
-        'form': form,
-        'contact_info': contact_info
-    })
+    return render(request, template_name, context)
 
 
 def privacy_policy(request):

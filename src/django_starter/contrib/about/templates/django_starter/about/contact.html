@@ -59,6 +59,11 @@
                             <div class="mt-2">
                                 {{ field }}
                             </div>
+                            {% if field.help_text %}
+                                <div class="text-sm text-gray-400 dark:text-gray-500">
+                                    {{ field.help_text }}
+                                </div>
+                            {% endif %}
                             {% if field.errors %}
                                 <div class="mt-2 text-sm text-red-600 dark:text-red-400">{{ field.errors }}</div>
                             {% endif %}
