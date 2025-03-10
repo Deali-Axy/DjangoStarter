@@ -14,7 +14,7 @@ DJANGO_STARTER = {
     },
     'site': {
         # 控制是否开启网站留言联系功能
-        'enable_contact_form': False,
+        'enable_contact_form': True,
     },
     # 管理后台的配置
     'admin': {

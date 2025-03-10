@@ -15,7 +15,7 @@ BLOGS = [
     Uri('DjangoAdmin使用合集，它的功能比你想象的强大！', 'https://www.cnblogs.com/deali/p/16678014.html'),
     Uri('轻量级消息队列 Django-Q 轻度体验', 'https://www.cnblogs.com/deali/p/16644989.html'),
     Uri('Django数据库性能优化之 - 使用Python集合操作', 'https://www.cnblogs.com/deali/p/16449011.html'),
-    Uri('如何优雅地在<strong>django</strong>项目里生成不重复的ID？', 'https://www.cnblogs.com/deali/p/18593862')
+    Uri('如何优雅地在django项目里生成不重复的ID？', 'https://www.cnblogs.com/deali/p/18593862')
 ]
 
 # 相关项目列表
