@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.conf import settings
 from .models import About, Contact
-from .forms import ContactForm, ContactModelForm
+from .forms import ContactModelForm
 
 
 def get_about():
@@ -72,23 +72,15 @@ def contact(request):
             messages.error(request, '留言功能未启用！')
             return redirect(reverse('djs_about:contact'))
 
-        # todo 这里换成modelForm了，但还没改好
         form = ContactModelForm(request.POST)
         context['form'] = form
         if not form.is_valid():
             messages.error(request, '信息校验失败，请检查无误再提交')
             return render(request, template_name, context)
-        if form.is_valid():
-            Contact.objects.create(
-                name=form.cleaned_data['name'],
-                email=form.cleaned_data['email'],
-                phone=form.cleaned_data['phone'],
-                message=form.cleaned_data['message']
-            )
-            messages.success(request, '感谢您的留言，我们会尽快与您联系！')
-            return redirect(reverse('djs_about:contact'))
-    else:
-        form = ContactModelForm()
+
+        form.save()
+        messages.success(request, '感谢您的留言，我们会尽快与您联系！')
+        return redirect(reverse('djs_about:contact'))
 
     return render(request, template_name, context)
 
