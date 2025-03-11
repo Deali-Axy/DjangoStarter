@@ -68,13 +68,16 @@ def login_view(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
-            if user is not None:
+            if not user:
+                messages.warning(request, 'Invalid username or password.')
+                return render(request, 'account/login.html', ctx)
+            else:
                 messages.success(request, f'Welcome {user.username}')
                 login(request, user)
                 if next_url:
                     return redirect(next_url)
                 else:
-                    return redirect(reverse('djs_guide:index'))
+                    return redirect(reverse('account:index'))
         else:
             messages.error(request, '请输入有效的用户名和密码（至少4个字符）')
 

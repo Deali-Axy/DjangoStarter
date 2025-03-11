@@ -2,6 +2,8 @@
 
 {% load i18n %}
 
+{% block title %}Demo{% endblock %}
+
 {% block content %}
     <!-- 标题区域 -->
     <div class="text-center py-12 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl mb-12">
@@ -48,7 +50,7 @@
     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mb-12">
         <div class="md:flex">
             <div class="md:flex-shrink-0">
-                <img class="h-48 w-full object-cover md:w-48" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="示例图片"/>
+                <img class="h-full w-48 object-cover md:w-48" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="示例图片"/>
             </div>
             <div class="p-8">
                 <div class="uppercase tracking-wide text-sm text-green-600 font-semibold">示例展示</div>
@@ -69,7 +71,7 @@
     </div>
 
     <!-- 测试页面链接 -->
-    <div class="bg-gray-50 rounded-xl p-8">
+    <div class="bg-blue-100 rounded-xl p-8 shadow-lg">
         <h3 class="text-2xl font-semibold text-gray-800 mb-6">功能测试</h3>
         <div class="grid md:grid-cols-3 gap-4">
             <a href="{% url 'demo:test_403' %}" class="flex items-center justify-center px-6 py-4 text-sm font-medium text-white bg-yellow-600 rounded-lg hover:bg-yellow-700 focus:ring-4 focus:ring-yellow-300 transition-colors duration-300">
