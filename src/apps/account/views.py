@@ -60,7 +60,7 @@ def login_view(request):
         if next_url:
             return redirect(next_url)
         else:
-            return redirect(reverse('index'))
+            return redirect(reverse('djs_guide:index'))
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -74,7 +74,7 @@ def login_view(request):
                 if next_url:
                     return redirect(next_url)
                 else:
-                    return redirect(reverse('index'))
+                    return redirect(reverse('djs_guide:index'))
         else:
             messages.error(request, '请输入有效的用户名和密码（至少4个字符）')
 
@@ -118,11 +118,11 @@ def login_sso(request):
     if state:
         return redirect(state)
     else:
-        return redirect(reverse('index'))
+        return redirect(reverse('djs_guide:index'))
 
 
 def signup_view(request):
-    index_url = reverse('index')
+    index_url = reverse('djs_guide:index')
 
     if request.user.is_authenticated:
         messages.warning(request, '您已经登录了，不用重复操作。')
@@ -161,4 +161,4 @@ def signup_view(request):
 def logout_view(request):
     logout(request)
     messages.info(request, 'You have been logged out.')
-    return redirect(reverse('index'))
+    return redirect(reverse('djs_guide:index'))
