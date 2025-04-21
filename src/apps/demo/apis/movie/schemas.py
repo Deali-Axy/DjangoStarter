@@ -7,10 +7,10 @@ class MovieIn(ModelSchema):
 
     class Meta:
         model = Movie
-        fields = ['title', 'description', 'year', 'rating', 'genre', 'director', 'actors', ]
+        fields = ['is_deleted', 'created_time', 'updated_time', 'title', 'description', 'year', 'rating', 'genre', 'director', 'actors', ]
 
 
 class MovieOut(ModelSchema):
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'description', 'year', 'rating', 'genre', 'director', 'actors', ]
+        fields = ['id', 'is_deleted', 'created_time', 'updated_time', 'title', 'description', 'year', 'rating', 'genre', 'director', 'actors', ]

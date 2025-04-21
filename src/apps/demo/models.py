@@ -1,6 +1,7 @@
 from django.db import models
 from django_starter.db.models import ModelExt
 
+
 # Create your models here.
 class Movie(ModelExt):
     title = models.CharField(max_length=100)
@@ -17,8 +18,8 @@ class Movie(ModelExt):
     class Meta:
         db_table = 'demo_movie'
         ordering = ['title']
-        verbose_name = 'Movie'
-        verbose_name_plural = 'Movies'
+        verbose_name = '电影'
+        verbose_name_plural = verbose_name
         unique_together = (('title', 'year'),)
         indexes = [
             models.Index(fields=["title", "year"]),
@@ -37,8 +38,8 @@ class Actor(ModelExt):
     class Meta:
         db_table = 'demo_actor'
         ordering = ['name']
-        verbose_name = 'Actor'
-        verbose_name_plural = 'Actors'
+        verbose_name = '演员'
+        verbose_name_plural = verbose_name
         unique_together = (('name', 'name'),)
         index_together = (('name', 'name'),)
 
@@ -53,8 +54,8 @@ class MusicAlbum(ModelExt):
     class Meta:
         db_table = 'demo_music_album'
         ordering = ['name']
-        verbose_name = 'MusicAlbum'
-        verbose_name_plural = 'MusicAlbums'
+        verbose_name = '音乐专辑'
+        verbose_name_plural = verbose_name
 
 
 class Music(ModelExt):
@@ -70,5 +71,5 @@ class Music(ModelExt):
     class Meta:
         db_table = 'demo_music'
         ordering = ['name']
-        verbose_name = 'Music'
-        verbose_name_plural = 'Music'
+        verbose_name = '音乐'
+        verbose_name_plural = verbose_name
