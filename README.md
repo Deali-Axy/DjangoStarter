@@ -188,7 +188,7 @@ gulp move
 如果想使用 tailwindcss ，可以运行。
 
 ```bash
-npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.css --watch
+npm run tailwind:watch
 ```
 
 关于`tailwindcss`，详见这篇文章: [在 DjangoStarter 中集成 TailwindCSS](https://www.cnblogs.com/deali/p/18303538)
