@@ -1,8 +1,8 @@
 from django.db import models
-
+from django_starter.db.models import ModelExt
 
 # Create your models here.
-class Movie(models.Model):
+class Movie(ModelExt):
     title = models.CharField(max_length=100)
     description = models.TextField()
     year = models.IntegerField()
@@ -20,10 +20,12 @@ class Movie(models.Model):
         verbose_name = 'Movie'
         verbose_name_plural = 'Movies'
         unique_together = (('title', 'year'),)
-        index_together = (('title', 'year'),)
+        indexes = [
+            models.Index(fields=["title", "year"]),
+        ]
 
 
-class Actor(models.Model):
+class Actor(ModelExt):
     name = models.CharField(max_length=100)
     birth_date = models.DateField()
     country = models.CharField(max_length=100)
@@ -41,7 +43,7 @@ class Actor(models.Model):
         index_together = (('name', 'name'),)
 
 
-class MusicAlbum(models.Model):
+class MusicAlbum(ModelExt):
     name = models.CharField(max_length=100)
     year = models.IntegerField()
 
@@ -55,7 +57,7 @@ class MusicAlbum(models.Model):
         verbose_name_plural = 'MusicAlbums'
 
 
-class Music(models.Model):
+class Music(ModelExt):
     name = models.CharField(max_length=100)
     singer = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
