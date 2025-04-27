@@ -8,7 +8,6 @@ authors = [
 dependencies = [
     "django[argon2]>=5.0.6",
     "django-ninja>=1.1.0",
-    "django-simpleui>=2024.4.1",
     "django-multi-captcha-admin>=2.0.0",
     "django-simple-captcha>=0.6.0",
     "django-cors-headers>=4.3.1",
@@ -17,7 +16,6 @@ dependencies = [
     "pyjwt>=2.8.0",
     "wechatpy>=1.8.18",
     "django-redis>=5.4.0",
-    "simpleui>=2024.4.1",
     "pycryptodome>=3.20.0",
     "tblib>=3.0.0",
     "jinja2>=3.1.4",
@@ -25,6 +23,7 @@ dependencies = [
     "django-split-settings>=1.3.1",
     "django-compressor>=4.5",
     "daphne>=4.1.2",
+    "django-unfold>=0.55.3",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"
