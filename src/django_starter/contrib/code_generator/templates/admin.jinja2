@@ -1,4 +1,5 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from django_starter.contrib.admin.tags import html_tags
 
 from .models import *
@@ -6,7 +7,7 @@ from .models import *
 
 {% for model in app.models -%}
 @admin.register({{ model.name }})
-class {{ model.name }}Admin(admin.ModelAdmin):
+class {{ model.name }}Admin(ModelAdmin):
     list_display = [
     {%- for field in model.fields if not field.is_djs_reserve and not field.is_image and not field.is_text -%}
         '{{ field.name }}',

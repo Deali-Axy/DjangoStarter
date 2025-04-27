@@ -1,11 +1,12 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from django_starter.contrib.admin.tags import html_tags
 
 from .models import *
 
 
 @admin.register(Movie)
-class MovieAdmin(admin.ModelAdmin):
+class MovieAdmin(ModelAdmin):
     list_display = ['id','title','year','rating','genre','director','actors','description',]
     list_display_links = ['id','title','description','year','rating','genre','director','actors',]
     readonly_fields = ['id','created_time', 'updated_time', 'is_deleted',]
@@ -18,7 +19,7 @@ class MovieAdmin(admin.ModelAdmin):
     
 
 @admin.register(Actor)
-class ActorAdmin(admin.ModelAdmin):
+class ActorAdmin(ModelAdmin):
     list_display = ['id','name','birth_date','country','city',]
     list_display_links = ['id','name','birth_date','country','city',]
     readonly_fields = ['id','created_time', 'updated_time', 'is_deleted',]
@@ -31,7 +32,7 @@ class ActorAdmin(admin.ModelAdmin):
     
 
 @admin.register(MusicAlbum)
-class MusicAlbumAdmin(admin.ModelAdmin):
+class MusicAlbumAdmin(ModelAdmin):
     list_display = ['id','name','year',]
     list_display_links = ['id','name','year',]
     readonly_fields = ['id','created_time', 'updated_time', 'is_deleted',]
@@ -44,7 +45,7 @@ class MusicAlbumAdmin(admin.ModelAdmin):
     
 
 @admin.register(Music)
-class MusicAdmin(admin.ModelAdmin):
+class MusicAdmin(ModelAdmin):
     list_display = ['id','name','singer','genre','rating','album',]
     list_display_links = ['id','name','singer','genre','rating',]
     readonly_fields = ['id','created_time', 'updated_time', 'is_deleted',]
