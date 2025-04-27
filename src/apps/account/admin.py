@@ -1,11 +1,12 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from unfold.admin import StackedInline
+from django_starter.contrib.admin.admin import UserAdmin as BaseUserAdmin
 from .models import *
 
 
 # Define an inline admin descriptor for UserProfile model
 # which acts a bit like a singleton
-class UserProfileInline(admin.StackedInline):
+class UserProfileInline(StackedInline):
     model = UserProfile
     can_delete = False
     verbose_name_plural = "用户资料"

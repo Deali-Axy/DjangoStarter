@@ -41,7 +41,9 @@ class Actor(ModelExt):
         verbose_name = '演员'
         verbose_name_plural = verbose_name
         unique_together = (('name', 'name'),)
-        index_together = (('name', 'name'),)
+        indexes = [
+            models.Index(fields=["name"]),
+        ]
 
 
 class MusicAlbum(ModelExt):
