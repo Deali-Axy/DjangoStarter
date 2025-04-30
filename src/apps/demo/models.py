@@ -40,10 +40,6 @@ class Actor(ModelExt):
         ordering = ['name']
         verbose_name = '演员'
         verbose_name_plural = verbose_name
-        unique_together = (('name', 'name'),)
-        indexes = [
-            models.Index(fields=["name"]),
-        ]
 
 
 class MusicAlbum(ModelExt):
