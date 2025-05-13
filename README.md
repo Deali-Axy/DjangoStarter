@@ -125,6 +125,18 @@ v2版本已经定下了大体的框架，v3的主要改动是将 RestFramework �
 
 ## 快速开始
 
+### clone代码
+
+master分支是最新的代码，正处在活跃开发中，不保证生产稳定性，欢迎大家提issue。
+
+当前最新生产版本是 v3.1，使用以下命令克隆代码：
+
+```bash
+git clone --branch v3.1 --depth 1 https://github.com/Deali-Axy/DjangoStarter.git
+```
+
+### 包管理器
+
 v3 版本开始我使用了 [pdm](https://pdm-project.org/en/latest/) 作为包管理器，这是一个现代化的包管理和项目管理工具，它专为 Python 项目设计，提供了诸如依赖解析、包安装以及虚拟环境管理等功能。参考：[在python项目的docker镜像里使用pdm管理依赖](https://www.cnblogs.com/deali/p/18354017)
 
 首先需要安装 pdm ，请参考官网的推荐安装方式进行安装，如果实在是懒得看官网可以按照本文档是懒人版方式安装。
