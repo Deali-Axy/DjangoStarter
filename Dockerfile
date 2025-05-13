@@ -38,6 +38,21 @@ WORKDIR /project
 RUN pnpm i
 
 
+# tailwindcss 构建
+FROM node:$NODE_BASE AS tailwind_builder
+
+# 复制依赖文件
+COPY tailwind.config.js /project/
+COPY src/static/css/tailwind.src.css /project/src/static/css/
+
+# 从构建阶段获取包
+COPY --from=node_builder /project/node_modules/ /project/node_modules
+
+# 构建 tailwindcss
+WORKDIR /project
+RUN npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify
+
+
 # gulp 构建
 FROM node:$NODE_BASE AS gulp_builder
 
@@ -63,6 +78,7 @@ COPY . /project/
 # 从构建阶段获取包
 COPY --from=python_builder /project/.venv/ /project/.venv
 COPY --from=gulp_builder /project/src/static/ /project/src/static
+COPY --from=tailwind_builder /project/src/static/css/tailwind.prod.css /project/src/static/css/tailwind.prod.css
 
 WORKDIR /project
 ENV PATH="/project/.venv/bin:$PATH"
@@ -71,7 +87,17 @@ RUN python ./src/manage.py collectstatic
 
 
 # 运行阶段
-FROM python:$PYTHON_BASE AS final
+FROM python:$PYTHON_BASE-slim AS final
+
+# 添加元数据标签
+LABEL maintainer="DealiAxy <dealiaxy@gmail.com>"
+LABEL description="基于Django定制的快速Web开发模板"
+LABEL version="1.0"
+
+# 安装运行时必要的系统依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    && rm -rf /var/lib/apt/lists/*
 
 # 从构建阶段获取包
 COPY --from=python_builder /project/.venv/ /project/.venv
@@ -80,5 +106,25 @@ ENV PATH="/project/.venv/bin:$PATH"
 ENV DJANGO_SETTINGS_MODULE=config.settings
 ENV PYTHONPATH=/project/src
 ENV PYTHONUNBUFFERED=1
+
+# 复制应用代码
 COPY src /project/src
 WORKDIR /project
+
+# 创建非root用户并设置适当的权限
+RUN groupadd -r django && \
+    useradd -r -g django -d /project -s /bin/bash django && \
+    chown -R django:django /project
+
+# 切换到非root用户
+USER django
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+    CMD python -c "import requests; r = requests.get('http://localhost:8000/health/'); exit(0 if r.status_code == 200 else 1)"
+
+# 暴露端口
+EXPOSE 8000
+
+# 设置默认命令
+CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "-v", "3", "--proxy-headers", "config.asgi:application"]
