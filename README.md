@@ -6,9 +6,39 @@ DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开�
 
 通过这个全新的框架版本，开发者能够迅速搭建起符合现代 web 应用标准的项目基础架构。
 
-更多新版本的细节，可以查看这篇博客: [关于正在开发中的DjangoStarter v3版本](https://blog.sblt.deali.cn:9000/Blog/Post/a21ab29f70708e15)
+更多新版本的细节，可以查看这些博客文章:
 
-![](docs/images/admin_home.png)
+- [DjangoStarter v3版本开发笔记](https://blog.deali.cn/Blog/Post/a21ab29f70708e15)
+- [AI 加持下的 DjangoStarter v3.1 版本开发](https://blog.deali.cn/Blog/Post/1f6ce0f31ba1214a)
+
+## 截图预览
+
+### 主页
+
+<table style="width: 100%; table-layout: fixed;">
+  <thead>
+    <tr>
+      <th style="width: 50%;">主页</th>
+      <th style="width: 50%;">后台主页</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="docs/images/home.png" alt="主页" style="width: 100%;"/></td>
+      <td><img src="docs/images/admin_home.png" alt="后台主页" style="width: 100%;"/></td>
+    </tr>
+  </tbody>
+</table>
+### 其他页面
+
+
+| 登录页面                     | 联系我们                     |
+| ---------------------------- | ---------------------------- |
+| ![](docs/images/login.png)   | ![](docs/images/contact.png) |
+| 个人页面                     | Demo页面                     |
+| ![](docs/images/profile.png) | ![](docs/images/demo.png)    |
+
+
 
 ## 历史版本
 
