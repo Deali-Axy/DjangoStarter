@@ -8,7 +8,7 @@ lock_version = "4.5.0"
 content_hash = "sha256:dfc2ce779978f6c75af0d9e43b3db57593cb0d2332a34b738142a73bcff3e6cb"
 
 [[metadata.targets]]
-requires_python = "==3.11.*"
+requires_python = "==3.12.*"
 
 [[package]]
 name = "annotated-types"
