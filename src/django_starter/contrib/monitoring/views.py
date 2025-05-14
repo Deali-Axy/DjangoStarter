@@ -5,15 +5,8 @@ from redis import Redis
 from redis.exceptions import RedisError
 import os
 import time
-from prometheus_client import Counter, Histogram, generate_latest, REGISTRY, CONTENT_TYPE_LATEST
-import threading
-
-# 定义Prometheus指标
-REQUEST_COUNT = Counter('django_http_requests_total', 'Total HTTP Requests', ['method', 'endpoint', 'status'])
-REQUEST_LATENCY = Histogram('django_http_request_latency_seconds', 'Request latency', ['method', 'endpoint'])
-
-# 创建一个线程锁，防止并发写入问题
-prometheus_lock = threading.Lock()
+from prometheus_client import generate_latest, REGISTRY, CONTENT_TYPE_LATEST
+from .metrics import REQUEST_COUNT, prometheus_lock
 
 def health_check(request):
     """健康检查端点，用于容器健康检查和监控"""
@@ -67,4 +60,4 @@ def metrics(request):
     """Prometheus指标端点，提供监控数据"""
     with prometheus_lock:
         data = generate_latest(REGISTRY)
-    return HttpResponse(data, content_type=CONTENT_TYPE_LATEST)
+    return HttpResponse(data, content_type=CONTENT_TYPE_LATEST) 

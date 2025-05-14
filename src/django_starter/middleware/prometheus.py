@@ -1,5 +1,5 @@
 import time
-from django_starter.views import REQUEST_COUNT, REQUEST_LATENCY
+from django_starter.contrib.monitoring.metrics import REQUEST_COUNT, REQUEST_LATENCY
 
 
 class PrometheusMiddleware:
