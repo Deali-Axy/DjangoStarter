@@ -47,7 +47,7 @@ services:
           cpus: '0.3'
           memory: 128M
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8001/health/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8001/api/django-starter/monitoring/health/"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -94,7 +94,7 @@ services:
           cpus: '1.0'
           memory: 512M
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; r = requests.get('http://localhost:8000/health/'); exit(0 if r.status_code == 200 else 1)"]
+      test: ["CMD", "python", "-c", "import requests; r = requests.get('http://localhost:8000/api/django-starter/monitoring/health/'); exit(0 if r.status_code == 200 else 1)"]
       interval: 30s
       timeout: 5s
       retries: 3
