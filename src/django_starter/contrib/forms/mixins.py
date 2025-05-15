@@ -13,6 +13,7 @@ class BaseFormMixin:
         forms.PasswordInput: PASSWORD_INPUT_CLASS,
         forms.Select: SELECT_CLASS,
         forms.DateInput: DATE_INPUT_CLASS,
+        forms.NumberInput: NUMBER_INPUT_CLASS,
     }
 
     def apply_widget_classes(self):
