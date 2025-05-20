@@ -1,0 +1,34 @@
+<!-- components/page_header.html -->
+<!-- 页面标题 -->
+<h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-3">{{ title }}</h1>
+
+<!-- 面包屑导航 -->
+<nav class="flex mb-6" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+        {% for item in breadcrumbs %}
+            <li class="{% if forloop.first %}inline-flex items-center{% endif %}">
+                {% if item.url %}
+                    <{% if not forloop.last %}a href="{{ item.url }}"
+                       class="inline-flex items-center space-x-2 {% if not forloop.first %}ms-1 md:ms-2{% endif %} text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"{% else %}div class="flex items-center"{% endif %}>
+                        {% if item.icon %}
+                            <i class="{{ item.icon }}"></i>
+                        {% endif %}
+                        <span>{{ item.text }}</span>
+                    {% if not forloop.last %}</a>{% else %}</div>{% endif %}
+                {% else %}
+                    <div class="flex items-center">
+                        <span class="inline-flex items-center space-x-2 ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
+                            {% if item.icon %}
+                                <i class="{{ item.icon }}"></i>
+                            {% endif %}
+                            <span>{{ item.text }}</span>
+                        </span>
+                    </div>
+                {% endif %}
+            </li>
+            {% if not forloop.last %}
+                <i class="fa-solid fa-chevron-right text-gray-400 mx-1"></i>
+            {% endif %}
+        {% endfor %}
+    </ol>
+</nav>
