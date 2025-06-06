@@ -2,67 +2,83 @@
 {% load nav_menu_tags %}
 
 
-<nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-    <div class="container flex flex-wrap items-center justify-between mx-auto px-4 py-4 lg:px-0">
-        <a href="{% url 'djs_guide:index' %}" class="flex items-center text-2xl space-x-3 rtl:space-x-reverse">
-            <i class="fa-brands fa-python text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-red-600"></i>
+<nav class="bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-700 sticky top-0 z-50 shadow-sm transition-colors duration-300">
+    <div class="container flex flex-wrap items-center justify-between mx-auto px-4 py-3 lg:px-0">
+        <a href="{% url 'djs_guide:index' %}" class="flex items-center text-xl space-x-3 rtl:space-x-reverse">
+            <i class="fa-brands fa-python text-blue-600 dark:text-blue-500 text-2xl"></i>
             <span class="self-center font-semibold whitespace-nowrap dark:text-white">DjangoStarter</span>
         </a>
-        <button data-collapse-toggle="navbar-multi-level" type="button"
-                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                aria-controls="navbar-multi-level" aria-expanded="false">
-            <span class="sr-only">打开主菜单</span>
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <div class="flex items-center md:order-2 space-x-3">
+            <!-- 暗黑模式切换按钮 -->
+            <button id="theme-toggle" type="button" onclick="toggleDarkMode()"
+                    class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm py-2 px-3">
+                <span class="hidden dark:block"><i class="fa-solid fa-sun"></i></span>
+                <span class="block dark:hidden"><i class="fa-solid fa-moon"></i></span>
+                <span class="sr-only">切换暗黑模式</span>
+            </button>
+
+            {% if user.is_authenticated %}
+                <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                        class="flex gap-2 items-center justify-between py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent rounded-full">
+                    <div class="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-blue-100 dark:bg-blue-900 rounded-full">
+                    <span class="font-medium text-gray-600 dark:text-gray-300">
+                        {{ user.username|slice:":1"|upper }}
+                    </span>
+                    </div>
+                    <span class="hidden md:inline">
+                    {% if user.profile.full_name %}
+                        {{ user.profile.full_name }}
+                    {% else %}
+                        {{ user.username }}
+                    {% endif %}
+                </span>
+                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+                <div id="dropdownNavbar"
+                     class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownLargeButton">
+                        <li>
+                            <a href="{% url 'account:index' %}"
+                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                <i class="fa-solid fa-user-circle mr-2"></i>个人中心
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="py-1">
+                        <a href="{% url 'account:logout' %}"
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            <i class="fa-solid fa-sign-out-alt mr-2"></i>注销
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'account:login' %}"
+                   class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors">
+                    <i class="fa-solid fa-sign-in-alt mr-2"></i>
+                    登录
+                </a>
+            {% endif %}
+
+            <button data-collapse-toggle="navbar-multi-level" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-multi-level" aria-expanded="false">
+                <span class="sr-only">打开主菜单</span>
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
         <div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">
-            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700">
                 {% get_nav_menu as nav_menu %}
                 {% for menu_item in nav_menu %}
                     <li>
                         <a href="{{ menu_item.url }}"
-                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            <i class="{{ menu_item.icon }}"></i>
+                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition-colors">
+                            <i class="{{ menu_item.icon }} mr-2 md:mr-1"></i>
                             {{ menu_item.name }}
                         </a>
                     </li>
                 {% endfor %}
-                {% if user.is_authenticated %}
-                    <li>
-                        <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
-                                class="flex gap-2 items-center justify-between w-full py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-                            {% if user.profile.full_name %}
-                                {{ user.profile.full_name }}
-                            {% else %}
-                                {{ user.username }}
-                            {% endif %}
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </button>
-                        <div id="dropdownNavbar"
-                             class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                aria-labelledby="dropdownLargeButton">
-                                <li>
-                                    <a href="{% url 'account:index' %}"
-                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        个人中心
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="py-1">
-                                <a href="{% url 'account:logout' %}"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                    注销
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{% url 'account:login' %}"
-                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            登录</a>
-                    </li>
-                {% endif %}
             </ul>
         </div>
     </div>
