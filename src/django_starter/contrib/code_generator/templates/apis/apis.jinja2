@@ -12,26 +12,26 @@ from apps.{{ app.name }}.apis.{{ model.slug }}.schemas import *
 router = Router(tags=['{{ model.slug }}'])
 
 
-@router.post('/{{ model.slug }}', response={{ model.name }}Out, url_name='{{ app.name }}/{{ model.slug }}/create')
+@router.post('/', response={{ model.name }}Out, url_name='{{ app.name }}/{{ model.slug }}/create')
 def create(request, payload: {{ model.name }}In):
     item = {{ model.name }}.objects.create(**payload.dict())
     return item
 
 
-@router.get('/{{ model.slug }}/{item_id}', response={{ model.name }}Out, url_name='{{ app.name }}/{{ model.slug }}/retrieve')
+@router.get('/{item_id}', response={{ model.name }}Out, url_name='{{ app.name }}/{{ model.slug }}/retrieve')
 def retrieve(request, item_id):
     item = get_object_or_404({{ model.name }}, id=item_id)
     return item
 
 
-@router.get('/{{ model.slug }}', response=List[{{ model.name }}Out], url_name='{{ app.name }}/{{ model.slug }}/list')
+@router.get('/', response=List[{{ model.name }}Out], url_name='{{ app.name }}/{{ model.slug }}/list')
 @paginate
 def list_items(request):
     qs = {{ model.name }}.objects.all()
     return qs
 
 
-@router.put('/{{ model.slug }}/{item_id}', response={{ model.name }}Out, url_name='{{ app.name }}/{{ model.slug }}/update')
+@router.put('/{item_id}', response={{ model.name }}Out, url_name='{{ app.name }}/{{ model.slug }}/update')
 def update(request, item_id, payload: {{ model.name }}In):
     item = get_object_or_404({{ model.name }}, id=item_id)
     for attr, value in payload.dict().items():
@@ -40,7 +40,7 @@ def update(request, item_id, payload: {{ model.name }}In):
     return item
 
 
-@router.patch('/{{ model.slug }}/{item_id}', response={{ model.name }}Out, url_name='{{ app.name }}/{{ model.slug }}/partial_update')
+@router.patch('/{item_id}', response={{ model.name }}Out, url_name='{{ app.name }}/{{ model.slug }}/partial_update')
 def partial_update(request, item_id, payload: {{ model.name }}In):
     item = get_object_or_404({{ model.name }}, id=item_id)
     for attr, value in payload.dict(exclude_unset=True).items():
@@ -49,7 +49,7 @@ def partial_update(request, item_id, payload: {{ model.name }}In):
     return item
 
 
-@router.delete('/{{ model.slug }}/{item_id}', url_name='{{ app.name }}/{{ model.slug }}/destroy')
+@router.delete('/{item_id}', url_name='{{ app.name }}/{{ model.slug }}/destroy')
 def destroy(request, item_id):
     item = get_object_or_404({{ model.name }}, id=item_id)
     item.delete()
