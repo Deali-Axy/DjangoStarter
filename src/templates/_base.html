@@ -2,17 +2,15 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="{% block meta_description %}DjangoStarter - 下一代Django快速开发框架{% endblock %}">
+    <meta name="description" content="{% block meta_description %}DjangoStarter - 下一代Django快速开发框架{% endblock %}">
     <meta name="theme-color" content="#1e40af" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1e3a8a" media="(prefers-color-scheme: dark)">
-
     <title>{% block title %}{% endblock %} - DjangoStarter</title>
     <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
 
@@ -24,6 +22,7 @@
     {% endcompress %}
 
     <link rel="stylesheet" href="{% static 'lib/font-awesome/css/all.min.css' %}">
+
     <script src="{% static 'lib/htmx/htmx.min.js' %}"></script>
     {% block head %}{% endblock %}
 </head>
@@ -34,7 +33,7 @@
 {% include '_components/navbar.html' %}
 <!-- End of Navbar -->
 
-<div class="container mx-auto p-4">
+<main class="container mx-auto p-4 flex-grow">
     {% block alert %}
         {% if messages %}
             {% for message in messages %}
@@ -46,35 +45,17 @@
     {% endblock %}
     {% block content %}
     {% endblock content %}
-</div>
+</main>
 
 {% include '_components/footer.html' %}
 
 {% compress js %}
     <script src="{% static 'lib/flowbite/dist/flowbite.min.js' %}"></script>
-    <script>
-        // 检查用户偏好的主题并应用
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        // 主题切换函数
-        function toggleDarkMode() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.theme = 'light';
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.theme = 'dark';
-            }
-        }
-    </script>
+    <script src="{% static 'js/site.js' %}"></script>
     {% block script %}{% endblock %}
-    {% block extra_js %}{% endblock %}
 {% endcompress %}
 
+{% block extra_js %}{% endblock %}
 </body>
 
 </html>
