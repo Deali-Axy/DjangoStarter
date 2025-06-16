@@ -1,170 +1,179 @@
 import os
-from datetime import datetime
+from pathlib import Path
 
-from config import env_init
 from config.settings import BASE_DIR
 from config.settings.components.common import DEBUG
 
 
-def config_logging(base_dir: str) -> dict:
+def ensure_log_directory(log_dir: Path) -> None:
     """
-    配置日志
-
-    :param base_dir: Djanago BaseDir
-    :return: logging
+    确保日志目录存在
+    
+    :param log_dir: 日志目录路径
     """
+    log_dir.mkdir(parents=True, exist_ok=True)
 
+
+def get_logging_config(base_dir: str, app_name: str = 'djangostarter') -> dict:
+    """
+    获取生产环境日志配置
+    
+    :param base_dir: Django项目根目录
+    :param app_name: 应用名称，用于日志文件命名
+    :return: logging配置字典
+    """
     # 日志目录配置
-    logging_dir_config = {
-        'base': os.path.join(base_dir, 'log'),
-        'django': 'django',
-        'error': 'error',
-        'request': 'request',
-        'script': 'script'
-    }
-
-    # 初始化日志目录 不存在的话会自动创建
-    env_init.init_logging([
-        logging_dir_config['base'],
-        os.path.join(logging_dir_config['base'], logging_dir_config['django']),
-        os.path.join(logging_dir_config['base'], logging_dir_config['error']),
-        os.path.join(logging_dir_config['base'], logging_dir_config['request']),
-        os.path.join(logging_dir_config['base'], logging_dir_config['script']),
-    ])
-
-    logging = {
+    log_dir = Path(base_dir) / 'logs'
+    ensure_log_directory(log_dir)
+    
+    # 日志文件路径
+    app_log_file = log_dir / f'{app_name}_app.log'
+    error_log_file = log_dir / f'{app_name}_error.log'
+    django_log_file = log_dir / f'{app_name}_django.log'
+    
+    return {
         'version': 1,
-        'disable_existing_loggers': True,
+        'disable_existing_loggers': False,
         'formatters': {
-            'standard': {
-                'format': '%(asctime)s [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s] %(message)s'
-            }
+            'verbose': {
+                'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+                'style': '{',
+            },
+            'simple': {
+                'format': '{levelname} {asctime} {name} {message}',
+                'style': '{',
+            },
         },
-        'filters': {},
         'handlers': {
+            'console': {
+                'level': 'INFO',
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple'
+            },
+            'file_app': {
+                'level': 'INFO',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': str(app_log_file),
+                'maxBytes': 1024 * 1024 * 10,  # 10MB
+                'backupCount': 5,
+                'formatter': 'verbose',
+            },
+            'file_error': {
+                'level': 'ERROR',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': str(error_log_file),
+                'maxBytes': 1024 * 1024 * 10,  # 10MB
+                'backupCount': 5,
+                'formatter': 'verbose',
+            },
+            'file_django': {
+                'level': 'INFO',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filename': str(django_log_file),
+                'maxBytes': 1024 * 1024 * 10,  # 10MB
+                'backupCount': 3,
+                'formatter': 'verbose',
+            },
             'mail_admins': {
                 'level': 'ERROR',
                 'class': 'django.utils.log.AdminEmailHandler',
                 'include_html': True,
             },
-            'django': {
-                'level': 'DEBUG',
-                'class': 'logging.handlers.RotatingFileHandler',
-                'filename': os.path.join(logging_dir_config['base'], logging_dir_config['django'],
-                                         f'QWebFX_{datetime.now().date()}.log'),
-                'maxBytes': 1024 * 1024 * 5,  # 文件大小
-                'backupCount': 1,  # 备份份数
-                'formatter': 'standard',  # 使用哪种formatters日志格式
-            },
-            'default': {
-                'level': 'DEBUG',
-                'class': 'logging.handlers.RotatingFileHandler',
-                'filename': os.path.join(logging_dir_config['base'], f'QWebFX_{datetime.now().date()}.log'),
-                'maxBytes': 1024 * 1024 * 5,  # 文件大小
-                'backupCount': 3,  # 备份份数
-                'formatter': 'standard',  # 使用哪种formatters日志格式
-            },
-            'error': {
-                'level': 'ERROR',
-                'class': 'logging.handlers.RotatingFileHandler',
-                'filename': os.path.join(logging_dir_config['base'], logging_dir_config['error'],
-                                         f'QWebFX_Error_{datetime.now().date()}.log'),
-                'maxBytes': 1024 * 1024 * 5,
-                'backupCount': 3,
-                'formatter': 'standard',
-            },
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-                'formatter': 'standard'
-            },
-            'request_handler': {
-                'level': 'DEBUG',
-                'class': 'logging.handlers.RotatingFileHandler',
-                'filename': os.path.join(logging_dir_config['base'], logging_dir_config['request'],
-                                         f'QWebFX_Request_{datetime.now().date()}.log'),
-                'maxBytes': 1024 * 1024 * 5,
-                'backupCount': 3,
-                'formatter': 'standard',
-            },
-            'scripts_handler': {
-                'level': 'DEBUG',
-                'class': 'logging.handlers.RotatingFileHandler',
-                'filename': os.path.join(logging_dir_config['base'], logging_dir_config['script'],
-                                         f'QWebFX_Script_{datetime.now().date()}.log'),
-                'maxBytes': 1024 * 1024 * 5,
-                'backupCount': 3,
-                'formatter': 'standard',
-            }
+        },
+        'root': {
+            'level': 'INFO',
+            'handlers': ['console', 'file_app'],
         },
         'loggers': {
             'django': {
-                'handlers': ['django'],
-                'level': 'DEBUG',
-                'propagate': False
+                'handlers': ['file_django', 'console'],
+                'level': 'INFO',
+                'propagate': False,
             },
             'django.request': {
-                'handlers': ['request_handler'],
-                'level': 'DEBUG',
+                'handlers': ['file_error', 'mail_admins'],
+                'level': 'ERROR',
+                'propagate': False,
+            },
+            'django.security': {
+                'handlers': ['file_error', 'mail_admins'],
+                'level': 'ERROR',
+                'propagate': False,
+            },
+            # 保持与现有代码的兼容性
+            'common': {
+                'handlers': ['console', 'file_app', 'file_error'],
+                'level': 'INFO',
                 'propagate': False,
             },
             'scripts': {
-                'handlers': ['scripts_handler'],
+                'handlers': ['console', 'file_app'],
                 'level': 'INFO',
-                'propagate': False
-            },
-            'console': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-                'propagate': True
-            },
-            'common': {
-                'handlers': ['console', 'default', 'error'],
-                'level': 'DEBUG',
-                'propagate': True
+                'propagate': False,
             },
         }
     }
 
-    return logging
 
-
-def config_debug_logging() -> dict:
+def get_debug_logging_config() -> dict:
     """
-    调试模式的日志配置
-
-    :return: logging
+    获取开发环境日志配置
+    
+    :return: logging配置字典
     """
-
-    console_handler = {
-        'level': 'DEBUG',
-        'class': 'logging.StreamHandler',
-        'formatter': 'standard'
-    }
     return {
         'version': 1,
         'disable_existing_loggers': False,
         'formatters': {
-            'standard': {
-                'format': '%(asctime)s [%(pathname)s:%(funcName)s:%(lineno)d] [%(levelname)s] %(message)s'
-            }
+            'verbose': {
+                'format': '{levelname} {asctime} {name} {module} {funcName}:{lineno} {message}',
+                'style': '{',
+            },
         },
         'handlers': {
-            'console': console_handler,
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose'
+            },
+        },
+        'root': {
+            'level': 'INFO',
+            'handlers': ['console'],
         },
         'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': 'INFO',
+                'propagate': False,
+            },
+            'django.request': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': False,
+            },
+            'django.db.backends': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': False,
+            },
+            # 保持与现有代码的兼容性
             'common': {
                 'handlers': ['console'],
                 'level': 'DEBUG',
-                'propagate': True
+                'propagate': False,
+            },
+            'scripts': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': False,
             },
         }
     }
 
 
-# 日志配置
-# 不是调试模式才开启日志记录
+# 根据环境选择日志配置
 if DEBUG:
-    LOGGING = config_debug_logging()
+    LOGGING = get_debug_logging_config()
 else:
-    LOGGING = config_logging(BASE_DIR)
+    LOGGING = get_logging_config(BASE_DIR)
