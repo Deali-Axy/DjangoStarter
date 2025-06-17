@@ -433,6 +433,83 @@ project_info = ProjectInfo('DjangoStarter', '网站说明')
 编辑每个App目录下的`apps.py`文件，在`[AppName]Config`类里配置`verbose_name`，然后在App目录下的`__init__.py`中，设置`default_app_config`
 即可，具体参照`apps/demo`的代码。
 
+### 配置 URL Prefix
+
+DjangoStarter 支持通过 URL 前缀部署在子路径下，这在多应用共享域名或通过网关代理访问时非常有用。
+
+#### 工作原理
+
+系统通过环境变量 `URL_PREFIX` 统一配置所有组件的路径前缀：
+
+- **Django 应用**：自动为所有 URL 路由、静态文件、媒体文件添加前缀
+- **Nginx 反向代理**：通过模板自动生成对应的 location 配置
+- **健康检查**：自动调整健康检查端点路径
+- **管理后台**：自动调整 admin 访问路径
+
+#### 配置步骤
+
+1. **修改环境变量**
+   
+   编辑 `.env` 文件，设置 URL 前缀：
+   ```bash
+   URL_PREFIX=djangostarter
+   ```
+   
+   > ⚠️ **重要提示**：
+   > - 不要添加 `/` 前缀或后缀
+   > - 只使用字母、数字、连字符和下划线
+   > - 留空表示部署在根路径
+
+2. **重启服务**
+   ```bash
+   docker-compose down
+   docker-compose up -d
+   ```
+
+3. **验证配置**
+   
+   配置完成后，服务地址变为：
+   - **应用首页**：`http://example.com/djangostarter/`
+   - **管理后台**：`http://example.com/djangostarter/admin/`
+   - **API 接口**：`http://example.com/djangostarter/api/`
+   - **静态文件**：`http://example.com/djangostarter/static/`
+
+#### 外部网关配置示例
+
+如果使用外部 Nginx 作为网关，可以参考以下配置：
+
+```nginx
+# 方式一：透传前缀（推荐）
+location /djangostarter/ {
+    proxy_pass http://djangostarter-backend/djangostarter/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+# 方式二：去除前缀（需要应用配置为根路径）
+location /djangostarter/ {
+    rewrite ^/djangostarter/(.*)$ /$1 break;
+    proxy_pass http://djangostarter-backend/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+#### 常见问题
+
+**Q: 静态文件无法加载？**
+A: 确保外部网关也正确代理了 `/djangostarter/static/` 路径。
+
+**Q: 管理后台样式丢失？**
+A: 检查 `URL_PREFIX` 配置是否正确，重启服务后清除浏览器缓存。
+
+**Q: 健康检查失败？**
+A: 系统会自动调整健康检查路径，如果仍然失败，检查网络连接和服务状态。
+
 ### 中间件
 
 #### 配置启用*admin后台安全限制中间件*

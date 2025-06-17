@@ -2,11 +2,9 @@ version: '3.8'
 
 services:
   redis:
-    image: redis:alpine
+    image: ${REDIS_IMAGE:-redis:alpine}
     restart: unless-stopped
     container_name: $APP_NAME-redis
-    expose:
-      - 6379
     volumes:
       - redis_data:/data
     networks:
@@ -14,28 +12,35 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 256M
+          cpus: '${REDIS_CPU_LIMIT:-0.5}'
+          memory: ${REDIS_MEMORY_LIMIT:-256M}
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-10s}
     security_opt:
       - no-new-privileges:true
 
   nginx:
-    image: nginx:stable-alpine
+    image: ${NGINX_IMAGE:-nginx:stable-alpine}
     container_name: $APP_NAME-nginx
     restart: unless-stopped
+    environment:
+      - URL_PREFIX=${URL_PREFIX}
+      - APP_INTERNAL_PORT=${APP_INTERNAL_PORT:-8000}
+      - NGINX_INTERNAL_PORT=${NGINX_INTERNAL_PORT:-8001}
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      # Nginx 官方镜像支持模板自动处理：
+      # 将 .template 文件挂载到 /etc/nginx/templates/ 目录
+      # 容器启动时会自动使用 envsubst 处理环境变量并生成配置文件
+      - ./nginx.conf.template:/etc/nginx/templates/default.conf.template:ro
       - ./media:/www/media:ro
       - static_volume:/www/static-dist:ro
       - ./log/nginx:/var/log/nginx
     ports:
-      - ${APP_PORT}:8001
+      - ${APP_PORT}:${NGINX_INTERNAL_PORT:-8001}
     depends_on:
       - redis
       - app
@@ -44,14 +49,14 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.3'
-          memory: 128M
+          cpus: '${NGINX_CPU_LIMIT:-0.3}'
+          memory: ${NGINX_MEMORY_LIMIT:-128M}
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8001/api/django-starter/monitoring/health/"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${NGINX_INTERNAL_PORT:-8001}${URL_PREFIX}/api/django-starter/monitoring/health/"]
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-10s}
     security_opt:
       - no-new-privileges:true
 
@@ -66,15 +71,15 @@ services:
         NODE_BASE: ${NODE_VERSION:-18}
     restart: always
     environment:
-      - ENVIRONMENT=docker
-      - URL_PREFIX=
-      - DEBUG=false
-      - TZ=Asia/Shanghai
+      - ENVIRONMENT=${ENVIRONMENT:-docker}
+      - URL_PREFIX=${URL_PREFIX}
+      - DEBUG=${DEBUG:-false}
+      - TZ=${TZ:-Asia/Shanghai}
     command: >
       sh -c "
       echo 'Starting the application...' &&
       cp -r /project/static-dist/* /project/static-volume/ &&
-      exec daphne -b 0.0.0.0 -p 8000 -v 3 --proxy-headers config.asgi:application
+      exec daphne -b 0.0.0.0 -p ${APP_INTERNAL_PORT:-8000} -v 3 --proxy-headers config.asgi:application
       "
     volumes:
       - ./media:/project/media
@@ -91,76 +96,100 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 512M
+          cpus: '${APP_CPU_LIMIT:-1.0}'
+          memory: ${APP_MEMORY_LIMIT:-512M}
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; r = requests.get('http://localhost:8000/api/django-starter/monitoring/health/'); exit(0 if r.status_code == 200 else 1)"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
+      test: ["CMD", "python", "-c", "import requests; r = requests.get('http://localhost:${APP_INTERNAL_PORT:-8000}${URL_PREFIX}/api/django-starter/monitoring/health/'); exit(0 if r.status_code == 200 else 1)"]
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-10s}
     security_opt:
       - no-new-privileges:true
 
   prometheus:
-    image: prom/prometheus:latest
+    image: ${PROMETHEUS_IMAGE:-prom/prometheus:latest}
     container_name: $APP_NAME-prometheus
+    restart: unless-stopped
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
     ports:
-      - "9090:9090"
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=${PROMETHEUS_RETENTION:-200h}'
+      - '--web.enable-lifecycle'
     networks:
       - default
-    restart: unless-stopped
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 256M
+          cpus: '${PROMETHEUS_CPU_LIMIT:-0.5}'
+          memory: ${PROMETHEUS_MEMORY_LIMIT:-256M}
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-10s}
     security_opt:
       - no-new-privileges:true
 
   grafana:
-    image: grafana/grafana:latest
+    image: ${GRAFANA_IMAGE:-grafana/grafana:latest}
     container_name: $APP_NAME-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=${GRAFANA_ALLOW_SIGN_UP:-false}
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
     ports:
-      - "3000:3000"
+      - "${GRAFANA_PORT:-3000}:3000"
     depends_on:
       - prometheus
     networks:
       - default
-    restart: unless-stopped
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 256M
+          cpus: '${GRAFANA_CPU_LIMIT:-0.3}'
+          memory: ${GRAFANA_MEMORY_LIMIT:-128M}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-10s}
     security_opt:
       - no-new-privileges:true
 
   backup:
-    image: alpine:latest
+    image: ${BACKUP_IMAGE:-alpine:latest}
     container_name: $APP_NAME-backup
+    restart: "no"
     volumes:
       - ./db.sqlite3:/backup/db.sqlite3:ro
-      - ./backups:/backups
+      - ./media:/backup/media:ro
+      - ./backup:/backup/output
     command: >
       sh -c "
-      apk add --no-cache sqlite && 
-      mkdir -p /backups &&
-      echo '0 2 * * * sqlite3 /backup/db.sqlite3 .dump > /backups/db_backup_`date +\%Y\%m\%d`.sql' > /etc/crontabs/root &&
-      echo '0 3 * * 0 find /backups -name \"db_backup_*.sql\" -type f -mtime +30 -delete' >> /etc/crontabs/root &&
-      crond -f
+      echo 'Creating backup...' &&
+      tar -czf /backup/output/backup-$(date +%Y%m%d-%H%M%S).tar.gz -C /backup db.sqlite3 media &&
+      echo 'Backup completed.'
       "
-    restart: unless-stopped
+    networks:
+      - default
     deploy:
       resources:
         limits:
-          cpus: '0.1'
-          memory: 64M
+          cpus: '${BACKUP_CPU_LIMIT:-0.2}'
+          memory: ${BACKUP_MEMORY_LIMIT:-64M}
     security_opt:
       - no-new-privileges:true
 
