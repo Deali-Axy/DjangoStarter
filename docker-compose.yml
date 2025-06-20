@@ -67,9 +67,11 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        PYTHON_BASE: ${PYTHON_VERSION:-3.11}
+        PYTHON_BASE: ${PYTHON_VERSION:-3.12}
         NODE_BASE: ${NODE_VERSION:-18}
     restart: always
+    env_file:
+      - .env
     environment:
       - ENVIRONMENT=${ENVIRONMENT:-docker}
       - URL_PREFIX=${URL_PREFIX}
