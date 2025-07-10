@@ -3,5 +3,215 @@
 {% block breadcrumb_title %}控制台{% endblock %}
 
 {% block sub_content %}
-    {% include 'account/components/empty_view.html' with title='功能正在开发中' %}
+    {# Modern Dashboard Header #}
+    <div class="mb-8">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="p-3 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl">
+                <i class="fa-solid fa-grip text-white text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">控制台</h3>
+                <p class="text-gray-600 dark:text-gray-400">查看您的活动概览和系统状态</p>
+            </div>
+        </div>
+        <div class="h-1 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full w-20"></div>
+    </div>
+
+    {# Dashboard Stats #}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {# Stat Card 1 #}
+        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">总访问量</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">1,234</p>
+                        <p class="text-xs text-green-600 dark:text-green-400 flex items-center gap-1 mt-1">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            <span>+12.5%</span>
+                        </p>
+                    </div>
+                    <div class="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl">
+                        <i class="fa-solid fa-eye text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Stat Card 2 #}
+        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">活跃用户</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">567</p>
+                        <p class="text-xs text-green-600 dark:text-green-400 flex items-center gap-1 mt-1">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            <span>+8.2%</span>
+                        </p>
+                    </div>
+                    <div class="p-3 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl">
+                        <i class="fa-solid fa-users text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Stat Card 3 #}
+        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">系统状态</p>
+                        <p class="text-2xl font-bold text-green-600 dark:text-green-400">正常</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">99.9% 运行时间</p>
+                    </div>
+                    <div class="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
+                        <i class="fa-solid fa-server text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Stat Card 4 #}
+        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">存储使用</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">2.4GB</p>
+                        <p class="text-xs text-orange-600 dark:text-orange-400 flex items-center gap-1 mt-1">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            <span>+5.1%</span>
+                        </p>
+                    </div>
+                    <div class="p-3 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl">
+                        <i class="fa-solid fa-database text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Dashboard Content Grid #}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {# Recent Activity #}
+        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fa-solid fa-clock text-blue-500 text-xl"></i>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">最近活动</h4>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">登录成功</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">2分钟前</p>
+                        </div>
+                        <i class="fa-solid fa-sign-in-alt text-green-500"></i>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">更新个人资料</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">1小时前</p>
+                        </div>
+                        <i class="fa-solid fa-user-edit text-blue-500"></i>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">修改密码</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">3天前</p>
+                        </div>
+                        <i class="fa-solid fa-key text-purple-500"></i>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                        <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">账户创建</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">1周前</p>
+                        </div>
+                        <i class="fa-solid fa-user-plus text-orange-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Quick Actions #}
+        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fa-solid fa-bolt text-yellow-500 text-xl"></i>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">快速操作</h4>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="{% url 'account:profile' %}" class="group p-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                        <i class="fa-solid fa-user-edit text-2xl mb-2 group-hover:scale-110 transition-transform duration-200"></i>
+                        <p class="font-semibold">编辑资料</p>
+                    </a>
+                    
+                    <a href="{% url 'account:settings' %}" class="group p-4 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                        <i class="fa-solid fa-cog text-2xl mb-2 group-hover:scale-110 transition-transform duration-200"></i>
+                        <p class="font-semibold">系统设置</p>
+                    </a>
+                    
+                    <button class="group p-4 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                        <i class="fa-solid fa-download text-2xl mb-2 group-hover:scale-110 transition-transform duration-200"></i>
+                        <p class="font-semibold">导出数据</p>
+                    </button>
+                    
+                    <button class="group p-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                        <i class="fa-solid fa-chart-bar text-2xl mb-2 group-hover:scale-110 transition-transform duration-200"></i>
+                        <p class="font-semibold">查看报告</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# System Status #}
+    <div class="mt-6 backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+        <div class="p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-heartbeat text-red-500 text-xl"></i>
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">系统监控</h4>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-400">CPU 使用率</span>
+                        <span class="text-sm font-bold text-gray-900 dark:text-white">45%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-600 h-2 rounded-full" style="width: 45%"></div>
+                    </div>
+                </div>
+                
+                <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-400">内存使用</span>
+                        <span class="text-sm font-bold text-gray-900 dark:text-white">72%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-yellow-500 to-orange-600 h-2 rounded-full" style="width: 72%"></div>
+                    </div>
+                </div>
+                
+                <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-400">磁盘空间</span>
+                        <span class="text-sm font-bold text-gray-900 dark:text-white">28%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full" style="width: 28%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

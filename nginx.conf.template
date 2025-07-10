@@ -1,15 +1,27 @@
+# Nginx 配置模板文件
+# 此文件使用 Nginx 官方镜像的内置模板处理机制
+# 容器启动时，/etc/nginx/templates/ 目录下的 .template 文件会被自动处理
+# 通过 envsubst 工具将环境变量替换为实际值，生成最终的 nginx 配置文件
+# 无需手动执行任何命令，Nginx 镜像会在启动时自动完成这个过程
+
 upstream channels-backend {
-    server app:8000;
+    server app:${APP_INTERNAL_PORT};
 }
 
 server {
-    listen 8001;
+    listen ${NGINX_INTERNAL_PORT};
     server_name localhost;
 
     charset utf-8;
     # 限制用户上传文件大小
     client_max_body_size 100M;
 
+    # 根据 URL_PREFIX 配置主路由
+    location ${URL_PREFIX}/ {
+        try_files $uri @proxy_to_app;
+    }
+
+    # 如果 URL_PREFIX 为空，也需要处理根路径
     location / {
         try_files $uri @proxy_to_app;
     }
@@ -29,11 +41,21 @@ server {
     }
 
     # 静态资源路径
+    location ${URL_PREFIX}/static {
+        alias /www/static-dist;
+    }
+
+    # 如果 URL_PREFIX 为空，也需要处理 /static
     location /static {
         alias /www/static-dist;
     }
 
     # 媒体资源，用户上传文件路径
+    location ${URL_PREFIX}/media {
+        alias /www/media;
+    }
+
+    # 如果 URL_PREFIX 为空，也需要处理 /media
     location /media {
         alias /www/media;
     }

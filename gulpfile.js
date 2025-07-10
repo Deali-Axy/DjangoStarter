@@ -46,6 +46,7 @@ const libs = [
 const customLibs = [
     {name: 'font-awesome', dist: './node_modules/@fortawesome/fontawesome-free/**/*.*'},
     {name: 'aos', dist: './node_modules/aos/dist/**/*.*'},
+    {name: 'htmx', dist: './node_modules/htmx.org/dist/**/*.js'},
 ]
 
 //清除压缩后的文件

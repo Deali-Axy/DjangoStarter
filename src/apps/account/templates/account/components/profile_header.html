@@ -1,91 +1,165 @@
-<section class="relative pt-40 pb-24 bg-gradient-to-b from-gray-400 to-white">
+<!-- Profile Header Component with Dark Mode Support -->
+<section class="relative pt-40 pb-24 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20 transition-colors duration-300">
+    <!-- Background Cover Image -->
     <div class="absolute top-0 left-0 w-full h-60 overflow-hidden">
-        <img src="https://blog.sblt.deali.cn:9000/Api/PicLib/Random/{{ request.user.username }}/1440/240" alt="cover-image"
-             class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-in-out opacity-90">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50/80"></div>
+        <img src="https://blog.sblt.deali.cn:9000/Api/PicLib/Random/{{ request.user.username }}/1440/240" 
+             alt="cover-image"
+             class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-in-out">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-blue-50/90 dark:to-gray-900/90 transition-colors duration-300"></div>
+        <!-- Decorative Elements -->
+        <div class="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl"></div>
+        <div class="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-br from-indigo-400/20 to-pink-400/20 rounded-full blur-lg"></div>
     </div>
-    <div class="w-full max-w-7xl mx-auto px-6 md:px-8">
-        <div class="flex items-center justify-center sm:justify-start relative z-10 mb-5">
+
+    <div class="w-full max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+        <!-- Avatar Section -->
+        <div class="flex items-center justify-center sm:justify-start mb-8">
             <div class="relative group">
-                <div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full opacity-50 group-hover:opacity-100 transition duration-500 blur"></div>
-                <img src="https://blog.sblt.deali.cn:9000/Api/PicLib/Random/{{ request.user.username }}/150/150" alt="user-avatar-image"
-                     class="relative border-4 border-solid border-white rounded-full shadow-xl transform hover:scale-105 transition-all duration-500 ease-in-out">
+                <!-- Animated Glow Effect -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-60 group-hover:opacity-100 transition-all duration-500 blur animate-pulse"></div>
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-40 group-hover:opacity-80 transition-all duration-300 blur-sm"></div>
+                <img src="https://blog.sblt.deali.cn:9000/Api/PicLib/Random/{{ request.user.username }}/150/150" 
+                     alt="user-avatar-image"
+                     class="relative w-32 h-32 border-4 border-white dark:border-gray-800 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-500 ease-in-out bg-white dark:bg-gray-800">
+                <!-- Online Status Indicator -->
+                <div class="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-3 border-white dark:border-gray-800 rounded-full shadow-lg animate-pulse"></div>
             </div>
         </div>
-        <div class="flex flex-col sm:flex-row max-sm:gap-5 items-center justify-between mb-5 px-6 py-4 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div class="block space-y-2">
-                <div class="flex items-center gap-4 mb-3">
-                    <h3 class="font-bold text-3xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        {{ request.user.username }}
-                    </h3>
-                    <div class="text-2xl">
-                        {% if request.user.profile.gender == 'male' %}
-                            <i class="fa-solid fa-mars text-blue-500"></i>
-                        {% elif request.user.profile.gender == 'female' %}
-                            <i class="fa-solid fa-venus text-pink-500"></i>
-                        {% elif request.user.profile.gender == 'unknown' %}
-                            <i class="fa-regular fa-circle-question text-gray-500"></i>
-                        {% endif %}
+
+        <!-- Main Info Card -->
+        <div class="relative overflow-hidden">
+            <!-- Subtle Background Pattern -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-purple-50/30 dark:from-blue-900/10 dark:via-transparent dark:to-purple-900/10"></div>
+            <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-400/5 to-transparent rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-400/5 to-transparent rounded-full blur-2xl"></div>
+            
+            <div class="relative backdrop-blur-sm bg-white/60 dark:bg-gray-800/60 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 border border-white/30 dark:border-gray-700/30 mb-8">
+                <div class="flex flex-col lg:flex-row items-center justify-between p-6 lg:p-8 gap-6">
+                    <!-- User Information -->
+                    <div class="flex-1 space-y-5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <h1 class="font-bold text-3xl lg:text-4xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent leading-tight">
+                                {{ request.user.username }}
+                            </h1>
+                            <div class="text-2xl lg:text-3xl">
+                                {% if request.user.profile.gender == 'male' %}
+                                    <i class="fa-solid fa-mars text-blue-500 drop-shadow-sm"></i>
+                                {% elif request.user.profile.gender == 'female' %}
+                                    <i class="fa-solid fa-venus text-pink-500 drop-shadow-sm"></i>
+                                {% elif request.user.profile.gender == 'unknown' %}
+                                    <i class="fa-regular fa-circle-question text-gray-500 dark:text-gray-400 drop-shadow-sm"></i>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {% if request.user.profile.full_name %}
+                                <div class="group flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-gray-700/40 dark:to-gray-600/40 hover:from-blue-100/60 hover:to-indigo-100/60 dark:hover:from-gray-600/50 dark:hover:to-gray-500/50 transition-all duration-300 border border-blue-100/50 dark:border-gray-600/30">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300">
+                                        <i class="fa-regular fa-id-card text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-xs text-blue-600/80 dark:text-blue-400/80 font-medium mb-1">姓名</p>
+                                        <p class="font-semibold text-gray-900 dark:text-white text-sm">{{ request.user.profile.full_name }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if request.user.profile.phone %}
+                                <div class="group flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-gray-700/40 dark:to-gray-600/40 hover:from-emerald-100/60 hover:to-green-100/60 dark:hover:from-gray-600/50 dark:hover:to-gray-500/50 transition-all duration-300 border border-emerald-100/50 dark:border-gray-600/30">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300">
+                                        <i class="fa-solid fa-mobile-screen text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-xs text-emerald-600/80 dark:text-emerald-400/80 font-medium mb-1">电话</p>
+                                        <p class="font-semibold text-gray-900 dark:text-white text-sm">{{ request.user.profile.phone }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3 lg:gap-4">
+                        <button class="group relative overflow-hidden rounded-xl px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg">
+                            <div class="absolute inset-0 bg-gradient-to-r from-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <span class="relative z-10 flex items-center justify-center">
+                                <i class="fa-solid fa-pen mr-2 text-sm"></i>
+                                编辑资料
+                            </span>
+                        </button>
+                        <button class="group relative overflow-hidden rounded-xl px-6 py-3 lg:px-8 lg:py-4 border border-blue-500/60 dark:border-blue-400/60 text-blue-600 dark:text-blue-400 font-semibold hover:bg-blue-500 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg bg-white/50 dark:bg-gray-800/50">
+                            <span class="relative z-10 flex items-center justify-center">
+                                <i class="fa-solid fa-gear mr-2 text-sm"></i>
+                                个人设置
+                            </span>
+                        </button>
                     </div>
                 </div>
-
-                {% if request.user.profile.full_name %}
-                    <p class="font-normal text-base leading-7 text-gray-500">
-                        <i class="fa-regular fa-id-card"></i>
-                        {{ request.user.profile.full_name }}
-                    </p>
-                {% endif %}
-
-                {% if request.user.profile.phone %}
-                    <p class="font-normal text-base leading-7 text-gray-500">
-                        <i class="fa-solid fa-mobile-screen me-1"></i>
-                        {{ request.user.profile.phone }}
-                    </p>
-                {% endif %}
-            </div>
-            <div class="flex gap-4">
-                <button class="rounded-xl px-6 py-3.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold hover:from-blue-600 hover:to-purple-600 transition-all transform hover:scale-[1.02] shadow-md">
-                    <i class="fa-solid fa-pen mr-2"></i>
-                    编辑资料
-                </button>
-                <button class="rounded-xl px-6 py-3.5 border-2 border-blue-500 text-blue-500 font-semibold hover:bg-blue-50 transition-colors">
-                    <i class="fa-solid fa-gear mr-2"></i>
-                    个人设置
-                </button>
             </div>
         </div>
-        <div class="flex flex-col lg:flex-row max-lg:gap-5 items-center justify-between py-0.5">
-            <div class="flex items-center gap-4">
+
+        <!-- Skills and Quick Actions -->
+        <div class="flex flex-col xl:flex-row gap-8 items-start">
+            <!-- Quick Actions -->
+            <div class="flex flex-wrap gap-4">
                 <a role="button" href="{% url 'account:profile' %}"
-                   class="py-3.5 px-5 rounded-full bg-indigo-200/90 hover:bg-indigo-300 text-indigo-600 hover:text-indigo-800 font-semibold text-base leading-7 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200">
-                    修改资料
+                   class="group relative overflow-hidden px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-400/20 dark:to-purple-400/20 text-indigo-600 dark:text-indigo-400 font-semibold hover:from-indigo-500 hover:to-purple-500 hover:text-white transition-all duration-300 border border-indigo-200 dark:border-indigo-700 hover:border-transparent shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span class="relative z-10">
+                        <i class="fa-solid fa-user-edit mr-2"></i>
+                        修改资料
+                    </span>
                 </a>
-                <button class="py-3.5 px-5 rounded-full bg-indigo-200/90 hover:bg-indigo-300 text-indigo-600 hover:text-indigo-800 font-semibold text-base leading-7 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200">
-                    个人设置
+                <button class="group relative overflow-hidden px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500/10 to-teal-500/10 dark:from-emerald-400/20 dark:to-teal-400/20 text-emerald-600 dark:text-emerald-400 font-semibold hover:from-emerald-500 hover:to-teal-500 hover:text-white transition-all duration-300 border border-emerald-200 dark:border-emerald-700 hover:border-transparent shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span class="relative z-10">
+                        <i class="fa-solid fa-cog mr-2"></i>
+                        个人设置
+                    </span>
                 </button>
             </div>
-            <div class="flex flex-col md:flex-row items-center gap-6 ">
-                <p class="flex items-center gap-2 font-medium text-lg leading-8 text-gray-400 ">
-                    Skills
-                    <i class="fa-regular fa-star"></i>
-                </p>
-                <ul class="flex items-center flex-wrap gap-3">
-                    <li class="px-4 py-2 rounded-full bg-blue-50 text-blue-600 font-medium hover:bg-blue-100 transition-colors cursor-pointer">
-                        <i class="fa-brands fa-html5 mr-2"></i>HTML
-                    </li>
-                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
-                        CSS
-                    </li>
-                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
-                        Dart
-                    </li>
-                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
-                        C++
-                    </li>
-                    <li class="py-3.5 px-7 rounded-full bg-orange-50 font-semibold text-base leading-7 text-gray-700">
-                        UI Design
-                    </li>
-                </ul>
+
+            <!-- Skills Section -->
+            <div class="flex-1 w-full">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-star text-white text-sm"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 dark:text-white">技能专长</h3>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <div class="group relative overflow-hidden px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/10 to-red-500/10 dark:from-orange-400/20 dark:to-red-400/20 text-orange-600 dark:text-orange-400 font-medium hover:from-orange-500 hover:to-red-500 hover:text-white transition-all duration-300 border border-orange-200 dark:border-orange-700 hover:border-transparent cursor-pointer transform hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">
+                            <i class="fa-brands fa-html5 mr-2"></i>HTML
+                        </span>
+                    </div>
+                    <div class="group relative overflow-hidden px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 dark:from-blue-400/20 dark:to-cyan-400/20 text-blue-600 dark:text-blue-400 font-medium hover:from-blue-500 hover:to-cyan-500 hover:text-white transition-all duration-300 border border-blue-200 dark:border-blue-700 hover:border-transparent cursor-pointer transform hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">
+                            <i class="fa-brands fa-css3-alt mr-2"></i>CSS
+                        </span>
+                    </div>
+                    <div class="group relative overflow-hidden px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-400/20 dark:to-blue-400/20 text-cyan-600 dark:text-cyan-400 font-medium hover:from-cyan-500 hover:to-blue-500 hover:text-white transition-all duration-300 border border-cyan-200 dark:border-cyan-700 hover:border-transparent cursor-pointer transform hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">
+                            <i class="fa-solid fa-code mr-2"></i>Dart
+                        </span>
+                    </div>
+                    <div class="group relative overflow-hidden px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 dark:from-purple-400/20 dark:to-pink-400/20 text-purple-600 dark:text-purple-400 font-medium hover:from-purple-500 hover:to-pink-500 hover:text-white transition-all duration-300 border border-purple-200 dark:border-purple-700 hover:border-transparent cursor-pointer transform hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">
+                            <i class="fa-solid fa-microchip mr-2"></i>C++
+                        </span>
+                    </div>
+                    <div class="group relative overflow-hidden px-4 py-2 rounded-full bg-gradient-to-r from-pink-500/10 to-rose-500/10 dark:from-pink-400/20 dark:to-rose-400/20 text-pink-600 dark:text-pink-400 font-medium hover:from-pink-500 hover:to-rose-500 hover:text-white transition-all duration-300 border border-pink-200 dark:border-pink-700 hover:border-transparent cursor-pointer transform hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">
+                            <i class="fa-solid fa-palette mr-2"></i>UI Design
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
