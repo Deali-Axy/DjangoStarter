@@ -1,14 +1,71 @@
 {% extends '_base.html' %}
 
+{% block title %}403 禁止访问{% endblock %}
+
 {% block content %}
-<div class="min-h-[70vh] flex items-center justify-center">
-    <div class="text-center">
-        <h1 class="text-9xl font-bold text-gray-900 dark:text-white">403</h1>
-        <p class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mt-4">禁止访问</p>
-        <p class="text-gray-500 dark:text-gray-400 mt-4 mb-8">抱歉，您没有权限访问此页面。</p>
-        <a href="/" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-            返回首页
-        </a>
+<div class="min-h-[75vh] flex flex-col items-center justify-center">
+    <div class="text-center max-w-lg p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all animate-fade-in-up">
+        <div class="relative mb-8">
+            <div class="absolute -top-2 -left-2 w-full h-full rounded-full bg-red-100 dark:bg-red-900/30 animate-ping-slow"></div>
+            <h1 class="text-9xl font-bold text-gray-900 dark:text-white relative">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-700">403</span>
+            </h1>
+        </div>
+        <p class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-2">禁止访问</p>
+        <p class="text-gray-500 dark:text-gray-400 mb-8">抱歉，您没有权限访问此页面。</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/" class="flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none dark:focus:ring-blue-700 transition-colors w-full sm:w-auto justify-center">
+                <i class="fas fa-home"></i>
+                返回首页
+            </a>
+            <a href="javascript:history.back()" class="flex items-center gap-2 text-gray-700 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 focus:outline-none dark:focus:ring-gray-600 transition-colors w-full sm:w-auto justify-center">
+                <i class="fas fa-arrow-left"></i>
+                返回上一页
+            </a>
+        </div>
+    </div>
+    <div class="mt-8 text-sm text-gray-500 dark:text-gray-400 animate-fade-in">
+        如果您认为这是一个错误，请联系<a href="mailto:admin@example.com" class="text-blue-600 hover:underline dark:text-blue-400">管理员</a>
     </div>
 </div>
+
+<style>
+    @keyframes ping-slow {
+        0% {
+            transform: scale(0.95);
+            opacity: 1;
+        }
+        75%, 100% {
+            transform: scale(1.05);
+            opacity: 0;
+        }
+    }
+    .animate-ping-slow {
+        animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animate-fade-in-up {
+        animation: fade-in-up 0.5s ease-out;
+    }
+    
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .animate-fade-in {
+        animation: fade-in 1s ease-out forwards;
+        animation-delay: 0.3s;
+        opacity: 0;
+    }
+</style>
 {% endblock %}

@@ -1,22 +1,49 @@
-from config.settings.components.common import DOCKER
+from typing import Dict, Any, List
+from config.settings.components.common import DOCKER, DEBUG
+from django_starter.contrib.cache import CacheBackendSpec, get_django_cache_settings
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',  # 缓存后端 Redis
-        # 连接Redis数据库(服务器地址)
-        # 一主带多从(可以配置个Redis，写走第一台，读走其他的机器)
-        'LOCATION': [
-            'redis://redis:6379/0' if DOCKER else 'redis://localhost:6379/0',
-        ],
-        'KEY_PREFIX': 'django_starter',  # 项目名当做文件前缀
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',  # 连接选项(默认，不改)
-            'CONNECTION_POOL_KWARGS': {
-                'max_connections': 512,  # 连接池的连接(最大连接)
-            },
-            # 'PASSWORD': 'password', # Redis密码
-        },
-        # 缓存过期时间（秒）
-        'TIMEOUT': 30
-    }
-}
+
+# =============================================================================
+# CACHE BACKEND CONFIGURATIONS
+# =============================================================================
+# This is the main configuration section - modify here to add/remove cache backends
+
+CACHE_BACKEND_SPECS = [
+    CacheBackendSpec(
+        alias='default',
+        db_index=0,  # Can be overridden by REDIS_DB_DEFAULT env var
+        key_prefix='django_starter',
+        description='Default cache for general application use'
+    ),
+    # Add more cache backends here as needed:
+    # CacheBackendSpec(
+    #     alias='sessions',
+    #     db_index=1,
+    #     key_prefix='sessions',
+    #     description='Session storage cache'
+    # ),
+]
+
+
+# =============================================================================
+# CACHE SETTINGS GENERATION
+# =============================================================================
+
+def get_cache_settings() -> Dict[str, Any]:
+    """Generate complete cache settings using the centralized cache manager.
+    
+    This function uses the django_starter.cache module to generate cache
+    configurations based on the CACHE_BACKEND_SPECS defined above.
+    
+    Returns:
+        Complete Django CACHES configuration dictionary
+    """
+    return get_django_cache_settings(
+        docker_mode=DOCKER,
+        debug_mode=DEBUG,
+        custom_specs=CACHE_BACKEND_SPECS
+    )
+
+
+# Generate cache configuration
+CACHES = get_cache_settings()

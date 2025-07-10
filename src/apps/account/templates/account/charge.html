@@ -3,5 +3,228 @@
 {% block breadcrumb_title %}充电{% endblock %}
 
 {% block sub_content %}
-    {% include 'account/components/empty_view.html' with title='功能正在开发中' %}
+    {# Modern Charge Header #}
+    <div class="mb-8">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="p-3 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-xl">
+                <i class="fa-solid fa-bolt text-white text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">账户充值</h3>
+                <p class="text-gray-600 dark:text-gray-400">为您的账户充值，享受更多服务</p>
+            </div>
+        </div>
+        <div class="h-1 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full w-20"></div>
+    </div>
+
+    {# Current Balance #}
+    <div class="mb-8 backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+        <div class="p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">当前余额</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white">¥ 128.50</p>
+                    <p class="text-xs text-green-600 dark:text-green-400 flex items-center gap-1 mt-1">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <span>上次充值：¥50.00</span>
+                    </p>
+                </div>
+                <div class="p-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
+                    <i class="fa-solid fa-wallet text-white text-3xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Charge Options #}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {# Quick Charge #}
+        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fa-solid fa-zap text-yellow-500 text-xl"></i>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">快速充值</h4>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button class="group p-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                        <div class="text-center">
+                            <p class="text-2xl font-bold mb-1">¥10</p>
+                            <p class="text-xs opacity-90">基础充值</p>
+                        </div>
+                    </button>
+                    
+                    <button class="group p-4 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                        <div class="text-center">
+                            <p class="text-2xl font-bold mb-1">¥50</p>
+                            <p class="text-xs opacity-90">推荐充值</p>
+                        </div>
+                    </button>
+                    
+                    <button class="group p-4 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                        <div class="text-center">
+                            <p class="text-2xl font-bold mb-1">¥100</p>
+                            <p class="text-xs opacity-90">超值充值</p>
+                        </div>
+                    </button>
+                    
+                    <button class="group p-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl text-white hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                        <div class="text-center">
+                            <p class="text-2xl font-bold mb-1">¥500</p>
+                            <p class="text-xs opacity-90">VIP充值</p>
+                        </div>
+                    </button>
+                </div>
+                
+                {# Custom Amount #}
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">自定义金额</label>
+                    <div class="flex gap-3">
+                        <div class="flex-1 relative">
+                            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">¥</span>
+                            <input type="number" placeholder="输入金额" class="w-full pl-8 pr-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
+                        </div>
+                        <button class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200 font-semibold">
+                            充值
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Payment Methods #}
+        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fa-solid fa-credit-card text-green-500 text-xl"></i>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">支付方式</h4>
+                </div>
+                
+                <div class="space-y-3">
+                    <label class="flex items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                        <input type="radio" name="payment" value="wechat" class="sr-only">
+                        <div class="w-5 h-5 border-2 border-gray-300 dark:border-gray-600 rounded-full mr-3 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-green-500 rounded-full hidden"></div>
+                        </div>
+                        <div class="flex items-center gap-3 flex-1">
+                            <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                                <i class="fab fa-weixin text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">微信支付</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">安全便捷的移动支付</p>
+                            </div>
+                        </div>
+                    </label>
+                    
+                    <label class="flex items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                        <input type="radio" name="payment" value="alipay" class="sr-only">
+                        <div class="w-5 h-5 border-2 border-gray-300 dark:border-gray-600 rounded-full mr-3 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full hidden"></div>
+                        </div>
+                        <div class="flex items-center gap-3 flex-1">
+                            <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                                <i class="fab fa-alipay text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">支付宝</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">快速安全的在线支付</p>
+                            </div>
+                        </div>
+                    </label>
+                    
+                    <label class="flex items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                        <input type="radio" name="payment" value="bank" class="sr-only">
+                        <div class="w-5 h-5 border-2 border-gray-300 dark:border-gray-600 rounded-full mr-3 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full hidden"></div>
+                        </div>
+                        <div class="flex items-center gap-3 flex-1">
+                            <div class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-university text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">银行卡</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">支持各大银行储蓄卡</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Charge History #}
+    <div class="mt-6 backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
+        <div class="p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-history text-blue-500 text-xl"></i>
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">充值记录</h4>
+            </div>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-plus text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-900 dark:text-white">充值成功</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">2024-01-15 14:30</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-green-600 dark:text-green-400">+¥50.00</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">微信支付</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-plus text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-900 dark:text-white">充值成功</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">2024-01-10 09:15</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-green-600 dark:text-green-400">+¥100.00</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">支付宝</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-plus text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-900 dark:text-white">充值成功</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">2024-01-05 16:45</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-green-600 dark:text-green-400">+¥20.00</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">银行卡</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Tips #}
+    <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl">
+        <div class="flex items-start gap-3">
+            <i class="fa-solid fa-info-circle text-blue-500 text-lg mt-0.5"></i>
+            <div>
+                <h5 class="font-semibold text-blue-900 dark:text-blue-300 mb-1">充值提示</h5>
+                <ul class="text-sm text-blue-800 dark:text-blue-400 space-y-1">
+                    <li>• 充值金额将实时到账，请确认支付信息无误</li>
+                    <li>• 支持微信、支付宝、银行卡等多种支付方式</li>
+                    <li>• 如有充值问题，请联系客服获取帮助</li>
+                    <li>• 充值记录可在个人中心查看和下载</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

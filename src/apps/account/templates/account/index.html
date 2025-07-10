@@ -5,85 +5,205 @@
 {% block content %}
     {% include 'account/components/profile_header.html' %}
 
-    <div id="about" class="relative bg-white overflow-hidden px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
-                <div class="mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
-                    <div class="text-center lg:text-left">
-                        <h2 class="mb-8 text-3xl font-extrabold text-gray-900 sm:text-4xl md:text-5xl">
-                            关于我
-                        </h2>
-                        <div class="space-y-6 text-lg text-gray-600">
-                            <div class="flex flex-col md:flex-row gap-6 items-start">
-                                <div class="flex-1 space-y-6">
-                                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                                            <i class="fa-solid fa-user-pen text-indigo-500"></i>
-                                            个人简介
-                                        </h3>
-                                        <p class="text-gray-600">{{ request.user.profile.bio|default:'这个人很懒，还没有填写个人简介...' }}</p>
-                                        <a href="{% url 'account:profile' %}" class="inline-flex items-center mt-4 text-sm text-indigo-600 hover:text-indigo-800">
-                                            <i class="fa-solid fa-pen-to-square mr-1"></i>
-                                            编辑简介
-                                        </a>
-                                    </div>
-                                    
-                                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                                            <i class="fa-solid fa-briefcase text-indigo-500"></i>
-                                            工作经历
-                                        </h3>
-                                        <div class="space-y-4">
-                                            <div class="flex items-start gap-4">
-                                                <div class="flex-1">
-                                                    <h4 class="font-medium text-gray-900">软件工程师</h4>
-                                                    <p class="text-sm text-gray-500">2020 - 至今</p>
-                                                    <p class="mt-2 text-gray-600">负责系统架构设计和核心功能开发</p>
-                                                </div>
-                                            </div>
+    <!-- 主要内容区域 -->
+    <div id="about" class="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-indigo-400/20 to-cyan-600/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="relative z-10 px-4 sm:px-6 lg:px-8 py-12">
+            <div class="max-w-7xl mx-auto">
+                <!-- 页面标题 -->
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+                        关于我
+                    </h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                        探索我的专业经历、技能特长和个人成就
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- 左侧主要内容 -->
+                    <div class="lg:col-span-2 space-y-8">
+                        <!-- 个人简介卡片 -->
+                        <div class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-user-pen text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">
+                                    个人简介
+                                </h3>
+                            </div>
+                            <div class="space-y-4">
+                                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                                    {{ request.user.profile.bio|default:'这个人很懒，还没有填写个人简介...' }}
+                                </p>
+                                <a href="{% url 'account:profile' %}" 
+                                   class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    编辑简介
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 工作经历卡片 -->
+                        <div class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-3 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-briefcase text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">
+                                    工作经历
+                                </h3>
+                            </div>
+                            <div class="space-y-6">
+                                <div class="relative pl-8 border-l-2 border-gradient-to-b from-blue-500 to-purple-600">
+                                    <div class="absolute -left-2 top-0 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+                                    <div class="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-xl">
+                                        <h4 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">软件工程师</h4>
+                                        <p class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">2020 - 至今</p>
+                                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                            负责系统架构设计和核心功能开发，参与多个大型项目的技术选型和实施
+                                        </p>
+                                        <div class="flex flex-wrap gap-2 mt-4">
+                                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">Python</span>
+                                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm font-medium">Django</span>
+                                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium">Vue.js</span>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="md:w-1/3 space-y-6">
-                                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                                            <i class="fa-solid fa-chart-line text-indigo-500"></i>
-                                            统计信息
-                                        </h3>
-                                        <div class="space-y-3">
-                                            <div class="flex justify-between items-center">
-                                                <span class="text-gray-600">活跃天数</span>
-                                                <span class="font-medium text-gray-900">365天</span>
-                                            </div>
-                                            <div class="flex justify-between items-center">
-                                                <span class="text-gray-600">项目数量</span>
-                                                <span class="font-medium text-gray-900">12个</span>
-                                            </div>
-                                            <div class="flex justify-between items-center">
-                                                <span class="text-gray-600">获赞数</span>
-                                                <span class="font-medium text-gray-900">2.3k</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                                            <i class="fa-solid fa-certificate text-indigo-500"></i>
-                                            认证信息
-                                        </h3>
-                                        <div class="space-y-2">
-                                            <div class="flex items-center gap-2 text-gray-600">
-                                                <i class="fa-solid fa-check text-green-500"></i>
-                                                <span>邮箱已验证</span>
-                                            </div>
-                                            <div class="flex items-center gap-2 text-gray-600">
-                                                <i class="fa-solid fa-check text-green-500"></i>
-                                                <span>手机已验证</span>
-                                            </div>
-                                        </div>
+                            </div>
+                        </div>
+
+                        <!-- 技能展示卡片 -->
+                        <div class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-3 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-code text-xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">
+                                    技能专长
+                                </h3>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-xl text-center hover:scale-105 transition-transform duration-300">
+                                    <i class="fa-brands fa-python text-3xl text-blue-600 dark:text-blue-400 mb-2"></i>
+                                    <p class="font-semibold text-gray-800 dark:text-white">Python</p>
+                                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mt-2">
+                                        <div class="bg-blue-600 h-2 rounded-full" style="width: 90%"></div>
                                     </div>
                                 </div>
+                                <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-4 rounded-xl text-center hover:scale-105 transition-transform duration-300">
+                                    <i class="fa-brands fa-js-square text-3xl text-green-600 dark:text-green-400 mb-2"></i>
+                                    <p class="font-semibold text-gray-800 dark:text-white">JavaScript</p>
+                                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mt-2">
+                                        <div class="bg-green-600 h-2 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-4 rounded-xl text-center hover:scale-105 transition-transform duration-300">
+                                    <i class="fa-brands fa-vue text-3xl text-purple-600 dark:text-purple-400 mb-2"></i>
+                                    <p class="font-semibold text-gray-800 dark:text-white">Vue.js</p>
+                                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mt-2">
+                                        <div class="bg-purple-600 h-2 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧边栏 -->
+                    <div class="space-y-8">
+                        <!-- 统计信息卡片 -->
+                        <div class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-chart-line text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 dark:text-white">
+                                    统计信息
+                                </h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-xl">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-calendar-days text-blue-600 dark:text-blue-400"></i>
+                                            <span class="text-gray-600 dark:text-gray-300 font-medium">活跃天数</span>
+                                        </div>
+                                        <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">365</span>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-xl">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-folder-open text-green-600 dark:text-green-400"></i>
+                                            <span class="text-gray-600 dark:text-gray-300 font-medium">项目数量</span>
+                                        </div>
+                                        <span class="text-2xl font-bold text-green-600 dark:text-green-400">12</span>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-4 rounded-xl">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-heart text-purple-600 dark:text-purple-400"></i>
+                                            <span class="text-gray-600 dark:text-gray-300 font-medium">获赞数</span>
+                                        </div>
+                                        <span class="text-2xl font-bold text-purple-600 dark:text-purple-400">2.3k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 认证信息卡片 -->
+                        <div class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-certificate text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 dark:text-white">
+                                    认证信息
+                                </h3>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                                    <div class="p-2 bg-green-500 rounded-full">
+                                        <i class="fa-solid fa-check text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300 font-medium">邮箱已验证</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                                    <div class="p-2 bg-green-500 rounded-full">
+                                        <i class="fa-solid fa-check text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300 font-medium">手机已验证</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 快速操作卡片 -->
+                        <div class="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-bolt text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 dark:text-white">
+                                    快速操作
+                                </h3>
+                            </div>
+                            <div class="space-y-3">
+                                <a href="{% url 'account:profile' %}" 
+                                   class="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-800/30 dark:hover:to-indigo-800/30 transition-all duration-300 group/item">
+                                    <i class="fa-solid fa-user-edit text-blue-600 dark:text-blue-400 group-hover/item:scale-110 transition-transform"></i>
+                                    <span class="text-gray-700 dark:text-gray-300 font-medium">编辑资料</span>
+                                </a>
+                                <button class="w-full flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/30 dark:hover:to-pink-800/30 transition-all duration-300 group/item">
+                                    <i class="fa-solid fa-cog text-purple-600 dark:text-purple-400 group-hover/item:scale-110 transition-transform"></i>
+                                    <span class="text-gray-700 dark:text-gray-300 font-medium">账户设置</span>
+                                </button>
                             </div>
                         </div>
                     </div>

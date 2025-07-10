@@ -37,10 +37,33 @@ class Command(BaseCommand):
             '--models',
             type=str,
             nargs='+',  # 允许输入多个模型名称
-            help='Optional: Generates tests, schema and API code only for the specified models,'
-                 ' without generating other code.\n'
-                 '可选：仅为指定的模型生成测试, schema和API代码，不生成其他代码。',
+            help='Optional: Generates tests, schema and API code only for the specified models.\n'
+                 '可选：仅为指定的模型生成测试, schema和API代码。',
             required=False
+        )
+        parser.add_argument(
+            '--no-admin',
+            action='store_true',
+            help='Skip generating admin code.\n'
+                 '跳过生成admin代码。'
+        )
+        parser.add_argument(
+            '--no-apps',
+            action='store_true',
+            help='Skip generating apps code.\n'
+                 '跳过生成apps代码。'
+        )
+        parser.add_argument(
+            '--no-tests',
+            action='store_true',
+            help='Skip generating test code.\n'
+                 '跳过生成测试代码。'
+        )
+        parser.add_argument(
+            '--no-apis',
+            action='store_true',
+            help='Skip generating API and schema code.\n'
+                 '跳过生成API和schema代码。'
         )
 
     def handle(self, *args, **options):
@@ -63,12 +86,23 @@ class Command(BaseCommand):
             template_path=os.path.join(settings.BASE_DIR, 'django_starter', 'contrib', 'code_generator', 'templates')
         )
 
+        # 根据命令行参数决定生成哪些代码
         if models:
             logger.debug(f"Model name provided: {models}")
-            generator.make_tests(models)
-            generator.make_schemas_and_apis(models)
+            if not options.get('no_tests'):
+                generator.make_tests(models)
+            if not options.get('no_apis'):
+                generator.make_schemas_and_apis(models)
         else:
             logger.debug("No specific model name provided.")
-            generator.make_all()
+            generator.make_init()
+            if not options.get('no_admin'):
+                generator.make_admin()
+            if not options.get('no_apps'):
+                generator.make_apps()
+            if not options.get('no_apis'):
+                generator.make_schemas_and_apis()
+            if not options.get('no_tests'):
+                generator.make_tests()
 
         self.stdout.write(self.style.SUCCESS('Generating code finished.'))

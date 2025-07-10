@@ -6,9 +6,41 @@ DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开�
 
 通过这个全新的框架版本，开发者能够迅速搭建起符合现代 web 应用标准的项目基础架构。
 
-更多新版本的细节，可以查看这篇博客: [关于正在开发中的DjangoStarter v3版本](https://blog.sblt.deali.cn:9000/Blog/Post/a21ab29f70708e15)
+更多新版本的细节，可以查看这些博客文章:
 
-![](docs/images/admin_home.png)
+- [DjangoStarter v3版本开发笔记](https://blog.deali.cn/Blog/Post/a21ab29f70708e15)
+- [AI 加持下的 DjangoStarter v3.1 版本开发](https://blog.deali.cn/Blog/Post/1f6ce0f31ba1214a)
+
+## 截图预览
+
+### 主页
+
+<table style="width: 100%; table-layout: fixed;">
+  <thead>
+    <tr>
+      <th style="width: 50%;">主页</th>
+      <th style="width: 50%;">后台主页</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="docs/images/home.png" alt="主页" style="width: 100%;"/></td>
+      <td><img src="docs/images/admin_home.png" alt="后台主页" style="width: 100%;"/></td>
+    </tr>
+  </tbody>
+</table>
+
+
+### 其他页面
+
+
+| 登录页面                     | 联系我们                     |
+| ---------------------------- | ---------------------------- |
+| ![](docs/images/login.png)   | ![](docs/images/contact.png) |
+| 个人页面                     | Demo页面                     |
+| ![](docs/images/profile.png) | ![](docs/images/demo.png)    |
+
+
 
 ## 历史版本
 
@@ -124,6 +156,18 @@ v2版本已经定下了大体的框架，v3的主要改动是将 RestFramework �
 ```
 
 ## 快速开始
+
+### clone代码
+
+master分支是最新的代码，正处在活跃开发中，不保证生产稳定性，欢迎大家提issue。
+
+当前最新生产版本是 v3.1，使用以下命令克隆代码：
+
+```bash
+git clone --branch v3.1 --depth 1 https://github.com/Deali-Axy/DjangoStarter.git
+```
+
+### 包管理器
 
 v3 版本开始我使用了 [pdm](https://pdm-project.org/en/latest/) 作为包管理器，这是一个现代化的包管理和项目管理工具，它专为 Python 项目设计，提供了诸如依赖解析、包安装以及虚拟环境管理等功能。参考：[在python项目的docker镜像里使用pdm管理依赖](https://www.cnblogs.com/deali/p/18354017)
 
@@ -388,6 +432,83 @@ project_info = ProjectInfo('DjangoStarter', '网站说明')
 
 编辑每个App目录下的`apps.py`文件，在`[AppName]Config`类里配置`verbose_name`，然后在App目录下的`__init__.py`中，设置`default_app_config`
 即可，具体参照`apps/demo`的代码。
+
+### 配置 URL Prefix
+
+DjangoStarter 支持通过 URL 前缀部署在子路径下，这在多应用共享域名或通过网关代理访问时非常有用。
+
+#### 工作原理
+
+系统通过环境变量 `URL_PREFIX` 统一配置所有组件的路径前缀：
+
+- **Django 应用**：自动为所有 URL 路由、静态文件、媒体文件添加前缀
+- **Nginx 反向代理**：通过模板自动生成对应的 location 配置
+- **健康检查**：自动调整健康检查端点路径
+- **管理后台**：自动调整 admin 访问路径
+
+#### 配置步骤
+
+1. **修改环境变量**
+   
+   编辑 `.env` 文件，设置 URL 前缀：
+   ```bash
+   URL_PREFIX=djangostarter
+   ```
+   
+   > ⚠️ **重要提示**：
+   > - 不要添加 `/` 前缀或后缀
+   > - 只使用字母、数字、连字符和下划线
+   > - 留空表示部署在根路径
+
+2. **重启服务**
+   ```bash
+   docker-compose down
+   docker-compose up -d
+   ```
+
+3. **验证配置**
+   
+   配置完成后，服务地址变为：
+   - **应用首页**：`http://example.com/djangostarter/`
+   - **管理后台**：`http://example.com/djangostarter/admin/`
+   - **API 接口**：`http://example.com/djangostarter/api/`
+   - **静态文件**：`http://example.com/djangostarter/static/`
+
+#### 外部网关配置示例
+
+如果使用外部 Nginx 作为网关，可以参考以下配置：
+
+```nginx
+# 方式一：透传前缀（推荐）
+location /djangostarter/ {
+    proxy_pass http://djangostarter-backend/djangostarter/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+# 方式二：去除前缀（需要应用配置为根路径）
+location /djangostarter/ {
+    rewrite ^/djangostarter/(.*)$ /$1 break;
+    proxy_pass http://djangostarter-backend/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+#### 常见问题
+
+**Q: 静态文件无法加载？**
+A: 确保外部网关也正确代理了 `/djangostarter/static/` 路径。
+
+**Q: 管理后台样式丢失？**
+A: 检查 `URL_PREFIX` 配置是否正确，重启服务后清除浏览器缓存。
+
+**Q: 健康检查失败？**
+A: 系统会自动调整健康检查路径，如果仍然失败，检查网络连接和服务状态。
 
 ### 中间件
 

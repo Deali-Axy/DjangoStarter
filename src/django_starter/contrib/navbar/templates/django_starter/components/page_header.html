@@ -1,0 +1,75 @@
+<!-- components/page_header.html -->
+<div class="mb-6 animate-fade-in">
+    <!-- 页面标题 -->
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-3 flex items-center gap-3">
+        {% if icon %}
+            <i class="{{ icon }} text-blue-600 dark:text-blue-500"></i>
+        {% endif %}
+        {{ title }}
+        {% if subtitle %}
+            <span class="text-lg font-medium text-gray-500 dark:text-gray-400">{{ subtitle }}</span>
+        {% endif %}
+    </h1>
+
+    {% if description %}
+        <p class="mb-6 text-gray-600 dark:text-gray-400 max-w-3xl">
+            {{ description }}
+        </p>
+    {% endif %}
+
+    <!-- 面包屑导航 -->
+    {% if breadcrumbs %}
+    <nav class="flex mb-6" aria-label="面包屑导航">
+        <ol class="inline-flex items-center space-x-1 text-sm">
+            {% for item in breadcrumbs %}
+                <li class="{% if forloop.first %}inline-flex items-center{% endif %}">
+                    {% if item.url and not forloop.last %}
+                        <a href="{{ item.url }}"
+                           class="inline-flex items-center gap-1.5 text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500 transition-colors">
+                            {% if item.icon %}
+                                <i class="{{ item.icon }}"></i>
+                            {% endif %}
+                            <span>{{ item.text }}</span>
+                        </a>
+                    {% else %}
+                        <span class="inline-flex items-center gap-1.5 {% if forloop.last %}text-gray-800 dark:text-gray-200 font-medium{% else %}text-gray-600 dark:text-gray-400{% endif %}">
+                            {% if item.icon %}
+                                <i class="{{ item.icon }}"></i>
+                            {% endif %}
+                            <span>{{ item.text }}</span>
+                        </span>
+                    {% endif %}
+                </li>
+                {% if not forloop.last %}
+                    <i class="fa-solid fa-chevron-right text-gray-400 text-xs mx-1.5"></i>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+    {% endif %}
+
+    <!-- 操作按钮 -->
+    {% if actions %}
+    <div class="flex flex-wrap gap-2 mt-4">
+        {% for action in actions %}
+            <a href="{{ action.url }}" 
+               class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-center {% if action.primary %}text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600{% else %}text-gray-700 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700{% endif %} rounded-lg focus:ring-4 focus:outline-none {% if action.primary %}focus:ring-blue-300 dark:focus:ring-blue-800{% else %}focus:ring-gray-100 dark:focus:ring-gray-700{% endif %} transition-colors">
+                {% if action.icon %}
+                    <i class="{{ action.icon }}"></i>
+                {% endif %}
+                {{ action.text }}
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+    }
+</style>
