@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:e4e39efbaa53621a11508dd17bc44655e4ce46f15a6f32e8e00b1501bb119be9"
+content_hash = "sha256:a51d79d7943555a470579fd979de8a5a2e975b986f81d377d3a5a3d9047f996d"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -426,6 +426,20 @@ dependencies = [
 files = [
     {file = "django_simple_captcha-0.6.2-py2.py3-none-any.whl", hash = "sha256:f5b7eee6bfeba6c55b47f2f8414557d5609fc29c4758da2c91ba9a91d6ac349d"},
     {file = "django_simple_captcha-0.6.2.tar.gz", hash = "sha256:24db2bd1386c1833618465862e3518d310246d88f5e7f3bec23a5bda768ef834"},
+]
+
+[[package]]
+name = "django-simple-history"
+version = "3.10.1"
+requires_python = ">=3.9"
+summary = "Store model history and view/revert changes from admin site."
+groups = ["default"]
+dependencies = [
+    "django>=4.2",
+]
+files = [
+    {file = "django_simple_history-3.10.1-py3-none-any.whl", hash = "sha256:e12c27abfcd7e801a9d274d94542549ce8c617b0b384ae69afb161b56cd02ba4"},
+    {file = "django_simple_history-3.10.1.tar.gz", hash = "sha256:040f0c2286bed730312aa15f0acee9e7e6f839c4bcd721693251aa7ec5b65d95"},
 ]
 
 [[package]]
