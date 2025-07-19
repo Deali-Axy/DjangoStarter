@@ -1,5 +1,6 @@
 from django.db import models
 from django_starter.db.models import ModelExt
+from simple_history.models import HistoricalRecords
 
 
 # Create your models here.
@@ -11,6 +12,7 @@ class Movie(ModelExt):
     genre = models.CharField(max_length=100)
     director = models.CharField(max_length=100)
     actors = models.CharField(max_length=100)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.title
@@ -31,6 +33,7 @@ class Actor(ModelExt):
     birth_date = models.DateField()
     country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -45,6 +48,7 @@ class Actor(ModelExt):
 class MusicAlbum(ModelExt):
     name = models.CharField(max_length=100)
     year = models.IntegerField()
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -62,6 +66,7 @@ class Music(ModelExt):
     genre = models.CharField(max_length=100)
     rating = models.IntegerField()
     album = models.ForeignKey('MusicAlbum', on_delete=models.CASCADE)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
