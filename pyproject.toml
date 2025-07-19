@@ -29,6 +29,7 @@ dependencies = [
     "redis>=6.1.0",
     "pillow>=11.2.1",
     "pydantic>=2.11.4",
+    "django-simple-history>=3.10.1",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"

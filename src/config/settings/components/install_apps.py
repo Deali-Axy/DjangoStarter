@@ -34,6 +34,7 @@ INSTALLED_APPS: Tuple[str, ...] = (
     'captcha',
     'corsheaders',
     'compressor',
+    'simple_history',
 
     # 我们自己的应用
     'apps.account',
