@@ -1,5 +1,5 @@
-ARG PYTHON_BASE=3.11
-ARG NODE_BASE=18
+ARG PYTHON_BASE=3.12
+ARG NODE_BASE=22
 
 # python 构建
 FROM python:$PYTHON_BASE AS python_builder
@@ -17,7 +17,7 @@ RUN pip config set global.index-url https://mirrors.cloud.tencent.com/pypi/simpl
     pdm config pypi.url "https://mirrors.cloud.tencent.com/pypi/simple/"
 
 # 复制文件
-COPY pyproject.toml pdm.lock README.md /project/
+COPY pyproject.toml pdm.lock /project/
 
 # 安装依赖项和项目到本地包目录
 WORKDIR /project

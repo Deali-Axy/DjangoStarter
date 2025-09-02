@@ -114,7 +114,7 @@ services:
     container_name: $APP_NAME-prometheus
     restart: unless-stopped
     volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
     ports:
       - "${PROMETHEUS_PORT:-9090}:9090"
