@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   redis:
     image: ${REDIS_IMAGE:-redis:alpine}
     restart: unless-stopped
     container_name: $APP_NAME-redis
     volumes:
-      - redis_data:/data
+      - ./redis:/data
     networks:
       - default
     deploy:
@@ -15,7 +13,7 @@ services:
           cpus: '${REDIS_CPU_LIMIT:-0.5}'
           memory: ${REDIS_MEMORY_LIMIT:-256M}
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: ${HEALTHCHECK_INTERVAL:-30s}
       timeout: ${HEALTHCHECK_TIMEOUT:-5s}
       retries: ${HEALTHCHECK_RETRIES:-3}
@@ -37,7 +35,7 @@ services:
       # 容器启动时会自动使用 envsubst 处理环境变量并生成配置文件
       - ./nginx.conf.template:/etc/nginx/templates/default.conf.template:ro
       - ./media:/www/media:ro
-      - static_volume:/www/static-dist:ro
+      - ./static-dist:/www/static-dist:ro
       - ./log/nginx:/var/log/nginx
     ports:
       - ${APP_PORT}:${NGINX_INTERNAL_PORT:-8001}
@@ -52,7 +50,7 @@ services:
           cpus: '${NGINX_CPU_LIMIT:-0.3}'
           memory: ${NGINX_MEMORY_LIMIT:-128M}
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${NGINX_INTERNAL_PORT:-8001}${URL_PREFIX}/api/django-starter/monitoring/health/"]
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${NGINX_INTERNAL_PORT:-8001}${URL_PREFIX}/api/django-starter/monitoring/health/" ]
       interval: ${HEALTHCHECK_INTERVAL:-30s}
       timeout: ${HEALTHCHECK_TIMEOUT:-5s}
       retries: ${HEALTHCHECK_RETRIES:-3}
@@ -80,16 +78,18 @@ services:
     command: >
       sh -c "
       echo 'Starting the application...' &&
-      cp -r /project/static-dist/* /project/static-volume/ &&
+      mkdir -p /project/src/logs &&
+      chown -R django:django /project/src/logs &&
       exec daphne -b 0.0.0.0 -p ${APP_INTERNAL_PORT:-8000} -v 3 --proxy-headers config.asgi:application
       "
     volumes:
       - ./media:/project/media
       - ./db.sqlite3:/project/db.sqlite3
-      - static_volume:/project/static-volume
-      - ./log/app:/project/log
-    # 生产环境应移除源代码挂载
-    # - ./src:/project/src
+      - ./static-dist:/project/static-dist
+      - ./log:/project/src/logs
+      # 生产环境应移除源代码挂载
+      - ./src:/project/src
+    user: "0:0"  # 临时使用root用户启动，然后切换到django用户
     depends_on:
       redis:
         condition: service_healthy
@@ -101,7 +101,7 @@ services:
           cpus: '${APP_CPU_LIMIT:-1.0}'
           memory: ${APP_MEMORY_LIMIT:-512M}
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; r = requests.get('http://localhost:${APP_INTERNAL_PORT:-8000}${URL_PREFIX}/api/django-starter/monitoring/health/'); exit(0 if r.status_code == 200 else 1)"]
+      test: [ "CMD", "python", "-c", "import requests; r = requests.get('http://localhost:${APP_INTERNAL_PORT:-8000}${URL_PREFIX}/api/django-starter/monitoring/health/'); exit(0 if r.status_code == 200 else 1)" ]
       interval: ${HEALTHCHECK_INTERVAL:-30s}
       timeout: ${HEALTHCHECK_TIMEOUT:-5s}
       retries: ${HEALTHCHECK_RETRIES:-3}
@@ -115,7 +115,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - prometheus_data:/prometheus
+      - ./prometheus:/prometheus
     ports:
       - "${PROMETHEUS_PORT:-9090}:9090"
     command:
@@ -125,6 +125,8 @@ services:
       - '--web.console.templates=/etc/prometheus/consoles'
       - '--storage.tsdb.retention.time=${PROMETHEUS_RETENTION:-200h}'
       - '--web.enable-lifecycle'
+      - '--query.max-concurrency=1'
+    user: "nobody:nobody"  # 使用nobody用户运行
     networks:
       - default
     deploy:
@@ -133,7 +135,7 @@ services:
           cpus: '${PROMETHEUS_CPU_LIMIT:-0.5}'
           memory: ${PROMETHEUS_MEMORY_LIMIT:-256M}
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/-/healthy" ]
       interval: ${HEALTHCHECK_INTERVAL:-30s}
       timeout: ${HEALTHCHECK_TIMEOUT:-5s}
       retries: ${HEALTHCHECK_RETRIES:-3}
@@ -149,10 +151,11 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
       - GF_USERS_ALLOW_SIGN_UP=${GRAFANA_ALLOW_SIGN_UP:-false}
     volumes:
-      - grafana_data:/var/lib/grafana
-      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
     ports:
       - "${GRAFANA_PORT:-3000}:3000"
+    user: "472:472"  # Grafana默认用户ID
     depends_on:
       - prometheus
     networks:
@@ -163,7 +166,7 @@ services:
           cpus: '${GRAFANA_CPU_LIMIT:-0.3}'
           memory: ${GRAFANA_MEMORY_LIMIT:-128M}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/health" ]
       interval: ${HEALTHCHECK_INTERVAL:-30s}
       timeout: ${HEALTHCHECK_TIMEOUT:-5s}
       retries: ${HEALTHCHECK_RETRIES:-3}
@@ -195,11 +198,6 @@ services:
     security_opt:
       - no-new-privileges:true
 
-volumes:
-  static_volume:
-  redis_data:
-  prometheus_data:
-  grafana_data:
 
 networks:
   default:
