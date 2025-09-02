@@ -77,13 +77,13 @@ COPY . /project/
 
 # 从构建阶段获取包
 COPY --from=python_builder /project/.venv/ /project/.venv
-COPY --from=gulp_builder /project/src/static/ /project/src/static
+COPY --from=gulp_builder /project/src/static/ /project/src/static/
 COPY --from=tailwind_builder /project/src/static/css/tailwind.prod.css /project/src/static/css/tailwind.prod.css
 
 WORKDIR /project
 ENV PATH="/project/.venv/bin:$PATH"
 # 处理静态资源资源
-RUN python ./src/manage.py collectstatic
+RUN python ./src/manage.py collectstatic --noinput
 
 
 # 运行阶段

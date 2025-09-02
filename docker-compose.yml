@@ -126,7 +126,8 @@ services:
       - '--storage.tsdb.retention.time=${PROMETHEUS_RETENTION:-200h}'
       - '--web.enable-lifecycle'
       - '--query.max-concurrency=1'
-    user: "nobody:nobody"  # 使用nobody用户运行
+      - '--log.level=info'
+    user: "65534:65534"  # 使用nobody用户运行
     networks:
       - default
     deploy:
