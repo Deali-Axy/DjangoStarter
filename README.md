@@ -1,11 +1,14 @@
-# Django Starter 基础框架 v3
+# DjangoStarter v3 · AI 原生全栈框架
 
-DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设计。
+面向独立开发者与小团队的 AI+全栈脚手架，用最少样板代码快速把想法做成可上线的产品。
 
-结合了 Django 的丰富功能和 Django-Ninja 的性能、灵活、简洁特性，v3 版本旨在为开发者提供一个更加强大、简洁和高速的开发体验。
+基于 Django 5 + Django-Ninja（类型安全 API）+ HTMX/Alpine/Tailwind，内建认证、安全、中间件、代码生成、容器化与观测，把时间全部留给业务。
 
-通过这个全新的框架版本，开发者能够迅速搭建起符合现代 web 应用标准的项目基础架构。
+为 AI 而设计：为 LLM 接入、向量检索/嵌入、函数调用（Tools/Actions）、异步任务与流式响应预留清晰的扩展点与最佳实践路径，轻松把你的应用升级为 AI 驱动。
 
+典型场景：个人/独立产品 MVP、企业内部工具、数据看板、以及各类 AI Agent/助手的后端与管理界面。
+
+在 AI 时代，用 Django 的可靠性 + Ninja 的速度，零阻力从 0 到 1，再从 1 到 100。
 更多新版本的细节，可以查看这些博客文章:
 
 - [DjangoStarter v3版本开发笔记](https://blog.deali.cn/Blog/Post/a21ab29f70708e15)
