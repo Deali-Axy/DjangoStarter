@@ -33,7 +33,6 @@ INSTALLED_APPS: Tuple[str, ...] = (
     # 第三方组件
     'captcha',
     'corsheaders',
-    'compressor',
     'simple_history',
 
     # 我们自己的应用
