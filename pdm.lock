@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:a51d79d7943555a470579fd979de8a5a2e975b986f81d377d3a5a3d9047f996d"
+content_hash = "sha256:ff7b1f1c31548bf4123a3c373caa3dd5ed1ee8861a3bd0fbbe32c92c929e78ac"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -287,37 +287,6 @@ files = [
 ]
 
 [[package]]
-name = "django-appconf"
-version = "1.0.6"
-requires_python = ">=3.7"
-summary = "A helper class for handling configuration defaults of packaged apps gracefully."
-groups = ["default"]
-dependencies = [
-    "django",
-]
-files = [
-    {file = "django-appconf-1.0.6.tar.gz", hash = "sha256:cfe87ea827c4ee04b9a70fab90b86d704cb02f2981f89da8423cb0fabf88efbf"},
-    {file = "django_appconf-1.0.6-py3-none-any.whl", hash = "sha256:c3ae442fba1ff7ec830412c5184b17169a7a1e71cf0864a4c3f93cf4c98a1993"},
-]
-
-[[package]]
-name = "django-compressor"
-version = "4.5.1"
-requires_python = ">=3.8"
-summary = "('Compresses linked and inline JavaScript or CSS into single cached files.',)"
-groups = ["default"]
-dependencies = [
-    "Django>=4.2",
-    "django-appconf>=1.0.3",
-    "rcssmin==1.1.2",
-    "rjsmin==1.2.2",
-]
-files = [
-    {file = "django_compressor-4.5.1-py2.py3-none-any.whl", hash = "sha256:87741edee4e7f24f3e0b8072d94a990cfb010cb2ca7cc443944da8e193cdea65"},
-    {file = "django_compressor-4.5.1.tar.gz", hash = "sha256:c1d8a48a2ee4d8b7f23c411eb9c97e2d88db18a18ba1c9e8178d5f5b8366a822"},
-]
-
-[[package]]
 name = "django-cors-headers"
 version = "4.7.0"
 requires_python = ">=3.9"
@@ -455,7 +424,7 @@ files = [
 
 [[package]]
 name = "django-unfold"
-version = "0.57.0"
+version = "0.65.0"
 requires_python = ">=3.9"
 summary = "Modern Django admin theme for seamless interface development"
 groups = ["default"]
@@ -463,8 +432,8 @@ dependencies = [
     "django>=4.2",
 ]
 files = [
-    {file = "django_unfold-0.57.0-py3-none-any.whl", hash = "sha256:a51b12c9d6ec6b46b459f5e4c74c3dc31211485c4914e2b49a251ba57531f22c"},
-    {file = "django_unfold-0.57.0.tar.gz", hash = "sha256:eb5fa8db77e84d1f2490e2d015c7d90699407c36183fe3ce451b54dc522770ed"},
+    {file = "django_unfold-0.65.0-py3-none-any.whl", hash = "sha256:1282dfaee3d7ac5a70ba63b3974667c6453efa1eda29dcafc5470b77241e4709"},
+    {file = "django_unfold-0.65.0.tar.gz", hash = "sha256:7960b2f6e18cb883920b6bc03e255bcf8ca94c18c4f6caa770ff65eeb64d8724"},
 ]
 
 [[package]]
@@ -831,21 +800,6 @@ files = [
 ]
 
 [[package]]
-name = "rcssmin"
-version = "1.1.2"
-summary = "CSS Minifier"
-groups = ["default"]
-files = [
-    {file = "rcssmin-1.1.2-cp311-cp311-manylinux1_i686.whl", hash = "sha256:83dd2c3f7b70fae9c97bab99fd7a709dc852f0bc3e7482f8cfb378e0c5f1aed8"},
-    {file = "rcssmin-1.1.2-cp311-cp311-manylinux1_x86_64.whl", hash = "sha256:2219d704f27006ecd17ef4b5744cac5f68a276be0889b114130660fb798f3583"},
-    {file = "rcssmin-1.1.2-cp311-cp311-manylinux2014_aarch64.whl", hash = "sha256:a5e758c8db03a57fef847542bf14d96da75913cc0e2495540c018943c1f2d142"},
-    {file = "rcssmin-1.1.2-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:a0e353ecbfde3dba0a6579a674fc1dcdc1ff7e47ceff3b29beb6e235b53a981c"},
-    {file = "rcssmin-1.1.2-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:140d1c0ba21fb8c3a2bafae164540a6816e8ec3492bea6ace0c52eebd2cf303f"},
-    {file = "rcssmin-1.1.2-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:ef0d472d8f6b8271fef3e388f98085a257703a635556a3ea77287616ab594ea9"},
-    {file = "rcssmin-1.1.2.tar.gz", hash = "sha256:bc75eb75bd6d345c0c51fd80fc487ddd6f9fd409dd7861b3fe98dee85018e1e9"},
-]
-
-[[package]]
 name = "redis"
 version = "6.1.0"
 requires_python = ">=3.8"
@@ -874,21 +828,6 @@ dependencies = [
 files = [
     {file = "requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6"},
     {file = "requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"},
-]
-
-[[package]]
-name = "rjsmin"
-version = "1.2.2"
-summary = "Javascript Minifier"
-groups = ["default"]
-files = [
-    {file = "rjsmin-1.2.2-cp311-cp311-manylinux1_i686.whl", hash = "sha256:3968667158948355b9a62e9641497aac7ac069c076a595e93199d0fe3a40217a"},
-    {file = "rjsmin-1.2.2-cp311-cp311-manylinux1_x86_64.whl", hash = "sha256:d07d14354694f6a47f572f2aa2a1ad74b76723e62a0d2b6df796138b71888247"},
-    {file = "rjsmin-1.2.2-cp311-cp311-manylinux2014_aarch64.whl", hash = "sha256:a78dfa6009235b902454ac53264252b7b94f1e43e3a9e97c4cadae88e409b882"},
-    {file = "rjsmin-1.2.2-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:9b7a45001e58243a455d11d2de925cadb8c2a0dc737001de646a0f4d90cf0034"},
-    {file = "rjsmin-1.2.2-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:86c5e657b74b6c9482bb96f18a79d61750f4e8204759cce179f7eb17d395c683"},
-    {file = "rjsmin-1.2.2-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:8c2c30b86c7232443a4a726e1bbee34f800556e581e95fc07194ecbf8e02d1d2"},
-    {file = "rjsmin-1.2.2.tar.gz", hash = "sha256:8c1bcd821143fecf23242012b55e13610840a839cd467b358f16359010d62dae"},
 ]
 
 [[package]]

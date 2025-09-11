@@ -15,6 +15,6 @@ class UserProfile(UserProfileAbstract):
 
 
 # 创建用户的时候自动创建 profile
-@receiver(signals.post_save, sender=User, dispatch_uid='django_user_post_save')
-def create_user_profile(sender: User, instance: User, created, **kwargs):
-    profile, created = UserProfile.objects.get_or_create(user=instance)
+# @receiver(signals.post_save, sender=User, dispatch_uid='django_user_post_save')
+# def create_user_profile(sender: User, instance: User, created, **kwargs):
+#     profile, created = UserProfile.objects.get_or_create(user=instance)
