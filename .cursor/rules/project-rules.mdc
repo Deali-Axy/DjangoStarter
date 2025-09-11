@@ -1,0 +1,420 @@
+---
+description: DjangoStarter v3 Development Rules
+globs:
+alwaysApply: true
+---
+
+## Project Overview
+
+DjangoStarter v3 is a next-generation Django project rapid development template designed to enhance development efficiency and performance.
+
+Combining Django's rich functionality with Django-Ninja's performance, flexibility, and simplicity, v3 aims to provide developers with a more powerful, concise, and high-speed development experience.
+
+Through this new framework version, developers can quickly build project infrastructure that meets modern web application standards.
+
+## Technology Stack
+
+### Backend Technologies
+- **Python Version**: 3.12
+- **Package Manager**: PDM
+- **Web Framework**: Django 5.0.14+ (with argon2)
+- **API Framework**: Django-Ninja 1.4.1+
+- **Database**: Multi-database support (PostgreSQL recommended)
+- **Cache**: Redis 6.1.0+
+- **Async Support**: Daphne (ASGI server)
+
+### Frontend Technologies
+- **Template Engine**: Django Templates + Jinja2
+- **Interactive Framework**: HTMX 1.9.12
+- **JavaScript Framework**: Alpine.js 3.14.8
+- **CSS Framework**: TailwindCSS
+- **Component Library**: Flowbite 2.4.1
+- **Icons**: Font Awesome Free 6.7.2
+- **Animations**: AOS (Animate On Scroll)
+
+### Development Tools
+- **Build Tool**: Gulp 4.0.2
+- **Containerization**: Docker + Docker Compose
+- **Web Server**: Nginx (production)
+- **Testing Framework**: Pytest
+
+## Project Architecture
+
+### Directory Structure
+```
+src/
+├── apps/                    # Business application modules
+│   ├── account/            # User account management
+│   └── demo/               # Demo application
+├── config/                 # Project configuration
+│   ├── settings/           # Layered settings
+│   │   ├── components/     # Configuration components
+│   │   └── environments/   # Environment configurations
+│   ├── urls.py            # Main URL configuration
+│   └── wsgi.py/asgi.py    # WSGI/ASGI entry points
+├── django_starter/         # Core framework module
+│   ├── contrib/           # Contribution modules
+│   ├── db/                # Database related
+│   ├── http/              # HTTP response handling
+│   ├── middleware/        # Middleware
+│   └── utilities.py       # Utility functions
+├── static/                # Static files
+├── templates/             # Template files
+└── locale/                # Internationalization files
+```
+
+## Development Standards
+
+### Code Style
+
+#### Python Code Standards
+- Follow PEP 8 code style
+- Use type annotations (Type Hints)
+- Functions and classes must have docstrings
+- Use snake_case for variables and functions
+- Use PascalCase for class names
+- Use UPPER_CASE for constants
+
+#### Example Code Format
+```python
+from typing import Optional, Dict, Any
+from django.http import HttpRequest, HttpResponse
+
+def process_user_data(request: HttpRequest, user_id: int) -> Optional[Dict[str, Any]]:
+    """
+    Process user data business logic
+    
+    Args:
+        request: HTTP request object
+        user_id: User ID
+        
+    Returns:
+        Processed user data dictionary, None if user doesn't exist
+        
+    Raises:
+        ValidationError: When data validation fails
+    """
+    # Implementation logic
+    pass
+```
+
+### Django Application Development Standards
+
+#### Application Structure
+Each Django application should contain the following standard structure:
+```
+app_name/
+├── __init__.py
+├── admin.py              # Admin backend configuration
+├── apps.py               # Application configuration
+├── models.py             # Data models
+├── views.py              # View functions
+├── urls.py               # URL routing
+├── forms.py              # Form definitions
+├── serializers.py        # API serializers (if needed)
+├── tests/                # Test files
+│   ├── __init__.py
+│   ├── test_models.py
+│   ├── test_views.py
+│   └── test_forms.py
+├── migrations/           # Database migrations
+└── templates/app_name/   # Application templates
+```
+
+#### Model Definition Standards
+- Use clear field names
+- Add appropriate Meta class configuration
+- Implement __str__ method
+- Use django-simple-history for historical records
+
+```python
+from django.db import models
+from simple_history.models import HistoricalRecords
+
+class UserProfile(models.Model):
+    """
+    User profile model
+    """
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, verbose_name='User')
+    nickname = models.CharField(max_length=50, verbose_name='Nickname')
+    avatar = models.ImageField(upload_to='avatars/', blank=True, verbose_name='Avatar')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created At')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated At')
+    
+    # Historical records
+    history = HistoricalRecords()
+    
+    class Meta:
+        verbose_name = 'User Profile'
+        verbose_name_plural = 'User Profiles'
+        db_table = 'user_profile'
+        
+    def __str__(self) -> str:
+        return f"{self.user.username} - {self.nickname}"
+```
+
+### API Development Standards
+
+#### Django-Ninja API
+- Use Pydantic models for data validation
+- Implement proper error handling
+- Add API documentation comments
+- Use JWT for authentication
+
+```python
+from ninja import NinjaAPI, Schema
+from ninja.security import HttpBearer
+from typing import List
+
+api = NinjaAPI(title="DjangoStarter API", version="3.0.0")
+
+class UserSchema(Schema):
+    """User information schema"""
+    id: int
+    username: str
+    email: str
+    nickname: str = None
+
+class AuthBearer(HttpBearer):
+    """JWT authentication"""
+    def authenticate(self, request, token):
+        # JWT validation logic
+        pass
+
+@api.get("/users", response=List[UserSchema], auth=AuthBearer())
+def list_users(request):
+    """
+    Get user list
+    
+    Returns:
+        List of user information
+    """
+    # Implementation logic
+    pass
+```
+
+### Frontend Development Standards
+
+#### HTML Templates
+- Use semantic HTML tags
+- Follow accessibility standards
+- Use TailwindCSS classes for styling
+- Integrate Alpine.js for interactions
+
+```html
+<!-- Example template structure -->
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Page Title{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8" x-data="pageData()">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ page_title }}</h1>
+    
+    <!-- Content area -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <!-- Page content -->
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function pageData() {
+        return {
+            // Alpine.js data and methods
+        }
+    }
+</script>
+{% endblock %}
+```
+
+#### CSS/TailwindCSS Standards
+- Prioritize TailwindCSS utility classes
+- Place custom styles in separate CSS files
+- Use responsive design principles
+- Follow mobile-first design philosophy
+
+### Testing Standards
+
+#### Test Coverage Requirements
+- Model tests: Test all custom methods and properties
+- View tests: Test all HTTP methods and permissions
+- Form tests: Test validation logic and error handling
+- API tests: Test all endpoints and data formats
+
+```python
+from django.test import TestCase, Client
+from django.contrib.auth.models import User
+from apps.account.models import UserProfile
+
+class UserProfileModelTest(TestCase):
+    """
+    User profile model tests
+    """
+    
+    def setUp(self):
+        """Test data preparation"""
+        self.user = User.objects.create_user(
+            username='testuser',
+            email='test@example.com',
+            password='testpass123'
+        )
+        
+    def test_user_profile_creation(self):
+        """Test user profile creation"""
+        profile = UserProfile.objects.create(
+            user=self.user,
+            nickname='Test User'
+        )
+        self.assertEqual(str(profile), 'testuser - Test User')
+        self.assertTrue(profile.created_at)
+```
+
+### Security Standards
+
+#### Data Security
+- Use Django's built-in security features
+- Implement CSRF protection
+- Use parameterized queries to prevent SQL injection
+- Validate and sanitize user input
+- Use HTTPS for data transmission
+
+#### Authentication and Authorization
+- Use strong password policies
+- Implement login attempt limiting
+- Use JWT for API authentication
+- Implement role-based access control
+
+### Performance Optimization
+
+#### Database Optimization
+- Use select_related and prefetch_related to optimize queries
+- Add appropriate database indexes
+- Use Redis for caching
+- Implement database connection pooling
+
+#### Frontend Optimization
+- Use TailwindCSS purge feature to reduce CSS size
+- Implement static file compression and concatenation
+- Use CDN for static resource acceleration
+- Implement lazy loading and code splitting
+
+### Deployment Standards
+
+#### Docker Deployment
+- Use multi-stage builds to optimize image size
+- Configure health checks
+- Use environment variables for configuration management
+- Implement log collection and monitoring
+
+#### Environment Configuration
+- Development: Use SQLite and Django development server
+- Testing: Use PostgreSQL and complete test suite
+- Production: Use PostgreSQL, Redis, Nginx, and Gunicorn
+
+### Documentation Standards
+
+#### Code Documentation
+- All functions and classes must have docstrings
+- Use Google-style docstring format
+- Add inline comments for complex logic
+- Maintain real-time API documentation updates
+
+#### Project Documentation
+- Maintain detailed README files
+- Document deployment and configuration steps
+- Provide development environment setup guides
+- Maintain changelogs and version notes
+
+## Development Workflow
+
+### Git Workflow
+- Use feature branches for feature development
+- Use conventional commit message format
+- Code review required before merging to main branch
+- Use semantic versioning for releases
+
+### Development Environment Setup
+1. Install Python 3.12 and PDM
+2. Clone project and install dependencies: `pdm install`
+3. Install Node.js dependencies: `pnpm install`
+4. Configure environment variables
+5. Run database migrations: `python manage.py migrate`
+6. Start development server: `python manage.py runserver`
+
+### Common Commands
+```bash
+# Install dependencies
+pdm install
+pnpm install
+
+# Database operations
+python manage.py makemigrations
+python manage.py migrate
+
+# Static file processing
+npm run tailwind:build
+npm run build:assets
+
+# Testing
+python manage.py test
+pytest
+
+# Code quality checks
+flake8 src/
+mypy src/
+
+# Docker deployment
+docker-compose up -d
+```
+
+## Troubleshooting
+
+### Common Issues
+1. **Static files 404**: Check STATIC_URL and STATIC_ROOT configuration
+2. **Database connection errors**: Verify database configuration and connection parameters
+3. **Redis connection failures**: Confirm Redis service status and configuration
+4. **Frontend resource loading failures**: Check TailwindCSS and Gulp build process
+
+### Debugging Tools
+- Django Debug Toolbar (development environment)
+- Django logging system
+- Redis monitoring tools
+- Browser developer tools
+
+## AI Assistant Guidelines
+
+When working with this project:
+
+1. **Always follow the established patterns** in the codebase
+2. **Use the specified technology stack** - don't introduce new frameworks without discussion
+3. **Maintain code quality** - follow PEP 8, add type hints, and write docstrings
+4. **Test your changes** - write appropriate tests for new functionality
+5. **Consider performance** - use Django ORM best practices and caching where appropriate
+6. **Follow security best practices** - validate input, use CSRF protection, etc.
+7. **Maintain consistency** - use the same patterns for similar functionality
+8. **Document your changes** - update relevant documentation when making changes
+
+### Preferred Libraries and Patterns
+
+- **Database queries**: Use Django ORM with select_related/prefetch_related
+- **API development**: Use Django-Ninja with Pydantic schemas
+- **Frontend interactions**: Use HTMX + Alpine.js, avoid heavy JavaScript frameworks
+- **Styling**: Use TailwindCSS utility classes, Flowbite components
+- **Forms**: Use Django forms with proper validation
+- **Authentication**: Use Django's built-in auth with JWT for APIs
+- **Caching**: Use Redis through django-redis
+- **Testing**: Use Django TestCase and pytest
+
+### Code Generation Guidelines
+
+- Always include proper imports
+- Add comprehensive docstrings
+- Include type hints for function parameters and return values
+- Follow the established directory structure
+- Use the project's naming conventions
+- Include appropriate error handling
+- Add relevant tests when creating new functionality
+- Consider internationalization (i18n) for user-facing strings
