@@ -16,7 +16,12 @@ server {
     # 限制用户上传文件大小
     client_max_body_size 100M;
 
-    # 主路由配置
+    # 根据 URL_PREFIX 配置主路由
+    location ${URL_PREFIX}/ {
+        try_files $uri @proxy_to_app;
+    }
+
+    # 如果 URL_PREFIX 为空，也需要处理根路径
     location / {
         try_files $uri @proxy_to_app;
     }
