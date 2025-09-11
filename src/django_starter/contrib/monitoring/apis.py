@@ -1,6 +1,5 @@
 from ninja import Router
 from django.http import HttpResponse
-from prometheus_client import generate_latest, REGISTRY, CONTENT_TYPE_LATEST
 from django.db import connections
 from django.db.utils import OperationalError
 from redis import Redis
@@ -9,7 +8,6 @@ import os
 import time
 import platform
 import subprocess
-from .metrics import REQUEST_COUNT, prometheus_lock
 
 router = Router(tags=['djs-monitoring'])
 
@@ -141,8 +139,11 @@ def health_check(request):
     # 整体状态
     status = 'healthy' if db_conn_ok and redis_ok else 'unhealthy'
 
+    status_code = 200 if status == 'healthy' else 503
+
     response_data = {
         'status': status,
+        'status_code': status_code,
         'checks': {
             'database': 'ok' if db_conn_ok else 'error',
             'redis': 'ok' if redis_ok else 'error',
@@ -150,18 +151,5 @@ def health_check(request):
         'system': system_info,
     }
 
-    status_code = 200 if status == 'healthy' else 503
-
-    # 记录请求指标
-    endpoint = 'health'
-    REQUEST_COUNT.labels(method=request.method, endpoint=endpoint, status=status_code).inc()
 
     return response_data
-
-
-@router.get('metrics')
-def metrics(request):
-    """Prometheus指标端点，提供监控数据"""
-    with prometheus_lock:
-        data = generate_latest(REGISTRY)
-    return HttpResponse(data, content_type=CONTENT_TYPE_LATEST)

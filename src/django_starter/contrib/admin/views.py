@@ -10,7 +10,3 @@ from django_ratelimit.decorators import ratelimit
 def extend_admin_login(request, extra_context=None):
     return admin.site.login(request, extra_context)
 
-
-# 扩展admin主页，美化后台
-def extend_admin_home(request):
-    return render(request, 'django_starter/admin/extend_home.html')
