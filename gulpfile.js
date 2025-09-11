@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='min' Clean='clean' ProjectOpened='auto' />
+/// <binding BeforeBuild='min' Clean='clean' ProjectOpened='auto' />
 "use strict";
 
 //加载使用到的 gulp 插件
@@ -32,14 +32,7 @@ paths.concatJsDist = paths.js + "app.min.js";//将所有的 js 压缩到一个 j
 
 //使用 npm 下载的前端组件包
 const libs = [
-    {name: "admin-lte", dist: "./node_modules/admin-lte/dist/**/*.*"},
-    {name: "chart.js", dist: "./node_modules/chart.js/dist/**/*.*"},
     {name: "flowbite", dist: "./node_modules/flowbite/dist/**/*.*"},
-    {name: "jquery", dist: "./node_modules/jquery/dist/**/*.*"},
-    {name: "bootstrap", dist: "./node_modules/bootstrap/dist/**/*.*"},
-    {name: "bootswatch", dist: "./node_modules/bootswatch/dist/**/*.*"},
-    {name: 'vue', dist: './node_modules/vue/dist/**/*.*'},
-    {name: 'masonry-layout', dist: './node_modules/masonry-layout/dist/*.*'},
 ];
 
 // 使用 npm 下载的前端组件，自定义存放位置
