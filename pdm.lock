@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:ff7b1f1c31548bf4123a3c373caa3dd5ed1ee8861a3bd0fbbe32c92c929e78ac"
+content_hash = "sha256:f8450cd16ddfa242094255c44b24e8897966f3b7146a203357843fd59ab9286a"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -317,6 +317,20 @@ files = [
 ]
 
 [[package]]
+name = "django-jazzmin"
+version = "3.0.1"
+requires_python = ">=3.8"
+summary = "Drop-in theme for django admin, that utilises AdminLTE 3 & Bootstrap 4 to make yo' admin look jazzy"
+groups = ["default"]
+dependencies = [
+    "django>=4.2",
+]
+files = [
+    {file = "django_jazzmin-3.0.1-py3-none-any.whl", hash = "sha256:12a0a4c1d4fd09c2eef22acf6a1f03112b515ba695c59faa8ea80efc81c1f21b"},
+    {file = "django_jazzmin-3.0.1.tar.gz", hash = "sha256:67ae148bade41267a09ca8e4352ddefa6121795ebbac238bb9a6564ff841eb1b"},
+]
+
+[[package]]
 name = "django-multi-captcha-admin"
 version = "2.0.0"
 requires_python = ">=3"
@@ -420,20 +434,6 @@ groups = ["default"]
 files = [
     {file = "django_split_settings-1.3.2-py3-none-any.whl", hash = "sha256:72bd7dd9f12602585681074d1f859643fb4f6b196b584688fab86bdd73a57dff"},
     {file = "django_split_settings-1.3.2.tar.gz", hash = "sha256:d3975aa3601e37f65c59b9977b6bcb1de8bc27496930054078589c7d56998a9d"},
-]
-
-[[package]]
-name = "django-unfold"
-version = "0.65.0"
-requires_python = ">=3.9"
-summary = "Modern Django admin theme for seamless interface development"
-groups = ["default"]
-dependencies = [
-    "django>=4.2",
-]
-files = [
-    {file = "django_unfold-0.65.0-py3-none-any.whl", hash = "sha256:1282dfaee3d7ac5a70ba63b3974667c6453efa1eda29dcafc5470b77241e4709"},
-    {file = "django_unfold-0.65.0.tar.gz", hash = "sha256:7960b2f6e18cb883920b6bc03e255bcf8ca94c18c4f6caa770ff65eeb64d8724"},
 ]
 
 [[package]]

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from unfold.admin import ModelAdmin
 from simple_history.admin import SimpleHistoryAdmin
 from django_starter.contrib.admin.tags import html_tags
 
@@ -7,7 +6,7 @@ from .models import *
 
 
 @admin.register(Movie)
-class MovieAdmin(SimpleHistoryAdmin,ModelAdmin):
+class MovieAdmin(SimpleHistoryAdmin, admin.ModelAdmin):
     list_display = ['id', 'title', 'year', 'rating', 'genre', 'director', 'actors', 'description', ]
     list_display_links = ['id', 'title', 'description', 'year', 'rating', 'genre', 'director', 'actors', ]
     readonly_fields = ['id', 'created_time', 'updated_time', 'is_deleted', ]
@@ -19,7 +18,7 @@ class MovieAdmin(SimpleHistoryAdmin,ModelAdmin):
 
 
 @admin.register(Actor)
-class ActorAdmin(SimpleHistoryAdmin, ModelAdmin):
+class ActorAdmin(SimpleHistoryAdmin, admin.ModelAdmin):
     list_display = ['id', 'name', 'birth_date', 'country', 'city', ]
     list_display_links = ['id', 'name', 'birth_date', 'country', 'city', ]
     readonly_fields = ['id', 'created_time', 'updated_time', 'is_deleted', ]
@@ -31,7 +30,7 @@ class ActorAdmin(SimpleHistoryAdmin, ModelAdmin):
 
 
 @admin.register(MusicAlbum)
-class MusicAlbumAdmin(ModelAdmin):
+class MusicAlbumAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'year', ]
     list_display_links = ['id', 'name', 'year', ]
     readonly_fields = ['id', 'created_time', 'updated_time', 'is_deleted', ]
@@ -43,7 +42,7 @@ class MusicAlbumAdmin(ModelAdmin):
 
 
 @admin.register(Music)
-class MusicAdmin(ModelAdmin):
+class MusicAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'singer', 'genre', 'rating', 'album', ]
     list_display_links = ['id', 'name', 'singer', 'genre', 'rating', ]
     readonly_fields = ['id', 'created_time', 'updated_time', 'is_deleted', ]

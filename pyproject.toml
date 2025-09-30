@@ -22,13 +22,13 @@ dependencies = [
     "faker>=25.9.2",
     "django-split-settings>=1.3.2",
     "daphne>=4.1.2",
-    "django-unfold>=0.65.0",
     "prometheus-client>=0.21.1",
     "requests>=2.32.3",
     "redis>=6.1.0",
     "pillow>=11.2.1",
     "pydantic>=2.11.4",
     "django-simple-history>=3.10.1",
+    "django-jazzmin>=3.0.1",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"

@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.forms.models import BaseInlineFormSet
-from unfold.admin import StackedInline
 from django_starter.contrib.admin.admin import UserAdmin
 from .models import UserProfile
 
@@ -19,7 +18,6 @@ class UserProfileInlineFormSet(BaseInlineFormSet):
 
 # Define an inline admin descriptor for UserProfile model
 # which acts a bit like a singleton
-# todo: 这里需要改成 unfold 的样式
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
