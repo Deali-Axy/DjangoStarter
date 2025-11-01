@@ -606,15 +606,23 @@ docker compose up --build
 - [x] 集成微信公众号SDK
 - [x] 集成小程序登录功能
 - [x] 集成消息队列
-- [x] 进一步优化`settings`拆分 (基于 `django-split-settings`)
+- [x] 进一步优化 `settings` 拆分 (基于 `django-split-settings`)
 - [x] 完善项目单元测试
 - [x] 使用自动构建部署工具
 - [x] 种子数据: 自动为已有模型生成假数据
 - [ ] 种子数据: 允许用户自行定义种子数据(类似EFCore)
 - [x] 代码生成器: 自动生成业务代码
 - [x] 代码生成器: 自动生成单元测试和集成测试代码
-- [x] 使用yarn+gulp管理前端资源
+- [x] 使用 npm + gulp 管理前端资源
 - [x] 框架功能集成在`django_starter`包中
+- [x] 国际化支持
+- [ ] 集成 django-all-auth 一类的认证模块
+- [ ] 集成 Celery 任务队列
+- [ ] 完善 SSE 示例
+- [ ] 加入 OpenAI API 支持
+- [ ] 集成支付功能
+- [ ] 支持关闭前端功能，只保留后端API
+- [ ] 完善 project rules, 优化 AI 编程工具支持
 
 ## 相关博文
 
