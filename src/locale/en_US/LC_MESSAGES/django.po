@@ -48,93 +48,93 @@ msgstr "About"
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:163
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:205
 msgid "联系我们"
-msgstr ""
+msgstr "Contact Us"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\contact.html:16
 msgid "我们期待听到您的声音"
-msgstr ""
+msgstr "We look forward to hearing from you"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\contact.html:51
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:212
 msgid "在线留言"
-msgstr ""
+msgstr "Online Message"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\contact.html:76
 msgid "发送消息"
-msgstr ""
+msgstr "Send Message"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:7
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:16
 msgid "关于我们"
-msgstr ""
+msgstr "About Us"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:35
 msgid "使命与愿景"
-msgstr ""
+msgstr "Mission & Vision"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:46
 msgid "我们的使命"
-msgstr ""
+msgstr "Our Mission"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:57
 msgid "我们的愿景"
-msgstr ""
+msgstr "Our Vision"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:72
 msgid "价值观"
-msgstr ""
+msgstr "Values"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:97
 msgid "发展历程"
-msgstr ""
+msgstr "Development History"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:135
 msgid "关键数据"
-msgstr ""
+msgstr "Key Metrics"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:169
 msgid "联系方式"
-msgstr ""
+msgstr "Contact Information"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:176
 msgid "邮箱地址"
-msgstr ""
+msgstr "Email Address"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:186
 msgid "联系电话"
-msgstr ""
+msgstr "Phone Number"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:196
 msgid "办公地址"
-msgstr ""
+msgstr "Office Address"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:216
 msgid "您的姓名"
-msgstr ""
+msgstr "Your Name"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:219
 msgid "请输入您的姓名"
-msgstr ""
+msgstr "Please enter your name"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:223
 msgid "电子邮箱"
-msgstr ""
+msgstr "Email"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:226
 msgid "请输入您的邮箱"
-msgstr ""
+msgstr "Please enter your email"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:230
 msgid "留言内容"
-msgstr ""
+msgstr "Message Content"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:233
 msgid "请输入您的留言内容"
-msgstr ""
+msgstr "Please enter your message"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:237
 msgid "提交留言"
-msgstr ""
+msgstr "Submit Message"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:4
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:44
@@ -145,75 +145,78 @@ msgstr "Privacy Policy"
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:14
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:14
 msgid "内容目录"
-msgstr ""
+msgstr "Table of Contents"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:20
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:52
 msgid "引言"
-msgstr ""
+msgstr "Introduction"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:25
 msgid "信息收集"
-msgstr ""
+msgstr "Information Collection"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:30
 msgid "信息共享"
-msgstr ""
+msgstr "Information Sharing"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:40
 msgid "GDPR合规标准"
-msgstr ""
+msgstr "GDPR Compliance Standards"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:41
 msgid "EEA通用数据保护条例"
-msgstr ""
+msgstr "EEA General Data Protection Regulation"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:54
 msgid ""
 "[公司名称]（以下简称\"我们\"）高度重视用户的隐私保护。您在使用我们的服务时，"
 "我们可能会收集和使用您的相关信息。本政策将帮助您了解以下内容："
 msgstr ""
+"[Company Name] (hereinafter referred to as \"we\") highly values user privacy "
+"protection. When you use our services, we may collect and use your relevant "
+"information. This policy will help you understand the following:"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:62
 msgid "信息收集与使用"
-msgstr ""
+msgstr "Information Collection and Use"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:67
 msgid "在您注册账户时收集的个人身份信息（如姓名、电子邮件地址等）"
-msgstr ""
+msgstr "Personal identification information collected when you register an account (such as name, email address, etc.)"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:71
 msgid "使用服务时自动收集的技术信息（如IP地址、浏览器类型、访问时间等）"
-msgstr ""
+msgstr "Technical information automatically collected when using services (such as IP address, browser type, access time, etc.)"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:75
 msgid "通过Cookies和类似技术收集的信息"
-msgstr ""
+msgstr "Information collected through Cookies and similar technologies"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:85
 msgid "信息共享与披露"
-msgstr ""
+msgstr "Information Sharing and Disclosure"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:87
 msgid "我们承诺不会将您的个人信息出售给第三方。仅在以下情况可能共享信息："
-msgstr ""
+msgstr "We promise not to sell your personal information to third parties. Information may only be shared in the following circumstances:"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:91
 msgid "获得您明确同意或授权"
-msgstr ""
+msgstr "With your explicit consent or authorization"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:95
 msgid "根据法律法规要求或司法程序需要"
-msgstr ""
+msgstr "As required by laws and regulations or judicial procedures"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:99
 msgid "维护社会公共利益"
-msgstr ""
+msgstr "To protect social public interests"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:108
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:101
 msgid "最后更新日期：[更新日期]"
-msgstr ""
+msgstr "Last updated: [Update Date]"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:4
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:44
@@ -230,57 +233,57 @@ msgstr "Terms of Service"
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:20
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:52
 msgid "接受条款"
-msgstr ""
+msgstr "Acceptance of Terms"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:25
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:62
 msgid "服务内容"
-msgstr ""
+msgstr "Service Content"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:30
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:85
 msgid "免责声明"
-msgstr ""
+msgstr "Disclaimer"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:40
 msgid "法律合规声明"
-msgstr ""
+msgstr "Legal Compliance Statement"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:41
 msgid "依据《网络安全法》相关规定"
-msgstr ""
+msgstr "In accordance with the relevant provisions of the Cybersecurity Law"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:54
 msgid "通过访问或使用[公司名称]的服务，即表示您同意遵守本服务条款的所有内容。"
-msgstr ""
+msgstr "By accessing or using [Company Name]'s services, you agree to comply with all contents of these Terms of Service."
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:67
 msgid "我们保留随时修改或中断服务的权利"
-msgstr ""
+msgstr "We reserve the right to modify or discontinue services at any time"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:71
 msgid "用户需对账户活动承担全部责任"
-msgstr ""
+msgstr "Users are fully responsible for account activities"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:75
 msgid "禁止使用服务进行任何非法活动"
-msgstr ""
+msgstr "Prohibited from using services for any illegal activities"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:88
 msgid "服务按\"现状\"提供，我们不承诺："
-msgstr ""
+msgstr "Services are provided \"as is\", we do not promise:"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:90
 msgid "服务符合您的特定要求"
-msgstr ""
+msgstr "Services meet your specific requirements"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:91
 msgid "服务不会中断或无错误"
-msgstr ""
+msgstr "Services will be uninterrupted or error-free"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:92
 msgid "通过服务获得的结果准确可靠"
-msgstr ""
+msgstr "Results obtained through services are accurate and reliable"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:5
 msgid "DjangoStarter - 快速开发框架"
