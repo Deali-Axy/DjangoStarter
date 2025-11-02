@@ -1,3 +1,4 @@
+{% load i18n %}
 <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300">
     <div class="mx-auto w-full container p-4 py-6 lg:py-6">
         <div class="md:flex md:justify-between">
@@ -7,12 +8,12 @@
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">DjangoStarter</span>
                 </a>
                 <p class="max-w-md mt-2 text-sm text-gray-500 dark:text-gray-400">
-                    DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设计。
+                    {% trans "DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设计。" %}
                 </p>
             </div>
             <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                 <div>
-                    <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">相关资源</h2>
+                    <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">{% trans "相关资源" %}</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium space-y-2">
                         <li>
                             <a href="https://deali.cn/" class="text-sm hover:text-blue-600 dark:hover:text-blue-500 transition-colors" target="_blank">
@@ -27,7 +28,7 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">关注我们</h2>
+                    <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">{% trans "关注我们" %}</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium space-y-2">
                         <li>
                             <a href="https://github.com/deali-Axy/" class="text-sm hover:text-blue-600 dark:hover:text-blue-500 transition-colors" target="_blank">
@@ -42,16 +43,16 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">法律信息</h2>
+                    <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white">{% trans "法律信息" %}</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium space-y-2">
                         <li>
                             <a href="{% url 'djs_about:privacy_policy' %}" class="text-sm hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
-                                <i class="fa-solid fa-shield-alt mr-1 text-xs"></i>隐私政策
+                                <i class="fa-solid fa-shield-alt mr-1 text-xs"></i>{% trans "隐私政策" %}
                             </a>
                         </li>
                         <li>
                             <a href="{% url 'djs_about:terms_of_service' %}" class="text-sm hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
-                                <i class="fa-solid fa-file-contract mr-1 text-xs"></i>服务条款
+                                <i class="fa-solid fa-file-contract mr-1 text-xs"></i>{% trans "服务条款" %}
                             </a>
                         </li>
                     </ul>
@@ -61,7 +62,7 @@
         <hr class="my-5 border-gray-200 dark:border-gray-700"/>
         <div class="sm:flex sm:items-center sm:justify-between text-sm">
           <span class="text-gray-500 dark:text-gray-400">
-              © 2025 <a href="https://deali.cn/" class="hover:text-blue-600 dark:hover:text-blue-500 transition-colors">CodeLab™</a>. 保留所有权利
+              © 2025 <a href="https://deali.cn/" class="hover:text-blue-600 dark:hover:text-blue-500 transition-colors">CodeLab™</a>. {% trans "保留所有权利" %}
           </span>
             <div class="flex mt-4 sm:justify-center sm:mt-0 space-x-4">
                 <a href="#" class="text-gray-500 hover:text-blue-600 dark:hover:text-white transition-colors">
@@ -83,7 +84,7 @@
             </div>
         </div>
         <div class="text-center text-xs text-gray-400 dark:text-gray-500 mt-4">
-            由 <a href="https://github.com/Deali-Axy" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-500">DealiAxy</a> 开发
+            {% trans "由" %} <a href="https://github.com/Deali-Axy" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-500">DealiAxy</a> {% trans "开发" %}
         </div>
     </div>
 </footer>

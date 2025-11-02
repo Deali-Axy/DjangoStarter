@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-02 20:11+0800\n"
+"POT-Creation-Date: 2025-11-02 20:36+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,9 @@ msgstr ""
 
 #: .\src\apps\demo\templates\demo\index.html:12
 msgid "一个现代化的Django启动模板，集成了最新的前端技术栈和最佳实践。"
-msgstr "A modern Django starter template with the latest frontend tech stack and best practices."
+msgstr ""
+"A modern Django starter template with the latest frontend tech stack and "
+"best practices."
 
 #: .\src\config\settings\components\i18n.py:12
 msgid "简体中文"
@@ -40,6 +42,97 @@ msgstr "Home"
 #: .\src\config\settings\components\nav_menu.py:11
 msgid "About"
 msgstr "About"
+
+#: .\src\templates\403.html:4
+msgid "403 禁止访问"
+msgstr "403 Forbidden"
+
+#: .\src\templates\403.html:15
+msgid "禁止访问"
+msgstr "Forbidden"
+
+#: .\src\templates\403.html:16
+msgid "抱歉，您没有权限访问此页面。"
+msgstr "Sorry, you don't have permission to access this page."
+
+#: .\src\templates\403.html:20 .\src\templates\404.html:13
+#: .\src\templates\500.html:13
+msgid "返回首页"
+msgstr "Back to Home"
+
+#: .\src\templates\403.html:24
+msgid "返回上一页"
+msgstr "Go Back"
+
+#: .\src\templates\403.html:29
+msgid "如果您认为这是一个错误，请联系"
+msgstr "If you think this is an error, please contact the "
+
+#: .\src\templates\403.html:29
+msgid "管理员"
+msgstr "administrator"
+
+#: .\src\templates\404.html:4
+msgid "404 页面未找到"
+msgstr "404 Page Not Found"
+
+#: .\src\templates\404.html:10
+msgid "页面未找到"
+msgstr "Page Not Found"
+
+#: .\src\templates\404.html:11
+msgid "抱歉，您访问的页面不存在或已被移除。"
+msgstr "Sorry, the page you are looking for doesn't exist or has been removed."
+
+#: .\src\templates\500.html:4
+msgid "500 服务器错误"
+msgstr "500 Server Error"
+
+#: .\src\templates\500.html:10
+msgid "服务器错误"
+msgstr "Server Error"
+
+#: .\src\templates\500.html:11
+msgid "抱歉，服务器出现了一些问题，请稍后再试。"
+msgstr "Sorry, the server encountered some problems. Please try again later."
+
+#: .\src\templates\_components\footer.html:11
+msgid ""
+"DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设"
+"计。"
+msgstr "DjangoStarter v3 is a next-generation Django project rapid development template designed to improve development efficiency and performance."
+
+#: .\src\templates\_components\footer.html:16
+msgid "相关资源"
+msgstr "Resources"
+
+#: .\src\templates\_components\footer.html:31
+msgid "关注我们"
+msgstr "Follow Us"
+
+#: .\src\templates\_components\footer.html:46
+msgid "法律信息"
+msgstr "Legal"
+
+#: .\src\templates\_components\footer.html:50
+msgid "隐私政策"
+msgstr "Privacy Policy"
+
+#: .\src\templates\_components\footer.html:55
+msgid "服务条款"
+msgstr "Terms of Service"
+
+#: .\src\templates\_components\footer.html:65
+msgid "保留所有权利"
+msgstr "All rights reserved"
+
+#: .\src\templates\_components\footer.html:87
+msgid "由"
+msgstr "Developed by "
+
+#: .\src\templates\_components\footer.html:87
+msgid "开发"
+msgstr ""
 
 #: .\src\templates\_components\language_switcher.html:18
 msgid "Language"

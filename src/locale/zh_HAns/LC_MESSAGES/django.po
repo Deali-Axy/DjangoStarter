@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-02 20:10+0800\n"
+"POT-Creation-Date: 2025-11-02 20:35+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,97 @@ msgstr "主页"
 #: .\src\config\settings\components\nav_menu.py:11
 msgid "About"
 msgstr "关于"
+
+#: .\src\templates\403.html:4
+msgid "403 禁止访问"
+msgstr "403 禁止访问"
+
+#: .\src\templates\403.html:15
+msgid "禁止访问"
+msgstr "禁止访问"
+
+#: .\src\templates\403.html:16
+msgid "抱歉，您没有权限访问此页面。"
+msgstr "抱歉，您没有权限访问此页面。"
+
+#: .\src\templates\403.html:20 .\src\templates\404.html:13
+#: .\src\templates\500.html:13
+msgid "返回首页"
+msgstr "返回首页"
+
+#: .\src\templates\403.html:24
+msgid "返回上一页"
+msgstr "返回上一页"
+
+#: .\src\templates\403.html:29
+msgid "如果您认为这是一个错误，请联系"
+msgstr "如果您认为这是一个错误，请联系"
+
+#: .\src\templates\403.html:29
+msgid "管理员"
+msgstr "管理员"
+
+#: .\src\templates\404.html:4
+msgid "404 页面未找到"
+msgstr "404 页面未找到"
+
+#: .\src\templates\404.html:10
+msgid "页面未找到"
+msgstr "页面未找到"
+
+#: .\src\templates\404.html:11
+msgid "抱歉，您访问的页面不存在或已被移除。"
+msgstr "抱歉，您访问的页面不存在或已被移除。"
+
+#: .\src\templates\500.html:4
+msgid "500 服务器错误"
+msgstr "500 服务器错误"
+
+#: .\src\templates\500.html:10
+msgid "服务器错误"
+msgstr "服务器错误"
+
+#: .\src\templates\500.html:11
+msgid "抱歉，服务器出现了一些问题，请稍后再试。"
+msgstr "抱歉，服务器出现了一些问题，请稍后再试。"
+
+#: .\src\templates\_components\footer.html:11
+msgid ""
+"DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设"
+"计。"
+msgstr "DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设计。"
+
+#: .\src\templates\_components\footer.html:16
+msgid "相关资源"
+msgstr "相关资源"
+
+#: .\src\templates\_components\footer.html:31
+msgid "关注我们"
+msgstr "关注我们"
+
+#: .\src\templates\_components\footer.html:46
+msgid "法律信息"
+msgstr "法律信息"
+
+#: .\src\templates\_components\footer.html:50
+msgid "隐私政策"
+msgstr "隐私政策"
+
+#: .\src\templates\_components\footer.html:55
+msgid "服务条款"
+msgstr "服务条款"
+
+#: .\src\templates\_components\footer.html:65
+msgid "保留所有权利"
+msgstr "保留所有权利"
+
+#: .\src\templates\_components\footer.html:87
+msgid "由"
+msgstr "由"
+
+#: .\src\templates\_components\footer.html:87
+msgid "开发"
+msgstr "开发"
 
 #: .\src\templates\_components\language_switcher.html:18
 msgid "Language"
