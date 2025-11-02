@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-03 15:22+0800\n"
+"POT-Creation-Date: 2025-11-02 20:11+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,55 +17,58 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:16
-#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:115
-msgid "Log in"
-msgstr ""
+#: .\src\apps\demo\templates\demo\index.html:12
+msgid "一个现代化的Django启动模板，集成了最新的前端技术栈和最佳实践。"
+msgstr "A modern Django starter template with the latest frontend tech stack and best practices."
 
-#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:81
-msgid "Please correct the error below."
-msgstr ""
+#: .\src\config\settings\components\i18n.py:12
+msgid "简体中文"
+msgstr "Simplified Chinese"
 
-#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:83
-msgid "Please correct the errors below."
-msgstr ""
+#: .\src\config\settings\components\i18n.py:13
+msgid "繁體中文"
+msgstr "Traditional Chinese"
 
-#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:94
-msgid "username"
-msgstr ""
+#: .\src\config\settings\components\i18n.py:14
+msgid "English"
+msgstr "English"
 
-#: .\src\django_starter\contrib\admin\templates\django_starter\admin\login.html:100
-msgid "password"
-msgstr ""
-
-#: .\src\templates\_components\navbar.html:14
-msgid "Open user menu"
-msgstr ""
-
-#: .\src\templates\_components\navbar.html:27
-msgid "Dashboard"
-msgstr ""
-
-#: .\src\templates\_components\navbar.html:61
+#: .\src\config\settings\components\nav_menu.py:6
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
-#: .\src\templates\_components\navbar.html:67
+#: .\src\config\settings\components\nav_menu.py:11
 msgid "About"
-msgstr ""
+msgstr "About"
+
+#: .\src\templates\_components\language_switcher.html:18
+msgid "Language"
+msgstr "Language"
+
+#: .\src\templates\_components\language_switcher.html:22
+msgid "Switch Language"
+msgstr "Switch Language"
+
+#: .\src\templates\_components\navbar.html:20
+msgid "Toggle dark mode"
+msgstr "Toggle dark mode"
+
+#: .\src\templates\_components\navbar.html:48
+msgid "Profile"
+msgstr "Profile"
+
+#: .\src\templates\_components\navbar.html:56
+msgid "Admin Panel"
+msgstr "Admin Panel"
+
+#: .\src\templates\_components\navbar.html:65
+msgid "Logout"
+msgstr "Logout"
 
 #: .\src\templates\_components\navbar.html:73
-msgid "Services"
-msgstr ""
+msgid "Login"
+msgstr "Login"
 
-#: .\src\templates\_components\navbar.html:79
-msgid "Pricing"
-msgstr ""
-
-#: .\src\templates\_components\navbar.html:85
-msgid "Contact"
-msgstr ""
-
-#: .\src\templates\_components\navbar.html:91
-msgid "Archive"
-msgstr ""
+#: .\src\templates\_components\navbar.html:80
+msgid "Open main menu"
+msgstr "Open main menu"

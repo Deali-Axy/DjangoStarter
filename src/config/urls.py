@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
 
 # DjangoStarter 主页
 from django_starter.contrib.guide import views
@@ -22,4 +23,7 @@ urlpatterns = [
 
     # 验证码
     path('captcha/', include('captcha.urls')),
+    
+    # 国际化语言切换
+    path('i18n/', include('django.conf.urls.i18n')),
 ]

@@ -1,13 +1,14 @@
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 NAV_MENU = [
     {
-        'name': '主页',
+        'name': _('Home'),
         'url': reverse_lazy('djs_guide:index'),
         'icon': 'fa-solid fa-house-laptop'
     },
     {
-        'name': '关于',
+        'name': _('About'),
         'url': reverse_lazy('djs_about:index'),
         'icon': 'fa-solid fa-circle-info'
     }

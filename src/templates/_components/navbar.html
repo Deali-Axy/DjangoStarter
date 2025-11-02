@@ -9,12 +9,15 @@
             <span class="self-center font-semibold whitespace-nowrap dark:text-white">DjangoStarter</span>
         </a>
         <div class="flex items-center md:order-2 space-x-3">
+            <!-- 语言切换组件 -->
+            {% include '_components/language_switcher.html' %}
+            
             <!-- 暗黑模式切换按钮 -->
             <button id="theme-toggle" type="button" onclick="toggleDarkMode()"
                     class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm py-2 px-3">
                 <span class="hidden dark:block"><i class="fa-solid fa-sun"></i></span>
                 <span class="block dark:hidden"><i class="fa-solid fa-moon"></i></span>
-                <span class="sr-only">切换暗黑模式</span>
+                <span class="sr-only">{% trans "Toggle dark mode" %}</span>
             </button>
 
             {% if user.is_authenticated %}
@@ -42,7 +45,7 @@
                             <a href="{% url 'account:index' %}"
                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                 <i class="fa-solid fa-user-circle mr-2"></i>
-                                个人中心
+                                {% trans "Profile" %}
                             </a>
                         </li>
                         {% if request.user.is_staff %}
@@ -50,7 +53,7 @@
                                 <a href="{% url 'admin:index' %}"
                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                     <i class="fa-solid fa-user-tie mr-2"></i>
-                                   管理后台
+                                   {% trans "Admin Panel" %}
                                 </a>
                             </li>
                         {% endif %}
@@ -59,7 +62,7 @@
                         <a href="{% url 'account:logout' %}"
                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                             <i class="fa-solid fa-sign-out-alt mr-2"></i>
-                            注销
+                            {% trans "Logout" %}
                         </a>
                     </div>
                 </div>
@@ -67,14 +70,14 @@
                 <a href="{% url 'account:login' %}"
                    class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors">
                     <i class="fa-solid fa-sign-in-alt mr-2"></i>
-                    登录
+                    {% trans "Login" %}
                 </a>
             {% endif %}
 
             <button data-collapse-toggle="navbar-multi-level" type="button"
                     class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                     aria-controls="navbar-multi-level" aria-expanded="false">
-                <span class="sr-only">打开主菜单</span>
+                <span class="sr-only">{% trans "Open main menu" %}</span>
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>

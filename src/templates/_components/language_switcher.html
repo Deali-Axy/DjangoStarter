@@ -1,0 +1,73 @@
+{% load i18n %}
+
+<!-- 语言切换组件 -->
+<div class="relative">
+    <button id="language-toggle" type="button" 
+            class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm py-2 px-3 transition-colors"
+            data-dropdown-toggle="language-dropdown">
+        <i class="fa-solid fa-globe"></i>
+        <span class="hidden md:inline">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% if LANGUAGE_CODE == 'zh-hans' %}
+                简体中文
+            {% elif LANGUAGE_CODE == 'zh-hant' %}
+                繁體中文
+            {% elif LANGUAGE_CODE == 'en' %}
+                English
+            {% else %}
+                {% trans "Language" %}
+            {% endif %}
+        </span>
+        <i class="fa-solid fa-chevron-down text-xs"></i>
+        <span class="sr-only">{% trans "Switch Language" %}</span>
+    </button>
+    
+    <!-- 语言选择下拉菜单 -->
+    <div id="language-dropdown" 
+         class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700 dark:divide-gray-600">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="language-toggle">
+            {% get_available_languages as languages %}
+            {% get_current_language as current_lang %}
+            {% for lang_code, lang_name in languages %}
+                <li>
+                    <form method="post" action="{% url 'set_language' %}" class="inline-block w-full">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                        <input name="language" type="hidden" value="{{ lang_code }}" />
+                        <button type="submit" 
+                                data-language-code="{{ lang_code }}"
+                                class="flex items-center gap-3 w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition-colors
+                                       {% if current_lang == lang_code %}bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400{% endif %}">
+                            <!-- 语言图标 -->
+                            {% if lang_code == 'zh-hans' %}
+                                <span class="text-base">🇨🇳</span>
+                            {% elif lang_code == 'zh-hant' %}
+                                <span class="text-base">🇹🇼</span>
+                            {% elif lang_code == 'en' %}
+                                <span class="text-base">🇺🇸</span>
+                            {% endif %}
+                            
+                            <!-- 语言名称 -->
+                            <span>
+                                {% if lang_code == 'zh-hans' %}
+                                    简体中文
+                                {% elif lang_code == 'zh-hant' %}
+                                    繁體中文
+                                {% elif lang_code == 'en' %}
+                                    English
+                                {% else %}
+                                    {{ lang_name }}
+                                {% endif %}
+                            </span>
+                            
+                            <!-- 当前语言标识 -->
+                            {% if current_lang == lang_code %}
+                                <i class="fa-solid fa-check text-xs ml-auto"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

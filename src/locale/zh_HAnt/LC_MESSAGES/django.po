@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-02 20:10+0800\n"
+"POT-Creation-Date: 2025-11-02 20:11+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,74 +17,58 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
 #: .\src\apps\demo\templates\demo\index.html:12
 msgid "一个现代化的Django启动模板，集成了最新的前端技术栈和最佳实践。"
-msgstr ""
+msgstr "一個現代化的Django啟動模板，集成了最新的前端技術棧和最佳實踐。"
 
 #: .\src\config\settings\components\i18n.py:12
 msgid "简体中文"
-msgstr ""
+msgstr "簡體中文"
 
 #: .\src\config\settings\components\i18n.py:13
 msgid "繁體中文"
-msgstr ""
+msgstr "繁體中文"
 
 #: .\src\config\settings\components\i18n.py:14
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: .\src\config\settings\components\nav_menu.py:6
 msgid "Home"
-msgstr "主页"
+msgstr "首頁"
 
 #: .\src\config\settings\components\nav_menu.py:11
 msgid "About"
-msgstr "关于"
+msgstr "關於"
 
 #: .\src\templates\_components\language_switcher.html:18
 msgid "Language"
-msgstr "语言"
+msgstr "語言"
 
 #: .\src\templates\_components\language_switcher.html:22
 msgid "Switch Language"
-msgstr "切换语言"
+msgstr "切換語言"
 
 #: .\src\templates\_components\navbar.html:20
 msgid "Toggle dark mode"
-msgstr "切换深色模式"
+msgstr "切換深色模式"
 
 #: .\src\templates\_components\navbar.html:48
 msgid "Profile"
-msgstr "个人中心"
+msgstr "個人中心"
 
 #: .\src\templates\_components\navbar.html:56
 msgid "Admin Panel"
-msgstr "管理后台"
+msgstr "管理後台"
 
 #: .\src\templates\_components\navbar.html:65
 msgid "Logout"
-msgstr "注销"
+msgstr "登出"
 
 #: .\src\templates\_components\navbar.html:73
 msgid "Login"
-msgstr "登录"
+msgstr "登入"
 
 #: .\src\templates\_components\navbar.html:80
 msgid "Open main menu"
-msgstr "打开主菜单"
-
-#~ msgid "Services"
-#~ msgstr "服务"
-
-#~ msgid "Pricing"
-#~ msgstr "价格"
-
-#~ msgid "Contact"
-#~ msgstr "联系"
-
-#~ msgid "Archive"
-#~ msgstr "归档"
-
-#~ msgid "Translate Test"
-#~ msgstr "翻译测试"
+msgstr "打開主選單"
