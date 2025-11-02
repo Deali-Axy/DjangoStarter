@@ -2,8 +2,9 @@
 
 {% load static %}
 {% load math_extras %}
+{% load i18n %}
 
-{% block title %}关于我们{% endblock %}
+{% block title %}{% trans "关于我们" %}{% endblock %}
 
 {% block content %}
     <!-- Hero区块 -->
@@ -12,7 +13,7 @@
         <div class="container mx-auto px-4 py-16 sm:py-24">
             <div class="relative z-10 max-w-4xl mx-auto text-center">
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 mb-6 animate-fade-in">
-                    关于我们
+                    {% trans "关于我们" %}
                 </h1>
                 <p class="text-lg sm:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
                     {{ about.description|default:'致力于为客户提供创新的解决方案，以卓越的技术和服务推动行业发展。' }}
@@ -31,7 +32,7 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto space-y-12">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">使命与愿景</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">{% trans "使命与愿景" %}</h2>
                     <div class="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </div>
 
@@ -42,7 +43,7 @@
                             <div class="p-4 flex items-center justify-center bg-blue-600 text-white rounded-lg">
                                 <i class="fa-solid fa-bolt text-xl"></i>
                             </div>
-                            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">我们的使命</h3>
+                            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">{% trans "我们的使命" %}</h3>
                         </div>
                         <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{ about.mission }}</p>
                     </div>
@@ -53,7 +54,7 @@
                             <div class="p-4 flex items-center justify-center bg-indigo-600 text-white rounded-lg">
                                 <i class="fa-solid fa-lightbulb text-xl"></i>
                             </div>
-                            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">我们的愿景</h3>
+                            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">{% trans "我们的愿景" %}</h3>
                         </div>
                         <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
                             {{ about.vision|default:'成为行业领先的创新者，持续为客户创造价值，推动技术进步与社会发展。' }}</p>
@@ -68,7 +69,7 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">价值观</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">{% trans "价值观" %}</h2>
                     <div class="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </div>
 
@@ -93,7 +94,7 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">发展历程</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">{% trans "发展历程" %}</h2>
                     <div class="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </div>
 
@@ -131,7 +132,7 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">关键数据</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">{% trans "关键数据" %}</h2>
                     <div class="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </div>
 
@@ -159,20 +160,20 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">联系我们</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">{% trans "联系我们" %}</h2>
                     <div class="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">联系方式</h3>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">{% trans "联系方式" %}</h3>
                         <div class="space-y-4">
                             <div class="flex items-start space-x-4">
                                 <div class="p-3 flex justify-center items-center bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-lg">
                                     <i class="fa-solid fa-envelope text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-medium text-gray-900 dark:text-white">邮箱地址</h4>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">{% trans "邮箱地址" %}</h4>
                                     <p class="text-gray-600 dark:text-gray-400">
                                         {{ about.contact.email|default:'contact@example.com' }}</p>
                                 </div>
@@ -182,7 +183,7 @@
                                     <i class="fa-solid fa-phone-volume text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-medium text-gray-900 dark:text-white">联系电话</h4>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">{% trans "联系电话" %}</h4>
                                     <p class="text-gray-600 dark:text-gray-400">
                                         {{ about.contact.phone|default:'400-123-4567' }}</p>
                                 </div>
@@ -192,7 +193,7 @@
                                 <i class="fa-solid fa-map-location-dot text-xl"></i>
                             </span>
                                 <div>
-                                    <h4 class="font-medium text-gray-900 dark:text-white">办公地址</h4>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">{% trans "办公地址" %}</h4>
                                     <p class="text-gray-600 dark:text-gray-400">
                                         {{ about.contact.address|default:'北京市朝阳区xxx大厦' }}</p>
                                 </div>
@@ -201,39 +202,39 @@
                             <div class="py-3 flex gap-2 items-center text-blue-600 dark:text-blue-500 ">
                                 <i class="fa-solid fa-link"></i>
                                 <a href="{% url 'djs_about:contact' %}" class="font-medium hover:underline">
-                                    联系我们
+                                    {% trans "联系我们" %}
                                 </a>
                             </div>
                         </div>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">在线留言</h3>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">{% trans "在线留言" %}</h3>
                         <form class="space-y-6">
                             <div>
                                 <label for="name"
-                                       class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">您的姓名</label>
+                                       class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{% trans "您的姓名" %}</label>
                                 <input type="text" id="name" name="name"
                                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                                       placeholder="请输入您的姓名">
+                                       placeholder="{% trans '请输入您的姓名' %}">
                             </div>
                             <div>
                                 <label for="email"
-                                       class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">电子邮箱</label>
+                                       class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{% trans "电子邮箱" %}</label>
                                 <input type="email" id="email" name="email"
                                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                                       placeholder="请输入您的邮箱">
+                                       placeholder="{% trans '请输入您的邮箱' %}">
                             </div>
                             <div>
                                 <label for="message"
-                                       class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">留言内容</label>
+                                       class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{% trans "留言内容" %}</label>
                                 <textarea id="message" name="message" rows="4"
                                           class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                                          placeholder="请输入您的留言内容"></textarea>
+                                          placeholder="{% trans '请输入您的留言内容' %}"></textarea>
                             </div>
                             <button type="submit"
                                     class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                                提交留言
+                                {% trans "提交留言" %}
                             </button>
                         </form>
                     </div>

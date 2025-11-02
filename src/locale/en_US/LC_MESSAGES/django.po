@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-02 20:36+0800\n"
+"POT-Creation-Date: 2025-11-02 21:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,6 +42,373 @@ msgstr "Home"
 #: .\src\config\settings\components\nav_menu.py:11
 msgid "About"
 msgstr "About"
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\contact.html:4
+#: .\src\django_starter\contrib\about\templates\django_starter\about\contact.html:13
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:163
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:205
+msgid "联系我们"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\contact.html:16
+msgid "我们期待听到您的声音"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\contact.html:51
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:212
+msgid "在线留言"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\contact.html:76
+msgid "发送消息"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:7
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:16
+msgid "关于我们"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:35
+msgid "使命与愿景"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:46
+msgid "我们的使命"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:57
+msgid "我们的愿景"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:72
+msgid "价值观"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:97
+msgid "发展历程"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:135
+msgid "关键数据"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:169
+msgid "联系方式"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:176
+msgid "邮箱地址"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:186
+msgid "联系电话"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:196
+msgid "办公地址"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:216
+msgid "您的姓名"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:219
+msgid "请输入您的姓名"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:223
+msgid "电子邮箱"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:226
+msgid "请输入您的邮箱"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:230
+msgid "留言内容"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:233
+msgid "请输入您的留言内容"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\index.html:237
+msgid "提交留言"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:4
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:44
+#: .\src\templates\_components\footer.html:50
+msgid "隐私政策"
+msgstr "Privacy Policy"
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:14
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:14
+msgid "内容目录"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:20
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:52
+msgid "引言"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:25
+msgid "信息收集"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:30
+msgid "信息共享"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:40
+msgid "GDPR合规标准"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:41
+msgid "EEA通用数据保护条例"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:54
+msgid ""
+"[公司名称]（以下简称\"我们\"）高度重视用户的隐私保护。您在使用我们的服务时，"
+"我们可能会收集和使用您的相关信息。本政策将帮助您了解以下内容："
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:62
+msgid "信息收集与使用"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:67
+msgid "在您注册账户时收集的个人身份信息（如姓名、电子邮件地址等）"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:71
+msgid "使用服务时自动收集的技术信息（如IP地址、浏览器类型、访问时间等）"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:75
+msgid "通过Cookies和类似技术收集的信息"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:85
+msgid "信息共享与披露"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:87
+msgid "我们承诺不会将您的个人信息出售给第三方。仅在以下情况可能共享信息："
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:91
+msgid "获得您明确同意或授权"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:95
+msgid "根据法律法规要求或司法程序需要"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:99
+msgid "维护社会公共利益"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\privacy_policy.html:108
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:101
+msgid "最后更新日期：[更新日期]"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:4
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:44
+#: .\src\templates\_components\footer.html:55
+msgid "服务条款"
+msgstr "Terms of Service"
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:10
+#, fuzzy
+#| msgid "服务条款"
+msgid "服务条款目录"
+msgstr "Terms of Service"
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:20
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:52
+msgid "接受条款"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:25
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:62
+msgid "服务内容"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:30
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:85
+msgid "免责声明"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:40
+msgid "法律合规声明"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:41
+msgid "依据《网络安全法》相关规定"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:54
+msgid "通过访问或使用[公司名称]的服务，即表示您同意遵守本服务条款的所有内容。"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:67
+msgid "我们保留随时修改或中断服务的权利"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:71
+msgid "用户需对账户活动承担全部责任"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:75
+msgid "禁止使用服务进行任何非法活动"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:88
+msgid "服务按\"现状\"提供，我们不承诺："
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:90
+msgid "服务符合您的特定要求"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:91
+msgid "服务不会中断或无错误"
+msgstr ""
+
+#: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:92
+msgid "通过服务获得的结果准确可靠"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:5
+msgid "DjangoStarter - 快速开发框架"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:14
+msgid "Welcome to"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:18
+#: .\src\templates\_components\footer.html:11
+msgid ""
+"DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设"
+"计。"
+msgstr ""
+"DjangoStarter v3 is a next-generation Django project rapid development "
+"template designed to improve development efficiency and performance."
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:19
+msgid ""
+"结合了 Django 的丰富功能和 Django-Ninja 的性能、灵活、简洁特性，v3 版本旨在为"
+"开发者提供一个更加强大、简洁和高速的开发体验。"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:25
+msgid "项目主页"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:30
+msgid "接口文档"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:35
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:70
+msgid "管理后台"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:55
+msgid "API文档"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:56
+msgid "查看完整的API接口文档"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:59
+msgid "查看文档"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:71
+msgid "访问Django管理界面"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:74
+msgid "进入后台"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:85
+msgid "Demo"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:86
+msgid "体验框架功能演示"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:89
+msgid "查看演示"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:99
+msgid "快速开始"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:102
+msgid "克隆项目"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:108
+msgid "安装依赖"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:114
+msgid "启动项目"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:124
+msgid "技术栈"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:131
+msgid "Web框架"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:138
+msgid "API框架"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:145
+msgid "缓存系统"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:152
+msgid "前端交互"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:159
+msgid "相关项目"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:160
+msgid "一些相关项目，可以参考一下，或许能找到有用的代码~"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:181
+msgid "相关博客"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:182
+msgid "这里有些关于Django开发的博客，可以看看~"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:197
+msgid "查看更多"
+msgstr ""
+
+#: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:206
+msgid "Created by"
+msgstr ""
 
 #: .\src\templates\403.html:4
 msgid "403 禁止访问"
@@ -96,12 +463,6 @@ msgstr "Server Error"
 msgid "抱歉，服务器出现了一些问题，请稍后再试。"
 msgstr "Sorry, the server encountered some problems. Please try again later."
 
-#: .\src\templates\_components\footer.html:11
-msgid ""
-"DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设"
-"计。"
-msgstr "DjangoStarter v3 is a next-generation Django project rapid development template designed to improve development efficiency and performance."
-
 #: .\src\templates\_components\footer.html:16
 msgid "相关资源"
 msgstr "Resources"
@@ -113,14 +474,6 @@ msgstr "Follow Us"
 #: .\src\templates\_components\footer.html:46
 msgid "法律信息"
 msgstr "Legal"
-
-#: .\src\templates\_components\footer.html:50
-msgid "隐私政策"
-msgstr "Privacy Policy"
-
-#: .\src\templates\_components\footer.html:55
-msgid "服务条款"
-msgstr "Terms of Service"
 
 #: .\src\templates\_components\footer.html:65
 msgid "保留所有权利"
@@ -165,3 +518,8 @@ msgstr "Login"
 #: .\src\templates\_components\navbar.html:80
 msgid "Open main menu"
 msgstr "Open main menu"
+
+#, fuzzy
+#~| msgid "服务条款"
+#~ msgid "服务按"
+#~ msgstr "Terms of Service"

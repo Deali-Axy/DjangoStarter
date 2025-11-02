@@ -32,10 +32,9 @@
                 <li>
                     <form method="post" action="{% url 'set_language' %}" class="inline-block w-full">
                         {% csrf_token %}
-                        <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}" />
                         <input name="language" type="hidden" value="{{ lang_code }}" />
                         <button type="submit" 
-                                data-language-code="{{ lang_code }}"
                                 class="flex items-center gap-3 w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition-colors
                                        {% if current_lang == lang_code %}bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400{% endif %}">
                             <!-- 语言图标 -->

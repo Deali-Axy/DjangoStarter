@@ -1,6 +1,7 @@
 {% extends 'django_starter/about/_base.html' %}
+{% load i18n %}
 
-{% block title %}联系我们{% endblock %}
+{% block title %}{% trans "联系我们" %}{% endblock %}
 
 {% block content %}
     <!-- Hero区块 -->
@@ -9,10 +10,10 @@
         <div class="container mx-auto px-4 py-16 sm:py-24">
             <div class="relative z-10 max-w-4xl mx-auto text-center">
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 mb-6 animate-fade-in">
-                    联系我们
+                    {% trans "联系我们" %}
                 </h1>
                 <p class="text-lg sm:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                    我们期待听到您的声音
+                    {% trans "我们期待听到您的声音" %}
                 </p>
             </div>
             <!-- 装饰性背景元素 -->
@@ -47,7 +48,7 @@
         <div class="container mx-auto px-4">
             <div class="max-w-xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                  data-aos="fade-up">
-                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">在线留言</h3>
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">{% trans "在线留言" %}</h3>
                 <form method="post" class="space-y-6" action="{% url 'djs_about:contact' %}">
                     {% csrf_token %}
                     {% for field in form %}
@@ -72,7 +73,7 @@
                     <div>
                         <button type="submit"
                                 class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                            发送消息
+                            {% trans "发送消息" %}
                         </button>
                     </div>
                 </form>

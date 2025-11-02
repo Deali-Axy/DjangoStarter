@@ -1,7 +1,8 @@
 {% extends '_base.html' %}
+{% load i18n %}
 
 {% block title %}
-    DjangoStarter - 快速开发框架
+    {% trans "DjangoStarter - 快速开发框架" %}
 {% endblock %}
 
 {% block content %}
@@ -10,29 +11,28 @@
             <!-- 头部区域 -->
             <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                    Welcome to <span
+                    {% trans "Welcome to" %} <span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 font-extrabold">DjangoStarter</span>!
                 </h1>
                 <div class="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                    <p>DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设计。</p>
-                    <p>结合了 Django 的丰富功能和 Django-Ninja 的性能、灵活、简洁特性，v3
-                        版本旨在为开发者提供一个更加强大、简洁和高速的开发体验。</p>
+                    <p>{% trans "DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开发效率和性能而设计。" %}</p>
+                    <p>{% trans "结合了 Django 的丰富功能和 Django-Ninja 的性能、灵活、简洁特性，v3 版本旨在为开发者提供一个更加强大、简洁和高速的开发体验。" %}</p>
                 </div>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank"
                        class="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors">
                         <i class="fab fa-github mr-2"></i>
-                        项目主页
+                        {% trans "项目主页" %}
                     </a>
                     <a href="/api/docs"
                        class="inline-flex items-center px-6 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors">
                         <i class="fas fa-book mr-2"></i>
-                        接口文档
+                        {% trans "接口文档" %}
                     </a>
                     <a href="/admin"
                        class="inline-flex items-center px-6 py-3 rounded-lg bg-gray-600 text-white hover:bg-gray-700 transition-colors">
                         <i class="fas fa-cog mr-2"></i>
-                        管理后台
+                        {% trans "管理后台" %}
                     </a>
                     <a href="/demo"
                        class="inline-flex items-center px-6 py-3 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors">
@@ -52,11 +52,11 @@
                         <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
                             <i class="fas fa-book text-2xl text-blue-600 dark:text-blue-400"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">API文档</h3>
-                        <p class="text-gray-600 dark:text-gray-400">查看完整的API接口文档</p>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{% trans "API文档" %}</h3>
+                        <p class="text-gray-600 dark:text-gray-400">{% trans "查看完整的API接口文档" %}</p>
                         <a href="/api/docs"
                            class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400">
-                            查看文档 <i class="fas fa-arrow-right ml-2"></i>
+                            {% trans "查看文档" %} <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
                 </div>
@@ -67,11 +67,11 @@
                         <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
                             <i class="fas fa-cog text-2xl text-green-600 dark:text-green-400"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">管理后台</h3>
-                        <p class="text-gray-600 dark:text-gray-400">系统管理与配置面板</p>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{% trans "管理后台" %}</h3>
+                        <p class="text-gray-600 dark:text-gray-400">{% trans "访问Django管理界面" %}</p>
                         <a href="/admin"
-                           class="mt-4 inline-flex items-center text-green-600 hover:text-green-700 dark:text-green-400">
-                            进入后台 <i class="fas fa-arrow-right ml-2"></i>
+                           class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400">
+                            {% trans "进入后台" %} <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
                 </div>
@@ -82,21 +82,82 @@
                         <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
                             <i class="fas fa-rocket text-2xl text-purple-600 dark:text-purple-400"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">更多功能</h3>
-                        <p class="text-gray-600 dark:text-gray-400">敬请期待更多功能</p>
-                        <span class="mt-4 inline-flex items-center text-purple-600 dark:text-purple-400">
-                            Coming Soon <i class="fas fa-ellipsis-h ml-2"></i>
-                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{% trans "Demo" %}</h3>
+                        <p class="text-gray-600 dark:text-gray-400">{% trans "体验框架功能演示" %}</p>
+                        <a href="/demo"
+                           class="mt-4 inline-flex items-center text-purple-600 hover:text-purple-700 dark:text-purple-400">
+                            {% trans "查看演示" %} <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- 相关资源区域 -->
             <div class="grid md:grid-cols-2 gap-8">
+                <!-- 快速开始 -->
+                <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{% trans "快速开始" %}</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">1. {% trans "克隆项目" %}</h4>
+                            <code class="text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                                git clone https://github.com/Deali-Axy/DjangoStarter.git
+                            </code>
+                        </div>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">2. {% trans "安装依赖" %}</h4>
+                            <code class="text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                                pdm install
+                            </code>
+                        </div>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">3. {% trans "启动项目" %}</h4>
+                            <code class="text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                                python manage.py runserver
+                            </code>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- 技术栈展示 -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">{% trans "技术栈" %}</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-3 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                            <i class="fab fa-python text-2xl text-green-600 dark:text-green-400"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 dark:text-white">Django</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{% trans "Web框架" %}</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-3 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-bolt text-2xl text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 dark:text-white">Django-Ninja</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{% trans "API框架" %}</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-3 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-database text-2xl text-red-600 dark:text-red-400"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 dark:text-white">Redis</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{% trans "缓存系统" %}</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-3 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                            <i class="fab fa-js-square text-2xl text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900 dark:text-white">HTMX + Alpine.js</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{% trans "前端交互" %}</p>
+                    </div>
+                </div>
+            </div>
+
                 <!-- 相关项目 -->
                 <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">相关项目</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mb-6">一些相关项目，可以参考一下，或许能找到有用的代码~</p>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{% trans "相关项目" %}</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">{% trans "一些相关项目，可以参考一下，或许能找到有用的代码~" %}</p>
                     <ul class="space-y-3">
                         {% for item in projects %}
                             <li class="flex flex-col space-y-1 mb-4">
@@ -117,8 +178,8 @@
 
                 <!-- 相关博客 -->
                 <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">相关博客</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mb-6">这里有些关于Django开发的博客，可以看看~</p>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{% trans "相关博客" %}</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">{% trans "这里有些关于Django开发的博客，可以看看~" %}</p>
                     <ul class="space-y-3">
                         {% for item in blogs %}
                             <li class="flex items-center">
@@ -133,7 +194,7 @@
                             <i class="fas fa-external-link-alt text-green-600 dark:text-green-400 mr-3"></i>
                             <a href="https://www.cnblogs.com/deali/category/1799362.html" target="_blank"
                                class="text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors">
-                                查看更多
+                                {% trans "查看更多" %}
                             </a>
                         </li>
                     </ul>
@@ -142,7 +203,7 @@
         </div>
 
         <div class="text-center text-muted border-top mt-12">
-            Created by
+            {% trans "Created by" %}
             <a href="https://github.com/Deali-Axy"
                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                target="_blank">

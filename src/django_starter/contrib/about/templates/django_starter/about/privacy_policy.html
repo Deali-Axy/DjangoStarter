@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
+{% load i18n %}
 
-{% block title %}隐私政策 - {{ site_name }}{% endblock %}
+{% block title %}{% trans "隐私政策" %} - {{ site_name }}{% endblock %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-8">
@@ -10,23 +11,23 @@
              style="scroll-margin-top: 100px;">
             <div class="flex items-center gap-2 mb-4 border-b pb-4">
                 <i class="fas fa-list-ul text-blue-600"></i>
-                <h2 class="font-semibold text-lg">内容目录</h2>
+                <h2 class="font-semibold text-lg">{% trans "内容目录" %}</h2>
             </div>
             <ul class="space-y-3">
                 <li><a href="#introduction" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
                       data-section="introduction">
                     <i class="fas fa-chevron-right text-xs opacity-70"></i>
-                    引言
+                    {% trans "引言" %}
                 </a></li>
                 <li><a href="#data-collection" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
                       data-section="data-collection">
                     <i class="fas fa-chevron-right text-xs opacity-70"></i>
-                    信息收集
+                    {% trans "信息收集" %}
                 </a></li>
                 <li><a href="#data-sharing" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
                       data-section="data-sharing">
                     <i class="fas fa-chevron-right text-xs opacity-70"></i>
-                    信息共享
+                    {% trans "信息共享" %}
                 </a></li>
             </ul>
         </nav>
@@ -36,11 +37,11 @@
             <!-- 合规徽章 -->
             <div class="flex items-center gap-2 bg-emerald-50 text-emerald-800 px-4 py-3 rounded-lg mb-8 border border-emerald-200">
                 <i class="fas fa-shield-alt"></i>
-                <span class="font-medium">GDPR合规标准</span>
-                <span class="text-sm ml-2">(EEA通用数据保护条例)</span>
+                <span class="font-medium">{% trans "GDPR合规标准" %}</span>
+                <span class="text-sm ml-2">({% trans "EEA通用数据保护条例" %})</span>
             </div>
 
-            <h1 class="text-3xl font-bold mb-8 text-gray-800">隐私政策</h1>
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">{% trans "隐私政策" %}</h1>
 
             <article class="space-y-10">
                 <!-- 引言 -->
@@ -48,9 +49,9 @@
                          role="region" aria-labelledby="introduction-heading">
                     <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
                         <i class="fas fa-info-circle text-blue-600 text-xl"></i>
-                        <h2 id="introduction-heading" class="text-2xl font-semibold text-gray-800">引言</h2>
+                        <h2 id="introduction-heading" class="text-2xl font-semibold text-gray-800">{% trans "引言" %}</h2>
                     </div>
-                    <p class="text-gray-700 leading-relaxed">[公司名称]（以下简称"我们"）高度重视用户的隐私保护。您在使用我们的服务时，我们可能会收集和使用您的相关信息。本政策将帮助您了解以下内容：</p>
+                    <p class="text-gray-700 leading-relaxed">{% trans '[公司名称]（以下简称"我们"）高度重视用户的隐私保护。您在使用我们的服务时，我们可能会收集和使用您的相关信息。本政策将帮助您了解以下内容：' %}</p>
                 </section>
 
                 <!-- 信息收集 -->
@@ -58,20 +59,20 @@
                          role="region" aria-labelledby="data-collection-heading">
                     <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
                         <i class="fas fa-database text-purple-600 text-xl"></i>
-                        <h2 id="data-collection-heading" class="text-2xl font-semibold text-gray-800">信息收集与使用</h2>
+                        <h2 id="data-collection-heading" class="text-2xl font-semibold text-gray-800">{% trans "信息收集与使用" %}</h2>
                     </div>
                     <ul class="space-y-4 text-gray-700">
                         <li class="flex items-start gap-3">
                             <i class="fas fa-id-card mt-1 text-gray-500"></i>
-                            <div>在您注册账户时收集的个人身份信息（如姓名、电子邮件地址等）</div>
+                            <div>{% trans "在您注册账户时收集的个人身份信息（如姓名、电子邮件地址等）" %}</div>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fas fa-network-wired mt-1 text-gray-500"></i>
-                            <div>使用服务时自动收集的技术信息（如IP地址、浏览器类型、访问时间等）</div>
+                            <div>{% trans "使用服务时自动收集的技术信息（如IP地址、浏览器类型、访问时间等）" %}</div>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fas fa-cookie-bite mt-1 text-gray-500"></i>
-                            <div>通过Cookies和类似技术收集的信息</div>
+                            <div>{% trans "通过Cookies和类似技术收集的信息" %}</div>
                         </li>
                     </ul>
                 </section>
@@ -81,21 +82,21 @@
                          role="region" aria-labelledby="data-sharing-heading">
                     <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
                         <i class="fas fa-share-alt text-teal-600 text-xl"></i>
-                        <h2 id="data-sharing-heading" class="text-2xl font-semibold text-gray-800">信息共享与披露</h2>
+                        <h2 id="data-sharing-heading" class="text-2xl font-semibold text-gray-800">{% trans "信息共享与披露" %}</h2>
                     </div>
-                    <p class="text-gray-700 mb-4">我们承诺不会将您的个人信息出售给第三方。仅在以下情况可能共享信息：</p>
+                    <p class="text-gray-700 mb-4">{% trans "我们承诺不会将您的个人信息出售给第三方。仅在以下情况可能共享信息：" %}</p>
                     <ul class="space-y-4 text-gray-700">
                         <li class="flex items-start gap-3">
                             <i class="fas fa-check-circle mt-1 text-green-500"></i>
-                            <div>获得您明确同意或授权</div>
+                            <div>{% trans "获得您明确同意或授权" %}</div>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fas fa-gavel mt-1 text-yellow-600"></i>
-                            <div>根据法律法规要求或司法程序需要</div>
+                            <div>{% trans "根据法律法规要求或司法程序需要" %}</div>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fas fa-users mt-1 text-blue-500"></i>
-                            <div>维护社会公共利益</div>
+                            <div>{% trans "维护社会公共利益" %}</div>
                         </li>
                     </ul>
                 </section>
@@ -104,7 +105,7 @@
                 <div class="mt-12 pt-6 border-t border-gray-200">
                     <p class="text-sm text-gray-500 flex items-center gap-2">
                         <i class="fas fa-sync-alt"></i>
-                        最后更新日期：[更新日期]
+                        {% trans "最后更新日期：[更新日期]" %}
                     </p>
                 </div>
             </article>

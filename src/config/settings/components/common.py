@@ -14,10 +14,10 @@ DEBUG = os.environ.get('DEBUG', 'true') == 'true'
 DOCKER = os.environ.get('ENVIRONMENT', 'default') == 'docker'
 
 # 读取环境变量，设置URL前缀
-URL_PREFIX = os.environ.get('URL_PREFIX', '')
-# 不为空则后面加个斜杠
+URL_PREFIX = os.environ.get('URL_PREFIX', '').strip('/')
+# 不为空则前后加斜杠，确保格式正确
 if len(URL_PREFIX) > 0:
-    URL_PREFIX += '/'
+    URL_PREFIX = f'{URL_PREFIX}/'
 
 ALLOWED_HOSTS = ['*']
 
