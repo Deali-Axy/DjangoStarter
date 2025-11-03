@@ -29,7 +29,7 @@
 
 ## 第 1 部分：启动项目（10–20 分钟）
 
-以下命令均在 PowerShell 中执行。推荐在项目根目录下创建与启用虚拟环境。
+以下分别给出 Windows（PowerShell）与 macOS（zsh/bash）命令。推荐在项目根目录下创建与启用虚拟环境。
 
 1) 创建并启用虚拟环境（任选其一）
 
@@ -70,6 +70,48 @@ gulp move
 cd src
 python manage.py migrate
 python manage.py runserver
+```
+
+### macOS 终端（zsh/bash）
+
+1) 创建并启用虚拟环境（任选其一）
+
+```bash
+# 方式 A：Python venv（推荐初学者）
+python3 -m venv .venv
+source .venv/bin/activate
+
+# 方式 B：Conda（如已安装）
+conda create -n django-starter python=3.12
+conda activate django-starter
+```
+
+2) 安装 PDM 并安装后端依赖
+
+```bash
+python3 -m pip install pdm
+pdm install
+```
+
+3) 安装前端依赖并构建静态资源
+
+```bash
+# 如未安装 pnpm，可先安装：
+# npm install -g pnpm
+pnpm install
+
+# 将前端资源复制到静态目录（一次性）
+gulp move
+# 如需使用 TailwindCSS，可执行：
+# npm run tailwind:watch
+```
+
+4) 初始化数据库并启动开发服务器
+
+```bash
+cd src
+python3 manage.py migrate
+python3 manage.py runserver
 ```
 
 5) 验证运行
@@ -351,6 +393,7 @@ api.add_router('blog', blog_router)
 - 模板目录：`src/templates/`（全局模板，配合 `APP_DIRS=True` 可用应用内模板）
 
 - 缓存：`src/config/settings/components/caches.py`（集中管理，默认 Redis；需先安装并运行 Redis）
+ - macOS Redis 安装（可选）：`brew install redis`；启动：`brew services start redis`
 
 - 管理后台：`src/config/settings/components/django_starter.py` 与 `simpleui.py`（外观与入口）
 
@@ -421,6 +464,29 @@ python manage.py runserver
 
 # 测试（示例）
 python manage.py test
+pytest
+```
+
+### macOS（zsh/bash）
+
+```bash
+# 后端依赖
+pdm install
+
+# 前端依赖与构建
+pnpm install
+gulp move
+npm run tailwind:build
+
+# 数据库
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+# 运行开发服务器
+python3 manage.py runserver
+
+# 测试（示例）
+python3 manage.py test
 pytest
 ```
 
