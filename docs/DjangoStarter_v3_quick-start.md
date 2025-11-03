@@ -117,7 +117,7 @@ python3 manage.py runserver
 5) 验证运行
 - 首页（欢迎页）：`http://localhost:8000/`
 - 管理后台：`http://localhost:8000/admin/`
-- API 文档（Swagger）：`http://localhost:8000/api/doc`
+- API 文档（Swagger）：`http://localhost:8000/api/docs`
 
 > 如果你配置了 URL 前缀（见后文），地址会变为 `http://localhost:8000/<前缀>/...`。
 
@@ -288,7 +288,7 @@ api.add_router('blog', blog_router)
 
 3) 访问接口与文档
 - Hello 接口：`http://localhost:8000/api/blog/hello`
-- Swagger 文档：`http://localhost:8000/api/doc`（可交互测试）
+- Swagger 文档：`http://localhost:8000/api/docs`（可交互测试）
 
 ---
 
@@ -373,7 +373,7 @@ api.add_router('blog', blog_router)
 ```
 
 重启开发服务器后，访问：
-- 列表/创建/更新/删除等接口：在 `http://localhost:8000/api/doc` 中通过 `blog` 标签查看并测试
+- 列表/创建/更新/删除等接口：在 `http://localhost:8000/api/docs` 中通过 `blog` 标签查看并测试
 
 ---
 
@@ -499,6 +499,6 @@ pytest
 - 优化日志与观测：按需调整 `logging.py`、启用 `django_starter.contrib.monitoring`
 - 部署：使用 Docker（`docker compose up --build`），并结合 Nginx/HTTPS
 
-如果你在任何一步遇到问题，建议优先查看 `README.md` 的相关章节与本教程对应的文件位置；也可以在 `http://localhost:8000/api/doc` 中直接测试接口并观察响应结构。
+如果你在任何一步遇到问题，建议优先查看 `README.md` 的相关章节与本教程对应的文件位置；也可以在 `http://localhost:8000/api/docs` 中直接测试接口并观察响应结构。
 
 祝你在 DjangoStarter v3 上开发愉快！
