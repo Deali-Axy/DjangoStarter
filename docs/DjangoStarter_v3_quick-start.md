@@ -231,6 +231,48 @@ path('blog/', include('apps.blog.urls')),
 7) 运行并访问：`http://localhost:8000/blog/`
 
 > 注意：如果设置了 URL 前缀，比如 `djangostarter`，则地址为 `http://localhost:8000/djangostarter/blog/`。
+ 
+8) 如果页面缺少样式，请启动 TailwindCSS 构建
+ 
+- 说明：本项目的样式由 TailwindCSS 生成。未启动构建或未复制初始资源时，页面可能看起来无样式。
+ 
+- 初始化静态资源（首次或变更后执行）：
+ 
+```powershell
+# Windows（PowerShell）
+pnpm run gulp:move
+```
+ 
+```bash
+# macOS/Linux（zsh/bash）
+pnpm run gulp:move
+```
+ 
+- 开发模式（持续监听并生成样式，建议在单独终端运行）：
+ 
+```powershell
+# Windows（PowerShell）
+pnpm run tailwind:watch
+```
+ 
+```bash
+# macOS/Linux（zsh/bash）
+pnpm run tailwind:watch
+```
+ 
+- 生产/一次性构建（不监听，仅生成压缩后的样式）：
+ 
+```powershell
+# Windows（PowerShell）
+pnpm run tailwind:build
+```
+ 
+```bash
+# macOS/Linux（zsh/bash）
+pnpm run tailwind:build
+```
+ 
+> 提示：若你更习惯 npm，也可将以上命令中的 `pnpm run` 替换为 `npm run`。
 
 ---
 
