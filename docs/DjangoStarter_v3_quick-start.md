@@ -17,13 +17,13 @@
 ## 前置知识与准备
 
 - 会使用 Python 与基础命令行即可（不需要 Django 经验）
-- 操作系统：Windows（PowerShell）
+- 操作系统：Windows（PowerShell）、macOS（zsh/bash）、Linux（bash）
 - Python：推荐 3.12（3.11 也可运行）
 - 包管理器：PDM（后端）、pnpm（前端）
 - Node.js：任意 LTS 版本（建议 v18+）
 - 可选：Redis（用于限流、缓存等）
 
-> 如果你尚未克隆本仓库，请参考 README 的克隆与版本说明。本文默认你已在 `d:\Code\DjangoStarter` 下打开项目。
+> 如果你尚未克隆本仓库，请参考 README 的克隆与版本说明。示例命令分别给出 Windows 与 macOS/Linux 版本。项目根路径示例：`d:\Code\DjangoStarter`（Windows）或 `~/Code/DjangoStarter`（macOS/Linux）。
 
 ---
 
