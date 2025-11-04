@@ -616,6 +616,7 @@ docker compose up --build
 - [x] 使用 npm + gulp 管理前端资源
 - [x] 框架功能集成在`django_starter`包中
 - [x] 国际化支持
+- [ ] 完善文档
 - [ ] 集成 django-all-auth 一类的认证模块
 - [ ] 集成 Celery 任务队列
 - [ ] 完善 SSE 示例
@@ -623,6 +624,8 @@ docker compose up --build
 - [ ] 集成支付功能
 - [ ] 支持关闭前端功能，只保留后端API
 - [ ] 完善 project rules, 优化 AI 编程工具支持
+
+更多里程碑与详细 TODO 规划请参见 `docs/roadmap.md`。
 
 ## 相关博文
 
