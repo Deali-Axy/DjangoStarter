@@ -185,7 +185,7 @@ v3 版本开始我使用了 [pdm](https://pdm-project.org/en/latest/) 作为包�
 首先创建一个虚拟环境
 
 ```bash
-conda create -n django-starter python=3.11
+conda create -n django-starter python=3.12
 ```
 
 启用虚拟环境
