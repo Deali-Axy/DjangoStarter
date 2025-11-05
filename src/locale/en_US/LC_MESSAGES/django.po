@@ -3,16 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-02 21:23+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2025-11-05 00:00+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -225,10 +224,8 @@ msgid "服务条款"
 msgstr "Terms of Service"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:10
-#, fuzzy
-#| msgid "服务条款"
 msgid "服务条款目录"
-msgstr "Terms of Service"
+msgstr "Terms of Service Contents"
 
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:20
 #: .\src\django_starter\contrib\about\templates\django_starter\about\terms_of_service.html:52
@@ -287,11 +284,11 @@ msgstr "Results obtained through services are accurate and reliable"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:5
 msgid "DjangoStarter - 快速开发框架"
-msgstr ""
+msgstr "DjangoStarter - Rapid Development Framework"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:14
 msgid "Welcome to"
-msgstr ""
+msgstr "Welcome to"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:18
 #: .\src\templates\_components\footer.html:11
@@ -306,112 +303,112 @@ msgstr ""
 msgid ""
 "结合了 Django 的丰富功能和 Django-Ninja 的性能、灵活、简洁特性，v3 版本旨在为"
 "开发者提供一个更加强大、简洁和高速的开发体验。"
-msgstr ""
+msgstr "Combining Django's rich features with Django-Ninja's performance, flexibility, and simplicity, v3 aims to provide developers with a more powerful, streamlined, and high-speed development experience."
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:25
 msgid "项目主页"
-msgstr ""
+msgstr "Project Home"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:30
 msgid "接口文档"
-msgstr ""
+msgstr "API Documentation"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:35
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:70
 msgid "管理后台"
-msgstr ""
+msgstr "Admin Panel"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:55
 msgid "API文档"
-msgstr ""
+msgstr "API Documentation"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:56
 msgid "查看完整的API接口文档"
-msgstr ""
+msgstr "View full API documentation"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:59
 msgid "查看文档"
-msgstr ""
+msgstr "View Documentation"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:71
 msgid "访问Django管理界面"
-msgstr ""
+msgstr "Access the Django admin interface"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:74
 msgid "进入后台"
-msgstr ""
+msgstr "Go to Admin"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:85
 msgid "Demo"
-msgstr ""
+msgstr "Demo"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:86
 msgid "体验框架功能演示"
-msgstr ""
+msgstr "Explore the framework demo"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:89
 msgid "查看演示"
-msgstr ""
+msgstr "View Demo"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:99
 msgid "快速开始"
-msgstr ""
+msgstr "Quick Start"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:102
 msgid "克隆项目"
-msgstr ""
+msgstr "Clone the project"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:108
 msgid "安装依赖"
-msgstr ""
+msgstr "Install dependencies"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:114
 msgid "启动项目"
-msgstr ""
+msgstr "Start the project"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:124
 msgid "技术栈"
-msgstr ""
+msgstr "Tech Stack"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:131
 msgid "Web框架"
-msgstr ""
+msgstr "Web Framework"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:138
 msgid "API框架"
-msgstr ""
+msgstr "API Framework"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:145
 msgid "缓存系统"
-msgstr ""
+msgstr "Caching System"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:152
 msgid "前端交互"
-msgstr ""
+msgstr "Frontend Interaction"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:159
 msgid "相关项目"
-msgstr ""
+msgstr "Related Projects"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:160
 msgid "一些相关项目，可以参考一下，或许能找到有用的代码~"
-msgstr ""
+msgstr "Some related projects you can explore; you might find useful code."
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:181
 msgid "相关博客"
-msgstr ""
+msgstr "Related Blogs"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:182
 msgid "这里有些关于Django开发的博客，可以看看~"
-msgstr ""
+msgstr "Here are some blogs on Django development; have a look."
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:197
 msgid "查看更多"
-msgstr ""
+msgstr "View More"
 
 #: .\src\django_starter\contrib\guide\templates\django_starter\guide\index.html:206
 msgid "Created by"
-msgstr ""
+msgstr "Created by"
 
 #: .\src\templates\403.html:4
 msgid "403 禁止访问"
