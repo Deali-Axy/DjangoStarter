@@ -1,4 +1,4 @@
-# DjangoStarter v3 零基础快速入门（Windows 友好）
+# DjangoStarter v3 零基础快速入门
 
 面向没有 Django 基础的 Python 开发者，带你在 60–90 分钟内完成环境搭建、项目运行、页面与 API 编写、以及代码生成器的使用。教程完全基于本仓库结构与约定（Django 5 + Django-Ninja + HTMX/Alpine/Tailwind）。
 
