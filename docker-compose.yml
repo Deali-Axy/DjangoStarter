@@ -21,43 +21,6 @@ services:
     security_opt:
       - no-new-privileges:true
 
-  nginx:
-    image: ${NGINX_IMAGE:-nginx:stable-alpine}
-    container_name: $APP_NAME-nginx
-    restart: unless-stopped
-    environment:
-      - URL_PREFIX=${URL_PREFIX}
-      - APP_INTERNAL_PORT=${APP_INTERNAL_PORT:-8000}
-      - NGINX_INTERNAL_PORT=${NGINX_INTERNAL_PORT:-8001}
-    volumes:
-      # Nginx 官方镜像支持模板自动处理：
-      # 将 .template 文件挂载到 /etc/nginx/templates/ 目录
-      # 容器启动时会自动使用 envsubst 处理环境变量并生成配置文件
-      - ./nginx.conf.template:/etc/nginx/templates/default.conf.template:ro
-      - ./media:/www/media:ro
-      - ./static-dist:/www/static-dist:ro
-      - ./log/nginx:/var/log/nginx
-    ports:
-      - ${APP_PORT}:${NGINX_INTERNAL_PORT:-8001}
-    depends_on:
-      - redis
-      - app
-    networks:
-      - default
-    deploy:
-      resources:
-        limits:
-          cpus: '${NGINX_CPU_LIMIT:-0.3}'
-          memory: ${NGINX_MEMORY_LIMIT:-128M}
-    healthcheck:
-      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${NGINX_INTERNAL_PORT:-8001}${URL_PREFIX}/api/django-starter/monitoring/health/" ]
-      interval: ${HEALTHCHECK_INTERVAL:-30s}
-      timeout: ${HEALTHCHECK_TIMEOUT:-5s}
-      retries: ${HEALTHCHECK_RETRIES:-3}
-      start_period: ${HEALTHCHECK_START_PERIOD:-10s}
-    security_opt:
-      - no-new-privileges:true
-
   app:
     image: ${APP_IMAGE_NAME}:${APP_IMAGE_TAG}
     container_name: $APP_NAME-app
@@ -77,10 +40,11 @@ services:
       - TZ=${TZ:-Asia/Shanghai}
     command: >
       sh -c "
-      echo 'Starting the application...' &&
+      echo 'Starting the application with Granian (ASGI)...' &&
       mkdir -p /project/src/logs &&
       chown -R django:django /project/src/logs &&
-      exec daphne -b 0.0.0.0 -p ${APP_INTERNAL_PORT:-8000} -v 3 --proxy-headers config.asgi:application
+      exec granian --interface asgi --host 0.0.0.0 --port ${APP_INTERNAL_PORT:-8000} config.asgi:application &&
+        --static-path-route /static --static-path-mount /project/static-dist --http 2
       "
     volumes:
       - ./media:/project/media
@@ -88,7 +52,7 @@ services:
       - ./static-dist:/project/static-dist
       - ./log:/project/src/logs
       # 生产环境应移除源代码挂载
-      - ./src:/project/src
+      # - ./src:/project/src
     user: "0:0"  # 临时使用root用户启动，然后切换到django用户
     depends_on:
       redis:

@@ -577,7 +577,7 @@ xgettext --version
 
 推荐使用 docker 部署，本项目已经有完善的 docker 部署方案，开箱即用。
 
-生产环境使用基于 ASGI 异步接口的 daphne 作为应用服务器，不再使用同步的 uWSGI 的服务器了。
+生产环境默认使用基于 ASGI 的 daphne 作为应用服务器；现已集成性能更强的 Granian（支持 ASGI/WSGI、HTTP/2、WebSocket），可在开发或生产环境切换使用而不破坏现有行为。
 
 首先配置 docker 的环境变量，复制一下根目录下的 `.env.example` 文件
 
@@ -598,6 +598,44 @@ docker compose up --build
 内置有 nginx 服务器，可以提供 HTTP 服务，如需 HTTPS ，请自行搭配 swag、ACME.sh 之类的方案使用，可以看我博客的介绍。
 
 参考博客文章：[新版的Django Docker部署方案，多阶段构建、自动处理前端依赖](https://www.cnblogs.com/deali/p/18357853)
+
+### Granian 集成与使用
+
+Granian 是一个由 Rust 编写的 Python 应用 HTTP 服务器，支持 ASGI/WSGI、HTTP/2、WebSocket 等特性，提供更好的吞吐与并发能力（详见官方说明：https://github.com/emmett-framework/granian）。
+
+使用方式：
+
+- 开发环境（Windows/PowerShell）：
+  - 启动 ASGI：`pdm run granian-asgi`
+  - 启动 WSGI：`pdm run granian-wsgi`
+  - 启动 ASGI 并启用 HTTP/2：`pdm run granian-http2`
+
+- 可用环境变量（Granian 原生支持，若设置将覆盖默认值）：
+  - `GRANIAN_HOST`（默认 `127.0.0.1`）
+  - `GRANIAN_PORT`（默认 `8000`）
+  - `GRANIAN_HTTP`（`auto|1|2`，默认 `auto`）
+  - `GRANIAN_WORKERS`（默认 `1`）
+
+- Docker 使用方式：
+  - 项目 Dockerfile 默认 `daphne`，为了“Never break userspace”不做破坏性更改。
+  - 如需在容器中使用 Granian，建议在 `docker-compose.yml` 的 `app` 服务中通过 `command` 覆盖启动命令：
+
+    ```yaml
+    services:
+      app:
+        # ... 其他配置保持不变
+        command: ["granian", "--interface", "asgi", "--host", "0.0.0.0", "--port", "8000", "config.asgi:application"]
+    ```
+
+  - 如果启用 `URL_PREFIX`，路径前缀逻辑与 daphne 保持一致，无需额外修改。
+
+注意事项与建议：
+
+- Windows 开发建议安装 Granian 的 `winloop` 可选依赖以获得更佳事件循环支持；如需自动加载 `.env`，可选安装 `dotenv` 扩展。
+- HTTP/2 通常需要前置代理或客户端支持，生产环境推荐由 Nginx/反向代理终止 TLS 与 HTTP/2，再将后端以 HTTP/1.1 或 2 进行透传。
+- Granian 与 daphne 可无缝切换，均通过 `config.asgi:application` 入口运行；WSGI 模式则使用 `config.wsgi:application`。
+
+> 参考：Granian 官方仓库文档：https://github.com/emmett-framework/granian
 
 ## TODO
 
