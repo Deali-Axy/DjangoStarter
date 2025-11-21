@@ -45,12 +45,17 @@ FROM node:$NODE_BASE AS tailwind_builder
 COPY tailwind.config.js /project/
 COPY src/static/css/tailwind.src.css /project/src/static/css/
 
+# 复制用于扫描的模板与脚本（满足 tailwind.config.js 的 content 路径）
+COPY src/templates/ /project/src/templates/
+COPY src/apps/ /project/src/apps/
+COPY src/static/lib/flowbite/ /project/src/static/lib/flowbite/
+
 # 从构建阶段获取包
 COPY --from=node_builder /project/node_modules/ /project/node_modules
 
 # 构建 tailwindcss
 WORKDIR /project
-RUN npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify
+RUN npx tailwindcss -c ./tailwind.config.js -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify
 
 
 # gulp 构建
