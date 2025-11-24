@@ -50,8 +50,6 @@ services:
       - /static
       - --static-path-mount
       - /project/static-dist
-      - --http
-      - "2"
       - config.asgi:application
     volumes:
       - ./media:/project/media
