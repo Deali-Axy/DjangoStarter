@@ -111,48 +111,11 @@ def get_uptime():
 
 
 @router.get('health')
-def health_check(request):
+def simple_health_check(request):
     """健康检查端点，用于容器健康检查和监控"""
-    # 检查数据库连接
-    db_conn_ok = True
-    try:
-        for conn in connections.all():
-            conn.cursor()
-    except OperationalError:
-        db_conn_ok = False
-
-    # 检查Redis连接
-    redis_ok = True
-    if os.environ.get('ENVIRONMENT') == 'docker':
-        try:
-            redis_client = Redis(host='redis', port=6379, socket_connect_timeout=1)
-            response = redis_client.ping()
-            redis_ok = response
-        except RedisError:
-            redis_ok = False
-
-    # 基本系统信息
-    system_info = {
-        'timestamp': time.time(),
-        'uptime': get_uptime(),
-        'hostname': os.environ.get('HOSTNAME', ''),
-        'environment': os.environ.get('ENVIRONMENT', 'development'),
-        'os': platform.system(),
-    }
-
-    # 整体状态
-    status = 'healthy' if db_conn_ok and redis_ok else 'unhealthy'
-
-    status_code = 200 if status == 'healthy' else 503
-
     response_data = {
-        'status': status,
-        'status_code': status_code,
-        'checks': {
-            'database': 'ok' if db_conn_ok else 'error',
-            'redis': 'ok' if redis_ok else 'error',
-        },
-        'system': system_info,
+        'status': 'healthy',
+        'status_code': 200,
     }
 
     return response_data
@@ -229,7 +192,7 @@ def get_system_info():
 
 
 @router.get('health/async')
-async def simple_health_check_async(request):
+async def health_check_async(request):
     """Async 模式健康检查（ASGI 优化版）"""
     # 使用 asyncio.gather 并发运行 DB 和 Redis 检查
     db_ok, redis_ok = await asyncio.gather(
@@ -252,7 +215,7 @@ async def simple_health_check_async(request):
 
 
 @router.get('health/sync')
-def simple_health_check_sync(request):
+def health_check_sync(request):
     """同步版本的健康检查接口"""
 
     # --- 检查数据库 & Redis ---
