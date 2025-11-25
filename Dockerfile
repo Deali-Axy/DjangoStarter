@@ -104,19 +104,15 @@ LABEL maintainer="DealiAxy <dealiaxy@gmail.com>"
 LABEL description="基于Django定制的快速Web开发模板"
 LABEL version="1.0"
 
+# 换 Debian apt 源为清华源（适用于 Debian 12, slim 基础镜像）
+RUN sed -i 's|http://deb.debian.org/debian|https://mirrors.tuna.tsinghua.edu.cn/debian|g' /etc/apt/sources.list.d/debian.sources && \
+    sed -i 's|http://security.debian.org/debian-security|https://mirrors.tuna.tsinghua.edu.cn/debian-security|g' /etc/apt/sources.list.d/debian.sources
+
 # 安装运行时必要的系统依赖
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
-    && rm -rf /var/lib/apt/lists/*
-
-
-# 安装 uwsgi 和 PostgreSQL 运行所需的系统依赖
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libxml2 \
-    libpcre3 \
-    gcc \
-    build-essential \
-    libpq5 \
+    uwsgi \
+    uwsgi-plugin-python3 \
     && rm -rf /var/lib/apt/lists/*
 
 # 从构建阶段获取包
