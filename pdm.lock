@@ -5,25 +5,10 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:4a597c76da5b44901f605016b9c5bcbb242a320b81f02181a91c88bb2090f9a3"
+content_hash = "sha256:e2be0cb6f56e8825a0547a0fc7aa8d37c013d2f2a7ba74e30efa58b36edb07bd"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
-
-[[package]]
-name = "aioredis"
-version = "2.0.1"
-requires_python = ">=3.6"
-summary = "asyncio (PEP 3156) Redis support"
-groups = ["default"]
-dependencies = [
-    "async-timeout",
-    "typing-extensions",
-]
-files = [
-    {file = "aioredis-2.0.1-py3-none-any.whl", hash = "sha256:9ac0d0b3b485d293b8ca1987e6de8658d7dafcca1cddfcd1d506cae8cdebfdd6"},
-    {file = "aioredis-2.0.1.tar.gz", hash = "sha256:eaa51aaf993f2d71f54b70527c440437ba65340588afeb786cd87c55c89cd98e"},
-]
 
 [[package]]
 name = "annotated-types"
@@ -116,17 +101,6 @@ dependencies = [
 files = [
     {file = "asgiref-3.8.1-py3-none-any.whl", hash = "sha256:3e1e3ecc849832fe52ccf2cb6686b7a55f82bb1d6aee72a58826471390335e47"},
     {file = "asgiref-3.8.1.tar.gz", hash = "sha256:c343bd80a0bec947a9860adb4c432ffa7db769836c64238fc34bdc3fec84d590"},
-]
-
-[[package]]
-name = "async-timeout"
-version = "5.0.1"
-requires_python = ">=3.8"
-summary = "Timeout context manager for asyncio programs"
-groups = ["default"]
-files = [
-    {file = "async_timeout-5.0.1-py3-none-any.whl", hash = "sha256:39e3809566ff85354557ec2398b55e096c8364bacac9405a7a1fa429e77fe76c"},
-    {file = "async_timeout-5.0.1.tar.gz", hash = "sha256:d9321a7a3d5a6a5e187e824d2fa0793ce379a202935782d555d6e9d2735677d3"},
 ]
 
 [[package]]

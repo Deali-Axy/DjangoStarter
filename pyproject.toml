@@ -33,7 +33,6 @@ dependencies = [
     "gunicorn>=23.0.0",
     "uvicorn>=0.38.0",
     "anyio>=4.11.0",
-    "aioredis>=2.0.1",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"
