@@ -9,3 +9,5 @@ services:
       - "${APP_INTERNAL_PORT:-8000}"
       - --workers
       - "4"
+      - -log-level
+      - warning
