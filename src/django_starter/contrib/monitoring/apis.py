@@ -1,13 +1,17 @@
+import asyncio
+
 from ninja import Router
-from django.http import HttpResponse
+from django.conf import settings
 from django.db import connections
 from django.db.utils import OperationalError
 from redis import Redis
 from redis.exceptions import RedisError
+from redis import asyncio as aioredis
 import os
 import time
 import platform
 import subprocess
+import anyio
 
 router = Router(tags=['djs-monitoring'])
 
@@ -151,5 +155,130 @@ def health_check(request):
         'system': system_info,
     }
 
-
     return response_data
+
+
+async def check_db_async():
+    """数据库检查（同步 ORM → 放线程池）"""
+    try:
+        def _check():
+            for conn in connections.all():
+                conn.cursor()
+            return True
+
+        return await anyio.to_thread.run_sync(_check)
+    except OperationalError:
+        return False
+
+
+async def check_redis_async():
+    """Redis 异步检查（注意：确保关闭客户端以释放连接池）"""
+    try:
+        redis_client = aioredis.Redis(
+            host="redis",
+            port=6379,
+            socket_connect_timeout=1,
+            decode_responses=True,
+        )
+        try:
+            ok = await redis_client.ping()
+            return bool(ok)
+        finally:
+            # 关闭客户端和连接池，避免连接泄露（在短生命周期的容器/请求里很重要）
+            try:
+                await redis_client.close()
+            except Exception:
+                pass
+            try:
+                await redis_client.connection_pool.disconnect()
+            except Exception:
+                pass
+    except Exception:
+        return False
+
+
+def check_db_sync():
+    """同步检查数据库连接"""
+    try:
+        for conn in connections.all():
+            conn.cursor()
+        return True
+    except OperationalError:
+        return False
+
+
+def check_redis_sync():
+    """同步检查 Redis"""
+    if os.environ.get('ENVIRONMENT') != 'docker':
+        return True  # 本地环境默认通过
+
+    try:
+        client = Redis(host='redis', port=6379, socket_connect_timeout=1)
+        return client.ping()
+    except RedisError:
+        return False
+
+
+def get_system_info():
+    return {
+        'timestamp': time.time(),
+        'hostname': os.environ.get('HOSTNAME', ''),
+        'environment': os.environ.get('ENVIRONMENT', 'development'),
+        'os': platform.system(),
+    }
+
+
+@router.get('health/async')
+async def simple_health_check_async(request):
+    """Async 模式健康检查（ASGI 优化版）"""
+    # 使用 asyncio.gather 并发运行 DB 和 Redis 检查
+    db_ok, redis_ok = await asyncio.gather(
+        check_db_async(),
+        check_redis_async(),
+    )
+
+    status = "healthy" if db_ok and redis_ok else "unhealthy"
+    status_code = 200 if status == "healthy" else 503
+
+    return {
+        "status": status,
+        "status_code": status_code,
+        "checks": {
+            "database": "ok" if db_ok else "error",
+            "redis": "ok" if redis_ok else "error",
+        },
+        "system": get_system_info(),
+    }
+
+
+@router.get('health/sync')
+def simple_health_check_sync(request):
+    """同步版本的健康检查接口"""
+
+    # --- 检查数据库 & Redis ---
+    db_ok = check_db_sync()
+    redis_ok = check_redis_sync()
+
+    # --- 系统信息 ---
+    system_info = {
+        "timestamp": time.time(),
+        "uptime": get_uptime(),
+        "hostname": os.environ.get("HOSTNAME", ""),
+        "environment": os.environ.get("ENVIRONMENT", "development"),
+        "os": platform.system(),
+    }
+
+    # --- 状态码 ---
+    status = "healthy" if db_ok and redis_ok else "unhealthy"
+    status_code = 200 if status == "healthy" else 503
+
+    # --- 返回数据 ---
+    return {
+        "status": status,
+        "status_code": status_code,
+        "checks": {
+            "database": "ok" if db_ok else "error",
+            "redis": "ok" if redis_ok else "error",
+        },
+        "system": system_info,
+    }
