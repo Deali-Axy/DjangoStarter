@@ -56,7 +56,7 @@ services:
           cpus: '${APP_CPU_LIMIT:-1.0}'
           memory: ${APP_MEMORY_LIMIT:-512M}
     healthcheck:
-      test: [ "CMD", "python", "-c", "import requests; r = requests.get('http://localhost:${APP_INTERNAL_PORT:-8000}${URL_PREFIX}/api/django-starter/monitoring/health/'); exit(0 if r.status_code == 200 else 1)" ]
+      test: [ "CMD", "python", "-c", "import requests; r = requests.get('http://localhost:${APP_INTERNAL_PORT:-8000}${URL_PREFIX}/api/django-starter/monitoring/health'); exit(0 if r.status_code == 200 else 1)" ]
       interval: ${HEALTHCHECK_INTERVAL:-30s}
       timeout: ${HEALTHCHECK_TIMEOUT:-5s}
       retries: ${HEALTHCHECK_RETRIES:-3}
