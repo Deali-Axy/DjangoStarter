@@ -109,6 +109,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
+
+# 安装 uwsgi 和 PostgreSQL 运行所需的系统依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libxml2 \
+    libpcre3 \
+    gcc \
+    build-essential \
+    libpq5 \
+    && rm -rf /var/lib/apt/lists/*
+
 # 从构建阶段获取包
 COPY --from=python_builder /project/.venv/ /project/.venv
 COPY --from=django_builder /project/static-dist/ /project/static-dist
