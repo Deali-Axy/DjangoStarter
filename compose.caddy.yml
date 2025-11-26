@@ -6,7 +6,7 @@ services:
       - "${WEB_PORT:-9878}:80"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./static-dist:/project/static    # collectstatic 生成
-      - ./media:/project/media      # 媒体文件
+      - static:/project/static:ro
+      - ./media:/project/media:ro
     depends_on:
       - app

@@ -40,7 +40,7 @@ services:
       - TZ=${TZ:-Asia/Shanghai}
     volumes:
       - ./media:/project/media
-      - ./static-dist:/project/static-dist
+      - static:/project/static-dist
       - ./db.sqlite3:/project/db.sqlite3
       - ./log:/project/src/logs
     user: "0:0"
@@ -64,6 +64,9 @@ services:
       start_period: ${HEALTHCHECK_START_PERIOD:-10s}
     security_opt:
       - no-new-privileges:true
+
+volumes:
+  static:
 
 networks:
   default:
