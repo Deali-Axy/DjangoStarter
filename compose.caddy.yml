@@ -1,6 +1,6 @@
 services:
   web:
-    container_name: caddy
+    container_name: $APP_NAME-web
     image: caddy:2
     ports:
       - "${WEB_PORT:-9878}:80"
