@@ -1,0 +1,17 @@
+:80 {
+    # 静态文件 root
+    handle_path /static/* {
+        root * /project/static
+        file_server
+    }
+
+    handle_path /media/* {
+        root * /project/media
+        file_server
+    }
+
+    # 其他请求全部反代到 uwsgi 容器
+    handle {
+        reverse_proxy app:8000
+    }
+}

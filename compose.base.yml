@@ -40,6 +40,7 @@ services:
       - TZ=${TZ:-Asia/Shanghai}
     volumes:
       - ./media:/project/media
+      - ./static-dist:/project/static-dist
       - ./db.sqlite3:/project/db.sqlite3
       - ./log:/project/src/logs
     user: "0:0"

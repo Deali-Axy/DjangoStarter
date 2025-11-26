@@ -1,0 +1,12 @@
+services:
+  web:
+    container_name: caddy
+    image: caddy:2
+    ports:
+      - "${WEB_PORT:-9878}:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./static-dist:/project/static    # collectstatic 生成
+      - ./media:/project/media      # 媒体文件
+    depends_on:
+      - app
