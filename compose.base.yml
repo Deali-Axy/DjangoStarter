@@ -50,7 +50,7 @@ services:
     networks:
       - default
     ports:
-      - "9876:8000"
+      - "${APP_PORT:-9876}:8000"
     deploy:
       resources:
         limits:
