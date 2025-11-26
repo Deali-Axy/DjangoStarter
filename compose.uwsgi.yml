@@ -2,10 +2,8 @@ services:
   app:
     command:
       - uwsgi
-      - --http
+      - --http-socket
       - "0.0.0.0:${APP_INTERNAL_PORT:-8000}"
-      - --wsgi-file
-      - src/config/wsgi.py
       - --module
       - config.wsgi:application
       - --master
@@ -17,3 +15,5 @@ services:
       - --vacuum
       - --single-interpreter
       - --die-on-term
+      - --virtualenv
+      - /project/.venv/
