@@ -23,6 +23,7 @@ COPY pyproject.toml pdm.lock /project/
 WORKDIR /project
 RUN pdm install --check --prod --no-editable
 
+
 # node 构建
 FROM node:$NODE_BASE AS node_builder
 
@@ -36,9 +37,6 @@ COPY package.json pnpm-lock.yaml /project/
 # 安装依赖
 WORKDIR /project
 RUN pnpm i
-
-
- 
 
 
 # gulp 构建
@@ -111,9 +109,10 @@ RUN sed -i 's|http://deb.debian.org/debian|https://mirrors.tuna.tsinghua.edu.cn/
 # 安装运行时必要的系统依赖
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
-    uwsgi \
-    uwsgi-plugin-python3 \
-    && rm -rf /var/lib/apt/lists/*
+    build-essential \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install uwsgi -i "https://mirrors.cloud.tencent.com/pypi/simple/"
 
 # 从构建阶段获取包
 COPY --from=python_builder /project/.venv/ /project/.venv
