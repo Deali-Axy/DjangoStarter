@@ -1,4 +1,4 @@
-# DjangoStarter v3 零基础快速入门（Windows 友好）
+# DjangoStarter v3 零基础快速入门
 
 面向没有 Django 基础的 Python 开发者，带你在 60–90 分钟内完成环境搭建、项目运行、页面与 API 编写、以及代码生成器的使用。教程完全基于本仓库结构与约定（Django 5 + Django-Ninja + HTMX/Alpine/Tailwind）。
 
@@ -11,6 +11,25 @@
 - 编写一个页面视图（模板）与一个 Ninja API（类型安全）
 - 使用自动代码生成器按模型生成 CRUD 接口与测试
 - 了解 URL 前缀、缓存、后台、安全等常用配置入口
+
+## Django 与 DjangoStarter 的关系与优势
+
+- 关系
+  - DjangoStarter 基于 Django 5，保留标准目录结构与配置习惯；不替代、不绕开 Django，只是将最佳实践工程化并约定化。
+  - 集成 Django-Ninja 作为 API 层，类型安全、自动生成文档、性能更好；接口开发更快更简洁。
+  - 模板视图、URL、Admin、ORM、迁移等全部沿用 Django；你现有的 Django 技能零迁移。
+
+- 优势
+  - 工程化开箱即用：拆分 settings、统一 URL 前缀、缓存、认证与密码策略（Argon2）、CORS。
+  - 安全增强：Admin 登录验证码、IP 白名单限制、中间件与错误查看权限。
+  - 生产级能力：Docker 多阶段构建、Nginx 模板、健康检查、ASGI（Daphne/Granian）、日志与观测。
+  - 开发效率：自动代码生成器（按模型生成 schema/CRUD/tests/admin）、随机种子数据。
+  - 前端集成：HTMX/Alpine/Tailwind + pnpm/gulp 构建管线。
+  - AI 原生：预留 LLM 接入、向量检索/嵌入、函数调用、异步任务与流式响应扩展点。
+  - 典型场景：个人/独立产品 MVP、企业内部工具、数据看板、以及各类 AI Agent/助手的后端。
+
+- 总结
+  - 用 Django 的可靠性 + Ninja 的速度，减少样板与部署细节，让你把时间全部留给业务。
 
 ---
 

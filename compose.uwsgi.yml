@@ -1,0 +1,19 @@
+services:
+  app:
+    command:
+      - uwsgi
+      - --http-socket
+      - "0.0.0.0:${APP_INTERNAL_PORT:-8000}"
+      - --module
+      - config.wsgi:application
+      - --master
+      - --processes
+      - "4"
+      - --threads
+      - "2"
+      - --enable-threads
+      - --vacuum
+      - --single-interpreter
+      - --die-on-term
+      - --virtualenv
+      - /project/.venv/

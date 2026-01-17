@@ -1,0 +1,73 @@
+services:
+  redis:
+    image: ${REDIS_IMAGE:-redis:alpine}
+    restart: unless-stopped
+    container_name: $APP_NAME-redis
+    volumes:
+      - ./redis:/data
+    networks:
+      - default
+    deploy:
+      resources:
+        limits:
+          cpus: '${REDIS_CPU_LIMIT:-0.5}'
+          memory: ${REDIS_MEMORY_LIMIT:-256M}
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-10s}
+    security_opt:
+      - no-new-privileges:true
+
+  app:
+    image: ${APP_IMAGE_NAME}:${APP_IMAGE_TAG}
+    container_name: $APP_NAME-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PYTHON_BASE: ${PYTHON_VERSION:-3.12}
+        NODE_BASE: ${NODE_VERSION:-18}
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-docker}
+      - URL_PREFIX=${URL_PREFIX}
+      - DEBUG=${DEBUG:-false}
+      - TZ=${TZ:-Asia/Shanghai}
+    volumes:
+      - ./media:/project/media
+      - static:/project/static-dist
+      - ./db.sqlite3:/project/db.sqlite3
+      - ./log:/project/src/logs
+    user: "0:0"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - default
+    ports:
+      - "${APP_PORT:-9876}:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: '${APP_CPU_LIMIT:-1.0}'
+          memory: ${APP_MEMORY_LIMIT:-512M}
+    healthcheck:
+      test: [ "CMD", "python", "-c", "import requests; r = requests.get('http://localhost:${APP_INTERNAL_PORT:-8000}${URL_PREFIX}/api/django-starter/monitoring/health'); exit(0 if r.status_code == 200 else 1)" ]
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-10s}
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  static:
+
+networks:
+  default:
+    name: $APP_NAME

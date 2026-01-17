@@ -29,6 +29,11 @@ dependencies = [
     "pydantic>=2.11.4",
     "django-simple-history>=3.10.1",
     "django-jazzmin>=3.0.1",
+    "granian>=2.5.6",
+    "gunicorn>=23.0.0",
+    "uvicorn>=0.38.0",
+    "anyio>=4.11.0",
+    "hypercorn>=0.18.0",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"
@@ -43,3 +48,13 @@ dev = [
     "pytest>=8.1.1",
     "django-debug-toolbar>=4.3.0",
 ]
+
+[tool.pdm.scripts]
+# 使用 Granian 以 ASGI 方式启动 Django（默认端口 8000）
+granian-asgi = "granian --interface asgi config.asgi:application --static-path-route /static --static-path-mount ./static-dist"
+
+# 使用 Granian 以 WSGI 方式启动 Django（兼容传统中间件）
+granian-wsgi = "granian --interface wsgi config.wsgi:application --static-path-route /static --static-path-mount ./static-dist"
+
+# 使用 Granian 开启 HTTP/2（如果代理或客户端支持）
+granian-http2 = "granian --interface asgi --http 2 config.asgi:application --static-path-route /static --static-path-mount ./static-dist"

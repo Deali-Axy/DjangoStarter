@@ -1,0 +1,9 @@
+services:
+  app:
+    command:
+      - gunicorn
+      - config.wsgi:application
+      - -w
+      - "4"
+      - -b
+      - "0.0.0.0:${APP_INTERNAL_PORT:-8000}"

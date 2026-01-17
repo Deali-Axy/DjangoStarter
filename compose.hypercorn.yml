@@ -1,0 +1,11 @@
+services:
+  app:
+    command:
+      - hypercorn
+      - config.asgi:application
+      - --bind
+      - "0.0.0.0:${APP_INTERNAL_PORT:-8000}"
+      - --workers
+      - "4"
+      - --log-level
+      - warning

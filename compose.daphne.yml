@@ -1,0 +1,10 @@
+services:
+  app:
+    command:
+      - daphne
+      - -b
+      - 0.0.0.0
+      - -p
+      - "${APP_INTERNAL_PORT:-8000}"
+      - --proxy-headers
+      - config.asgi:application
