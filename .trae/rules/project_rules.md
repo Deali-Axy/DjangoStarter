@@ -13,28 +13,27 @@ DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开�
 ### 后端技术
 
 - **Python版本**: 3.12
-- **包管理器**: PDM
-- **Web框架**: Django 5.0.14+ (with argon2)
-- **API框架**: Django-Ninja 1.4.1+
+- **包管理器**: UV
+- **Web框架**: Django 6.0+ (with argon2)
+- **API框架**: Django-Ninja 1.5+
 - **数据库**: 支持多种数据库（PostgreSQL推荐）
-- **缓存**: Redis 6.1.0+
-- **异步支持**: Daphne (ASGI服务器)
+- **缓存**: Redis 7.0+
+- **异步支持**: ASGI服务器
 
 ### 前端技术
 
 - **模板引擎**: Django Templates + Jinja2
-- **交互框架**: HTMX 1.9.12
-- **JavaScript框架**: Alpine.js 3.14.8
+- **交互框架**: HTMX
+- **JavaScript框架**: Alpine.js
 - **CSS框架**: TailwindCSS
-- **组件库**: Flowbite 2.4.1
-- **图标**: Font Awesome Free 6.7.2
+- **组件库**: Flowbite
+- **图标**: Font Awesome Free 6
 - **动画**: AOS (Animate On Scroll)
 
 ### 开发工具
 
-- **构建工具**: Gulp 4.0.2
+- **构建工具**: Gulp
 - **容器化**: Docker + Docker Compose
-- **Web服务器**: Nginx (生产环境)
 - **测试框架**: Pytest
 
 ## 项目架构
@@ -43,7 +42,7 @@ DjangoStarter v3 是下一代 Django 项目快速开发模板，专为提升开�
 
 ```
 src/
-├── apps/                    # 业务应用模块
+├── apps/                   # 业务应用模块
 │   ├── account/            # 用户账户管理
 │   └── demo/               # 演示应用
 ├── config/                 # 项目配置
@@ -53,7 +52,7 @@ src/
 │   ├── urls.py            # 主URL配置
 │   └── wsgi.py/asgi.py    # WSGI/ASGI入口
 ├── django_starter/         # 核心框架模块
-│   ├── contrib/           # 贡献模块
+│   ├── contrib/           # 各种核心功能模块
 │   ├── db/                # 数据库相关
 │   ├── http/              # HTTP响应处理
 │   ├── middleware/        # 中间件
@@ -71,58 +70,13 @@ src/
 
 - 遵循 PEP 8 代码风格
 - 使用类型注解（Type Hints）
-- 函数和类必须添加文档字符串
+- 函数和类必须添加 docstring 注释
 - 变量和函数命名使用snake_case
 - 类名使用PascalCase
 - 常量使用UPPER_CASE
 
-#### 示例代码格式
-
-```python
-from typing import Optional, Dict, Any
-from django.http import HttpRequest, HttpResponse
-
-def process_user_data(request: HttpRequest, user_id: int) -> Optional[Dict[str, Any]]:
-    """
-    处理用户数据的业务逻辑
-    
-    Args:
-        request: HTTP请求对象
-        user_id: 用户ID
-        
-    Returns:
-        处理后的用户数据字典，如果用户不存在则返回None
-        
-    Raises:
-        ValidationError: 当数据验证失败时
-    """
-    # 实现逻辑
-    pass
-```
 
 ### Django应用开发规范
-
-#### 应用结构
-
-每个Django应用应包含以下标准结构：
-```
-app_name/
-├── __init__.py
-├── admin.py              # 管理后台配置
-├── apps.py               # 应用配置
-├── models.py             # 数据模型
-├── views.py              # 视图函数
-├── urls.py               # URL路由
-├── forms.py              # 表单定义
-├── serializers.py        # API序列化器（如需要）
-├── tests/                # 测试文件
-│   ├── __init__.py
-│   ├── test_models.py
-│   ├── test_views.py
-│   └── test_forms.py
-├── migrations/           # 数据库迁移
-└── templates/app_name/   # 应用模板
-```
 
 #### 模型定义规范
 
