@@ -39,14 +39,10 @@ requires-python = "==3.14.*"
 readme = "README.md"
 license = {text = "MIT"}
 
-
-[tool.pdm]
-distribution = false
-
-[tool.pdm.dev-dependencies]
+[dependency-groups]
 dev = [
-    "pytest>=8.1.1",
-    "django-debug-toolbar>=4.3.0",
+    "django-debug-toolbar>=6.1.0",
+    "pytest>=9.0.2",
 ]
 
 [tool.pdm.scripts]
@@ -58,3 +54,5 @@ granian-wsgi = "granian --interface wsgi config.wsgi:application --static-path-r
 
 # 使用 Granian 开启 HTTP/2（如果代理或客户端支持）
 granian-http2 = "granian --interface asgi --http 2 config.asgi:application --static-path-route /static --static-path-mount ./static-dist"
+
+
