@@ -195,6 +195,36 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 更多安装方式请参考 [uv 官方文档](https://docs.astral.sh/uv/getting-started/installation/)。
 
+### Just 命令运行器
+
+本项目使用 [just](https://github.com/casey/just) 作为命令运行器，方便执行常用的开发命令。
+
+安装 just：
+
+```bash
+# Windows (使用 winget)
+winget install -e --id Casey.Just
+
+# Windows (使用 scoop)
+scoop install just
+
+# MacOS / Linux
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+```
+
+常用命令：
+
+- `just` 或 `just --list`: 列出所有可用命令
+- `just mm`: 生成数据库迁移文件 (`makemigrations`)
+- `just migrate`: 执行数据库迁移 (`migrate`)
+- `just db-sync`: 生成并执行迁移
+- `just serve`: 使用 Granian 启动 ASGI 服务 (开发模式)
+- `just dev`: 启动传统的 Django 开发服务器
+- `just shell`: 进入 Django Shell
+- `just clean`: 清理 Python 缓存文件 (`__pycache__` 和 `.pyc`)
+
+更多命令请查看项目根目录下的 `justfile` 文件。
+
 ### 虚拟环境
 
 推荐使用 uv 来管理 python 环境。
