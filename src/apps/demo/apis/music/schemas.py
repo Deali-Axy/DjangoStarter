@@ -3,9 +3,7 @@ from apps.demo.models import *
 
 
 class MusicIn(ModelSchema):
-    
     album_id: int
-    
 
     class Meta:
         model = Music

@@ -3,8 +3,6 @@ from apps.demo.models import *
 
 
 class ActorIn(ModelSchema):
-    
-
     class Meta:
         model = Actor
         fields = ['is_deleted', 'created_time', 'updated_time', 'name', 'birth_date', 'country', 'city', ]

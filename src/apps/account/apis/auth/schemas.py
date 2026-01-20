@@ -24,7 +24,7 @@ class RegisterSchema(Schema):
 
 
 class GroupSchema(ModelSchema):
-    class Config:
+    class Meta:
         model = Group
         model_fields = ['name']
 
@@ -32,7 +32,7 @@ class GroupSchema(ModelSchema):
 class UserSchema(ModelSchema):
     groups: List[str]
 
-    class Config:
+    class Meta:
         model = User
         model_fields = ['id', 'username', 'first_name', 'last_name', 'groups']
 
