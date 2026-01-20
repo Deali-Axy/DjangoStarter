@@ -48,8 +48,3 @@ REFERRER_POLICY = 'same-origin'
 # https://github.com/adamchainz/django-permissions-policy#setting
 PERMISSIONS_POLICY: Dict[str, Union[str, List[str]]] = {}  # noqa: WPS234
 
-TASKS = {
-    "default": {
-        "BACKEND": "django.tasks.backends.immediate.ImmediateBackend",
-    },
-}
