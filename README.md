@@ -228,8 +228,6 @@ pdm install
 安装前端依赖：
 
 ```bash
-yarn install
-# 或者使用 pnpm
 pnpm i
 ```
 
@@ -244,7 +242,7 @@ gulp move
 如果想使用 tailwindcss ，可以运行。
 
 ```bash
-npm run tailwind:watch
+pnpm run tw:watch
 ```
 
 关于`tailwindcss`，详见这篇文章: [在 DjangoStarter 中集成 TailwindCSS](https://www.cnblogs.com/deali/p/18303538)
@@ -254,7 +252,7 @@ npm run tailwind:watch
 这个操作会生成一个 `db.sqlite3` 文件，本地测试推荐使用 SQLite 数据库。
 
 ```
-python manage.py migrate
+uv run ./src/manage.py migrate
 ```
 
 ### 配置缓存（可选）
@@ -324,7 +322,7 @@ DjangoStarter 内置种子数据生成功能（基于faker库），可以在开�
 使用以下命令即可自动生成
 
 ```bash
-python manage.py seed app_label 10
+uv run ./src/manage.py seed app_label 10
 ```
 
 其中 app_label 是开发者自行创建的 App 名称，比如 DjangoStarter 中的示例应用 demo
@@ -384,7 +382,7 @@ class Article(models.Model):
 运行命令：
 
 ```bash
-python manage.py autocode [app_label] [verbose_name]
+uv run ./src/manage.py autocode [app_label] [verbose_name]
 ```
 
 参数说明：
