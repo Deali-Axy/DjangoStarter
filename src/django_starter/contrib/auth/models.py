@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser, PermissionsMixin
+from simple_history.models import HistoricalRecords
 
 from django_starter.db.models import ModelExt
 from django_starter.utilities import table_name_wrapper
@@ -18,6 +19,7 @@ class UserProfileAbstract(ModelExt):
     full_name = models.CharField('姓名', max_length=200, default='')
     gender = models.CharField('性别', max_length=20, choices=GenderChoice.choices, default=GenderChoice.UNKNOWN)
     phone = models.CharField('手机号', max_length=11, default='')
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.full_name
@@ -33,10 +35,9 @@ class UserClaim(models.Model):
     user = models.ForeignKey(User, db_constraint=False, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=255)
     value = models.CharField(max_length=255, null=True, blank=True)
+    history = HistoricalRecords()
 
     class Meta:
         db_table = table_name_wrapper('user_claims')
         verbose_name = 'UserClaim'
         verbose_name_plural = verbose_name
-
-
