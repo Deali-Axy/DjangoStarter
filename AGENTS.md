@@ -34,31 +34,125 @@ DjangoStarter 是下一代 Django 项目快速开发模板，专为提升开发�
 - 容器化: Docker + Docker Compose
 - 测试框架: Pytest
 
-## 项目架构
+## Essential Commands
 
-### 目录结构
+### Setup
+
+```bash
+# Install Python dependencies
+uv sync
+
+# Run database migrations
+uv run ./src/manage.py migrate
+
+# Install frontend dependencies
+pnpm install
+
+# Copy frontend assets
+gulp move
+```
+
+### Development
+
+```bash
+# Django dev server (WSGI)
+uv run ./src/manage.py runserver
+
+# Watch TailwindCSS changes
+pnpm run tw:watch
+```
+
+### Code Generation
+
+```bash
+# Generate CRUD + tests + admin for an app
+uv run ./src/manage.py autocode app_name "Display Name"
+
+# Generate specific models only
+uv run ./src/manage.py autocode blog "Blog" --models post category
+
+# skip some modules
+uv run ./src/manage.py autocode blog "Blog" --no-admin --no-apps --no-tests --no-apis
+
+# Generate seed data for an app
+uv run ./src/manage.py  seed app_label 10
+```
+
+### Database
+
+```bash
+# Create migrations
+uv run ./src/manage.py makemigrations
+
+# Apply migrations
+uv run ./src/manage.py migrate
+```
+
+### Testing
+
+```bash
+# Django tests
+uv run ./src/manage.py test
+```
+
+## Architecture
+
+### Directory Structure
 
 ```
 src/
-├── apps/                   # 业务应用模块
-│   ├── account/            # 用户账户管理
-│   └── demo/               # 演示应用
-├── config/                 # 项目配置
-│   ├── settings/           # 分层设置
-│   │   ├── components/     # 配置组件
-│   │   └── environments/   # 环境配置
-│   ├── urls.py            # 主URL配置
-│   └── wsgi.py/asgi.py    # WSGI/ASGI入口
-├── django_starter/         # 核心框架模块
-│   ├── contrib/           # 各种核心功能模块
-│   ├── db/                # 数据库相关
-│   ├── http/              # HTTP响应处理
-│   ├── middleware/        # 中间件
-│   └── utilities.py       # 工具函数
-├── static/                # 静态文件
-├── templates/             # Django页面模板
-└── locale/                # 国际化文件
+├── apps/                  # Business applications
+│   ├── account/           # Authentication system
+│   └── demo/              # Demo app (reference implementation)
+├── config/                # Django configuration
+│   ├── settings/          # Split settings (django-split-settings)
+│   │   ├── components/    # Config components (cache, auth, security, etc.)
+│   │   └── environments/  # Environment-specific configs
+│   ├── urls.py            # Main URL config
+│   ├── apis.py            # NinjaAPI initialization - register routers here
+│   └── wsgi.py/asgi.py    # Entry points
+├── django_starter/        # Core framework code
+│   ├── contrib/           # Built-in components (code_generator, admin, monitoring)
+│   ├── db/models.py       # ModelExt base class
+│   ├── http/              # Response handling
+│   └── middleware/        # Security middleware
+├── static/                # Static files
+├── templates/             # Django templates
+└── locale/                # i18n
 ```
+
+### Core Framework Components
+
+**ModelExt Base Class** (`src/django_starter/db/models.py`):
+All models inherit from `ModelExt`, which provides:
+
+- Soft delete via `is_deleted` field
+- Automatic timestamps (`created_time`, `updated_time`)
+- Custom manager that filters out deleted objects
+
+**Django-Ninja API Organization**:
+
+- APIs organized per app in `apps/[app]/apis/`
+- Automatic CRUD generation via `autocode` command
+- Type-safe Pydantic schemas
+- Auto-generated OpenAPI docs at `/api/docs`
+
+**Split Settings** (`src/config/settings/`):
+
+- Base settings in `components/`
+- Environment-specific overrides in `environments/`
+- Docker-aware configuration detection
+
+### Application Development Pattern
+
+When creating a new app:
+
+1. Create app: `cd apps && uv run django-admin startapp app_name`
+2. Add to `INSTALLED_APPS` in `src/config/settings/components/install_apps.py`
+3. Define models in `apps/app_name/models.py` (inherit from `django_starter.db.models.ModelExt`)
+4. Run `python manage.py autocode app_name "Display Name"` to generate CRUD apis, tests, admin
+5. Register router in `src/config/apis.py`: `api.add_router('app_name', router)`
+6. Run migrations
 
 ## 开发规范
 
