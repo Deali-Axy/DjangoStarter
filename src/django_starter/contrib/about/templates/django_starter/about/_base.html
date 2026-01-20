@@ -9,7 +9,7 @@
 
 {% block extra_js %}
     <script src="{% static 'lib/aos/aos.js' %}"></script>
-    <script>
+    <script nonce="{{ csp_nonce }}">
         AOS.init({
             duration: 800,   // 动画持续时间（毫秒）
             easing: 'ease-in-out',  // 动画缓动效果

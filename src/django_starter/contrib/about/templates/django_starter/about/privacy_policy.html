@@ -113,14 +113,14 @@
     </div>
 </div>
 
-<style>
+<style nonce="{{ csp_nonce }}">
 .border-gradient {
     border-image: linear-gradient(to right, transparent 10%, #e5e7eb 50%, transparent 90%);
     border-image-slice: 1;
 }
 </style>
 
-<script>
+<script nonce="{{ csp_nonce }}">
 document.addEventListener('DOMContentLoaded', function() {
     // 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
