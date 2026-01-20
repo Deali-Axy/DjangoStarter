@@ -1,5 +1,4 @@
 import os
-from typing import Dict, List, Tuple, Union
 
 from config.settings import BASE_DIR
 
@@ -25,26 +24,4 @@ ROOT_URLCONF = 'config.urls_root'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static-dist')
-STATIC_URL = f'/{URL_PREFIX}static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
-MEDIA_URL = f'/{URL_PREFIX}media/'
-
-# Security
-# https://docs.djangoproject.com/en/4.2/topics/security/
-
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-
-X_FRAME_OPTIONS = 'DENY'
-
-# https://github.com/DmytroLitvinov/django-http-referrer-policy
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
-REFERRER_POLICY = 'same-origin'
-
-# https://github.com/adamchainz/django-permissions-policy#setting
-PERMISSIONS_POLICY: Dict[str, Union[str, List[str]]] = {}  # noqa: WPS234
 
