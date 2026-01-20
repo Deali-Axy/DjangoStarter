@@ -26,7 +26,7 @@ class RegisterSchema(Schema):
 class GroupSchema(ModelSchema):
     class Meta:
         model = Group
-        model_fields = ['name']
+        fields = ['name']
 
 
 class UserSchema(ModelSchema):
@@ -34,7 +34,7 @@ class UserSchema(ModelSchema):
 
     class Meta:
         model = User
-        model_fields = ['id', 'username', 'first_name', 'last_name', 'groups']
+        fields = ['id', 'username', 'first_name', 'last_name', 'groups']
 
     @staticmethod
     def resolve_groups(obj: User):
