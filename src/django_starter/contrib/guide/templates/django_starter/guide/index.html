@@ -5,6 +5,21 @@
     {% trans "DjangoStarter - 快速开发框架" %}
 {% endblock %}
 
+{% partialdef feature_card %}
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
+        <div class="p-6">
+            <div class="w-12 h-12 {{ icon_bg }} rounded-lg flex items-center justify-center mb-4">
+                <i class="{{ icon_class }} text-2xl {{ icon_color }}"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ title }}</h3>
+            <p class="text-gray-600 dark:text-gray-400">{{ description }}</p>
+            <a href="{{ link }}" class="mt-4 inline-flex items-center {{ link_color }}">
+                {{ link_text }} <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+{% endpartialdef %}
+
 {% block content %}
     <section class="container mx-auto px-4 py-8 md:py-16 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto">
@@ -46,50 +61,25 @@
 
             <!-- 功能卡片区域 -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                <!-- API文档卡片 -->
-                <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
-                    <div class="p-6">
-                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
-                            <i class="fas fa-book text-2xl text-blue-600 dark:text-blue-400"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{% trans "API文档" %}</h3>
-                        <p class="text-gray-600 dark:text-gray-400">{% trans "查看完整的API接口文档" %}</p>
-                        <a href="/api/docs"
-                           class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400">
-                            {% trans "查看文档" %} <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+                {% trans "API文档" as api_title %}
+                {% trans "查看完整的API接口文档" as api_desc %}
+                {% trans "查看文档" as api_link %}
+                {% trans "管理后台" as admin_title %}
+                {% trans "访问Django管理界面" as admin_desc %}
+                {% trans "进入后台" as admin_link %}
+                {% trans "Demo" as demo_title %}
+                {% trans "体验框架功能演示" as demo_desc %}
+                {% trans "查看演示" as demo_link %}
 
-                <!-- 管理后台卡片 -->
-                <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
-                    <div class="p-6">
-                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
-                            <i class="fas fa-cog text-2xl text-green-600 dark:text-green-400"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{% trans "管理后台" %}</h3>
-                        <p class="text-gray-600 dark:text-gray-400">{% trans "访问Django管理界面" %}</p>
-                        <a href="/admin"
-                           class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400">
-                            {% trans "进入后台" %} <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 更多功能卡片 -->
-                <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
-                    <div class="p-6">
-                        <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
-                            <i class="fas fa-rocket text-2xl text-purple-600 dark:text-purple-400"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{% trans "Demo" %}</h3>
-                        <p class="text-gray-600 dark:text-gray-400">{% trans "体验框架功能演示" %}</p>
-                        <a href="/demo"
-                           class="mt-4 inline-flex items-center text-purple-600 hover:text-purple-700 dark:text-purple-400">
-                            {% trans "查看演示" %} <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+                {% with title=api_title description=api_desc link="/api/docs" link_text=api_link icon_bg="bg-blue-100 dark:bg-blue-900" icon_class="fas fa-book" icon_color="text-blue-600 dark:text-blue-400" link_color="text-blue-600 hover:text-blue-700 dark:text-blue-400" %}
+                    {% partial feature_card %}
+                {% endwith %}
+                {% with title=admin_title description=admin_desc link="/admin" link_text=admin_link icon_bg="bg-green-100 dark:bg-green-900" icon_class="fas fa-cog" icon_color="text-green-600 dark:text-green-400" link_color="text-blue-600 hover:text-blue-700 dark:text-blue-400" %}
+                    {% partial feature_card %}
+                {% endwith %}
+                {% with title=demo_title description=demo_desc link="/demo" link_text=demo_link icon_bg="bg-purple-100 dark:bg-purple-900" icon_class="fas fa-rocket" icon_color="text-purple-600 dark:text-purple-400" link_color="text-purple-600 hover:text-purple-700 dark:text-purple-400" %}
+                    {% partial feature_card %}
+                {% endwith %}
             </div>
 
             <!-- 相关资源区域 -->
