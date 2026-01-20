@@ -7,8 +7,8 @@
   "author": "DealiAxy <dealiaxy@gmail.com>",
   "license": "Apache License 2.0",
   "scripts": {
-    "tailwind:watch": "npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --watch",
-    "tailwind:build": "npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify",
+    "tw:watch": "npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --watch",
+    "tw:build": "npx tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify",
     "gulp:move": "gulp move",
     "gulp:min": "gulp min",
     "gulp:concat": "gulp concat",
