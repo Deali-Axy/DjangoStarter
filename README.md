@@ -101,7 +101,7 @@ v2版本已经定下了大体的框架，v3的主要改动是将 RestFramework �
 - 多种第三方登录接入（目前接了微信、小程序、企微）
 - 使用 tailwindcss 替换 bootstrap 实现前端（只是一些简单的后台展示，还是以 API 为主）
 - 拆分 settings 配置，像 AspNetCore 那样支持多个环境配置
-- 更换了包管理器为 pdm
+- 更换了包管理器为 uv
 
 功能持续更新中，我会同步发在博客，欢迎关注。
 
@@ -152,7 +152,7 @@ v2版本已经定下了大体的框架，v3的主要改动是将 RestFramework �
  ├─ clean_pycache.py # 运行后可以清理 __pycache__ 文件
  ├─ gulpfile.js
  ├─ package.json
- ├─ pdm.lock
+ ├─ uv.lock
  ├─ pnpm-lock.yaml
  ├─ pyproject.toml
  └─ tailwind.config.js
@@ -181,33 +181,34 @@ git clone --branch v3.3.0 --depth 1 https://github.com/Deali-Axy/DjangoStarter.g
 
 ### 包管理器
 
-v3 版本开始我使用了 [pdm](https://pdm-project.org/en/latest/) 作为包管理器，这是一个现代化的包管理和项目管理工具，它专为 Python 项目设计，提供了诸如依赖解析、包安装以及虚拟环境管理等功能。参考：[在python项目的docker镜像里使用pdm管理依赖](https://www.cnblogs.com/deali/p/18354017)
+从 v3.4 版本开始，全面切换为使用 [uv](https://github.com/astral-sh/uv) 管理 Python 环境和依赖。uv 是一个极速的 Python 包安装器和解析器，使用 Rust 编写，旨在替代 pip、pip-tools、pipx、poetry、pyenv、twine、virtualenv 等工具。
 
-首先需要安装 pdm ，请参考官网的推荐安装方式进行安装，如果实在是懒得看官网可以按照本文档是懒人版方式安装。
+首先需要安装 uv：
 
-关于 pdm 的一些扩展文档: [./docs/pdm-usage.md](docs/pdm-usage.md)
+```bash
+# MacOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+更多安装方式请参考 [uv 官方文档](https://docs.astral.sh/uv/getting-started/installation/)。
 
 ### 虚拟环境
 
-推荐使用 conda 来管理 python 环境。
+推荐使用 uv 来管理 python 环境。
 
-首先创建一个虚拟环境
-
-```bash
-conda create -n django-starter python=3.12
-```
-
-启用虚拟环境
+首先创建一个虚拟环境（指定 Python 3.14）：
 
 ```bash
-conda activate django-starter
+uv venv --python 3.14
 ```
 
-如果没有使用其他方式安装 pdm，可以使用 pip 安装 pdm 包管理器。
+启用虚拟环境：
 
-```bash
-pip install pdm
-```
+- Windows: `.venv\Scripts\activate`
+- Linux/macOS: `source .venv/bin/activate`
 
 ### 安装依赖
 
@@ -216,7 +217,7 @@ pip install pdm
 安装Python依赖：
 
 ```bash
-pdm install
+uv sync
 ```
 
 #### 前端资源
@@ -613,9 +614,9 @@ Granian 是一个由 Rust 编写的 Python 应用 HTTP 服务器，支持 ASGI/W
 使用方式：
 
 - 开发环境（Windows/PowerShell）：
-  - 启动 ASGI：`pdm run granian-asgi`
-  - 启动 WSGI：`pdm run granian-wsgi`
-  - 启动 ASGI 并启用 HTTP/2：`pdm run granian-http2`
+  - 启动 ASGI：`uv run granian-asgi`
+  - 启动 WSGI：`uv run granian-wsgi`
+  - 启动 ASGI 并启用 HTTP/2：`uv run granian-http2`
 
 - 可用环境变量（Granian 原生支持，若设置将覆盖默认值）：
   - `GRANIAN_HOST`（默认 `127.0.0.1`）
