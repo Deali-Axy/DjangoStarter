@@ -19,7 +19,7 @@ class UserProfileAbstract(ModelExt):
     full_name = models.CharField('姓名', max_length=200, default='')
     gender = models.CharField('性别', max_length=20, choices=GenderChoice.choices, default=GenderChoice.UNKNOWN)
     phone = models.CharField('手机号', max_length=11, default='')
-    history = HistoricalRecords()
+    history = HistoricalRecords(inherit=True)
 
     def __str__(self):
         return self.full_name
