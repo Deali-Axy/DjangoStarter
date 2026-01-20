@@ -1,5 +1,5 @@
-# 设置 shell，确保命令执行更稳定
-set shell := ["bash", "-c"]
+# 使用 PowerShell 替代 sh:
+set shell := ["powershell.exe", "-c"]
 
 # 默认列出所有可用命令
 default:
