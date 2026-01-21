@@ -1,97 +1,166 @@
 {% extends "_base.html" %}
-
 {% load i18n %}
+{% load page_tags %}
+{% load static %}
 
-{% block title %}Demo{% endblock %}
+{% block title %}Demo Dashboard{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+      once: true,
+      offset: 50,
+      duration: 800,
+  });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-    <!-- 标题区域 -->
-    <div class="text-center py-12 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl mb-12">
-        <h1 class="text-4xl font-bold text-green-800 mb-4">Django + Tailwind CSS + Flowbite</h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-            {% translate '一个现代化的Django启动模板，集成了最新的前端技术栈和最佳实践。' %}
-        </p>
+    {% page_header title breadcrumbs %}
+
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {% for stat in stats %}
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+            <div class="flex items-center justify-between mb-4">
+                <div class="bg-{{ stat.color }}-100 dark:bg-{{ stat.color }}-900 p-3 rounded-lg text-{{ stat.color }}-600 dark:text-{{ stat.color }}-300">
+                    <i class="{{ stat.icon }} text-xl"></i>
+                </div>
+                <span class="text-sm font-medium text-green-500 bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded-full">
+                    {{ stat.change }}
+                </span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ stat.value }}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{{ stat.label }}</p>
+        </div>
+        {% endfor %}
     </div>
 
-    <!-- 特性展示区域 -->
-    <div class="grid md:grid-cols-3 gap-8 mb-12">
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div class="text-green-600 mb-4">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
+    <!-- Main Content Grid -->
+    <div class="grid lg:grid-cols-3 gap-8">
+        
+        <!-- Quick Actions / Demo Modules -->
+        <div class="lg:col-span-2 space-y-8">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center">
+                <i class="fa-solid fa-rocket mr-2 text-indigo-500"></i>
+                Explore Modules
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Movies Card -->
+                <a href="{% url 'demo:movies' %}" class="group block p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-indigo-50 dark:bg-indigo-900/30 p-3 rounded-lg group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900 transition-colors">
+                            <i class="fa-solid fa-film text-2xl text-indigo-600 dark:text-indigo-400"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-indigo-500 transition-colors"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Movie Catalog</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                        Grid layout with hover effects, image optimization, and rating badges.
+                    </p>
+                </a>
+
+                <!-- Actors Card -->
+                <a href="{% url 'demo:actors' %}" class="group block p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-purple-50 dark:bg-purple-900/30 p-3 rounded-lg group-hover:bg-purple-100 dark:group-hover:bg-purple-900 transition-colors">
+                            <i class="fa-solid fa-users text-2xl text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-purple-500 transition-colors"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Actors Directory</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                        List views with avatars, status indicators, and micro-interactions.
+                    </p>
+                </a>
+
+                <!-- Music Card -->
+                <a href="{% url 'demo:music' %}" class="group block p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:border-pink-500 dark:hover:border-pink-500 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-pink-50 dark:bg-pink-900/30 p-3 rounded-lg group-hover:bg-pink-100 dark:group-hover:bg-pink-900 transition-colors">
+                            <i class="fa-solid fa-music text-2xl text-pink-600 dark:text-pink-400"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-pink-500 transition-colors"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Music Player</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                        Complex interface with playback controls and progress visualization.
+                    </p>
+                </a>
+
+                <!-- Style Guide Card -->
+                <a href="{% url 'demo:styleguide' %}" class="group block p-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
+                            <i class="fa-solid fa-palette text-2xl text-white"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-gray-400 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Style Guide</h3>
+                    <p class="text-gray-300 text-sm">
+                        Comprehensive design system documentation and component library.
+                    </p>
+                </a>
             </div>
-            <h3 class="text-xl font-semibold mb-2">快速开发</h3>
-            <p class="text-gray-600">集成常用组件和工具，助您快速构建现代化Web应用</p>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div class="text-blue-600 mb-4">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-                </svg>
+        <!-- Sidebar / Secondary Info -->
+        <div class="space-y-8">
+            <!-- System Status -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">System Status</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <span class="flex h-3 w-3 relative mr-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                            <span class="text-sm text-gray-600 dark:text-gray-300">Database</span>
+                        </div>
+                        <span class="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/30 px-2 py-0.5 rounded">Operational</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <span class="h-3 w-3 rounded-full bg-green-500 mr-3"></span>
+                            <span class="text-sm text-gray-600 dark:text-gray-300">Redis Cache</span>
+                        </div>
+                        <span class="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/30 px-2 py-0.5 rounded">Operational</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <span class="h-3 w-3 rounded-full bg-green-500 mr-3"></span>
+                            <span class="text-sm text-gray-600 dark:text-gray-300">Celery Workers</span>
+                        </div>
+                        <span class="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/30 px-2 py-0.5 rounded">Operational</span>
+                    </div>
+                </div>
             </div>
-            <h3 class="text-xl font-semibold mb-2">现代UI</h3>
-            <p class="text-gray-600">基于Tailwind CSS和Flowbite，打造精美的用户界面</p>
-        </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div class="text-purple-600 mb-4">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">最佳实践</h3>
-            <p class="text-gray-600">遵循Django最佳实践，确保代码质量和安全性</p>
-        </div>
-    </div>
-
-    <!-- 示例卡片 -->
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 mb-12">
-        <div class="md:flex">
-            <div class="md:flex-shrink-0">
-                <img class="h-full w-48 object-cover md:w-48" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="示例图片"/>
-            </div>
-            <div class="p-8">
-                <div class="uppercase tracking-wide text-sm text-green-600 font-semibold">示例展示</div>
-                <h2 class="block mt-1 text-2xl font-semibold text-gray-900">技术整合演示</h2>
-                <p class="mt-2 text-gray-600">
-                    这个示例展示了如何将Django、Tailwind CSS和Flowbite完美结合，创建现代化的Web应用界面。
-                </p>
-                <div class="mt-4">
-                    <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300">
-                        了解更多
-                        <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                        </svg>
+            <!-- Error Page Tests -->
+            <div class="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Error Page Tests</h3>
+                <div class="space-y-3">
+                    <a href="{% url 'demo:test_403' %}" class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600 group">
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">403 Forbidden</span>
+                        <i class="fa-solid fa-ban text-yellow-500 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="{% url 'demo:test_404' %}" class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600 group">
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">404 Not Found</span>
+                        <i class="fa-solid fa-magnifying-glass text-blue-500 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="{% url 'demo:test_500' %}" class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600 group">
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">500 Server Error</span>
+                        <i class="fa-solid fa-bomb text-red-500 group-hover:scale-110 transition-transform"></i>
                     </a>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- 测试页面链接 -->
-    <div class="bg-blue-100 rounded-xl p-8 shadow-lg">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-6">功能测试</h3>
-        <div class="grid md:grid-cols-3 gap-4">
-            <a href="{% url 'demo:test_403' %}" class="flex items-center justify-center px-6 py-4 text-sm font-medium text-white bg-yellow-600 rounded-lg hover:bg-yellow-700 focus:ring-4 focus:ring-yellow-300 transition-colors duration-300">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                </svg>
-                403 - 禁止访问页面
-            </a>
-            <a href="{% url 'demo:test_404' %}" class="flex items-center justify-center px-6 py-4 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition-colors duration-300">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                404 - 页面未找到
-            </a>
-            <a href="{% url 'demo:test_500' %}" class="flex items-center justify-center px-6 py-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:ring-red-300 transition-colors duration-300">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                500 - 服务器错误页面
-            </a>
-        </div>
-    </div>
-{% endblock content %}
+{% endblock %}

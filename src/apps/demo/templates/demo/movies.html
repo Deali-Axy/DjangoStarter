@@ -1,0 +1,102 @@
+{% extends "_base.html" %}
+{% load page_tags %}
+
+{% block title %}Movies Catalog{% endblock %}
+
+{% block extra_css %}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+      once: true,
+      offset: 50,
+      duration: 800,
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+    {% page_header title breadcrumbs %}
+
+    <!-- Controls Toolbar -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <!-- Search -->
+        <div class="relative w-full md:w-96">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+            </div>
+            <input type="text" 
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
+                   placeholder="Search movies..."
+                   hx-trigger="keyup changed delay:500ms"
+                   name="search">
+        </div>
+
+        <!-- Filters -->
+        <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+            <button class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors whitespace-nowrap">
+                All Movies
+            </button>
+            <button class="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors whitespace-nowrap">
+                Action
+            </button>
+            <button class="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors whitespace-nowrap">
+                Sci-Fi
+            </button>
+            <button class="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors whitespace-nowrap">
+                Drama
+            </button>
+        </div>
+    </div>
+
+    <!-- Movies Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for movie in movies %}
+        <div class="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+            <!-- Image with Overlay -->
+            <div class="aspect-[2/3] relative overflow-hidden bg-gray-200">
+                <img src="{{ movie.image }}" alt="{{ movie.title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                
+                <!-- Overlay Gradient -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                
+                <!-- Top Right Badge -->
+                <div class="absolute top-3 right-3 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-md shadow-lg flex items-center gap-1">
+                    <i class="fa-solid fa-star text-[10px]"></i>
+                    {{ movie.rating }}
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <div class="text-indigo-300 text-xs font-medium uppercase tracking-wider mb-1">{{ movie.genre }}</div>
+                <h3 class="text-xl font-bold text-white leading-tight mb-2">{{ movie.title }}</h3>
+                <div class="flex items-center justify-between text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                    <span>{{ movie.year }}</span>
+                    <button class="text-white hover:text-indigo-300 transition-colors">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Quick Action (Hidden by default, visible on hover) -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+                <button class="bg-white/20 backdrop-blur-sm hover:bg-white text-white hover:text-indigo-600 rounded-full p-4 transition-all transform scale-75 group-hover:scale-100">
+                    <i class="fa-solid fa-play text-xl ml-1"></i>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+        
+        <!-- Add New Card (Dashed) -->
+        <button class="group flex flex-col items-center justify-center aspect-[2/3] border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl hover:border-indigo-500 dark:hover:border-indigo-500 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-300">
+            <div class="h-16 w-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900 transition-colors">
+                <i class="fa-solid fa-plus text-gray-400 group-hover:text-indigo-600 dark:text-gray-400 dark:group-hover:text-indigo-400 text-2xl"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">Add Movie</span>
+        </button>
+    </div>
+{% endblock %}

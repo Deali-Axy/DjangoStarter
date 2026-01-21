@@ -1,0 +1,116 @@
+{% extends "_base.html" %}
+{% load page_tags %}
+
+{% block title %}Music Player{% endblock %}
+
+{% block content %}
+    {% page_header title breadcrumbs %}
+
+    <div class="grid lg:grid-cols-3 gap-8 h-[calc(100vh-250px)] min-h-[600px]">
+        <!-- Library / Playlist -->
+        <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col overflow-hidden">
+            <div class="p-6 border-b border-gray-100 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Library</h2>
+                <div class="flex gap-2 overflow-x-auto pb-2">
+                    <button class="px-4 py-1.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-medium rounded-full">
+                        Playlists
+                    </button>
+                    <button class="px-4 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        Artists
+                    </button>
+                    <button class="px-4 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        Albums
+                    </button>
+                </div>
+            </div>
+            
+            <div class="overflow-y-auto flex-1 p-6 space-y-4">
+                {% for album in albums %}
+                <div class="group flex items-center p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer">
+                    <div class="relative w-16 h-16 rounded-lg overflow-hidden shadow-sm mr-4 flex-shrink-0">
+                        <img src="{{ album.cover }}" alt="{{ album.title }}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-play text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white truncate">{{ album.title }}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 truncate">{{ album.artist }} • {{ album.year }}</p>
+                    </div>
+                    <div class="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button class="text-gray-400 hover:text-pink-500 transition-colors">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                <!-- More mock items to fill scroll -->
+                <div class="group flex items-center p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer opacity-50">
+                    <div class="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-lg mr-4"></div>
+                    <div class="flex-1 space-y-2">
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/3"></div>
+                        <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Now Playing -->
+        <div class="bg-gradient-to-b from-indigo-900 to-gray-900 rounded-xl shadow-xl overflow-hidden text-white flex flex-col relative">
+            <!-- Background Blur Effect -->
+            <div class="absolute inset-0 opacity-30">
+                <img src="{{ albums.0.cover }}" class="w-full h-full object-cover blur-2xl scale-110">
+            </div>
+            
+            <div class="relative z-10 flex flex-col h-full p-8">
+                <div class="flex-1 flex flex-col items-center justify-center text-center">
+                    <div class="w-48 h-48 rounded-2xl shadow-2xl overflow-hidden mb-8 ring-1 ring-white/10">
+                        <img src="{{ albums.0.cover }}" alt="Cover" class="w-full h-full object-cover">
+                    </div>
+                    <h2 class="text-2xl font-bold mb-2">{{ now_playing.title }}</h2>
+                    <p class="text-gray-300 text-lg">{{ now_playing.artist }}</p>
+                </div>
+
+                <div class="mt-8 space-y-6">
+                    <!-- Progress Bar -->
+                    <div class="space-y-2">
+                        <div class="w-full bg-white/10 rounded-full h-1.5 cursor-pointer group">
+                            <div class="bg-white h-1.5 rounded-full relative" style="width: {{ now_playing.progress }}%">
+                                <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-md"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-400 font-medium">
+                            <span>2:14</span>
+                            <span>{{ now_playing.duration }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="flex items-center justify-between">
+                        <button class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa-solid fa-shuffle text-lg"></i>
+                        </button>
+                        <div class="flex items-center gap-6">
+                            <button class="text-white hover:text-gray-300 transition-colors">
+                                <i class="fa-solid fa-backward-step text-2xl"></i>
+                            </button>
+                            <button class="w-16 h-16 bg-white text-indigo-900 rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-lg shadow-white/10">
+                                <i class="fa-solid fa-pause text-2xl"></i>
+                            </button>
+                            <button class="text-white hover:text-gray-300 transition-colors">
+                                <i class="fa-solid fa-forward-step text-2xl"></i>
+                            </button>
+                        </div>
+                        <button class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa-solid fa-repeat text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
