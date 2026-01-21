@@ -1,149 +1,143 @@
-{% extends '_base.html' %}
+{% extends 'django_starter/about/_base.html' %}
 {% load i18n %}
 
 {% block title %}{% trans "服务条款" %} - {{ site_name }}{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 relative">
-        <!-- 目录导航 -->
-        <nav aria-label="{% trans '服务条款目录' %}" class="lg:sticky top-24 h-min bg-white shadow-md rounded-lg p-6 border border-gray-100"
-             style="scroll-margin-top: 100px;">
-            <div class="flex items-center gap-2 mb-4 border-b pb-4">
-                <i class="fas fa-list-ul text-blue-600"></i>
-                <h2 class="font-semibold text-lg">{% trans "内容目录" %}</h2>
-            </div>
-            <ul class="space-y-3">
-                <li><a href="#acceptance" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
-                      data-section="acceptance">
-                    <i class="fas fa-chevron-right text-xs opacity-70"></i>
-                    {% trans "接受条款" %}
-                </a></li>
-                <li><a href="#service-content" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
-                      data-section="service-content">
-                    <i class="fas fa-chevron-right text-xs opacity-70"></i>
-                    {% trans "服务内容" %}
-                </a></li>
-                <li><a href="#disclaimer" class="toc-link flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
-                      data-section="disclaimer">
-                    <i class="fas fa-chevron-right text-xs opacity-70"></i>
-                    {% trans "免责声明" %}
-                </a></li>
-            </ul>
-        </nav>
-
-        <!-- 主内容 -->
-        <main class="relative" role="main">
-            <!-- 合规徽章 -->
-            <div class="flex items-center gap-2 bg-blue-50 text-blue-800 px-4 py-3 rounded-lg mb-8 border border-blue-200">
-                <i class="fas fa-balance-scale"></i>
-                <span class="font-medium">{% trans "法律合规声明" %}</span>
-                <span class="text-sm ml-2">({% trans "依据《网络安全法》相关规定" %})</span>
-            </div>
-
-            <h1 class="text-3xl font-bold mb-8 text-gray-800">{% trans "服务条款" %}</h1>
-
-            <article class="space-y-10">
-                <!-- 接受条款 -->
-                <section id="acceptance" class="scroll-mt-24 bg-white shadow-lg rounded-lg p-8 border border-gray-100"
-                         role="region" aria-labelledby="acceptance-heading">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
-                        <i class="fas fa-handshake text-blue-600 text-xl"></i>
-                        <h2 id="acceptance-heading" class="text-2xl font-semibold text-gray-800">{% trans "接受条款" %}</h2>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed">{% trans "通过访问或使用[公司名称]的服务，即表示您同意遵守本服务条款的所有内容。" %}</p>
-                </section>
-
-                <!-- 服务内容 -->
-                <section id="service-content" class="scroll-mt-24 bg-white shadow-lg rounded-lg p-8 border border-gray-100"
-                         role="region" aria-labelledby="service-content-heading">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
-                        <i class="fas fa-list-alt text-purple-600 text-xl"></i>
-                        <h2 id="service-content-heading" class="text-2xl font-semibold text-gray-800">{% trans "服务内容" %}</h2>
-                    </div>
-                    <ul class="space-y-4 text-gray-700">
-                        <li class="flex items-start gap-3">
-                            <i class="fas fa-exclamation-circle mt-1 text-red-500"></i>
-                            <div>{% trans "我们保留随时修改或中断服务的权利" %}</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fas fa-user-shield mt-1 text-green-600"></i>
-                            <div>{% trans "用户需对账户活动承担全部责任" %}</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fas fa-ban mt-1 text-gray-600"></i>
-                            <div>{% trans "禁止使用服务进行任何非法活动" %}</div>
-                        </li>
-                    </ul>
-                </section>
-
-                <!-- 免责声明 -->
-                <section id="disclaimer" class="scroll-mt-24 bg-white shadow-lg rounded-lg p-8 border border-gray-100"
-                         role="region" aria-labelledby="disclaimer-heading">
-                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gradient">
-                        <i class="fas fa-shield-alt text-blue-600 text-xl"></i>
-                        <h2 id="disclaimer-heading" class="text-2xl font-semibold text-gray-800">{% trans "免责声明" %}</h2>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-gray-700 leading-relaxed">{% trans '服务按"现状"提供，我们不承诺：' %}</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
-                            <li>{% trans "服务符合您的特定要求" %}</li>
-                            <li>{% trans "服务不会中断或无错误" %}</li>
-                            <li>{% trans "通过服务获得的结果准确可靠" %}</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <!-- 最后更新 -->
-                <div class="mt-12 pt-6 border-t border-gray-200">
-                    <p class="text-sm text-gray-500 flex items-center gap-2">
-                        <i class="fas fa-sync-alt"></i>
-                        {% trans "最后更新日期：[更新日期]" %}
-                    </p>
-                </div>
-            </article>
-        </main>
+<section class="relative overflow-hidden rounded-3xl border border-slate-200/10 bg-white/60 p-8 shadow-sm ring-1 ring-slate-900/5 backdrop-blur-sm dark:bg-slate-950/30 dark:ring-white/10" data-aos="fade-up">
+    <div class="pointer-events-none absolute inset-0">
+        <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl"></div>
     </div>
-</div>
+    <div class="relative">
+        <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">{% trans "服务条款" %}</h1>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{% trans "请在使用服务前仔细阅读本条款。" %}</p>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center gap-2 rounded-full border border-indigo-600/20 bg-indigo-600/10 px-4 py-2 text-xs font-medium text-indigo-700 dark:text-indigo-300">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <span>{% trans "法律合规" %}</span>
+            </div>
+        </div>
+    </div>
+</section>
 
-<style nonce="{{ csp_nonce }}">
-.border-gradient {
-    border-image: linear-gradient(to right, transparent 10%, #e5e7eb 50%, transparent 90%);
-    border-image-slice: 1;
-}
-</style>
+<section class="mt-10 grid grid-cols-12 gap-8">
+    <aside class="col-span-12 lg:col-span-4" aria-label="{% trans '服务条款目录' %}" data-aos="fade-up">
+        <div class="lg:sticky lg:top-24 rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10">
+            <p class="text-sm font-semibold text-slate-900 dark:text-white">{% trans "内容目录" %}</p>
+            <nav class="mt-4 space-y-1">
+                <a href="#acceptance" class="toc-link flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <span>{% trans "接受条款" %}</span>
+                    <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                </a>
+                <a href="#service-content" class="toc-link flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <span>{% trans "服务内容" %}</span>
+                    <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                </a>
+                <a href="#disclaimer" class="toc-link flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <span>{% trans "免责声明" %}</span>
+                    <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                </a>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="col-span-12 lg:col-span-8" role="main" data-aos="fade-up" data-aos-delay="80">
+        <article class="space-y-6">
+            <section id="acceptance" class="scroll-mt-24 rounded-3xl border border-slate-200/10 bg-white/60 p-8 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10" role="region" aria-labelledby="acceptance-heading">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h2 id="acceptance-heading" class="text-xl font-semibold text-slate-900 dark:text-white">{% trans "接受条款" %}</h2>
+                </div>
+                <p class="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{% trans "通过访问或使用[公司名称]的服务，即表示您同意遵守本服务条款的所有内容。" %}</p>
+            </section>
+
+            <section id="service-content" class="scroll-mt-24 rounded-3xl border border-slate-200/10 bg-white/60 p-8 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10" role="region" aria-labelledby="service-content-heading">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <h2 id="service-content-heading" class="text-xl font-semibold text-slate-900 dark:text-white">{% trans "服务内容" %}</h2>
+                </div>
+                <ul class="mt-5 space-y-4 text-sm text-slate-600 dark:text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-triangle-exclamation mt-0.5 text-rose-500"></i>
+                        <span>{% trans "我们保留随时修改或中断服务的权利" %}</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-user-shield mt-0.5 text-emerald-500"></i>
+                        <span>{% trans "用户需对账户活动承担全部责任" %}</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-ban mt-0.5 text-slate-400"></i>
+                        <span>{% trans "禁止使用服务进行任何非法活动" %}</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="disclaimer" class="scroll-mt-24 rounded-3xl border border-slate-200/10 bg-white/60 p-8 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10" role="region" aria-labelledby="disclaimer-heading">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                        <i class="fa-solid fa-shield"></i>
+                    </div>
+                    <h2 id="disclaimer-heading" class="text-xl font-semibold text-slate-900 dark:text-white">{% trans "免责声明" %}</h2>
+                </div>
+                <div class="mt-4 space-y-4">
+                    <p class="text-sm leading-6 text-slate-600 dark:text-slate-300">{% trans '服务按"现状"提供，我们不承诺：' %}</p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                        <li>{% trans "服务符合您的特定要求" %}</li>
+                        <li>{% trans "服务不会中断或无错误" %}</li>
+                        <li>{% trans "通过服务获得的结果准确可靠" %}</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="pt-4">
+                <p class="text-sm text-slate-500 dark:text-slate-400">
+                    <i class="fa-solid fa-rotate"></i>
+                    {% trans "最后更新日期：[更新日期]" %}
+                </p>
+            </div>
+        </article>
+    </main>
+</section>
 
 <script nonce="{{ csp_nonce }}">
-document.addEventListener('DOMContentLoaded', function() {
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+    document.addEventListener('DOMContentLoaded', function () {
+        const links = Array.from(document.querySelectorAll('.toc-link'));
+        const sections = Array.from(document.querySelectorAll('section[id]'));
+        if (!links.length || !sections.length) return;
+
+        const setActive = (id) => {
+            links.forEach((link) => {
+                const isActive = link.getAttribute('href') === '#' + id;
+                link.classList.toggle('bg-slate-900/5', isActive);
+                link.classList.toggle('text-indigo-700', isActive);
+                link.classList.toggle('font-semibold', isActive);
+            });
+        };
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActive(entry.target.getAttribute('id'));
+                    }
                 });
-            }
-        });
-    });
+            },
+            { threshold: 0.35 }
+        );
 
-    // 目录高亮
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            const id = entry.target.getAttribute('id');
-            if (entry.intersectionRatio > 0) {
-                document.querySelector(`a[href="#${id}"]`).classList.add('text-blue-600', 'font-medium');
-            } else {
-                document.querySelector(`a[href="#${id}"]`).classList.remove('text-blue-600', 'font-medium');
-            }
-        });
-    }, {threshold: 0.5});
-
-    document.querySelectorAll('section[id]').forEach((section) => {
-        observer.observe(section);
+        sections.forEach((section) => observer.observe(section));
     });
-});
 </script>
 {% endblock %}

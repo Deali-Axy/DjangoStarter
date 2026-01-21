@@ -1,0 +1,56 @@
+{% load i18n %}
+
+{% for member in team %}
+    <div class="rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 transition duration-200 ease-out hover:bg-white/80 hover:shadow-md dark:bg-slate-950/30 dark:ring-white/10 dark:hover:bg-slate-950/45" data-aos="fade-up">
+        <div class="flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600/20 to-sky-600/20 text-sm font-semibold text-slate-900 ring-1 ring-slate-900/5 dark:text-white dark:ring-white/10">
+                {{ member.name|slice:":1" }}
+            </div>
+            <div class="min-w-0">
+                <p class="truncate text-sm font-semibold text-slate-900 dark:text-white">{{ member.name }}</p>
+                <p class="truncate text-xs text-slate-500 dark:text-slate-400">{{ member.role }}</p>
+            </div>
+        </div>
+        <p class="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ member.bio }}</p>
+        <div class="mt-5 flex items-center gap-3 text-slate-500 dark:text-slate-300">
+            {% if member.links.github %}
+                <a class="rounded-full p-2 transition hover:bg-slate-900/5 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-900/10 dark:hover:bg-white/10 dark:hover:text-white" href="{{ member.links.github }}" aria-label="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+            {% endif %}
+            {% if member.links.x %}
+                <a class="rounded-full p-2 transition hover:bg-slate-900/5 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-900/10 dark:hover:bg-white/10 dark:hover:text-white" href="{{ member.links.x }}" aria-label="X">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+            {% endif %}
+            {% if member.links.website %}
+                <a class="rounded-full p-2 transition hover:bg-slate-900/5 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-900/10 dark:hover:bg-white/10 dark:hover:text-white" href="{{ member.links.website }}" aria-label="Website">
+                    <i class="fa-solid fa-link"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+
+<div id="teamLoadMore" hx-swap-oob="outerHTML" class="mt-6">
+    {% if has_more %}
+        <button
+            type="button"
+            hx-get="{% url 'djs_about:partials_team' %}?offset={{ next_offset }}"
+            hx-target="#teamGrid"
+            hx-swap="beforeend"
+            hx-on:htmx:beforeRequest="this.querySelector('[data-spinner]').classList.remove('hidden'); this.querySelector('[data-label]').classList.add('hidden'); this.disabled = true;"
+            hx-on:htmx:afterRequest="this.querySelector('[data-spinner]').classList.add('hidden'); this.querySelector('[data-label]').classList.remove('hidden');"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200/20 bg-white/60 px-6 py-3 text-sm font-medium text-slate-800 shadow-sm transition duration-200 ease-out hover:bg-white/80 focus:outline-none focus:ring-4 focus:ring-slate-900/10 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-slate-900/30 dark:text-slate-200 dark:hover:bg-slate-900/50">
+            <span data-label class="inline-flex items-center gap-2">
+                <i class="fa-solid fa-user-plus"></i>
+                {% trans "查看更多成员" %}
+            </span>
+            <span data-spinner class="hidden inline-flex items-center gap-2">
+                <i class="fa-solid fa-circle-notch animate-spin"></i>
+                {% trans "加载中" %}
+            </span>
+        </button>
+    {% endif %}
+</div>
+

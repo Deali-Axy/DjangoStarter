@@ -10,31 +10,46 @@
 {% block extra_js %}
     <script src="{% static 'lib/aos/aos.js' %}"></script>
     <script nonce="{{ csp_nonce }}">
-        AOS.init({
-            duration: 800,   // 动画持续时间（毫秒）
-            easing: 'ease-in-out',  // 动画缓动效果
-        });
+        const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion && window.AOS) {
+            AOS.init({
+                duration: 600,
+                easing: 'ease-out',
+                once: true,
+            });
 
-        document.addEventListener("aos:in", ({detail}) => {
-            const counter = detail; // 当前进入视窗的元素
-            if (counter.classList.contains('counter') && !counter.classList.contains('counted')) {
-                const target = +counter.getAttribute('data-count');
-                let count = 0;
-                const increment = Math.ceil(target / 100);
+            document.body.addEventListener('htmx:afterSwap', () => {
+                if (window.AOS && typeof window.AOS.refresh === 'function') {
+                    window.AOS.refresh();
+                }
+            });
 
-                const updateCounter = () => {
-                    count += increment;
-                    if (count >= target) {
-                        counter.textContent = target;
-                        counter.classList.add('counted'); // 防止重复执行
-                    } else {
-                        counter.textContent = count;
+            document.addEventListener('aos:in', ({ detail }) => {
+                const element = detail;
+                // 查找目标 counter 元素：可能是自身，也可能是子元素
+                const counter = element.classList.contains('counter') 
+                    ? element 
+                    : element.querySelector('.counter');
+
+                if (counter && !counter.dataset.counted) {
+                    const target = Number(counter.getAttribute('data-count') || '0');
+                    let count = 0;
+                    const increment = Math.max(1, Math.ceil(target / 80));
+
+                    const updateCounter = () => {
+                        count += increment;
+                        if (count >= target) {
+                            counter.textContent = String(target);
+                            counter.dataset.counted = 'true';
+                            return;
+                        }
+                        counter.textContent = String(count);
                         requestAnimationFrame(updateCounter);
-                    }
-                };
+                    };
 
-                updateCounter();
-            }
-        });
+                    updateCounter();
+                }
+            });
+        }
     </script>
 {% endblock %}

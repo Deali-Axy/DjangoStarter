@@ -13,7 +13,7 @@ SECURE_CSP = {
     ],
     "style-src": [
         CSP.SELF,
-        CSP.NONCE,
+        # CSP.NONCE,
         CSP.UNSAFE_INLINE,
         "https://cdn.jsdelivr.net",
     ],
