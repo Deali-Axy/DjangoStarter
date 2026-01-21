@@ -107,6 +107,29 @@ def music(request):
     }
     return render(request, 'demo/music.html', context)
 
+def htmx_test(request):
+    """
+    HTMX CSRF Test Page
+    """
+    if request.method == "POST":
+        from django.utils import timezone
+        import time
+        # Simulate a small delay to show the loading state
+        time.sleep(0.5)
+        return render(request, 'demo/partials/htmx_response.html', {
+            'time': timezone.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'message': 'HTMX Request Successful!'
+        })
+    
+    context = {
+        'title': 'HTMX Test',
+        'breadcrumbs': [
+            {'text': 'Demo', 'url': reverse('demo:index'), 'icon': 'fa-solid fa-layer-group'},
+            {'text': 'HTMX Test', 'url': None, 'icon': 'fa-solid fa-bolt'},
+        ]
+    }
+    return render(request, 'demo/htmx.html', context)
+
 def test_403(request):
     raise PermissionDenied()
 

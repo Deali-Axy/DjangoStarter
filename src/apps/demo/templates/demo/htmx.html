@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+{% load page_tags %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 max-w-2xl mx-auto text-center">
+    <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900 mb-4">
+            <i class="fa-solid fa-bolt text-2xl text-blue-600 dark:text-blue-400"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">CSRF Protection Test</h2>
+        <p class="text-gray-500 dark:text-gray-400">
+            Click the button below to send a POST request via HTMX. 
+            If CSRF is working correctly, you will see a success message.
+        </p>
+    </div>
+
+    <button hx-post="{% url 'demo:htmx_test' %}"
+            hx-target="#result-area"
+            hx-swap="innerHTML"
+            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 flex items-center justify-center mx-auto space-x-2">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Send HTMX Request</span>
+    </button>
+
+    <div id="result-area" class="mt-8 p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 min-h-[100px] flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-600">
+        <span class="text-gray-400 text-sm">Response will appear here...</span>
+    </div>
+</div>
+{% endblock %}
