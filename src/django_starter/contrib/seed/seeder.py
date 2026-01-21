@@ -10,9 +10,22 @@ class Seeder(object):
 
     def seed(self, model: Type[models.Model]) -> dict:
         fake_data = {}
-        for field in model._meta.get_fields():
-            if field.many_to_many or field.one_to_many:
+        for field in model._meta.fields:
+            if getattr(field, "primary_key", False):
                 continue
+
+            if isinstance(field, (models.AutoField, models.BigAutoField)):
+                continue
+
+            if field.name == "is_deleted":
+                fake_data[field.name] = False
+                continue
+
+            if isinstance(field, (models.DateField, models.DateTimeField)) and (
+                getattr(field, "auto_now", False) or getattr(field, "auto_now_add", False)
+            ):
+                continue
+
             field_class = field.__class__
             if field_class == models.CharField:
                 fake_data[field.name] = self.fake.text(max_nb_chars=field.max_length)
@@ -58,11 +71,14 @@ class Seeder(object):
                 fake_data[field.name] = self.fake.pydict()
             elif field_class == models.ForeignKey:
                 related_model = field.related_model
-                # Ensure there is at least one instance of the related model
-                related_instance = related_model.objects.order_by('?').first()
+                if related_model == model and field.null:
+                    fake_data[field.attname] = None
+                    continue
+
+                related_instance = related_model.objects.order_by("-pk").first()
                 if not related_instance:
                     related_instance = related_model.objects.create(**self.seed(related_model))
-                # Set the foreign key ID field
+
                 fake_data[field.attname] = related_instance.pk
             # Add more field types as needed
         return fake_data
