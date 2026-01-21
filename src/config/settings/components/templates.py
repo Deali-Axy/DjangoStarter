@@ -13,6 +13,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
+                'django.template.context_processors.csrf',
                 # Add the csp() context processor to your TEMPLATES setting.
                 # This makes the generated nonce value available in the Django templates as the csp_nonce context variable:
                 'django.template.context_processors.csp',

@@ -33,13 +33,3 @@ function initLanguageSwitcher() {
 
 // 初始化语言切换器
 initLanguageSwitcher();
-
-
-// HTMX CSRF Configuration
-// Add CSRF token to all HTMX requests
-document.body.addEventListener('htmx:configRequest', (event) => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-    if (csrfToken) {
-        event.detail.headers['X-CSRFToken'] = csrfToken;
-    }
-});

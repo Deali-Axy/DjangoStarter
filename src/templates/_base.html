@@ -23,6 +23,16 @@
     <link rel="stylesheet" href="{% static 'lib/font-awesome/css/all.min.css' %}">
 
     <script src="{% static 'lib/htmx/htmx.min.js' %}"></script>
+    <script>
+        // HTMX CSRF Configuration
+        // Add CSRF token to all HTMX requests
+        document.addEventListener('htmx:configRequest', (event) => {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+            if (csrfToken) {
+                event.detail.headers['X-CSRFToken'] = csrfToken;
+            }
+        });
+    </script>
     {% block head %}{% endblock %}
 </head>
 
