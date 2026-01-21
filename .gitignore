@@ -11,6 +11,7 @@ log/
 db.sqlite3
 yarn.lock
 src/static/css/tailwind.prod.css
+.trae/documents
 
 ### VisualStudioCode template
 .vscode/*
