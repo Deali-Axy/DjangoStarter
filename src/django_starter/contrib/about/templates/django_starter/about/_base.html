@@ -9,7 +9,7 @@
 
 {% block extra_js %}
     <script src="{% static 'lib/aos/aos.js' %}"></script>
-    <script nonce="{{ csp_nonce }}">
+    <script>
         const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (!prefersReducedMotion && window.AOS) {
             AOS.init({
