@@ -1,0 +1,193 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DjangoStarter 文档中心，提供项目使用说明与技术指南">
+    <meta name="keywords" content="DjangoStarter, Django, 文档, 指南, 开发规范, 前端, 后端">
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description" content="DjangoStarter 文档中心，提供项目使用说明与技术指南">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#f5f5f4">
+    <title>{{ page_title }} - DjangoStarter Docs</title>
+    <link rel="stylesheet" href="{% static 'css/tailwind.prod.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/font-awesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'guide/css/docs.css' %}">
+</head>
+<body class="bg-[#f6f6f3] text-gray-900">
+<div class="min-h-screen flex flex-col">
+    <header class="sticky top-0 z-20 backdrop-blur bg-white/80 border-b border-gray-200">
+        <div class="mx-auto px-4 py-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gray-900 text-white flex items-center justify-center font-semibold">DS</div>
+                <div>
+                    <div class="text-sm text-gray-500">Documentation</div>
+                    <div class="text-lg font-semibold">DjangoStarter</div>
+                </div>
+            </div>
+            <form method="get" action="{% url 'djs_docs:index' %}" class="flex-1 lg:max-w-xl">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                    <input name="q" value="{{ search_query }}" placeholder="搜索文档、关键字或命令"
+                           class="w-full rounded-xl border border-gray-200 bg-white px-11 py-3 text-sm focus:ring-2 focus:ring-gray-300 focus:border-gray-300">
+                </div>
+            </form>
+            <div class="flex items-center gap-3">
+                <a href="{% url 'djs_guide:index' %}"
+                   class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 transition-colors">
+                    返回主页
+                </a>
+                <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank"
+                   class="px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 bg-white hover:bg-gray-50 transition-colors">
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1">
+        <div class="mx-auto px-4 py-8 lg:py-12 grid gap-8 lg:grid-cols-[240px_1fr_260px]">
+            <aside class="space-y-6">
+                <div class="rounded-2xl bg-white border border-gray-200 p-4">
+                    <div class="text-xs uppercase tracking-widest text-gray-400 mb-3">目录导航</div>
+                    <div class="space-y-4">
+                        {% for item in categories %}
+                            <div>
+                                <div class="text-sm font-semibold text-gray-700 mb-2">{{ item.category.title }}</div>
+                                <div class="space-y-1">
+                                    {% for page in item.pages %}
+                                        <a href="{% url 'djs_docs:detail' slug=page.slug %}"
+                                           class="block px-3 py-2 rounded-lg text-sm transition-colors {% if active_page and page.slug == active_page.slug %}bg-gray-900 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %}">
+                                            {{ page.title }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-gray-200 p-4">
+                    <div class="text-sm font-semibold text-gray-700 mb-2">快捷入口</div>
+                    <div class="space-y-2">
+                        <a href="/api/docs" class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900">
+                            <i class="fas fa-book text-gray-400"></i>
+                            API Docs
+                        </a>
+                        <a href="/admin" class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900">
+                            <i class="fas fa-user-cog text-gray-400"></i>
+                            管理后台
+                        </a>
+                        <a href="/demo" class="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900">
+                            <i class="fas fa-flask text-gray-400"></i>
+                            Demo
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="space-y-6">
+                <div class="rounded-2xl bg-white border border-gray-200 p-6">
+                    <div class="flex flex-col gap-2">
+                        <div class="text-xs uppercase tracking-widest text-gray-400">文档</div>
+                        <h1 class="text-3xl font-semibold">
+                            {% if active_page %}{{ active_page.title }}{% else %}文档中心{% endif %}
+                        </h1>
+                        {% if active_page %}
+                            <p class="text-gray-500">{{ active_page.summary }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if search_query %}
+                    <div class="rounded-2xl bg-white border border-gray-200 p-6">
+                        <div class="text-sm text-gray-500 mb-4">搜索结果：{{ search_query }}</div>
+                        {% if search_results %}
+                            <div class="space-y-3">
+                                {% for result in search_results %}
+                                    <a href="{% url 'djs_docs:detail' slug=result.slug %}"
+                                       class="block p-4 rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-colors">
+                                        <div class="font-semibold text-gray-900">{{ result.title }}</div>
+                                        <div class="text-sm text-gray-500">{{ result.summary }}</div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-gray-500">未找到匹配的文档，请尝试其他关键词。</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <article class="rounded-2xl bg-white border border-gray-200 p-6 doc-content">
+                    {{ active_html|safe }}
+                </article>
+            </section>
+
+            <aside class="space-y-6">
+                <div class="rounded-2xl bg-white border border-gray-200 p-4">
+                    <img src="{% static 'guide/img/docs-hero.svg' %}" alt="Docs Illustration" class="w-full rounded-xl">
+                </div>
+                <div class="rounded-2xl bg-white border border-gray-200 p-5 space-y-4">
+                    <div class="text-sm font-semibold text-gray-700">快捷操作</div>
+                    <button type="button" data-copy-link
+                            class="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-600 hover:bg-gray-50">
+                        复制当前链接
+                        <i class="fas fa-link text-gray-400"></i>
+                    </button>
+                    <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank"
+                       class="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-600 hover:bg-gray-50">
+                        访问仓库
+                        <i class="fab fa-github text-gray-400"></i>
+                    </a>
+                    <a href="/api/docs"
+                       class="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-600 hover:bg-gray-50">
+                        API 文档
+                        <i class="fas fa-book text-gray-400"></i>
+                    </a>
+                    <a href="mailto:dealiaxy@gmail.com"
+                       class="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-600 hover:bg-gray-50">
+                        反馈建议
+                        <i class="fas fa-paper-plane text-gray-400"></i>
+                    </a>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-gray-200 p-5 space-y-3">
+                    <div class="text-sm font-semibold text-gray-700">阅读进度</div>
+                    <div class="h-2 rounded-full bg-gray-100 overflow-hidden">
+                        <div class="h-full w-2/5 bg-gray-900"></div>
+                    </div>
+                    <div class="text-xs text-gray-500">持续更新中，欢迎关注。</div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-sm text-gray-500">
+            <div>© 2025 DjangoStarter Docs</div>
+            <div class="flex gap-4">
+                <a href="https://github.com/Deali-Axy" target="_blank" class="hover:text-gray-900">GitHub</a>
+                <a href="https://deali.cn" target="_blank" class="hover:text-gray-900">CodeLab</a>
+                <a href="mailto:dealiaxy@gmail.com" class="hover:text-gray-900">联系</a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const copyButton = document.querySelector("[data-copy-link]");
+    if (copyButton) {
+        copyButton.addEventListener("click", () => {
+            navigator.clipboard.writeText(window.location.href);
+            copyButton.classList.add("bg-gray-900", "text-white");
+            copyButton.innerHTML = "已复制链接 <i class='fas fa-check'></i>";
+            setTimeout(() => {
+                copyButton.classList.remove("bg-gray-900", "text-white");
+                copyButton.innerHTML = "复制当前链接 <i class='fas fa-link text-gray-400'></i>";
+            }, 1600);
+        });
+    }
+</script>
+</body>
+</html>
