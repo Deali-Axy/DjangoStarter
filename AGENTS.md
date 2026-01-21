@@ -117,7 +117,7 @@ src/
 │   ├── http/              # Response handling
 │   └── middleware/        # Security middleware
 ├── static/                # Static files
-├── templates/             # Django templates
+├── templates/             # common Django templates, don't edit!
 └── locale/                # i18n
 ```
 
@@ -243,31 +243,50 @@ def list_users(request):
 
 ### 前端开发规范
 
-#### HTML模板
+### Django View
+
+- 在 context 中传入 title 和 breadcrumbs，示例代码：
+
+  ```python
+  context = {
+      'title': '项目中台',
+      'breadcrumbs': [
+          {'text': '主页', 'url': reverse('index'), 'icon': 'fa-solid fa-house'},
+          {'text': '项目中台', 'url': None, 'icon': 'fa-solid fa-briefcase'},
+      ],
+  }
+  ```
+
+  
+
+#### Django Template
 
 - 使用语义化HTML标签
 - 遵循无障碍访问标准
 - 使用 TailwindCSS 类进行样式设计
-- 集成 HTMX / Alpine.js 进行交互，根据具体情况选择合适的交互方式
+- 在各个 app 下创建 templates 目录编写前端页面代码，不要直接修改 src\templates 里的代码
+- DjangoStarter 提供 page_header 组件用于渲染标准页面标题和面包屑导航，位于 `django_starter/contrib/navbar/templatetags/page_tags.py` 内，使用时在模板代码顶部引入: `{% load page_tags %}`
+- 根据具体情况选择合适的交互方式，DjangoStarter 默认已集成 HTMX / Alpine.js 相关依赖和配置
+
+示例页面代码：
 
 ```html
 <!-- 示例模板结构 -->
 {% extends '_base.html' %}
 {% load static %}
+{% load page_tags %}
 
 {% block title %}页面标题{% endblock %}
 
+<!-- 额外的CSS或者其他head内容 -->
+{% block head %}{% endblock %}
+
 {% block content %}
-<div class="container mx-auto px-4 py-8" x-data="pageData()">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6">{{ page_title }}</h1>
-    
-    <!-- 内容区域 -->
-    <div class="bg-white rounded-lg shadow-md p-6">
-        <!-- 页面内容 -->
-    </div>
-</div>
+{% page_header title breadcrumbs %}
+<!-- 页面主体内容，外部已有 container 容器，这里直接写页面内容元素 -->
 {% endblock %}
 
+<!-- Alpine.js 交互脚本 -->
 {% block scripts %}
 <script>
     function pageData() {
