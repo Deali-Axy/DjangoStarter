@@ -93,7 +93,7 @@ def _get_prev_next_pages(current_slug: str, pages: List[DocPage]) -> Tuple[Optio
 def _get_template_name(request: HttpRequest) -> str:
     """Determine template name based on HTMX request."""
     if request.headers.get("HX-Request") == "true":
-        return "django_starter/docs/_doc_content.html"
+        return "django_starter/docs/htmx_response.html"
     return "django_starter/docs/index.html"
 
 
@@ -110,9 +110,8 @@ def docs_index(request: HttpRequest) -> HttpResponse:
     prev_page = None
     next_page = None
 
-    if not search_results and pages:
-        active_page = pages[0]
-    elif search_results:
+    # Only show active page if it is a search result
+    if search_results:
         active_page = search_results[0]
         
     if active_page:

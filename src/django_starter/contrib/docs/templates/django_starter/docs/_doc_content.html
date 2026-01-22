@@ -1,10 +1,5 @@
 {% load static page_tags %}
 
-<!-- OOB Swap for Sidebar Menu -->
-<div id="doc-sidebar-menu" hx-swap-oob="innerHTML">
-    {% include "django_starter/docs/_sidebar_menu.html" %}
-</div>
-
 <!-- Main Content (Target of HTMX) -->
 <!-- Page Header (Breadcrumbs) -->
 {% page_header page_title breadcrumbs %}
@@ -21,7 +16,7 @@
     <!-- Doc Content -->
     <div class="flex-1 min-w-0 px-4 lg:px-8">
         <!-- Search -->
-        <div class="mb-8 max-w-2xl">
+        <div class="mb-8 max-w-2xl mx-auto {% if not active_page and not search_results %}text-center{% endif %}">
             <form method="get" action="{% url 'djs_docs:index' %}" hx-boost="true" hx-target="#doc-main-content" hx-push-url="true">
                 <div class="join w-full shadow-sm">
                     <input name="q" value="{{ search_query }}" placeholder="搜索文档、关键字..." class="input input-bordered join-item w-full focus:outline-none" />
@@ -57,51 +52,95 @@
         </div>
         {% endif %}
 
-        <article class="prose prose-base lg:prose-lg max-w-none prose-pre:p-0 prose-pre:bg-transparent prose-img:rounded-xl">
-            {% if active_page and not search_results %}
-                <div class="mb-8 not-prose">
-                    <h1 class="text-3xl lg:text-4xl font-extrabold mb-2">{{ active_page.title }}</h1>
-                    <p class="text-xl text-base-content/70">{{ active_page.summary }}</p>
-                </div>
-            {% endif %}
-            
-            {{ active_html|safe }}
-        </article>
+        {% if active_page %}
+            <article class="prose prose-base lg:prose-lg max-w-none prose-pre:p-0 prose-pre:bg-transparent prose-img:rounded-xl">
+                {% if not search_results %}
+                    <div class="mb-8 not-prose">
+                        <h1 class="text-3xl lg:text-4xl font-extrabold mb-2">{{ active_page.title }}</h1>
+                        <p class="text-xl text-base-content/70">{{ active_page.summary }}</p>
+                    </div>
+                {% endif %}
+                
+                {{ active_html|safe }}
+            </article>
 
-        <!-- Prev/Next Nav -->
-        <div class="flex flex-col sm:flex-row justify-between mt-12 gap-4 pt-8 border-t border-base-200">
-            {% if prev_page %}
-            <a href="{% url 'djs_docs:detail' slug=prev_page.slug %}" 
-               hx-get="{% url 'djs_docs:detail' slug=prev_page.slug %}"
-               hx-target="#doc-main-content"
-               hx-push-url="true"
-               class="group flex-1 p-4 rounded-xl border border-base-300 hover:border-primary hover:bg-base-200 transition-all text-left">
-                <div class="text-xs text-base-content/50 mb-1 group-hover:text-primary">上一篇</div>
-                <div class="font-bold text-lg flex items-center gap-2">
-                    <i class="fas fa-arrow-left text-sm transition-transform group-hover:-translate-x-1"></i>
-                    {{ prev_page.title }}
-                </div>
-            </a>
-            {% else %}
-            <div class="flex-1 hidden sm:block"></div>
-            {% endif %}
+            <!-- Prev/Next Nav -->
+            <div class="flex flex-col sm:flex-row justify-between mt-12 gap-4 pt-8 border-t border-base-200">
+                {% if prev_page %}
+                <a href="{% url 'djs_docs:detail' slug=prev_page.slug %}" 
+                   hx-get="{% url 'djs_docs:detail' slug=prev_page.slug %}"
+                   hx-target="#doc-main-content"
+                   hx-push-url="true"
+                   class="group flex-1 p-4 rounded-xl border border-base-300 hover:border-primary hover:bg-base-200 transition-all text-left">
+                    <div class="text-xs text-base-content/50 mb-1 group-hover:text-primary">上一篇</div>
+                    <div class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-arrow-left text-sm transition-transform group-hover:-translate-x-1"></i>
+                        {{ prev_page.title }}
+                    </div>
+                </a>
+                {% else %}
+                <div class="flex-1 hidden sm:block"></div>
+                {% endif %}
 
-            {% if next_page %}
-            <a href="{% url 'djs_docs:detail' slug=next_page.slug %}" 
-               hx-get="{% url 'djs_docs:detail' slug=next_page.slug %}"
-               hx-target="#doc-main-content"
-               hx-push-url="true"
-               class="group flex-1 p-4 rounded-xl border border-base-300 hover:border-primary hover:bg-base-200 transition-all text-right">
-                <div class="text-xs text-base-content/50 mb-1 group-hover:text-primary">下一篇</div>
-                <div class="font-bold text-lg flex items-center justify-end gap-2">
-                    {{ next_page.title }}
-                    <i class="fas fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
+                {% if next_page %}
+                <a href="{% url 'djs_docs:detail' slug=next_page.slug %}" 
+                   hx-get="{% url 'djs_docs:detail' slug=next_page.slug %}"
+                   hx-target="#doc-main-content"
+                   hx-push-url="true"
+                   class="group flex-1 p-4 rounded-xl border border-base-300 hover:border-primary hover:bg-base-200 transition-all text-right">
+                    <div class="text-xs text-base-content/50 mb-1 group-hover:text-primary">下一篇</div>
+                    <div class="font-bold text-lg flex items-center justify-end gap-2">
+                        {{ next_page.title }}
+                        <i class="fas fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </a>
+                {% else %}
+                <div class="flex-1 hidden sm:block"></div>
+                {% endif %}
+            </div>
+        {% else %}
+            <!-- Welcome Page (No Active Page) -->
+            <div class="hero py-10 bg-base-200/50 rounded-3xl mb-8">
+                <div class="hero-content text-center">
+                    <div class="max-w-md">
+                        <h1 class="text-5xl font-bold">DjangoStarter</h1>
+                        <p class="py-6">现代化、高性能的 Django 开发模板，集成 TailwindCSS, DaisyUI, HTMX 等前沿技术栈。</p>
+                        <a href="{% url 'djs_docs:detail' slug='quick-start' %}" 
+                           hx-get="{% url 'djs_docs:detail' slug='quick-start' %}"
+                           hx-target="#doc-main-content"
+                           hx-push-url="true"
+                           class="btn btn-primary">快速开始</a>
+                    </div>
                 </div>
-            </a>
-            {% else %}
-            <div class="flex-1 hidden sm:block"></div>
-            {% endif %}
-        </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card bg-base-100 shadow-xl border border-base-200">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-layer-group text-primary"></i> 模块化架构</h2>
+                        <p>采用清晰的模块化目录结构，业务逻辑与核心框架分离，便于维护与扩展。</p>
+                    </div>
+                </div>
+                <div class="card bg-base-100 shadow-xl border border-base-200">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-bolt text-warning"></i> 高性能</h2>
+                        <p>内置 Redis 缓存、Granian (Rust) 服务器配置，针对高并发场景优化。</p>
+                    </div>
+                </div>
+                <div class="card bg-base-100 shadow-xl border border-base-200">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-palette text-secondary"></i> 现代化 UI</h2>
+                        <p>TailwindCSS v4 + DaisyUI v5，提供美观、响应式的用户界面和暗黑模式支持。</p>
+                    </div>
+                </div>
+                <div class="card bg-base-100 shadow-xl border border-base-200">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="fas fa-code text-accent"></i> 开发体验</h2>
+                        <p>内置代码生成器、API 文档、Docker 环境，极致的开发效率。</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
 
     <!-- Right Sidebar (TOC) -->
