@@ -1,28 +1,27 @@
-<footer class="footer p-10 bg-base-200 text-base-content border-t border-base-300">
-  <aside>
-    <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-primary-content text-2xl mb-2">
-        <i class="fa-brands fa-python"></i>
-    </div>
-    <p class="font-bold text-lg">DjangoStarter Ltd.<br/><span class="font-normal text-sm opacity-70">Providing reliable tech since 2024</span></p>
-  </aside> 
-  <nav>
-    <h6 class="footer-title opacity-60">Services</h6> 
-    <a class="link link-hover">Branding</a>
-    <a class="link link-hover">Design</a>
-    <a class="link link-hover">Marketing</a>
-    <a class="link link-hover">Advertisement</a>
-  </nav> 
-  <nav>
-    <h6 class="footer-title opacity-60">Company</h6> 
-    <a class="link link-hover">About us</a>
-    <a class="link link-hover">Contact</a>
-    <a class="link link-hover">Jobs</a>
-    <a class="link link-hover">Press kit</a>
-  </nav> 
-  <nav>
-    <h6 class="footer-title opacity-60">Legal</h6> 
-    <a class="link link-hover">Terms of use</a>
-    <a class="link link-hover">Privacy policy</a>
-    <a class="link link-hover">Cookie policy</a>
-  </nav>
+<footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
+    <nav class="grid grid-flow-col gap-4">
+        <a class="link link-hover" href="{% url 'djs_about:index' %}">About us</a>
+        <a class="link link-hover" href="{% url 'djs_about:index' %}">Contact</a>
+        <a class="link link-hover" href="{% url 'djs_about:privacy_policy' %}">Privacy Policy</a>
+        <a class="link link-hover" href="{% url 'djs_about:terms_of_service' %}">Terms of Service</a>
+    </nav>
+    <nav>
+        <div class="grid grid-flow-col gap-4">
+            <a href="https://github.com/deali-axy/djangostarter" target="_blank" class="link link-hover">
+                <i class="fa-brands fa-github text-2xl"></i>
+            </a>
+            <a href="#" class="link link-hover">
+                <i class="fa-brands fa-twitter text-2xl"></i>
+            </a>
+            <a href="#" class="link link-hover">
+                <i class="fa-brands fa-youtube text-2xl"></i>
+            </a>
+            <a href="#" class="link link-hover">
+                <i class="fa-brands fa-facebook text-2xl"></i>
+            </a>
+        </div>
+    </nav>
+    <aside>
+        <p>Copyright © {% now "Y" %} - All right reserved by ACME Industries Ltd</p>
+    </aside>
 </footer>
