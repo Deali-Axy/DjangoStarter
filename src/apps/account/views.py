@@ -10,7 +10,13 @@ from .forms import UserProfileForm, RegisterForm, LoginForm
 
 @login_required()
 def index(request):
-    return render(request, 'account/index.html')
+    return render(request, 'account/index.html', {
+        'title': '用户中心',
+        'breadcrumbs': [
+            {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
+            {'text': '用户中心', 'url': None, 'icon': 'fa-solid fa-user'},
+        ]
+    })
 
 
 @login_required()
@@ -25,23 +31,50 @@ def profile(request):
 
     ctx = {
         'form': form,
+        'title': '个人资料',
+        'breadcrumbs': [
+            {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
+            {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
+            {'text': '个人资料', 'url': None, 'icon': 'fa-solid fa-id-card'},
+        ]
     }
     return render(request, 'account/profile.html', ctx)
 
 
 @login_required()
 def charge(request):
-    return render(request, 'account/charge.html')
+    return render(request, 'account/charge.html', {
+        'title': '充值',
+        'breadcrumbs': [
+            {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
+            {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
+            {'text': '充值', 'url': None, 'icon': 'fa-solid fa-wallet'},
+        ]
+    })
 
 
 @login_required()
 def dashboard(request):
-    return render(request, 'account/dashboard.html')
+    return render(request, 'account/dashboard.html', {
+        'title': '仪表盘',
+        'breadcrumbs': [
+            {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
+            {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
+            {'text': '仪表盘', 'url': None, 'icon': 'fa-solid fa-gauge'},
+        ]
+    })
 
 
 @login_required()
 def settings(request):
-    return render(request, 'account/settings.html')
+    return render(request, 'account/settings.html', {
+        'title': '设置',
+        'breadcrumbs': [
+            {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
+            {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
+            {'text': '设置', 'url': None, 'icon': 'fa-solid fa-gear'},
+        ]
+    })
 
 
 def login_view(request):
@@ -53,6 +86,11 @@ def login_view(request):
         # 'sso_url': ids_lite.get_authorize_url(sso_redirect_url, state=next_url),
         'sso_url': '',
         'form': LoginForm(),
+        'title': '登录',
+        'breadcrumbs': [
+            {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
+            {'text': '登录', 'url': None, 'icon': 'fa-solid fa-right-to-bracket'},
+        ]
     }
 
     if request.user.is_authenticated:
@@ -132,7 +170,14 @@ def signup_view(request):
         return redirect(index_url)
 
     form = RegisterForm()
-    ctx = {'form': form}
+    ctx = {
+        'form': form,
+        'title': '注册',
+        'breadcrumbs': [
+            {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
+            {'text': '注册', 'url': None, 'icon': 'fa-solid fa-user-plus'},
+        ]
+    }
 
     if request.method == 'POST':
         form = RegisterForm(request.POST, request.FILES)
