@@ -161,6 +161,7 @@ def settings(request):
 
     ctx = {
         'title': '设置',
+        'base_template': get_template_base(request),
         'breadcrumbs': [
             {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
             {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},

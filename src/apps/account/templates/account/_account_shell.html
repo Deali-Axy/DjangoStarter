@@ -6,18 +6,18 @@
 {% block main_padding %}p-0{% endblock %}
 
 {% block content %}
-<div class="drawer lg:drawer-open h-[calc(100vh-4rem)] overflow-hidden bg-base-200/30">
+<div class="drawer lg:drawer-open lg:drawer-end h-[calc(100vh-4rem)] overflow-hidden bg-base-200/30">
     <input id="account-drawer" type="checkbox" class="drawer-toggle" />
     
     <div class="drawer-content flex flex-col h-full overflow-hidden">
         <!-- Mobile Header for Drawer Toggle -->
         <div class="w-full navbar bg-base-100 lg:hidden border-b border-base-200 flex-none z-20">
+            <div class="flex-1 px-2 mx-2 font-bold text-lg">用户中心</div>
             <div class="flex-none">
                 <label for="account-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
                     <i class="fa-solid fa-bars"></i>
                 </label>
             </div>
-            <div class="flex-1 px-2 mx-2 font-bold text-lg">用户中心</div>
         </div>
 
         <!-- Main Content Container -->
@@ -38,7 +38,7 @@
     
     <div class="drawer-side z-40 h-full">
         <label for="account-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
-        <aside class="bg-base-100 h-full w-80 p-4 border-r border-base-200 flex flex-col overflow-y-auto custom-scrollbar">
+        <aside class="bg-base-100 h-full w-80 p-4 border-l border-base-200 flex flex-col overflow-y-auto custom-scrollbar">
             <!-- Sidebar Header / User Info -->
             <div class="flex flex-col items-center justify-center py-6 border-b border-base-200/50 mb-4">
                 <div class="avatar placeholder mb-3">
