@@ -1,4 +1,5 @@
-{% load i18n %}
+{% load i18n page_tags %}
+
 <!-- 
     Modern Minimalist Navbar (Apple/Glassmorphism Style)
     - High backdrop blur for depth
@@ -32,9 +33,13 @@
         <div class="hidden md:flex flex-col justify-center ml-2 transition-opacity duration-300">
             <div class="text-sm breadcrumbs p-0 text-base-content/60 font-medium">
                 <ul>
-                    <li><a href="/" class="hover:text-primary transition-colors">App</a></li>
-                    {% if title %}
-                    <li class="text-base-content font-semibold">{{ title }}</li>
+                    {% if breadcrumbs %}
+                        {% render_breadcrumbs breadcrumbs %}
+                    {% else %}
+                        <li><a href="/" class="hover:text-primary transition-colors">App</a></li>
+                        {% if title %}
+                        <li class="text-base-content font-semibold">{{ title }}</li>
+                        {% endif %}
                     {% endif %}
                 </ul>
             </div>

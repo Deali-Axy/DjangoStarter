@@ -3,6 +3,22 @@ from django import template
 
 register = template.Library()
 
+def _normalize_breadcrumbs(breadcrumbs):
+    if breadcrumbs is None:
+        return []
+        
+    processed_breadcrumbs = []
+    for item in breadcrumbs:
+        if isinstance(item, (list, tuple)) and len(item) >= 2:
+            processed_breadcrumbs.append({
+                'text': item[0],
+                'url': item[1],
+                'icon': None
+            })
+        else:
+            processed_breadcrumbs.append(item)
+    return processed_breadcrumbs
+
 @register.inclusion_tag('django_starter/components/page_header.html')
 def page_header(title, breadcrumbs=None):
     """
@@ -18,22 +34,17 @@ def page_header(title, breadcrumbs=None):
         
         icon参数可选，如不提供则不显示图标
     """
-    if breadcrumbs is None:
-        breadcrumbs = []
-        
-    # 兼容旧格式 [(name, url), ...]
-    processed_breadcrumbs = []
-    for item in breadcrumbs:
-        if isinstance(item, (list, tuple)) and len(item) >= 2:
-            processed_breadcrumbs.append({
-                'text': item[0],
-                'url': item[1],
-                'icon': None
-            })
-        else:
-            processed_breadcrumbs.append(item)
-            
     return {
         'title': title,
-        'breadcrumbs': processed_breadcrumbs,
+        'breadcrumbs': _normalize_breadcrumbs(breadcrumbs),
+    }
+
+@register.inclusion_tag('django_starter/components/breadcrumbs_items.html')
+def render_breadcrumbs(breadcrumbs):
+    """
+    仅渲染面包屑导航列表项 (<li>...</li>)
+    用于 navbar 等需要单独显示面包屑的地方
+    """
+    return {
+        'breadcrumbs': _normalize_breadcrumbs(breadcrumbs),
     }
