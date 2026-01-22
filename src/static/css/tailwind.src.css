@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @source "../../templates";
 @source "../../apps";
 @source "../../django_starter";

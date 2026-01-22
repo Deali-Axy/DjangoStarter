@@ -1,164 +1,182 @@
 {% extends "_base.html" %}
-{% load static i18n %}
+{% load static page_tags %}
 
 {% block title %}{{ page_title }} - DjangoStarter Docs{% endblock %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'djs/docs/docs.css' %}">
+{% block head %}
+<!-- Highlight.js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css">
 {% endblock %}
 
 {% block content %}
-<div class="mx-auto px-4 py-8 lg:py-12 grid gap-8 lg:grid-cols-[240px_1fr_260px]">
-    <!-- Left Sidebar: Navigation -->
-    <aside class="space-y-6 hidden lg:block">
-        <div class="card bg-base-100 shadow-xl border border-base-200 p-4 sticky top-24">
-            <div class="text-xs uppercase tracking-widest text-base-content/50 mb-3">目录导航</div>
-            <ul class="menu w-full p-0">
-                {% for item in categories %}
-                    <li class="menu-title text-base-content/70">{{ item.category.title }}</li>
-                    {% for page in item.pages %}
+{% page_header page_title breadcrumbs %}
+
+<div class="drawer lg:drawer-open min-h-[calc(100vh-10rem)] rounded-box border border-base-200 bg-base-100 shadow-sm mb-8">
+    <input id="docs-drawer" type="checkbox" class="drawer-toggle" />
+    
+    <!-- Main Content Area -->
+    <div class="drawer-content flex flex-col xl:flex-row px-0 lg:px-4 py-6">
+        <!-- Mobile Toggle -->
+        <div class="lg:hidden px-4 mb-4">
+            <label for="docs-drawer" class="btn btn-primary drawer-button w-full">
+                <i class="fas fa-bars mr-2"></i> 目录导航
+            </label>
+        </div>
+
+        <!-- Doc Content -->
+        <div class="flex-1 min-w-0 px-4 lg:px-8">
+            <!-- Search -->
+            <div class="mb-8 max-w-2xl">
+                <form method="get" action="{% url 'djs_docs:index' %}">
+                    <div class="join w-full shadow-sm">
+                        <input name="q" value="{{ search_query }}" placeholder="搜索文档、关键字..." class="input input-bordered join-item w-full focus:outline-none" />
+                        <button class="btn btn-primary join-item px-6"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+
+            {% if search_results %}
+            <div class="mb-8">
+                <h3 class="font-bold text-lg mb-4">搜索结果: "{{ search_query }}"</h3>
+                <div class="grid gap-4">
+                    {% for result in search_results %}
+                    <a href="{% url 'djs_docs:detail' slug=result.slug %}" class="card bg-base-200 hover:bg-base-300 transition-colors compact border border-base-300">
+                        <div class="card-body">
+                            <h2 class="card-title text-base">{{ result.title }}</h2>
+                            <p class="text-sm opacity-70">{{ result.summary }}</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                    {% if not search_results %}
+                    <div class="alert">
+                        <i class="fas fa-info-circle"></i>
+                        <span>未找到相关文档，请尝试更换关键词。</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="divider"></div>
+            </div>
+            {% endif %}
+
+            <article class="prose prose-base lg:prose-lg max-w-none prose-pre:p-0 prose-pre:bg-transparent prose-img:rounded-xl">
+                {% if active_page and not search_results %}
+                    <div class="mb-8 not-prose">
+                        <h1 class="text-3xl lg:text-4xl font-extrabold mb-2">{{ active_page.title }}</h1>
+                        <p class="text-xl text-base-content/70">{{ active_page.summary }}</p>
+                    </div>
+                {% endif %}
+                
+                {{ active_html|safe }}
+            </article>
+
+            <!-- Prev/Next Nav -->
+            <div class="flex flex-col sm:flex-row justify-between mt-12 gap-4 pt-8 border-t border-base-200">
+                {% if prev_page %}
+                <a href="{% url 'djs_docs:detail' slug=prev_page.slug %}" class="group flex-1 p-4 rounded-xl border border-base-300 hover:border-primary hover:bg-base-200 transition-all text-left">
+                    <div class="text-xs text-base-content/50 mb-1 group-hover:text-primary">上一篇</div>
+                    <div class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-arrow-left text-sm transition-transform group-hover:-translate-x-1"></i>
+                        {{ prev_page.title }}
+                    </div>
+                </a>
+                {% else %}
+                <div class="flex-1 hidden sm:block"></div>
+                {% endif %}
+
+                {% if next_page %}
+                <a href="{% url 'djs_docs:detail' slug=next_page.slug %}" class="group flex-1 p-4 rounded-xl border border-base-300 hover:border-primary hover:bg-base-200 transition-all text-right">
+                    <div class="text-xs text-base-content/50 mb-1 group-hover:text-primary">下一篇</div>
+                    <div class="font-bold text-lg flex items-center justify-end gap-2">
+                        {{ next_page.title }}
+                        <i class="fas fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </a>
+                {% else %}
+                <div class="flex-1 hidden sm:block"></div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Right Sidebar (TOC) -->
+        {% if toc %}
+        <aside class="hidden xl:block w-64 shrink-0 pl-6 border-l border-base-200">
+            <div class="sticky top-6">
+                <div class="text-xs font-bold mb-4 uppercase text-base-content/50 tracking-wider">本页目录</div>
+                <div class="prose prose-sm prose-ul:list-none prose-ul:pl-0 prose-li:pl-0 prose-a:no-underline prose-a:text-base-content/70 hover:prose-a:text-primary">
+                   {{ toc|safe }}
+                </div>
+            </div>
+        </aside>
+        {% endif %}
+    </div>
+
+    <!-- Left Sidebar (Drawer Side) -->
+    <div class="drawer-side z-50 lg:z-auto">
+        <label for="docs-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+        <div class="menu p-4 w-72 min-h-full bg-base-100 lg:bg-transparent text-base-content border-r lg:border-none border-base-200">
+            <!-- Mobile Header -->
+            <div class="lg:hidden mb-6 px-2 flex items-center justify-between">
+                <span class="font-bold text-lg">文档导航</span>
+                <label for="docs-drawer" class="btn btn-sm btn-ghost btn-circle"><i class="fas fa-times"></i></label>
+            </div>
+            
+            {% for item in categories %}
+                <details open class="group">
+                    <summary class="font-bold opacity-60 hover:opacity-100 group-open:text-primary transition-colors">{{ item.category.title }}</summary>
+                    <ul>
+                        {% for page in item.pages %}
                         <li>
-                            <a href="{% url 'djs_docs:detail' slug=page.slug %}"
-                               class="{% if active_page and page.slug == active_page.slug %}active{% endif %}">
+                            <a href="{% url 'djs_docs:detail' slug=page.slug %}" 
+                               class="{% if active_page and page.slug == active_page.slug %}active font-medium{% endif %} border-l-2 border-transparent {% if active_page and page.slug == active_page.slug %}border-primary{% endif %}">
                                 {{ page.title }}
                             </a>
                         </li>
-                    {% endfor %}
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="card bg-base-100 shadow-xl border border-base-200 p-4">
-            <div class="text-sm font-bold text-base-content mb-2">快捷入口</div>
-            <ul class="menu w-full p-0">
-                <li>
-                    <a href="/api/docs" target="_blank">
-                        <i class="fas fa-book opacity-50"></i>
-                        API Docs
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin" target="_blank">
-                        <i class="fas fa-user-cog opacity-50"></i>
-                        管理后台
-                    </a>
-                </li>
-                <li>
-                    <a href="/demo">
-                        <i class="fas fa-flask opacity-50"></i>
-                        Demo
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </aside>
-
-    <!-- Mobile Navigation (Drawer Toggle/Menu could go here if needed, but handled by global drawer) -->
-
-    <!-- Main Content -->
-    <section class="space-y-6 min-w-0">
-        <!-- Header Card -->
-        <div class="card bg-base-100 shadow-xl border border-base-200 p-6">
-            <div class="flex flex-col gap-2">
-                <div class="text-xs uppercase tracking-widest text-base-content/50">文档</div>
-                <h1 class="text-3xl font-bold text-base-content">
-                    {% if active_page %}{{ active_page.title }}{% else %}文档中心{% endif %}
-                </h1>
-                {% if active_page %}
-                    <p class="text-base-content/70">{{ active_page.summary }}</p>
-                {% endif %}
-            </div>
-            
-            <!-- Search Bar (Inline for Docs) -->
-            <form method="get" action="{% url 'djs_docs:index' %}" class="mt-6">
-                <div class="join w-full">
-                    <div class="relative w-full">
-                        <input name="q" value="{{ search_query }}" placeholder="搜索文档、关键字或命令"
-                               class="input join-item w-full pl-10">
-                        <i class="fas fa-search absolute left-3 top-3.5 text-base-content/40"></i>
-                    </div>
-                    <button class="btn btn-primary join-item">搜索</button>
-                </div>
-            </form>
-        </div>
-
-        {% if search_query %}
-            <div class="card bg-base-100 shadow-xl border border-base-200 p-6">
-                <div class="text-sm text-base-content/60 mb-4">搜索结果：{{ search_query }}</div>
-                {% if search_results %}
-                    <div class="space-y-3">
-                        {% for result in search_results %}
-                            <a href="{% url 'djs_docs:detail' slug=result.slug %}"
-                               class="block p-4 rounded-xl border border-base-200 hover:border-primary hover:bg-base-200 transition-colors">
-                                <div class="font-bold text-base-content">{{ result.title }}</div>
-                                <div class="text-sm text-base-content/70">{{ result.summary }}</div>
-                            </a>
                         {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="text-base-content/60">未找到匹配的文档，请尝试其他关键词。</div>
-                {% endif %}
-            </div>
-        {% endif %}
+                    </ul>
+                </details>
+            {% endfor %}
 
-        <!-- Doc Content -->
-        <article class="card bg-base-100 shadow-xl border border-base-200 p-6 sm:p-10 doc-content prose max-w-none prose-img:rounded-xl">
-            {{ active_html|safe }}
-        </article>
-    </section>
-
-    <!-- Right Sidebar: Quick Actions -->
-    <aside class="space-y-6 hidden lg:block">
-        <div class="card bg-base-100 shadow-xl border border-base-200 p-4">
-            <img src="{% static 'djs/docs/docs-hero.svg' %}" alt="Docs Illustration" class="w-full rounded-xl">
+            <div class="divider my-4"></div>
+            <ul class="menu-title px-2">快捷链接</ul>
+            <li><a href="/api/docs" target="_blank"><i class="fas fa-code w-4"></i> API 文档</a></li>
+            <li><a href="/admin" target="_blank"><i class="fas fa-cogs w-4"></i> 管理后台</a></li>
         </div>
-        <div class="card bg-base-100 shadow-xl border border-base-200 p-5 space-y-4 sticky top-24">
-            <div class="text-sm font-bold text-base-content">快捷操作</div>
-            <button type="button" data-copy-link
-                    class="btn btn-outline btn-sm w-full justify-between">
-                复制当前链接
-                <i class="fas fa-link"></i>
-            </button>
-            <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank"
-               class="btn btn-outline btn-sm w-full justify-between">
-                访问仓库
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="/api/docs"
-               class="btn btn-outline btn-sm w-full justify-between">
-                API 文档
-                <i class="fas fa-book"></i>
-            </a>
-            <a href="mailto:dealiaxy@gmail.com"
-               class="btn btn-outline btn-sm w-full justify-between">
-                反馈建议
-                <i class="fas fa-paper-plane"></i>
-            </a>
-            
-            <div class="divider my-2"></div>
-            
-            <div class="space-y-3">
-                <div class="text-sm font-bold text-base-content">阅读进度</div>
-                <progress class="progress progress-primary w-full" value="40" max="100"></progress>
-                <div class="text-xs text-base-content/50">持续更新中，欢迎关注。</div>
-            </div>
-        </div>
-    </aside>
+    </div>
 </div>
+{% endblock %}
 
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
-    const copyButton = document.querySelector("[data-copy-link]");
-    if (copyButton) {
-        copyButton.addEventListener("click", () => {
-            navigator.clipboard.writeText(window.location.href);
-            const originalHtml = copyButton.innerHTML;
-            copyButton.classList.add("btn-success", "text-white");
-            copyButton.innerHTML = "已复制链接 <i class='fas fa-check'></i>";
-            setTimeout(() => {
-                copyButton.classList.remove("btn-success", "text-white");
-                copyButton.innerHTML = originalHtml;
-            }, 1600);
-        });
-    }
+    // Init Highlight.js
+    hljs.highlightAll();
+
+    // Copy Code Button Logic
+    document.querySelectorAll('pre').forEach((pre) => {
+        // Wrapper for positioning
+        const wrapper = document.createElement('div');
+        wrapper.className = 'relative group mb-4';
+        
+        // Replace pre with wrapper in DOM
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        // Styling the pre to look nice with the button
+        pre.className += ' !bg-[#0d1117] !p-4 !rounded-xl !my-0'; // Force GitHub Dark bg
+        
+        // Create button
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-xs btn-square btn-ghost absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all bg-base-100/10 hover:bg-base-100/20 text-white';
+        btn.innerHTML = '<i class="fas fa-copy"></i>';
+        btn.title = "复制代码";
+        
+        btn.onclick = () => {
+            const code = pre.querySelector('code').innerText;
+            navigator.clipboard.writeText(code);
+            btn.innerHTML = '<i class="fas fa-check text-success"></i>';
+            setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i>', 2000);
+        };
+        wrapper.appendChild(btn);
+    });
 </script>
 {% endblock %}
