@@ -90,14 +90,6 @@
         <aside class="bg-base-200 min-h-full border-r border-base-300 flex flex-col sidebar-transition relative group w-60"
                :class="!isExpanded ? 'lg:w-20' : ''">
             
-            <!-- Toggle Button (Desktop Only) -->
-            <button @click="toggleSidebar()" 
-                    class="absolute -right-3 top-9 btn btn-circle btn-xs btn-primary z-50 hidden lg:flex shadow-md border-2 border-base-100 transform transition-transform duration-300"
-                    :class="sidebarOpen ? 'rotate-0' : 'rotate-180'"
-                    aria-label="Toggle Sidebar">
-                <i class="fa-solid fa-chevron-left text-[10px]"></i>
-            </button>
-
             <!-- Sidebar Header -->
             <div class="h-16 flex items-center border-b border-base-300/50 bg-base-200 sticky top-0 z-20 transition-all duration-300 overflow-hidden"
                  :class="isExpanded ? 'px-6' : 'px-0 justify-center'">
@@ -114,12 +106,13 @@
             </div>
 
             <!-- Sidebar Menu -->
-            <div class="flex-grow overflow-y-auto p-4 custom-scrollbar overflow-x-hidden">
+            <div class="flex-grow flex justify-center overflow-y-auto custom-scrollbar overflow-x-hidden transition-all duration-300"
+                 :class="!isExpanded ? 'px-2 py-4' : 'p-4'">
                 <ul class="menu menu-md gap-1">
                     <li>
                         <a href="{% url 'home:index' %}"
                            class="flex-nowrap {% if request.resolver_match.app_name == 'home' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center tooltip tooltip-right z-50' : ''"
+                           :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
                            :data-tip="isExpanded ? '' : 'Home'">
                             <i class="fa-solid fa-home w-5 text-center"></i> 
                             <span x-show="isExpanded">Home</span>
@@ -128,7 +121,7 @@
                     <li>
                         <a href="{% url 'djs_about:index' %}"
                            class="flex-nowrap {% if request.resolver_match.app_name == 'djs_about' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center tooltip tooltip-right z-50' : ''"
+                           :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
                            :data-tip="isExpanded ? '' : 'About'">
                             <i class="fa-solid fa-info-circle w-5 text-center"></i>
                             <span x-show="isExpanded">About</span>
@@ -144,7 +137,7 @@
                     <li>
                         <a href="{% url 'demo:index' %}"
                            class="flex-nowrap {% if request.resolver_match.app_name == 'demo' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center tooltip tooltip-right z-50' : ''"
+                           :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
                            :data-tip="isExpanded ? '' : 'Components Demo'">
                             <i class="fa-solid fa-layer-group w-5 text-center"></i>
                             <span x-show="isExpanded">Components Demo</span>
@@ -164,7 +157,7 @@
                         <li>
                             <a href="{% url 'account:index' %}" 
                                class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center tooltip tooltip-right z-50' : ''"
+                               :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
                                :data-tip="isExpanded ? '' : 'Profile'">
                                 <i class="fa-solid fa-user w-5 text-center"></i>
                                 <span x-show="isExpanded">Profile</span>
@@ -173,7 +166,7 @@
                         <li>
                             <a href="{% url 'account:settings' %}" 
                                class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center tooltip tooltip-right z-50' : ''"
+                               :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
                                :data-tip="isExpanded ? '' : 'Settings'">
                                 <i class="fa-solid fa-cog w-5 text-center"></i>
                                 <span x-show="isExpanded">Settings</span>
@@ -183,7 +176,7 @@
                         <li>
                             <a href="{% url 'account:login' %}" 
                                class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center tooltip tooltip-right z-50' : ''"
+                               :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
                                :data-tip="isExpanded ? '' : 'Login'">
                                 <i class="fa-solid fa-sign-in-alt w-5 text-center"></i>
                                 <span x-show="isExpanded">Login</span>

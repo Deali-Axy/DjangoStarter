@@ -5,7 +5,12 @@
         <label for="app-drawer" class="btn btn-square btn-ghost lg:hidden mr-2">
             <i class="fa-solid fa-bars text-lg"></i>
         </label>
-        
+
+        <!-- Desktop Sidebar Toggle -->
+        <button class="btn btn-square btn-ghost hidden lg:inline-flex mr-2" @click="toggleSidebar()">
+            <i class="fa-solid text-lg" :class="sidebarOpen ? 'fa-bars-staggered' : 'fa-bars'"></i>
+        </button>
+
         <!-- Breadcrumbs (Optional) -->
         <div class="text-sm breadcrumbs hidden md:block ml-2 opacity-70">
             <ul>
@@ -14,16 +19,16 @@
             </ul>
         </div>
     </div>
-    
+
     <div class="flex-none gap-2">
         <!-- Theme Controller -->
         <label class="swap swap-rotate btn btn-ghost btn-circle text-base-content/70 hover:text-primary">
             <!-- this hidden checkbox controls the state -->
-            <input type="checkbox" class="theme-controller" value="business" />
-            
+            <input type="checkbox" class="theme-controller" value="business"/>
+
             <!-- sun icon -->
             <i class="fa-solid fa-sun swap-off w-5 h-5"></i>
-            
+
             <!-- moon icon -->
             <i class="fa-solid fa-moon swap-on w-5 h-5"></i>
         </label>
@@ -42,21 +47,25 @@
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                     <div class="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" alt="avatar" />
+                            <img src="{{ user.avatar.url }}" alt="avatar"/>
                         {% else %}
-                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random" alt="avatar" />
+                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random"
+                                 alt="avatar"/>
                         {% endif %}
                     </div>
                 </div>
-                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-200">
+                <ul tabindex="0"
+                    class="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-200">
                     <li class="menu-title px-4 py-2 border-b border-base-200 mb-2">
                         <span class="font-bold text-base-content">{{ user.username }}</span>
                         <span class="text-xs font-normal opacity-60">{{ user.email }}</span>
                     </li>
                     <li><a href="{% url 'account:index' %}"><i class="fa-solid fa-user opacity-70"></i> Profile</a></li>
-                    <li><a href="{% url 'account:settings' %}"><i class="fa-solid fa-sliders opacity-70"></i> Settings</a></li>
+                    <li><a href="{% url 'account:settings' %}"><i class="fa-solid fa-sliders opacity-70"></i>
+                        Settings</a></li>
                     {% if user.is_staff %}
-                        <li><a href="{% url 'admin:index' %}"><i class="fa-solid fa-shield-halved opacity-70"></i> Admin</a></li>
+                        <li><a href="{% url 'admin:index' %}"><i class="fa-solid fa-shield-halved opacity-70"></i> Admin</a>
+                        </li>
                     {% endif %}
                     <li class="mt-2 border-t border-base-200 pt-2 text-error">
                         <a href="{% url 'account:logout' %}"><i class="fa-solid fa-power-off"></i> Logout</a>
