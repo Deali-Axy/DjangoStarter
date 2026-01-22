@@ -245,12 +245,6 @@ def login_sso(request):
     code = request.GET.get('code', None)
     state = request.GET.get('state', None)
 
-    userinfo = {
-        'id': '',
-        'phoneNumber': '',
-        'userName': ''
-    }
-
     if not code:
         messages.error(request, 'Invalid code.')
         return redirect(reverse('account:login'))
@@ -262,6 +256,10 @@ def login_sso(request):
         messages.error(request, f'SSO login failed. {e}')
         return redirect(reverse('account:login'))
 
+    if not userinfo or not userinfo.get('userName'):
+        messages.error(request, 'SSO 暂未启用或用户信息获取失败。')
+        return redirect(reverse('account:login'))
+
     user_queryset: QuerySet[User] = User.objects.filter(username=userinfo['userName'])
 
     if user_queryset.exists():
@@ -270,7 +268,7 @@ def login_sso(request):
         user: User = User.objects.create_user(
             username=userinfo['userName'],
         )
-        user.profile.phone = userinfo['phoneNumber']
+        user.profile.phone = userinfo.get('phoneNumber') or ''
         user.profile.save()
 
     login(request, user)
