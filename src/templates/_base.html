@@ -39,7 +39,7 @@
 
 <body class="bg-base-100 text-base-content">
 
-<div class="drawer lg:drawer-open">
+<div class="drawer {% block drawer_class %}lg:drawer-open{% endblock %}">
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
     
     <div class="drawer-content flex flex-col min-h-screen">

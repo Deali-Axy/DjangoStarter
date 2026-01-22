@@ -226,26 +226,23 @@
 3.  **Alert 重构**: 修改 `src/templates/_components/alert.html`。
 4.  **Sidebar 重构**: 在 `account` 应用中测试新的侧边栏结构。
 
-### Phase 3: 页面级重构与架构调整
-1.  **创建 Home 应用**:
-    *   创建应用: `cd src/apps && uv run django-admin startapp home`。
-    *   注册应用: 在 `src/config/settings/components/install_apps.py` 中添加 `apps.home`。
-    *   路由接管: 修改 `src/config/urls.py`，将根路径 `/` 路由指向 `apps.home.urls`。
-2.  **Landing Page 重构 (Home)**:
-    *   新建 `src/apps/home/templates/home/index.html`，实现基于 DaisyUI 的现代化 Landing Page (Hero + Bento Grid)。
-    *   迁移原 `guide` 应用中的首页内容。
-3.  **Dashboard 重构 (Home)**:
-    *   新建 `src/apps/home/templates/home/dashboard.html`，作为用户登录后的默认跳转页。
-    *   实现 Overview Cards 和 Quick Actions 区域。
-4.  **业务应用重构 (Apps)**:
-    * 参考世界顶级的产品的相关UI设计
-    *   **Account (`src/apps/account`)**:
-        *   **Auth**: 重构登录、注册、找回密码页面 (`login.html`, `sign-up.html`)，使用 DaisyUI Card 居中布局。
-        *   **Profile**: 重构个人中心 (`profile.html`, `settings.html`)，使用 Tabs 组件切换设置项。
-    *   **Demo (`src/apps/demo`)**:
-        *   **Data Display**: 重构电影/音乐列表页，验证 `table-zebra` 和 `card` 组件。
-        *   **HTMX**: 确保 Demo 中的无限滚动、局部搜索等 HTMX 交互在 DaisyUI 下正常工作。
-5.  **核心组件库重构 (Contrib)**:
+### Phase 3: 页面重构 (Pages)
+- [x] **创建 Home 应用**:
+    - [x] 创建应用 `src/apps/home` 并注册。
+    - [x] 路由接管: 根路径 `/` 指向 `apps.home.urls`。
+- [x] **Landing Page 重构 (Home)**:
+    - [x] 新建 `index.html`，实现 Hero + Bento Grid + Social Proof。
+    - [x] 适配 `_base.html` 的 Drawer 布局 (Landing Page 默认隐藏侧边栏)。
+- [x] **Dashboard 重构 (Home)**:
+    - [x] 新建 `dashboard.html`，实现 Stats, Quick Actions, Activity Feed。
+- [ ] **业务应用重构 (Apps)**:
+    - [ ] **Account (`src/apps/account`)**:
+        - [ ] Auth: 重构登录、注册、找回密码页面。
+        - [ ] Profile: 重构个人中心。
+    - [ ] **Demo (`src/apps/demo`)**:
+        - [ ] Data Display: 重构电影/音乐列表页。
+        - [ ] HTMX: 验证 HTMX 交互。
+- [ ] **核心组件库重构 (Contrib)**:
     * 参考世界顶级的产品的相关UI设计
     *   **About (`contrib.about`)**: 重构关于、联系我们、隐私协议等静态页，补充扩写隐私、服务协议等内容。对于大段文本内容，使用 Tailwind Typography (`prose`) 插件进行排版。
     *   **Docs (`contrib.docs`)**: 适配文档阅读器页面，确保 Markdown 渲染样式与新主题兼容。

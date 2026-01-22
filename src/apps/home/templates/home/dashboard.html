@@ -1,0 +1,176 @@
+{% extends '_base.html' %}
+{% load page_tags i18n static %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<!-- Overview Stats -->
+<div class="stats shadow w-full mb-8 bg-base-100 border border-base-200">
+  
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      <i class="fa-solid fa-users text-3xl"></i>
+    </div>
+    <div class="stat-title">Total Users</div>
+    <div class="stat-value text-primary">25.6K</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <i class="fa-solid fa-bolt text-3xl"></i>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-secondary">2.6M</div>
+    <div class="stat-desc">14% more than last month</div>
+  </div>
+  
+  <div class="stat">
+    <div class="stat-figure text-accent">
+        <i class="fa-solid fa-tasks text-3xl"></i>
+    </div>
+    <div class="stat-title">Tasks Done</div>
+    <div class="stat-value">86%</div>
+    <div class="stat-desc text-secondary">31 tasks remaining</div>
+  </div>
+  
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content / Quick Actions -->
+    <div class="lg:col-span-2 space-y-6">
+        <!-- Quick Actions -->
+        <div class="card bg-base-100 shadow-sm border border-base-200">
+            <div class="card-body">
+                <h3 class="card-title text-base mb-4">Quick Actions</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="#" class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-primary hover:bg-primary/5">
+                        <i class="fa-solid fa-plus-circle text-2xl text-primary"></i>
+                        <span class="font-normal">New Project</span>
+                    </a>
+                    <a href="#" class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-primary hover:bg-primary/5">
+                        <i class="fa-solid fa-user-plus text-2xl text-secondary"></i>
+                        <span class="font-normal">Invite Team</span>
+                    </a>
+                    <a href="#" class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-primary hover:bg-primary/5">
+                        <i class="fa-solid fa-file-invoice text-2xl text-accent"></i>
+                        <span class="font-normal">Invoices</span>
+                    </a>
+                    <a href="#" class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-primary hover:bg-primary/5">
+                        <i class="fa-solid fa-cog text-2xl text-neutral"></i>
+                        <span class="font-normal">Settings</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Projects Table -->
+        <div class="card bg-base-100 shadow-sm border border-base-200">
+            <div class="card-body p-0">
+                <div class="p-4 border-b border-base-200 flex justify-between items-center">
+                    <h3 class="card-title text-base">Recent Projects</h3>
+                    <button class="btn btn-xs btn-ghost">View All</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra">
+                        <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Team</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-medium">Website Redesign</td>
+                                <td><div class="badge badge-success badge-outline">Active</div></td>
+                                <td><progress class="progress progress-success w-20" value="70" max="100"></progress></td>
+                                <td>
+                                    <div class="avatar-group -space-x-3 rtl:space-x-reverse">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-neutral text-neutral-content w-6"><span>D</span></div>
+                                        </div>
+                                        <div class="avatar placeholder">
+                                            <div class="bg-neutral text-neutral-content w-6"><span>A</span></div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">Mobile App</td>
+                                <td><div class="badge badge-warning badge-outline">Pending</div></td>
+                                <td><progress class="progress progress-warning w-20" value="40" max="100"></progress></td>
+                                <td>
+                                    <div class="avatar placeholder">
+                                        <div class="bg-neutral text-neutral-content w-6"><span>M</span></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">Marketing Campaign</td>
+                                <td><div class="badge badge-ghost badge-outline">Done</div></td>
+                                <td><progress class="progress w-20" value="100" max="100"></progress></td>
+                                <td>
+                                    <div class="avatar-group -space-x-3 rtl:space-x-reverse">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-neutral text-neutral-content w-6"><span>J</span></div>
+                                        </div>
+                                        <div class="avatar placeholder">
+                                            <div class="bg-neutral text-neutral-content w-6"><span>K</span></div>
+                                        </div>
+                                        <div class="avatar placeholder">
+                                            <div class="bg-neutral text-neutral-content w-6"><span>+2</span></div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Sidebar / Activity Feed -->
+    <div class="card bg-base-100 shadow-sm border border-base-200 h-fit">
+        <div class="card-body">
+            <h3 class="card-title text-base mb-4">Activity Feed</h3>
+            
+            <ul class="timeline timeline-vertical timeline-compact -ml-4">
+                <li>
+                    <div class="timeline-middle">
+                        <i class="fa-solid fa-check-circle text-success"></i>
+                    </div>
+                    <div class="timeline-end timeline-box bg-base-100 shadow-none border-none p-2">
+                        <p class="text-sm font-medium">Deployed to production</p>
+                        <p class="text-xs text-base-content/60">2 hours ago</p>
+                    </div>
+                    <hr class="bg-base-200"/>
+                </li>
+                <li>
+                    <hr class="bg-base-200"/>
+                    <div class="timeline-middle">
+                        <i class="fa-solid fa-code-commit text-primary"></i>
+                    </div>
+                    <div class="timeline-end timeline-box bg-base-100 shadow-none border-none p-2">
+                        <p class="text-sm font-medium">New commit on main</p>
+                        <p class="text-xs text-base-content/60">4 hours ago</p>
+                    </div>
+                    <hr class="bg-base-200"/>
+                </li>
+                <li>
+                    <hr class="bg-base-200"/>
+                    <div class="timeline-middle">
+                        <i class="fa-solid fa-user-plus text-secondary"></i>
+                    </div>
+                    <div class="timeline-end timeline-box bg-base-100 shadow-none border-none p-2">
+                        <p class="text-sm font-medium">New user registered</p>
+                        <p class="text-xs text-base-content/60">Yesterday</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

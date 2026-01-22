@@ -1,0 +1,112 @@
+{% extends '_base.html' %}
+{% load static i18n %}
+
+{% block drawer_class %}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero min-h-[70vh] bg-base-100">
+  <div class="hero-content text-center">
+    <div class="max-w-3xl">
+      <div class="badge badge-primary badge-outline mb-4 animate-fade-in">v1.0 is now available</div>
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 animate-fade-in" style="animation-delay: 0.1s">
+        Build SaaS faster with <span class="text-primary">DjangoStarter</span>
+      </h1>
+      <p class="py-6 text-xl text-base-content/80 max-w-2xl mx-auto animate-fade-in" style="animation-delay: 0.2s">
+        The modern Django boilerplate for startups. 
+        Docker, HTMX, Alpine.js, and DaisyUI pre-configured. 
+        Stop configuring, start building.
+      </p>
+      <div class="flex flex-col md:flex-row gap-4 justify-center animate-fade-in" style="animation-delay: 0.3s">
+        <a href="{% url 'account:login' %}" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank" class="btn btn-ghost btn-lg">
+            <i class="fa-brands fa-github text-xl"></i> View on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Social Proof -->
+<div class="py-12 bg-base-200/50 border-y border-base-200">
+    <div class="container mx-auto px-4 text-center">
+        <p class="text-sm font-semibold text-base-content/50 uppercase tracking-widest mb-8">Trusted by developers from</p>
+        <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+            <!-- Placeholders for logos -->
+            <div class="flex items-center gap-2 text-xl font-bold"><i class="fa-brands fa-google"></i> Google</div>
+            <div class="flex items-center gap-2 text-xl font-bold"><i class="fa-brands fa-microsoft"></i> Microsoft</div>
+            <div class="flex items-center gap-2 text-xl font-bold"><i class="fa-brands fa-spotify"></i> Spotify</div>
+            <div class="flex items-center gap-2 text-xl font-bold"><i class="fa-brands fa-amazon"></i> Amazon</div>
+        </div>
+    </div>
+</div>
+
+<!-- Bento Grid Features -->
+<section class="py-24 px-4 bg-base-100">
+    <div class="container mx-auto max-w-6xl">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold tracking-tight mb-4">Everything you need to ship</h2>
+            <p class="text-lg text-base-content/70">Production-ready features out of the box.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+            <!-- Large Card -->
+            <div class="card bg-base-200 md:col-span-2 row-span-2 overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                <div class="card-body">
+                    <h3 class="card-title text-2xl">Modern UI Stack</h3>
+                    <p class="text-base-content/70">Tailwind CSS v4 + DaisyUI v5 + Alpine.js. The perfect blend of utility-first CSS and component-based design.</p>
+                </div>
+                <div class="bg-base-100 m-4 rounded-xl shadow-lg h-full transform translate-y-4 group-hover:translate-y-2 transition-transform duration-500 border border-base-300 p-4">
+                    <!-- Mockup UI -->
+                    <div class="flex gap-2 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                    </div>
+                    <div class="skeleton h-4 w-3/4 mb-2"></div>
+                    <div class="skeleton h-4 w-full mb-2"></div>
+                    <div class="skeleton h-32 w-full"></div>
+                </div>
+            </div>
+
+            <!-- Small Card 1 -->
+            <div class="card bg-primary text-primary-content hover:shadow-xl transition-all duration-300">
+                <div class="card-body justify-between">
+                    <i class="fa-solid fa-rocket text-4xl mb-4"></i>
+                    <div>
+                        <h3 class="card-title">Production Ready</h3>
+                        <p class="opacity-90 mt-2">Docker Compose, Redis caching, and Gulp asset pipeline pre-configured.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Small Card 2 -->
+            <div class="card bg-base-200 hover:shadow-xl transition-all duration-300">
+                <div class="card-body">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-3 bg-blue-500/10 rounded-lg text-blue-500">
+                            <i class="fa-solid fa-database text-xl"></i>
+                        </div>
+                        <h3 class="card-title">Database First</h3>
+                    </div>
+                    <p class="text-base-content/70">Django ORM with Soft Deletes and Audit logging built-in.</p>
+                </div>
+            </div>
+
+            <!-- Medium Card -->
+            <div class="card bg-base-200 md:col-span-3 hover:shadow-xl transition-all duration-300">
+                <div class="card-body flex-row items-center gap-8">
+                    <div class="flex-1">
+                        <h3 class="card-title text-2xl mb-2">Developer Experience</h3>
+                        <p class="text-base-content/70 mb-4">Auto-generate CRUD APIs, tests, and Admin interfaces with a single command.</p>
+                        <div class="mockup-code bg-neutral text-neutral-content w-full max-w-md">
+                            <pre data-prefix="$"><code>uv run manage.py autocode blog "Blog"</code></pre>
+                            <pre data-prefix=">" class="text-success"><code>Generated models, views, and tests!</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
