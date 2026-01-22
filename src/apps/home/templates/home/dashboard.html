@@ -144,8 +144,30 @@
         </div>
     </div>
 
-    <!-- Right Sidebar / Activity Feed -->
-    <div class="card bg-base-100 shadow-sm border border-base-200 h-fit" data-aos="fade-up" data-aos-delay="300">
+    <!-- Right Sidebar -->
+    <div class="space-y-6">
+        <!-- Developer Tools -->
+        <div class="card bg-base-100 shadow-sm border border-base-200 h-fit" data-aos="fade-up" data-aos-delay="250">
+            <div class="card-body">
+                <h3 class="card-title text-base font-bold mb-4">
+                    <i class="fa-solid fa-toolbox text-primary mr-2"></i> Developer Tools
+                </h3>
+                <div class="flex flex-col gap-2">
+                    <a href="/api/docs" target="_blank" class="btn btn-outline btn-sm justify-start gap-3 normal-case font-normal">
+                        <i class="fa-solid fa-book-open text-primary"></i> API Documentation
+                    </a>
+                    <a href="/admin/" target="_blank" class="btn btn-outline btn-sm justify-start gap-3 normal-case font-normal">
+                        <i class="fa-solid fa-user-shield text-secondary"></i> Admin Panel
+                    </a>
+                    <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank" class="btn btn-outline btn-sm justify-start gap-3 normal-case font-normal">
+                        <i class="fa-brands fa-github text-accent"></i> Source Code
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="card bg-base-100 shadow-sm border border-base-200 h-fit" data-aos="fade-up" data-aos-delay="300">
         <div class="card-body p-0">
             <!-- Header -->
             <div class="p-4 border-b border-base-200 flex justify-between items-center">
@@ -224,6 +246,7 @@
                 </button>
             </div>
         </div>
+    </div>
     </div>
 </div>
 {% endblock %}
