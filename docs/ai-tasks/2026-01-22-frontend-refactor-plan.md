@@ -177,7 +177,20 @@
 3.  **Dashboard 重构 (Home)**:
     *   新建 `src/apps/home/templates/home/dashboard.html`，作为用户登录后的默认跳转页。
     *   实现 Overview Cards 和 Quick Actions 区域。
-4.  **Form Pages**: 参考世界顶级的产品的相关UI设计，重构登录、注册、设置页面，替换 Input 和 Button；**引入 Alpine.js 处理表单验证反馈**。
+4.  **业务应用重构 (Apps)**:
+    * 参考世界顶级的产品的相关UI设计
+    *   **Account (`src/apps/account`)**:
+        *   **Auth**: 重构登录、注册、找回密码页面 (`login.html`, `sign-up.html`)，使用 DaisyUI Card 居中布局。
+        *   **Profile**: 重构个人中心 (`profile.html`, `settings.html`)，使用 Tabs 组件切换设置项。
+    *   **Demo (`src/apps/demo`)**:
+        *   **Data Display**: 重构电影/音乐列表页，验证 `table-zebra` 和 `card` 组件。
+        *   **HTMX**: 确保 Demo 中的无限滚动、局部搜索等 HTMX 交互在 DaisyUI 下正常工作。
+5.  **核心组件库重构 (Contrib)**:
+    * 参考世界顶级的产品的相关UI设计
+    *   **About (`contrib.about`)**: 重构关于、联系我们、隐私协议等静态页，补充扩写隐私、服务协议等内容。对于大段文本内容，使用 Tailwind Typography (`prose`) 插件进行排版。
+    *   **Docs (`contrib.docs`)**: 适配文档阅读器页面，确保 Markdown 渲染样式与新主题兼容。
+    *   **Forms (`contrib.forms`)**: **移除 Flowbite Datepicker**，使用原生 `<input type="date" class="input">` 或集成 Alpine.js 轻量级日期选择器。
+    *   **Guide (`contrib.guide`)**: 确认首页内容已迁移至 `Home` 应用，清理旧代码。
 
 ### Phase 4: 清理与收尾
 1.  **移除 Flowbite**: 删除 `node_modules` 中的 flowbite，移除 `tailwind.config.js` 中的 flowbite 插件。
