@@ -1,18 +1,28 @@
 // 检查用户偏好的主题并应用
-if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-} else {
-    document.documentElement.classList.remove('dark');
+function initTheme() {
+    const theme = localStorage.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'business' : 'corporate');
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'business') {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
 }
+initTheme();
 
 // 主题切换函数
 function toggleDarkMode() {
-    if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark');
-        localStorage.theme = 'light';
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'business' ? 'corporate' : 'business';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.theme = newTheme;
+    
+    if (newTheme === 'business') {
+        html.classList.add('dark');
     } else {
-        document.documentElement.classList.add('dark');
-        localStorage.theme = 'dark';
+        html.classList.remove('dark');
     }
 }
 

@@ -34,11 +34,14 @@
     - [ ] Pagination: 分页器样式统一。
 
 ### 3. 实施与验收 (Implementation & QA)
-- [ ] **Phase 1: 基础环境与规范 (Week 1)**
+- [x] **Phase 1: 基础环境与规范 (Week 1)**
     - [x] 移除 Flowbite，安装配置 DaisyUI & Alpine.js。
     - [x] 建立全局 CSS 变量 (Design Tokens) (已通过 DaisyUI Themes 配置)。
 - [ ] **Phase 2: 组件库迁移 (Components)**
-    - [ ] 按优先级重构上述组件清单。
+    - [x] **Navbar 重构**: 已使用 DaisyUI `navbar` + Alpine.js 实现响应式导航。
+    - [x] **Page Header 重构**: 已更新 `page_header.html` 适配新设计风格。
+    - [x] **Alert 重构**: 已更新 `alert.html` 使用 DaisyUI `alert` 组件。
+    - [x] **Sidebar 重构**: 已在 `_base.html` 中实现 Drawer 侧边栏结构。
     - [ ] **单元测试**: 为核心交互组件 (如 Dropdown, Modal) 编写简单的 JS 逻辑测试 (可选)。
     - [ ] **UI测试**: 确保每个组件在 Light/Dark 模式下表现一致。
 - [ ] **Phase 3: 页面重构 (Pages)**

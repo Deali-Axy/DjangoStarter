@@ -1,99 +1,66 @@
 {% load i18n %}
 {% load nav_menu_tags %}
 
-
-<nav class="bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-700 sticky top-0 z-50 shadow-sm transition-colors duration-300">
-    <div class="container flex flex-wrap items-center justify-between mx-auto px-4 py-3 lg:px-0">
-        <a href="{% url 'djs_guide:index' %}" class="flex items-center text-xl space-x-3 rtl:space-x-reverse">
-            <i class="fa-brands fa-python text-blue-600 dark:text-blue-500 text-2xl"></i>
-            <span class="self-center font-semibold whitespace-nowrap dark:text-white">DjangoStarter</span>
+<div class="navbar bg-base-100 border-b border-base-200 sticky top-0 z-30 backdrop-blur">
+    <div class="navbar-start">
+        <div class="flex-none lg:hidden">
+            <label for="app-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+        </div>
+        <a href="{% url 'djs_guide:index' %}" class="btn btn-ghost text-xl hidden lg:flex gap-2">
+            <i class="fa-brands fa-python text-primary"></i>
+            DjangoStarter
         </a>
-        <div class="flex items-center md:order-2 space-x-3">
-            <!-- 语言切换组件 -->
-            {% include '_components/language_switcher.html' %}
-            
-            <!-- 暗黑模式切换按钮 -->
-            <button id="theme-toggle" type="button" onclick="toggleDarkMode()"
-                    class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm py-2 px-3">
-                <span class="hidden dark:block"><i class="fa-solid fa-sun"></i></span>
-                <span class="block dark:hidden"><i class="fa-solid fa-moon"></i></span>
-                <span class="sr-only">{% trans "Toggle dark mode" %}</span>
-            </button>
+    </div>
 
-            {% if user.is_authenticated %}
-                <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
-                        class="flex gap-2 items-center justify-between py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent rounded-full">
-                    <div class="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-blue-100 dark:bg-blue-900 rounded-full">
-                    <span class="font-medium text-gray-600 dark:text-gray-300">
-                        {{ user.username|slice:":1"|upper }}
-                    </span>
-                    </div>
-                    <span class="hidden md:inline">
-                    {% if user.profile.full_name %}
-                        {{ user.profile.full_name }}
-                    {% else %}
-                        {{ user.username }}
-                    {% endif %}
-                </span>
-                    <i class="fa-solid fa-chevron-down text-xs"></i>
-                </button>
-                <div id="dropdownNavbar"
-                     class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700 dark:divide-gray-600">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                        aria-labelledby="dropdownLargeButton">
-                        <li>
-                            <a href="{% url 'account:index' %}"
-                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                <i class="fa-solid fa-user-circle mr-2"></i>
-                                {% trans "Profile" %}
-                            </a>
-                        </li>
-                        {% if request.user.is_staff %}
-                            <li>
-                                <a href="{% url 'admin:index' %}"
-                                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <i class="fa-solid fa-user-tie mr-2"></i>
-                                   {% trans "Admin Panel" %}
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                    <div class="py-1">
-                        <a href="{% url 'account:logout' %}"
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                            <i class="fa-solid fa-sign-out-alt mr-2"></i>
-                            {% trans "Logout" %}
-                        </a>
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+            {% get_nav_menu as nav_menu %}
+            {% for menu_item in nav_menu %}
+                <li>
+                    <a href="{{ menu_item.url }}">
+                        <i class="{{ menu_item.icon }}"></i>
+                        {{ menu_item.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="navbar-end gap-2">
+        <!-- Language Switcher -->
+        {% include '_components/language_switcher.html' %}
+
+        <!-- Theme Toggle -->
+        <button class="btn btn-ghost btn-circle" onclick="toggleDarkMode()">
+            <i class="fa-solid fa-moon dark:hidden"></i>
+            <i class="fa-solid fa-sun hidden dark:inline"></i>
+        </button>
+
+        {% if user.is_authenticated %}
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+                    <div class="bg-neutral text-neutral-content rounded-full w-10">
+                        <span class="text-xs">{{ user.username|slice:":1"|upper }}</span>
                     </div>
                 </div>
-            {% else %}
-                <a href="{% url 'account:login' %}"
-                   class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors">
-                    <i class="fa-solid fa-sign-in-alt mr-2"></i>
-                    {% trans "Login" %}
-                </a>
-            {% endif %}
-
-            <button data-collapse-toggle="navbar-multi-level" type="button"
-                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    aria-controls="navbar-multi-level" aria-expanded="false">
-                <span class="sr-only">{% trans "Open main menu" %}</span>
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-        <div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">
-            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700">
-                {% get_nav_menu as nav_menu %}
-                {% for menu_item in nav_menu %}
+                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                     <li>
-                        <a href="{{ menu_item.url }}"
-                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition-colors">
-                            <i class="{{ menu_item.icon }} mr-2 md:mr-1"></i>
-                            {{ menu_item.name }}
+                        <a href="{% url 'account:index' %}" class="justify-between">
+                            {% trans "Profile" %}
                         </a>
                     </li>
-                {% endfor %}
-            </ul>
-        </div>
+                    {% if request.user.is_staff %}
+                        <li><a href="{% url 'admin:index' %}">{% trans "Admin Panel" %}</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'account:logout' %}">{% trans "Logout" %}</a></li>
+                </ul>
+            </div>
+        {% else %}
+            <a href="{% url 'account:login' %}" class="btn btn-primary btn-sm">
+                {% trans "Login" %}
+            </a>
+        {% endif %}
     </div>
-</nav>
+</div>
