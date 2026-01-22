@@ -131,6 +131,25 @@
     *   继续使用 `{% load page_tags %}` 和 `{% page_header ... %}` 组件，需同步更新其实现以适配 DaisyUI。
     *   遵循 Django Template 语义化标签和无障碍标准。
 
+### 2.6 架构优化：引入 Home 应用
+
+当前主页位于 `django_starter/contrib/guide` 应用中，这不符合常规认知且耦合了文档与核心着陆页逻辑。我们将引入全新的 `home` 应用。
+
+*   **应用定位**: `src/apps/home`
+*   **职责范围**:
+    *   **Landing Page (首页)**: 产品展示、功能介绍、定价方案 (Marketing Site)。
+    *   **Dashboard (控制台首页)**: 登录后的首屏，展示核心指标、快捷入口 (App Shell)。
+*   **设计灵感 (World-Class Design)**:
+    *   **风格对标**: Linear (精致暗黑/高对比度), Vercel (极简几何), Stripe (细节微交互)。
+    *   **Landing Page 核心元素**:
+        *   **Hero Section**: 醒目的 H1 标题 (Tracking-tight)，副标题高亮关键价值，双 CTA 按钮 (Primary/Ghost)。
+        *   **Bento Grid**: 使用“便当盒”网格布局展示特性，替代传统的左右图文排版，提升视觉密度和现代感。
+        *   **Social Proof**: 动态滚动的客户/合作伙伴 Logo 墙。
+    *   **Dashboard 核心元素**:
+        *   **Overview Cards**: 关键指标卡片，包含迷你趋势图 (Sparklines)。
+        *   **Quick Actions**: 常用操作的快捷入口，使用大图标+文字描述。
+        *   **Activity Feed**: 最近活动的时间轴展示。
+
 ---
 
 ## 3. 实施步骤 (Roadmap)
@@ -147,10 +166,18 @@
 3.  **Alert 重构**: 修改 `src/templates/_components/alert.html`。
 4.  **Sidebar 重构**: 在 `account` 应用中测试新的侧边栏结构。
 
-### Phase 3: 页面级重构
-1.  **Dashboard**: 重构 `src/apps/account/templates/account/dashboard.html`，替换卡片和统计图表容器。
-2.  **Landing Page**: 重构 `src/apps/demo/templates/demo/index.html`，替换 Hero 和 Feature 区域。
-3.  **Form Pages**: 参考世界顶级的产品的相关UI设计，重构登录、注册、设置页面，替换 Input 和 Button；**引入 Alpine.js 处理表单验证反馈**。
+### Phase 3: 页面级重构与架构调整
+1.  **创建 Home 应用**:
+    *   创建应用: `cd src/apps && uv run django-admin startapp home`。
+    *   注册应用: 在 `src/config/settings/components/install_apps.py` 中添加 `apps.home`。
+    *   路由接管: 修改 `src/config/urls.py`，将根路径 `/` 路由指向 `apps.home.urls`。
+2.  **Landing Page 重构 (Home)**:
+    *   新建 `src/apps/home/templates/home/index.html`，实现基于 DaisyUI 的现代化 Landing Page (Hero + Bento Grid)。
+    *   迁移原 `guide` 应用中的首页内容。
+3.  **Dashboard 重构 (Home)**:
+    *   新建 `src/apps/home/templates/home/dashboard.html`，作为用户登录后的默认跳转页。
+    *   实现 Overview Cards 和 Quick Actions 区域。
+4.  **Form Pages**: 参考世界顶级的产品的相关UI设计，重构登录、注册、设置页面，替换 Input 和 Button；**引入 Alpine.js 处理表单验证反馈**。
 
 ### Phase 4: 清理与收尾
 1.  **移除 Flowbite**: 删除 `node_modules` 中的 flowbite，移除 `tailwind.config.js` 中的 flowbite 插件。
