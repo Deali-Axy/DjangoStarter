@@ -2,9 +2,66 @@
 
 时间: 2026-01-22 10:42:32
 
+## TODO
+
+### 1. 设计调研与规范制定 (Design Research & Specs)
+- [x] **调研顶级产品设计风格**:
+    - [x] 分析 **Linear / Vercel** (SaaS 标杆): 学习其高对比度、微交互、以及“黑白灰”的高级运用。
+    - [x] 分析 **Apple** (Human Interface Guidelines): 学习其模糊效果 (Backdrop Blur)、圆角处理和图标一致性。
+    - [x] 分析 **Google** (Material Design 3): 借鉴其色彩系统 (Dynamic Color) 和海拔 (Elevation) 阴影处理。
+    - [x] 产出调研总结：已创建 [Frontend Design System](../design_system.md)。
+- [x] **制定前端设计规范**:
+    - [x] 定义 **Color System**: 确定 Primary/Secondary/Accent 色板，以及 Dark Mode 适配规则。
+    - [x] 定义 **Typography**: 设定 H1-H6 字体大小、行高、字重 (Inter 字体)。
+    - [x] 定义 **Spacing & Radius**: 统一间距 (4px grid) 和圆角 (0.5rem / 1rem)。
+    - [x] 定义 **Shadows & Depth**: 设定不同层级的阴影效果。
+
+### 2. 组件重构清单 (Component Refactoring)
+- [ ] **基础原子组件**:
+    - [ ] Button: 迁移至 DaisyUI `btn`，定义 primary, ghost, link 变体。
+    - [ ] Inputs: 迁移至 `input`, `textarea`, `checkbox`, `toggle`，统一 Focus Ring 样式。
+    - [ ] Badge/Tag: 迁移至 `badge`，用于状态标识。
+    - [ ] Avatar: 迁移至 `avatar` 组件。
+- [ ] **复合交互组件**:
+    - [ ] Navbar: 实现响应式顶部导航，集成移动端 Drawer 开关。
+    - [ ] Sidebar: 实现可折叠/固定侧边栏，菜单项高亮逻辑。
+    - [ ] Modal: 使用原生 `<dialog>` + DaisyUI 样式，支持 ESC 关闭。
+    - [ ] Dropdown: 结合 Alpine.js 实现点击外部关闭。
+    - [ ] Toast/Alert: 实现全局通知组件。
+- [ ] **数据展示组件**:
+    - [ ] Table: 迁移至 `table table-zebra`，优化移动端滚动体验。
+    - [ ] Card: 统一卡片容器 padding 和 border 样式。
+    - [ ] Pagination: 分页器样式统一。
+
+### 3. 实施与验收 (Implementation & QA)
+- [ ] **Phase 1: 基础环境与规范 (Week 1)**
+    - [x] 移除 Flowbite，安装配置 DaisyUI & Alpine.js。
+    - [x] 建立全局 CSS 变量 (Design Tokens) (已通过 DaisyUI Themes 配置)。
+- [ ] **Phase 2: 组件库迁移 (Components)**
+    - [ ] 按优先级重构上述组件清单。
+    - [ ] **单元测试**: 为核心交互组件 (如 Dropdown, Modal) 编写简单的 JS 逻辑测试 (可选)。
+    - [ ] **UI测试**: 确保每个组件在 Light/Dark 模式下表现一致。
+- [ ] **Phase 3: 页面重构 (Pages)**
+    - [ ] 重构 `_base.html` 布局。
+    - [ ] 重构 Landing Page (Home)。
+    - [ ] 重构 Auth 页面。
+    - [ ] 重构 Dashboard 核心页。
+
+### 4. 文档维护 (Documentation)
+- [ ] **实时更新**: 每完成一个 Checkbox，同步更新本文档状态。
+- [ ] **决策记录**: 在 `docs/architecture/decisions` (如有) 或本文档末尾记录关键 UI 变更决策。
+- [ ] **截图对比**: 记录重构前后的对比截图和性能指标变化。
+
+### 5. 质量保证 (Quality Assurance)
+- [ ] **设计评审**: 检查视觉还原度。
+- [ ] **代码审查**: 检查 HTML 语义化和 Tailwind 类名使用。
+- [ ] **用户体验测试**: 重点测试移动端和深色模式。
+
 ## 1. 概述
 
 本项目计划对前端 UI 进行全面重构，移除 `flowbite` 及其相关 JS 依赖，全面拥抱 **Tailwind CSS + DaisyUI** 生态。
+
+使用 daisyui MCP 查询相关组件，确保新的组件库符合项目需求。
 
 ### 1.1 重构目标
 

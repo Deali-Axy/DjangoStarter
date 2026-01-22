@@ -19,10 +19,10 @@
     "@fortawesome/fontawesome-free": "^6.7.2",
     "alpinejs": "^3.14.8",
     "aos": "^3.0.0-beta.6",
-    "flowbite": "^2.4.1",
     "htmx.org": "^1.9.12"
   },
   "devDependencies": {
+    "daisyui": "^5.5.14",
     "gulp": "^4.0.2",
     "gulp-changed": "^4.0.3",
     "gulp-clean-css": "^4.3.0",
