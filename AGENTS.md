@@ -24,8 +24,8 @@ DjangoStarter 是下一代 Django 项目快速开发模板，专为提升开发�
 - 模板引擎: Django Templates
 - 交互框架: HTMX
 - JavaScript框架: Alpine.js
-- CSS框架: TailwindCSS
-- 组件库: Flowbite
+- CSS框架: TailwindCSS v4
+- 组件库: DaisyUI v5 (Pure CSS)
 - 图标: Font Awesome Free 6
 - 动画: AOS (Animate On Scroll)
 
@@ -245,7 +245,9 @@ def list_users(request):
 
 ### Django View
 
-- 在 context 中传入 title 和 breadcrumbs，示例代码：
+- **页面元数据**: 每个返回独立页面的视图函数（View）必须在 context 中定义 `title` 和 `breadcrumbs`，以保证统一的页面标题显示和导航体验。
+
+  示例代码：
 
   ```python
   context = {
@@ -267,6 +269,7 @@ def list_users(request):
 - 在各个 app 下创建 templates 目录编写前端页面代码，不要直接修改 src\templates 里的代码
 - DjangoStarter 提供 page_header 组件用于渲染标准页面标题和面包屑导航，位于 `django_starter/contrib/navbar/templatetags/page_tags.py` 内，使用时在模板代码顶部引入: `{% load page_tags %}`
 - 根据具体情况选择合适的交互方式，DjangoStarter 默认已集成 HTMX / Alpine.js 相关依赖和配置
+- **页面布局**: 默认使用 DaisyUI Drawer 布局，主内容区在 `block content` 中。
 
 示例页面代码：
 
@@ -284,6 +287,15 @@ def list_users(request):
 {% block content %}
 {% page_header title breadcrumbs %}
 <!-- 页面主体内容，外部已有 container 容器，这里直接写页面内容元素 -->
+<div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+        <h2 class="card-title">Card Title</h2>
+        <p>Content goes here...</p>
+        <div class="card-actions justify-end">
+            <button class="btn btn-primary">Action</button>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 <!-- Alpine.js 交互脚本 -->
@@ -300,11 +312,12 @@ def list_users(request):
 
 #### CSS/TailwindCSS规范
 
-- 优先使用 flowbite 组件库已有组件，保持界面设计风格统一
-- 使用 TailwindCSS 工具类
-- 避免直接使用 CSS
-- 使用响应式设计原则
-- 遵循移动优先的设计理念
+- **优先使用 DaisyUI 组件类** (如 `btn btn-primary`, `card`, `input input-bordered`)，减少冗长的 Utility Classes。
+- 使用daisyui MCP查询组件列表和组件的类名。
+- 使用 TailwindCSS 工具类处理布局和微调。
+- 避免直接使用 CSS，利用 DaisyUI 的 Design Tokens (如 `bg-base-100`, `text-primary`) 确保 Light/Dark 主题适配。
+- 使用响应式设计原则。
+- 遵循移动优先的设计理念。
 
 ### 测试规范
 
