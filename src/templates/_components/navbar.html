@@ -1,66 +1,70 @@
 {% load i18n %}
-{% load nav_menu_tags %}
-
-<div class="navbar bg-base-100 border-b border-base-200 sticky top-0 z-30 backdrop-blur">
-    <div class="navbar-start">
-        <div class="flex-none lg:hidden">
-            <label for="app-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
-                <i class="fa-solid fa-bars"></i>
-            </label>
+<div class="navbar bg-base-100/80 backdrop-blur-md border-b border-base-200 sticky top-0 z-30 h-16">
+    <div class="flex-1">
+        <!-- Mobile Sidebar Toggle -->
+        <label for="app-drawer" class="btn btn-square btn-ghost lg:hidden mr-2">
+            <i class="fa-solid fa-bars text-lg"></i>
+        </label>
+        
+        <!-- Breadcrumbs (Optional) -->
+        <div class="text-sm breadcrumbs hidden md:block ml-2 opacity-70">
+            <ul>
+                <li><a href="/">App</a></li>
+                <li class="font-semibold text-base-content">{{ title|default:"Dashboard" }}</li>
+            </ul>
         </div>
-        <a href="{% url 'home:index' %}" class="btn btn-ghost text-xl hidden lg:flex gap-2">
-            <i class="fa-brands fa-python text-primary"></i>
-            DjangoStarter
-        </a>
     </div>
+    
+    <div class="flex-none gap-2">
+        <!-- Theme Controller -->
+        <label class="swap swap-rotate btn btn-ghost btn-circle text-base-content/70 hover:text-primary">
+            <!-- this hidden checkbox controls the state -->
+            <input type="checkbox" class="theme-controller" value="business" />
+            
+            <!-- sun icon -->
+            <i class="fa-solid fa-sun swap-off w-5 h-5"></i>
+            
+            <!-- moon icon -->
+            <i class="fa-solid fa-moon swap-on w-5 h-5"></i>
+        </label>
 
-    <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-            {% get_nav_menu as nav_menu %}
-            {% for menu_item in nav_menu %}
-                <li>
-                    <a href="{{ menu_item.url }}">
-                        <i class="{{ menu_item.icon }}"></i>
-                        {{ menu_item.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="navbar-end gap-2">
-        <!-- Language Switcher -->
-        {% include '_components/language_switcher.html' %}
-
-        <!-- Theme Toggle -->
-        <button class="btn btn-ghost btn-circle" onclick="toggleDarkMode()">
-            <i class="fa-solid fa-moon dark:hidden"></i>
-            <i class="fa-solid fa-sun hidden dark:inline"></i>
+        <!-- Notifications -->
+        <button class="btn btn-ghost btn-circle text-base-content/70">
+            <div class="indicator">
+                <i class="fa-regular fa-bell w-5 h-5"></i>
+                <span class="badge badge-xs badge-primary indicator-item"></span>
+            </div>
         </button>
 
+        <!-- Profile Dropdown -->
         {% if user.is_authenticated %}
             <div class="dropdown dropdown-end">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
-                    <div class="bg-neutral text-neutral-content rounded-full w-10">
-                        <span class="text-xs">{{ user.username|slice:":1"|upper }}</span>
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" alt="avatar" />
+                        {% else %}
+                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random" alt="avatar" />
+                        {% endif %}
                     </div>
                 </div>
-                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                    <li>
-                        <a href="{% url 'account:index' %}" class="justify-between">
-                            {% trans "Profile" %}
-                        </a>
+                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-200">
+                    <li class="menu-title px-4 py-2 border-b border-base-200 mb-2">
+                        <span class="font-bold text-base-content">{{ user.username }}</span>
+                        <span class="text-xs font-normal opacity-60">{{ user.email }}</span>
                     </li>
-                    {% if request.user.is_staff %}
-                        <li><a href="{% url 'admin:index' %}">{% trans "Admin Panel" %}</a></li>
+                    <li><a href="{% url 'account:index' %}"><i class="fa-solid fa-user opacity-70"></i> Profile</a></li>
+                    <li><a href="{% url 'account:settings' %}"><i class="fa-solid fa-sliders opacity-70"></i> Settings</a></li>
+                    {% if user.is_staff %}
+                        <li><a href="{% url 'admin:index' %}"><i class="fa-solid fa-shield-halved opacity-70"></i> Admin</a></li>
                     {% endif %}
-                    <li><a href="{% url 'account:logout' %}">{% trans "Logout" %}</a></li>
+                    <li class="mt-2 border-t border-base-200 pt-2 text-error">
+                        <a href="{% url 'account:logout' %}"><i class="fa-solid fa-power-off"></i> Logout</a>
+                    </li>
                 </ul>
             </div>
         {% else %}
-            <a href="{% url 'account:login' %}" class="btn btn-primary btn-sm">
-                {% trans "Login" %}
-            </a>
+            <a href="{% url 'account:login' %}" class="btn btn-primary btn-sm">Sign In</a>
         {% endif %}
     </div>
 </div>

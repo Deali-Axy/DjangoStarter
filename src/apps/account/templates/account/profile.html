@@ -4,11 +4,13 @@
 
 {% block sub_content %}
     <div class="mb-6 border-b border-base-200 pb-4">
-        <h2 class="text-2xl font-bold flex items-center gap-2">
-            <i class="fa-solid fa-user-edit text-primary"></i>
+        <h2 class="text-2xl font-bold tracking-tight flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                <i class="fa-solid fa-user-edit text-sm"></i>
+            </div>
             修改个人资料
         </h2>
-        <p class="text-base-content/60 mt-1">更新您的个人信息和偏好设置</p>
+        <p class="text-base-content/60 mt-1 pl-10">更新您的个人信息和偏好设置</p>
     </div>
 
     <form method="POST" class="space-y-6 max-w-2xl">
@@ -19,12 +21,12 @@
                 <label class="label" for="{{ field.id_for_label }}">
                     <span class="label-text font-medium">{{ field.label }}</span>
                     {% if field.field.required %}
-                        <span class="label-text-alt text-error">*</span>
+                        <span class="label-text-alt text-error" title="Required">*</span>
                     {% endif %}
                 </label>
                 
                 {% if field.field.widget.input_type == 'select' %}
-                    <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="select w-full">
+                    <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="select select-bordered w-full focus:select-primary">
                         {% for choice in field.field.choices %}
                             <option value="{{ choice.0 }}" {% if choice.0 == field.value %}selected{% endif %}>{{ choice.1 }}</option>
                         {% endfor %}
@@ -34,7 +36,7 @@
                            name="{{ field.name }}" 
                            id="{{ field.id_for_label }}"
                            value="{{ field.value|default:'' }}"
-                           class="input w-full"
+                           class="input input-bordered w-full focus:input-primary"
                            placeholder="请输入{{ field.label }}">
                 {% endif %}
                 
@@ -49,8 +51,8 @@
             </div>
         {% endfor %}
 
-        <div class="flex gap-4 pt-4">
-            <button type="submit" class="btn btn-primary">
+        <div class="flex gap-4 pt-4 border-t border-base-200 mt-8">
+            <button type="submit" class="btn btn-primary shadow-md shadow-primary/20">
                 <i class="fa-solid fa-save"></i>
                 保存资料
             </button>
@@ -60,11 +62,11 @@
         </div>
     </form>
 
-    <div class="alert alert-info mt-8 shadow-sm">
+    <div role="alert" class="alert alert-info alert-soft mt-8">
         <i class="fa-solid fa-circle-info"></i>
         <div>
             <h3 class="font-bold">温馨提示</h3>
-            <div class="text-xs">请确保您的个人信息准确无误，这将有助于我们为您提供更好的服务。标有 <span class="text-error">*</span> 的字段为必填项。</div>
+            <div class="text-xs">请确保您的个人信息准确无误，这将有助于我们为您提供更好的服务。</div>
         </div>
     </div>
 {% endblock %}

@@ -5,13 +5,15 @@
 
 {% block content %}
 <div class="flex justify-center items-center min-h-[calc(100vh-10rem)]">
-    <div class="card bg-base-100 w-full max-w-md shadow-xl border border-base-200">
+    <div class="card bg-base-100/90 backdrop-blur-sm w-full max-w-md shadow-xl border border-base-200" data-aos="fade-up">
         <div class="card-body">
             <div class="text-center mb-6">
                 <div class="flex justify-center mb-4">
-                    <img src="https://blog.sblt.deali.cn:9000/Api/PicLib/Random/32/32" class="w-12 h-12 rounded-lg" alt="Logo"/>
+                    <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-primary-content text-2xl">
+                        <i class="fa-brands fa-python"></i>
+                    </div>
                 </div>
-                <h1 class="text-2xl font-bold">欢迎回来</h1>
+                <h1 class="text-2xl font-bold tracking-tight">欢迎回来</h1>
                 <p class="text-base-content/60 mt-2">登录您的账户以继续</p>
             </div>
 
@@ -24,7 +26,10 @@
                     </label>
                     {{ form.username }}
                     {% if form.username.errors %}
-                        <div class="text-error text-sm mt-1">{{ form.username.errors.0 }}</div>
+                        <div class="text-error text-sm mt-1 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            {{ form.username.errors.0 }}
+                        </div>
                     {% endif %}
                 </div>
 
@@ -34,27 +39,30 @@
                     </label>
                     {{ form.password }}
                     {% if form.password.errors %}
-                        <div class="text-error text-sm mt-1">{{ form.password.errors.0 }}</div>
+                        <div class="text-error text-sm mt-1 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            {{ form.password.errors.0 }}
+                        </div>
                     {% endif %}
                     <label class="label">
-                        <a href="#" class="label-text-alt link link-hover">忘记密码？</a>
+                        <a href="#" class="label-text-alt link link-hover link-primary">忘记密码？</a>
                     </label>
                 </div>
 
                 <div class="form-control">
                     <label class="cursor-pointer label justify-start gap-2">
-                        <input type="checkbox" class="checkbox checkbox-sm checkbox-primary" />
+                        <input type="checkbox" class="checkbox checkbox-sm checkbox-primary rounded" />
                         <span class="label-text">记住我</span>
                     </label>
                 </div>
 
                 <div class="form-control mt-6">
-                    <button type="submit" class="btn btn-primary w-full">登录</button>
+                    <button type="submit" class="btn btn-primary w-full shadow-lg shadow-primary/20">登录</button>
                 </div>
 
-                <div class="text-center mt-4 text-sm">
+                <div class="text-center mt-6 text-sm">
                     还没有账号？
-                    <a href="{% url 'account:sign-up' %}" class="link link-primary">立即注册</a>
+                    <a href="{% url 'account:sign-up' %}" class="link link-primary font-medium">立即注册</a>
                 </div>
             </form>
         </div>
@@ -66,7 +74,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
         inputs.forEach(input => {
-            input.classList.add('input', 'w-full');
+            input.classList.add('input', 'input-bordered', 'w-full', 'focus:input-primary');
             // 移除可能存在的旧类名
             input.classList.remove('border-gray-300', 'focus:ring-primary-300');
         });

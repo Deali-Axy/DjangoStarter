@@ -11,4 +11,28 @@
 @theme {
   --font-body: "Inter", "ui-sans-serif", "system-ui", "-apple-system", "system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-sans: "Inter", "ui-sans-serif", "system-ui", "-apple-system", "system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  
+  /* Custom Animations if needed, but prefer AOS */
+}
+
+/* Global Overrides for Linear-Style refinement */
+:root {
+  --rounded-box: 0.5rem; /* 8px for cards */
+  --rounded-btn: 0.375rem; /* 6px for buttons */
+}
+
+/* Scrollbar refinement */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, currentColor 30%, transparent);
 }

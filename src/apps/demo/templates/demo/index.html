@@ -5,38 +5,23 @@
 
 {% block title %}Demo Dashboard{% endblock %}
 
-{% block extra_js %}
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init({
-      once: true,
-      offset: 50,
-      duration: 800,
-  });
-</script>
-{% endblock %}
-
-{% block extra_css %}
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
-    {% page_header title breadcrumbs %}
+    <div data-aos="fade-down">
+        {% page_header title breadcrumbs %}
+    </div>
 
     <!-- Stats Overview -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="stats shadow w-full mb-8 bg-base-100 border border-base-200 grid-flow-row md:grid-flow-col" data-aos="fade-up">
         {% for stat in stats %}
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-            <div class="flex items-center justify-between mb-4">
-                <div class="bg-{{ stat.color }}-100 dark:bg-{{ stat.color }}-900 p-3 rounded-lg text-{{ stat.color }}-600 dark:text-{{ stat.color }}-300">
-                    <i class="{{ stat.icon }} text-xl"></i>
-                </div>
-                <span class="text-sm font-medium text-green-500 bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded-full">
-                    {{ stat.change }}
-                </span>
+        <div class="stat">
+            <div class="stat-figure text-{{ stat.color }} opacity-80">
+                <i class="{{ stat.icon }} text-3xl"></i>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ stat.value }}</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">{{ stat.label }}</p>
+            <div class="stat-title">{{ stat.label }}</div>
+            <div class="stat-value text-{{ stat.color }}">{{ stat.value }}</div>
+            <div class="stat-desc text-success bg-success/10 px-2 py-0.5 rounded-full inline-block mt-1 font-bold">
+                {{ stat.change }}
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -46,80 +31,90 @@
         
         <!-- Quick Actions / Demo Modules -->
         <div class="lg:col-span-2 space-y-8">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center">
-                <i class="fa-solid fa-rocket mr-2 text-indigo-500"></i>
+            <h2 class="text-xl font-bold flex items-center gap-2" data-aos="fade-right">
+                <i class="fa-solid fa-rocket text-primary"></i>
                 Explore Modules
             </h2>
             
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Movies Card -->
-                <a href="{% url 'demo:movies' %}" class="group block p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-indigo-50 dark:bg-indigo-900/30 p-3 rounded-lg group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900 transition-colors">
-                            <i class="fa-solid fa-film text-2xl text-indigo-600 dark:text-indigo-400"></i>
+                <a href="{% url 'demo:movies' %}" class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 border border-base-200 hover:border-primary group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-body">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-content transition-colors">
+                                <i class="fa-solid fa-film text-2xl"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-base-content/30 group-hover:text-primary transition-colors"></i>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-indigo-500 transition-colors"></i>
+                        <h3 class="card-title text-lg">Movie Catalog</h3>
+                        <p class="text-sm text-base-content/70">
+                            Grid layout with hover effects, image optimization, and rating badges.
+                        </p>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Movie Catalog</h3>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">
-                        Grid layout with hover effects, image optimization, and rating badges.
-                    </p>
                 </a>
 
                 <!-- Actors Card -->
-                <a href="{% url 'demo:actors' %}" class="group block p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-purple-50 dark:bg-purple-900/30 p-3 rounded-lg group-hover:bg-purple-100 dark:group-hover:bg-purple-900 transition-colors">
-                            <i class="fa-solid fa-users text-2xl text-purple-600 dark:text-purple-400"></i>
+                <a href="{% url 'demo:actors' %}" class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 border border-base-200 hover:border-secondary group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-body">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-secondary-content transition-colors">
+                                <i class="fa-solid fa-users text-2xl"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-base-content/30 group-hover:text-secondary transition-colors"></i>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-purple-500 transition-colors"></i>
+                        <h3 class="card-title text-lg">Actors Directory</h3>
+                        <p class="text-sm text-base-content/70">
+                            List views with avatars, status indicators, and micro-interactions.
+                        </p>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Actors Directory</h3>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">
-                        List views with avatars, status indicators, and micro-interactions.
-                    </p>
                 </a>
 
                 <!-- Music Card -->
-                <a href="{% url 'demo:music' %}" class="group block p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:border-pink-500 dark:hover:border-pink-500 transition-all duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-pink-50 dark:bg-pink-900/30 p-3 rounded-lg group-hover:bg-pink-100 dark:group-hover:bg-pink-900 transition-colors">
-                            <i class="fa-solid fa-music text-2xl text-pink-600 dark:text-pink-400"></i>
+                <a href="{% url 'demo:music' %}" class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 border border-base-200 hover:border-accent group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-body">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-accent-content transition-colors">
+                                <i class="fa-solid fa-music text-2xl"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-base-content/30 group-hover:text-accent transition-colors"></i>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-pink-500 transition-colors"></i>
+                        <h3 class="card-title text-lg">Music Player</h3>
+                        <p class="text-sm text-base-content/70">
+                            Complex interface with playback controls and progress visualization.
+                        </p>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Music Player</h3>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">
-                        Complex interface with playback controls and progress visualization.
-                    </p>
                 </a>
 
                 <!-- Style Guide Card -->
-                <a href="{% url 'demo:styleguide' %}" class="group block p-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
-                            <i class="fa-solid fa-palette text-2xl text-white"></i>
+                <a href="{% url 'demo:styleguide' %}" class="card bg-neutral text-neutral-content shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-body">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-base-100/10 flex items-center justify-center backdrop-blur-sm">
+                                <i class="fa-solid fa-palette text-2xl"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-right opacity-50 group-hover:opacity-100 transition-colors"></i>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-gray-400 group-hover:text-white transition-colors"></i>
+                        <h3 class="card-title text-lg">Style Guide</h3>
+                        <p class="text-sm opacity-80">
+                            Comprehensive design system documentation and component library.
+                        </p>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2">Style Guide</h3>
-                    <p class="text-gray-300 text-sm">
-                        Comprehensive design system documentation and component library.
-                    </p>
                 </a>
 
                 <!-- HTMX Test Card -->
-                <a href="{% url 'demo:htmx_test' %}" class="group block p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg group-hover:bg-blue-100 dark:group-hover:bg-blue-900 transition-colors">
-                            <i class="fa-solid fa-bolt text-2xl text-blue-600 dark:text-blue-400"></i>
+                <a href="{% url 'demo:htmx_test' %}" class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 border border-base-200 hover:border-info group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card-body">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-info/10 flex items-center justify-center text-info group-hover:bg-info group-hover:text-info-content transition-colors">
+                                <i class="fa-solid fa-bolt text-2xl"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-base-content/30 group-hover:text-info transition-colors"></i>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-gray-300 group-hover:text-blue-500 transition-colors"></i>
+                        <h3 class="card-title text-lg">HTMX CSRF Test</h3>
+                        <p class="text-sm text-base-content/70">
+                            Test HTMX functionality and CSRF token protection mechanism.
+                        </p>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">HTMX CSRF Test</h3>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">
-                        Test HTMX functionality and CSRF token protection mechanism.
-                    </p>
                 </a>
             </div>
         </div>
@@ -127,52 +122,56 @@
         <!-- Sidebar / Secondary Info -->
         <div class="space-y-8">
             <!-- System Status -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">System Status</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <span class="flex h-3 w-3 relative mr-3">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                            </span>
-                            <span class="text-sm text-gray-600 dark:text-gray-300">Database</span>
+            <div class="card bg-base-100 shadow-sm border border-base-200" data-aos="fade-left">
+                <div class="card-body">
+                    <h3 class="card-title text-lg mb-4">System Status</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="relative flex h-3 w-3 mr-3">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-success"></span>
+                                </span>
+                                <span class="text-sm">Database</span>
+                            </div>
+                            <div class="badge badge-success badge-sm badge-outline">Operational</div>
                         </div>
-                        <span class="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/30 px-2 py-0.5 rounded">Operational</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <span class="h-3 w-3 rounded-full bg-green-500 mr-3"></span>
-                            <span class="text-sm text-gray-600 dark:text-gray-300">Redis Cache</span>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="h-3 w-3 rounded-full bg-success mr-3"></span>
+                                <span class="text-sm">Redis Cache</span>
+                            </div>
+                            <div class="badge badge-success badge-sm badge-outline">Operational</div>
                         </div>
-                        <span class="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/30 px-2 py-0.5 rounded">Operational</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <span class="h-3 w-3 rounded-full bg-green-500 mr-3"></span>
-                            <span class="text-sm text-gray-600 dark:text-gray-300">Celery Workers</span>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="h-3 w-3 rounded-full bg-success mr-3"></span>
+                                <span class="text-sm">Celery Workers</span>
+                            </div>
+                            <div class="badge badge-success badge-sm badge-outline">Operational</div>
                         </div>
-                        <span class="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/30 px-2 py-0.5 rounded">Operational</span>
                     </div>
                 </div>
             </div>
 
             <!-- Error Page Tests -->
-            <div class="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Error Page Tests</h3>
-                <div class="space-y-3">
-                    <a href="{% url 'demo:test_403' %}" class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600 group">
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">403 Forbidden</span>
-                        <i class="fa-solid fa-ban text-yellow-500 group-hover:scale-110 transition-transform"></i>
-                    </a>
-                    <a href="{% url 'demo:test_404' %}" class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600 group">
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">404 Not Found</span>
-                        <i class="fa-solid fa-magnifying-glass text-blue-500 group-hover:scale-110 transition-transform"></i>
-                    </a>
-                    <a href="{% url 'demo:test_500' %}" class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-600 group">
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">500 Server Error</span>
-                        <i class="fa-solid fa-bomb text-red-500 group-hover:scale-110 transition-transform"></i>
-                    </a>
+            <div class="card bg-base-200/50 border border-base-200" data-aos="fade-left" data-aos-delay="100">
+                <div class="card-body">
+                    <h3 class="card-title text-lg mb-4">Error Page Tests</h3>
+                    <div class="flex flex-col gap-2">
+                        <a href="{% url 'demo:test_403' %}" class="btn btn-ghost justify-between border border-base-300 bg-base-100 hover:border-warning group">
+                            <span>403 Forbidden</span>
+                            <i class="fa-solid fa-ban text-warning group-hover:scale-110 transition-transform"></i>
+                        </a>
+                        <a href="{% url 'demo:test_404' %}" class="btn btn-ghost justify-between border border-base-300 bg-base-100 hover:border-info group">
+                            <span>404 Not Found</span>
+                            <i class="fa-solid fa-magnifying-glass text-info group-hover:scale-110 transition-transform"></i>
+                        </a>
+                        <a href="{% url 'demo:test_500' %}" class="btn btn-ghost justify-between border border-base-300 bg-base-100 hover:border-error group">
+                            <span>500 Server Error</span>
+                            <i class="fa-solid fa-bomb text-error group-hover:scale-110 transition-transform"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

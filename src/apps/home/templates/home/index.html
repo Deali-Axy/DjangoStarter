@@ -5,22 +5,31 @@
 
 {% block content %}
 <!-- Hero Section -->
-<div class="hero min-h-[70vh] bg-base-100">
-  <div class="hero-content text-center">
+<div class="hero min-h-[75vh] bg-base-100 relative overflow-hidden">
+  <!-- Decorative background elements -->
+  <div class="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+      <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-[100px] animate-pulse"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/20 blur-[100px] animate-pulse" style="animation-delay: 2s"></div>
+  </div>
+
+  <div class="hero-content text-center z-10">
     <div class="max-w-3xl">
-      <div class="badge badge-primary badge-outline mb-4 animate-fade-in">v1.0 is now available</div>
-      <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 animate-fade-in" style="animation-delay: 0.1s">
-        Build SaaS faster with <span class="text-primary">DjangoStarter</span>
+      <div class="badge badge-primary badge-outline mb-6 px-4 py-3 gap-2" data-aos="fade-down">
+         <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span> v1.0 is now available
+      </div>
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight" data-aos="fade-up" data-aos-delay="100">
+        Build SaaS faster with <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">DjangoStarter</span>
       </h1>
-      <p class="py-6 text-xl text-base-content/80 max-w-2xl mx-auto animate-fade-in" style="animation-delay: 0.2s">
+      <p class="py-6 text-xl text-base-content/80 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
         The modern Django boilerplate for startups. 
         Docker, HTMX, Alpine.js, and DaisyUI pre-configured. 
         Stop configuring, start building.
       </p>
-      <div class="flex flex-col md:flex-row gap-4 justify-center animate-fade-in" style="animation-delay: 0.3s">
-        <a href="{% url 'account:login' %}" class="btn btn-primary btn-lg">Get Started</a>
-        <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank" class="btn btn-ghost btn-lg">
-            <i class="fa-brands fa-github text-xl"></i> View on GitHub
+      <div class="flex flex-col md:flex-row gap-4 justify-center items-center mt-4" data-aos="fade-up" data-aos-delay="300">
+        <a href="{% url 'account:login' %}" class="btn btn-primary btn-lg shadow-lg shadow-primary/30 hover:scale-105 transition-transform">Get Started</a>
+        <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank" class="btn btn-ghost btn-lg gap-3">
+            <i class="fa-brands fa-github text-2xl"></i> View on GitHub
         </a>
       </div>
     </div>
@@ -28,9 +37,9 @@
 </div>
 
 <!-- Social Proof -->
-<div class="py-12 bg-base-200/50 border-y border-base-200">
+<div class="py-12 bg-base-200/50 border-y border-base-200" data-aos="fade-in">
     <div class="container mx-auto px-4 text-center">
-        <p class="text-sm font-semibold text-base-content/50 uppercase tracking-widest mb-8">Trusted by developers from</p>
+        <p class="text-xs font-bold text-base-content/40 uppercase tracking-[0.2em] mb-8">Trusted by developers from</p>
         <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
             <!-- Placeholders for logos -->
             <div class="flex items-center gap-2 text-xl font-bold"><i class="fa-brands fa-google"></i> Google</div>
@@ -44,65 +53,68 @@
 <!-- Bento Grid Features -->
 <section class="py-24 px-4 bg-base-100">
     <div class="container mx-auto max-w-6xl">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-aos="fade-up">
             <h2 class="text-4xl font-bold tracking-tight mb-4">Everything you need to ship</h2>
             <p class="text-lg text-base-content/70">Production-ready features out of the box.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
             <!-- Large Card -->
-            <div class="card bg-base-200 md:col-span-2 row-span-2 overflow-hidden hover:shadow-xl transition-all duration-300 group">
+            <div class="card bg-base-200 md:col-span-2 row-span-2 overflow-hidden hover:shadow-xl transition-all duration-300 group border border-base-300" data-aos="fade-up" data-aos-delay="100">
                 <div class="card-body">
                     <h3 class="card-title text-2xl">Modern UI Stack</h3>
                     <p class="text-base-content/70">Tailwind CSS v4 + DaisyUI v5 + Alpine.js. The perfect blend of utility-first CSS and component-based design.</p>
                 </div>
-                <div class="bg-base-100 m-4 rounded-xl shadow-lg h-full transform translate-y-4 group-hover:translate-y-2 transition-transform duration-500 border border-base-300 p-4">
+                <div class="bg-base-100 m-4 rounded-xl shadow-lg h-full transform translate-y-4 group-hover:translate-y-2 transition-transform duration-500 border border-base-300 p-4 relative overflow-hidden">
                     <!-- Mockup UI -->
-                    <div class="flex gap-2 mb-4">
-                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5"></div>
+                    <div class="flex gap-2 mb-4 relative z-10">
+                        <div class="w-3 h-3 rounded-full bg-error/60"></div>
+                        <div class="w-3 h-3 rounded-full bg-warning/60"></div>
+                        <div class="w-3 h-3 rounded-full bg-success/60"></div>
                     </div>
-                    <div class="skeleton h-4 w-3/4 mb-2"></div>
-                    <div class="skeleton h-4 w-full mb-2"></div>
-                    <div class="skeleton h-32 w-full"></div>
+                    <div class="skeleton h-4 w-3/4 mb-2 bg-base-300"></div>
+                    <div class="skeleton h-4 w-full mb-2 bg-base-300"></div>
+                    <div class="skeleton h-32 w-full bg-base-300"></div>
                 </div>
             </div>
 
             <!-- Small Card 1 -->
-            <div class="card bg-primary text-primary-content hover:shadow-xl transition-all duration-300">
+            <div class="card bg-primary text-primary-content hover:shadow-xl transition-all duration-300 shadow-lg shadow-primary/20" data-aos="fade-up" data-aos-delay="200">
                 <div class="card-body justify-between">
-                    <i class="fa-solid fa-rocket text-4xl mb-4"></i>
+                    <div class="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                        <i class="fa-solid fa-rocket text-2xl"></i>
+                    </div>
                     <div>
-                        <h3 class="card-title">Production Ready</h3>
-                        <p class="opacity-90 mt-2">Docker Compose, Redis caching, and Gulp asset pipeline pre-configured.</p>
+                        <h3 class="card-title text-xl">Production Ready</h3>
+                        <p class="opacity-90 mt-2 text-sm">Docker Compose, Redis caching, and Gulp asset pipeline pre-configured.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Small Card 2 -->
-            <div class="card bg-base-200 hover:shadow-xl transition-all duration-300">
+            <div class="card bg-base-200 hover:shadow-xl transition-all duration-300 border border-base-300" data-aos="fade-up" data-aos-delay="300">
                 <div class="card-body">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="p-3 bg-blue-500/10 rounded-lg text-blue-500">
+                        <div class="p-3 bg-secondary/10 rounded-lg text-secondary">
                             <i class="fa-solid fa-database text-xl"></i>
                         </div>
                         <h3 class="card-title">Database First</h3>
                     </div>
-                    <p class="text-base-content/70">Django ORM with Soft Deletes and Audit logging built-in.</p>
+                    <p class="text-base-content/70 text-sm">Django ORM with Soft Deletes and Audit logging built-in.</p>
                 </div>
             </div>
 
             <!-- Medium Card -->
-            <div class="card bg-base-200 md:col-span-3 hover:shadow-xl transition-all duration-300">
-                <div class="card-body flex-row items-center gap-8">
+            <div class="card bg-base-200 md:col-span-3 hover:shadow-xl transition-all duration-300 border border-base-300" data-aos="fade-up" data-aos-delay="400">
+                <div class="card-body flex-col md:flex-row items-center gap-8">
                     <div class="flex-1">
                         <h3 class="card-title text-2xl mb-2">Developer Experience</h3>
                         <p class="text-base-content/70 mb-4">Auto-generate CRUD APIs, tests, and Admin interfaces with a single command.</p>
-                        <div class="mockup-code bg-neutral text-neutral-content w-full max-w-md">
-                            <pre data-prefix="$"><code>uv run manage.py autocode blog "Blog"</code></pre>
-                            <pre data-prefix=">" class="text-success"><code>Generated models, views, and tests!</code></pre>
-                        </div>
+                    </div>
+                    <div class="mockup-code bg-neutral text-neutral-content w-full max-w-md shadow-xl text-sm">
+                        <pre data-prefix="$"><code>uv run manage.py autocode blog "Blog"</code></pre>
+                        <pre data-prefix=">" class="text-success"><code>Generated models, views, and tests!</code></pre>
                     </div>
                 </div>
             </div>

@@ -1,88 +1,140 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth" data-theme="corporate">
-
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="{% block meta_description %}DjangoStarter - 下一代Django快速开发框架{% endblock %}">
-    <meta name="csrf-token" content="{{ csrf_token }}">
-    <meta name="theme-color" content="#1e40af" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#1e3a8a" media="(prefers-color-scheme: dark)">
-    <title>{% block title %}{% endblock %} - DjangoStarter</title>
-    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-
+    <title>{% block title %}DjangoStarter{% endblock %} - SaaS Template</title>
+    
+    <!-- Tailwind & DaisyUI (Production Build) -->
     <link rel="stylesheet" href="{% static 'css/tailwind.prod.css' %}">
-    {% block extra_css %}
-        {# Override this in templates to add extra stylesheets #}
-    {% endblock %}
-
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'lib/font-awesome/css/all.min.css' %}">
-
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- HTMX & Alpine.js -->
     <script src="{% static 'lib/htmx/htmx.min.js' %}"></script>
     <script src="{% static 'lib/alpinejs/cdn.min.js' %}" defer></script>
+    
+    <!-- CSRF for HTMX -->
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <script>
-        // HTMX CSRF Configuration
-        // Add CSRF token to all HTMX requests
         document.addEventListener('htmx:configRequest', (event) => {
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-            if (csrfToken) {
-                event.detail.headers['X-CSRFToken'] = csrfToken;
-            }
+            if (csrfToken) event.detail.headers['X-CSRFToken'] = csrfToken;
         });
     </script>
+    
     {% block head %}{% endblock %}
 </head>
 
-<body class="bg-base-100 text-base-content">
+<body class="bg-base-100 text-base-content antialiased font-body">
 
-<div class="drawer {% block drawer_class %}lg:drawer-open{% endblock %}">
-    <input id="app-drawer" type="checkbox" class="drawer-toggle" />
-    
-    <div class="drawer-content flex flex-col min-h-screen">
-        <!-- Navbar -->
-        {% include '_components/navbar.html' %}
-        <!-- End of Navbar -->
-
-        <main class="container mx-auto p-4 flex-grow">
-            {% block alert %}
+    <!-- Drawer Layout -->
+    <div class="drawer lg:drawer-open">
+        <input id="app-drawer" type="checkbox" class="drawer-toggle" />
+        
+        <!-- Main Content -->
+        <div class="drawer-content flex flex-col min-h-screen transition-all duration-300">
+            <!-- Navbar -->
+            {% include '_components/navbar.html' %}
+            
+            <!-- Alerts / Messages -->
+            <div class="container mx-auto px-4 pt-4">
                 {% if messages %}
                     {% for message in messages %}
-                        {% if message.tags != 'console' %}
-                            {% include '_components/alert.html' %}
-                        {% endif %}
+                        {% include '_components/alert.html' with message=message %}
                     {% endfor %}
                 {% endif %}
-            {% endblock %}
-            {% block content %}
-            {% endblock content %}
-        </main>
+            </div>
 
-        {% include '_components/footer.html' %}
+            <!-- Page Content -->
+            <main class="flex-grow p-4 lg:p-8" data-aos="fade-up" data-aos-delay="100">
+                {% block content %}{% endblock %}
+            </main>
+
+            <!-- Footer -->
+            {% include '_components/footer.html' %}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="drawer-side z-40">
+            <label for="app-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+            <aside class="bg-base-200 min-h-full w-80 border-r border-base-300 flex flex-col">
+                <!-- Sidebar Header -->
+                <div class="h-16 flex items-center px-6 border-b border-base-300/50 bg-base-200 sticky top-0 z-20">
+                    <a href="/" class="flex items-center gap-3 text-xl font-bold tracking-tight text-base-content">
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-content">
+                            <i class="fa-brands fa-python"></i>
+                        </div>
+                        DjangoStarter
+                    </a>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <div class="flex-grow overflow-y-auto p-4 custom-scrollbar">
+                    <ul class="menu menu-md gap-1">
+                        <li>
+                            <a href="{% url 'home:index' %}" class="{% if request.resolver_match.app_name == 'home' %}active{% endif %}">
+                                <i class="fa-solid fa-home w-5"></i> Home
+                            </a>
+                        </li>
+                        <li class="menu-title mt-4 uppercase tracking-wider font-bold opacity-60 text-xs">Applications</li>
+                        <li>
+                            <a href="{% url 'demo:index' %}" class="{% if request.resolver_match.app_name == 'demo' %}active{% endif %}">
+                                <i class="fa-solid fa-layer-group w-5"></i> Components Demo
+                            </a>
+                        </li>
+                        
+                        <!-- App Specific Sidebar Items -->
+                        {% block sidebar_menu %}{% endblock %}
+                        
+                        <li class="menu-title mt-4 uppercase tracking-wider font-bold opacity-60 text-xs">Account</li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'account:index' %}"><i class="fa-solid fa-user w-5"></i> Profile</a></li>
+                            <li><a href="{% url 'account:settings' %}"><i class="fa-solid fa-cog w-5"></i> Settings</a></li>
+                        {% else %}
+                            <li><a href="{% url 'account:login' %}"><i class="fa-solid fa-sign-in-alt w-5"></i> Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+                <!-- Sidebar Footer -->
+                <div class="p-4 border-t border-base-300/50">
+                    <div class="card bg-base-100 shadow-sm border border-base-200">
+                        <div class="card-body p-3 flex-row items-center gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-neutral text-neutral-content rounded-full w-8">
+                                    <span class="text-xs">{{ user.username|slice:":1"|default:"G"|upper }}</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow overflow-hidden">
+                                <p class="text-xs font-bold truncate">{{ user.username|default:"Guest User" }}</p>
+                                <p class="text-[10px] opacity-60 truncate">View Profile</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
     </div>
 
-    <div class="drawer-side z-40">
-        <label for="app-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <aside class="menu p-4 w-80 min-h-full bg-base-200 text-base-content border-r border-base-300">
-            <!-- Sidebar Content -->
-             <div class="mb-4 flex items-center gap-2 px-2">
-                <i class="fa-brands fa-python text-primary text-2xl"></i>
-                <span class="text-xl font-bold">DjangoStarter</span>
-             </div>
-             <ul class="menu menu-lg">
-                <li><a href="{% url 'home:index' %}"><i class="fa-solid fa-home"></i> Home</a></li>
-                {% block sidebar_menu %}{% endblock %}
-             </ul>
-        </aside>
-    </div>
-</div>
-
-<script src="{% static 'js/site.js' %}"></script>
-{% block script %}{% endblock %}
-{% block extra_js %}{% endblock %}
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 400,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+    </script>
+    
+    <!-- Site Scripts -->
+    <script src="{% static 'js/site.js' %}"></script>
+    {% block extra_js %}{% endblock %}
 </body>
-
 </html>

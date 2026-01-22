@@ -5,13 +5,15 @@
 
 {% block content %}
 <div class="flex justify-center items-center min-h-[calc(100vh-10rem)] py-8">
-    <div class="card bg-base-100 w-full max-w-md shadow-xl border border-base-200">
+    <div class="card bg-base-100/90 backdrop-blur-sm w-full max-w-md shadow-xl border border-base-200" data-aos="fade-up">
         <div class="card-body">
             <div class="text-center mb-6">
                 <div class="flex justify-center mb-4">
-                    <img src="https://blog.sblt.deali.cn:9000/Api/PicLib/Random/32/32" class="w-12 h-12 rounded-lg" alt="Logo"/>
+                    <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-primary-content text-2xl">
+                        <i class="fa-brands fa-python"></i>
+                    </div>
                 </div>
-                <h1 class="text-2xl font-bold">创建新账号</h1>
+                <h1 class="text-2xl font-bold tracking-tight">创建新账号</h1>
                 <p class="text-base-content/60 mt-2">开始您的 DjangoStarter 之旅</p>
             </div>
 
@@ -21,11 +23,14 @@
                 {% for field in form %}
                     <div class="form-control">
                         <label class="label" for="{{ field.id_for_label }}">
-                            <span class="label-text">{{ field.label }}</span>
+                            <span class="label-text font-medium">{{ field.label }}</span>
                         </label>
                         {{ field }}
                         {% if field.errors %}
-                            <div class="text-error text-sm mt-1">{{ field.errors.0 }}</div>
+                            <div class="text-error text-sm mt-1 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                {{ field.errors.0 }}
+                            </div>
                         {% endif %}
                         {% if field.help_text %}
                             <div class="label">
@@ -36,12 +41,12 @@
                 {% endfor %}
 
                 <div class="form-control mt-6">
-                    <button type="submit" class="btn btn-primary w-full">注册</button>
+                    <button type="submit" class="btn btn-primary w-full shadow-lg shadow-primary/20">注册</button>
                 </div>
 
-                <div class="text-center mt-4 text-sm">
+                <div class="text-center mt-6 text-sm">
                     已有账号？
-                    <a href="{% url 'account:login' %}" class="link link-primary">直接登录</a>
+                    <a href="{% url 'account:login' %}" class="link link-primary font-medium">直接登录</a>
                 </div>
             </form>
         </div>
@@ -54,13 +59,13 @@
         // Inputs
         const inputs = document.querySelectorAll('input[type="text"], input[type="password"], input[type="email"]');
         inputs.forEach(input => {
-            input.classList.add('input', 'w-full');
+            input.classList.add('input', 'input-bordered', 'w-full', 'focus:input-primary');
         });
         
         // Selects (if any)
         const selects = document.querySelectorAll('select');
         selects.forEach(select => {
-            select.classList.add('select', 'w-full');
+            select.classList.add('select', 'select-bordered', 'w-full', 'focus:select-primary');
         });
     });
 </script>

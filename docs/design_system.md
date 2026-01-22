@@ -1,98 +1,63 @@
-# DjangoStarter Frontend Design System (2026)
+# DjangoStarter Frontend Design System (v2.0)
 
-## 1. Design Philosophy
-This design system adopts the **"Linear-style"** aesthetic—characterized by high density, high contrast, and refined typography. It prioritizes content legibility and workflow efficiency over decorative elements.
+## 1. Design Philosophy: "Native Composition"
+This design system leverages **DaisyUI** as the single source of truth to achieve a "Linear/Vercel-grade" aesthetic. We prioritize **consistency** and **maintainability** by strictly adhering to utility classes and standard components.
 
-### Key Principles
-- **Content-First**: UI chrome (borders, backgrounds) recedes; content stands out.
-- **Micro-Interactions**: Subtle feedback (hover, focus, active) confirms user actions.
-- **Monochrome Foundation**: Use a neutral grayscale (Slate/Zinc) for 90% of the UI, reserving color for actions and status.
-- **High Density**: Efficient use of screen real estate, suitable for complex SaaS dashboards.
+### Core Principles
+- **DaisyUI First**: Use standard components (`btn`, `card`, `input`) for 100% of UI elements.
+- **Composition over Customization**: Achieve high-end visuals through layout (Grid/Flex), spacing (Whitespace), and typography, not custom CSS.
+- **Micro-Interactions**: Use standard `hover:` and `active:` states combined with AOS animations.
 
 ## 2. Design Tokens
 
-### 2.1 Color System (Tailwind + DaisyUI)
-We utilize semantic color names mapped to specific hex values via CSS variables.
-
-**Theme: Light (Corporate-based)**
-- **Base**: White (`#ffffff`) & Slate-50 (`#f8fafc`)
-- **Surface**: White with thin borders (`border-base-200`)
-- **Primary**: Indigo-600 (`#4f46e5`) - Used for primary actions.
-- **Text**: Slate-900 (Primary), Slate-600 (Secondary), Slate-400 (Tertiary)
-
-**Theme: Dark (Business-based)**
-- **Base**: Slate-950 (`#020617`)
-- **Surface**: Slate-900 (`#0f172a`)
-- **Primary**: Indigo-500 (`#6366f1`)
-- **Text**: Slate-50 (Primary), Slate-400 (Secondary)
+### 2.1 Themes (DaisyUI)
+We utilize two specific themes to ensure SaaS-grade contrast and professionalism.
+- **Light Mode**: `corporate`
+  - *Characteristics*: Cool grays, clear borders, high legibility.
+  - *Usage*: Default for day-to-day operations.
+- **Dark Mode**: `business`
+  - *Characteristics*: Deep slate backgrounds (no pure black), high contrast text.
+  - *Usage*: Automatic switching via `theme-controller`.
 
 ### 2.2 Typography
-**Font Family**: `Inter`, system-ui, sans-serif.
+- **Font**: `Inter` (via Google Fonts or Local).
+- **Scale**:
+  - H1: `text-4xl font-bold tracking-tight` (Hero/Landing)
+  - H2: `text-2xl font-bold tracking-tight` (Page Titles)
+  - H3: `text-lg font-semibold` (Card Titles)
+  - Body: `text-sm text-base-content/80` (Standard readability)
 
-| Role | Class | Size | Weight | Tracking |
-| :--- | :--- | :--- | :--- | :--- |
-| **H1 (Page Title)** | `text-3xl font-bold tracking-tight` | 30px | 700 | -0.025em |
-| **H2 (Section)** | `text-xl font-semibold tracking-tight` | 20px | 600 | -0.025em |
-| **H3 (Card Title)** | `text-base font-medium` | 16px | 500 | Normal |
-| **Body** | `text-sm` | 14px | 400 | Normal |
-| **Caption** | `text-xs text-base-content/60` | 12px | 400 | Normal |
+### 2.3 Motion & Animation (AOS)
+We use **AOS (Animate On Scroll)** to add polish.
+- **Standard Entry**: `data-aos="fade-up"`
+- **Duration**: `300` - `500` ms (Snappy, not sluggish).
+- **Easing**: `ease-out-cubic`.
 
-### 2.3 Spacing & Radius
-- **Grid Unit**: 4px (Tailwind `1` = 0.25rem = 4px).
-- **Container Padding**: `p-6` (24px) for main content areas.
-- **Component Gap**: `gap-4` (16px) standard.
-- **Border Radius**:
-    - `rounded-btn`: `0.5rem` (8px) - Buttons, Inputs.
-    - `rounded-box`: `0.75rem` (12px) - Cards, Modals.
+### 2.4 Accessibility (WCAG 2.1 AA)
+- **Contrast**: Ensure text is at least 4.5:1 ratio (DaisyUI themes handle this by default).
+- **Focus**: All interactive elements must have visible focus rings (`outline-offset-2`).
+- **Semantic HTML**: Use `<main>`, `<nav>`, `<aside>`, `<footer>`.
+- **ARIA**: Labels for icon-only buttons (`aria-label="Toggle Sidebar"`).
 
 ## 3. Component Guidelines
 
-### 3.1 Buttons
-- **Primary**: `btn btn-primary btn-sm` (Solid color, white text).
-- **Secondary**: `btn btn-outline btn-sm` (Border only).
-- **Ghost**: `btn btn-ghost btn-sm` (Transparent, hover effect) - Used for low-priority actions like "Cancel".
-- **Icon**: `btn btn-square btn-ghost btn-sm` - Used for toolbar actions.
+### 3.1 App Shell
+- **Drawer**: The core layout container. Sidebar (`drawer-side`) + Content (`drawer-content`).
+- **Navbar**: Sticky top (`sticky top-0 z-30`), glass effect (`backdrop-blur`).
+- **Sidebar**: `menu` component with `w-80` width.
 
-### 3.2 Cards
-- **Style**: Minimalist, single pixel border, very subtle shadow (`shadow-sm`).
-- **Structure**:
-  ```html
-  <div class="card bg-base-100 border border-base-200 shadow-sm">
-    <div class="card-body p-5">
-      <h3 class="card-title text-base">Card Title</h3>
-      ...
-    </div>
-  </div>
-  ```
+### 3.2 Data Display
+- **Cards**: `card bg-base-100 shadow-sm border border-base-200`.
+- **Tables**: `table table-zebra table-pin-rows`.
+- **Stats**: `stats shadow` for dashboards.
 
-### 3.3 Data Tables
-- **Layout**: Full width, `table-zebra` optional.
-- **Header**: Uppercase, smaller font (`text-xs`), subtle color.
-- **Rows**: Hover effect (`hover`), clear borders (`border-b`).
-- **Actions**: Right-aligned, usually hidden until hover (optional) or Ghost buttons.
+### 3.3 Forms
+- **Input**: `input input-bordered w-full`.
+- **Select**: `select select-bordered w-full`.
+- **Toggle**: `toggle toggle-primary`.
 
-### 3.4 Navigation (Sidebar)
-- **Active State**: Left border accent or subtle background tint (`bg-base-200`).
-- **Grouping**: Clear section headers (`menu-title`).
-- **Collapse**: Support specific "mini-sidebar" mode for desktop.
-
-## 4. Interactive Patterns (Alpine.js)
-
-### 4.1 Modals
-Use `<dialog>` element.
-- **Open**: `document.getElementById('my_modal').showModal()`
-- **Close**: `form method="dialog"` or clicking backdrop.
-
-### 4.2 Dropdowns
-Alpine.js for click-outside handling:
-```html
-<div x-data="{ open: false }" @click.outside="open = false">
-  <button @click="open = !open">Trigger</button>
-  <div x-show="open" x-transition>Menu</div>
-</div>
-```
-
-## 5. Accessibility (A11y)
-- **Focus Rings**: Ensure `outline-offset-2` is visible on keyboard navigation.
-- **Contrast**: Text color must pass WCAG AA standards against background.
-- **Semantic HTML**: Use `<nav>`, `<main>`, `<aside>`, `<footer>`.
+## 4. Development Workflow
+1.  **Identify Need**: "I need a modal."
+2.  **Query MCP**: Use `mcp_daisyui_get_component('modal')` to see the latest syntax.
+3.  **Implement**: Copy the HTML structure, adjust content.
+4.  **Verify**: Check Dark Mode and Mobile responsiveness.

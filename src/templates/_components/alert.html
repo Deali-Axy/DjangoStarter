@@ -1,27 +1,20 @@
 {% if message %}
-<div role="alert" class="alert {% if message.tags == 'error' %}alert-error{% elif message.tags == 'warning' %}alert-warning{% elif message.tags == 'success' %}alert-success{% else %}alert-info{% endif %} shadow-sm mb-4">
+<div role="alert" class="alert {% if message.tags == 'error' %}alert-error{% elif message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% else %}alert-info{% endif %} shadow-md mb-4 animate-fade-in">
     {% if message.tags == 'error' %}
-        <i class="fa-solid fa-circle-xmark text-lg"></i>
-    {% elif message.tags == 'warning' %}
-        <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+        <i class="fa-solid fa-circle-exclamation"></i>
     {% elif message.tags == 'success' %}
-        <i class="fa-solid fa-circle-check text-lg"></i>
+        <i class="fa-solid fa-circle-check"></i>
+    {% elif message.tags == 'warning' %}
+        <i class="fa-solid fa-triangle-exclamation"></i>
     {% else %}
-        <i class="fa-solid fa-circle-info text-lg"></i>
+        <i class="fa-solid fa-circle-info"></i>
     {% endif %}
-    
     <div>
-        <h3 class="font-bold">
-            {% if message.tags == 'error' %}Error
-            {% elif message.tags == 'warning' %}Warning
-            {% elif message.tags == 'success' %}Success
-            {% else %}Info{% endif %}
-        </h3>
-        <div class="text-xs">{{ message|safe }}</div>
+        <h3 class="font-bold capitalize">{{ message.tags }}</h3>
+        <div class="text-xs">{{ message }}</div>
     </div>
-    
     <button class="btn btn-sm btn-circle btn-ghost" onclick="this.parentElement.remove()">
-        <i class="fa-solid fa-xmark"></i>
+        <i class="fa-solid fa-times"></i>
     </button>
 </div>
 {% endif %}
