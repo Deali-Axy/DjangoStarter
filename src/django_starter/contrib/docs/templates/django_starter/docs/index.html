@@ -1,7 +1,7 @@
 {% extends "_base.html" %}
 {% load static page_tags %}
 
-{% block title %}{{ page_title }} - DjangoStarter Docs{% endblock %}
+{% block title %}{{ title }} - DjangoStarter Docs{% endblock %}
 
 {% block head %}
 <!-- Highlight.js -->
@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-{% page_header page_title breadcrumbs %}
+{% page_header title breadcrumbs %}
 
 <div class="drawer lg:drawer-open min-h-[calc(100vh-10rem)] rounded-box border border-base-200 bg-base-100 shadow-sm mb-8">
     <input id="docs-drawer" type="checkbox" class="drawer-toggle" />

@@ -152,18 +152,37 @@
                 <h3 class="card-title text-base font-bold mb-4">
                     <i class="fa-solid fa-toolbox text-primary mr-2"></i> Developer Tools
                 </h3>
-                <div class="flex flex-col gap-2">
-                    <a href="/docs/" target="_blank" class="btn btn-outline btn-sm justify-start gap-3 normal-case font-normal">
-                        <i class="fa-solid fa-file-lines text-info"></i> Framework Docs
+                <div class="grid grid-cols-2 gap-3">
+                    <!-- Docs -->
+                    <a href="{% url 'djs_docs:index' %}" target="_blank" class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
+                        <div class="card-body items-center text-center py-4">
+                            <i class="fa-solid fa-file-lines text-2xl text-info mb-1"></i>
+                            <h4 class="card-title text-xs font-medium">Docs</h4>
+                        </div>
                     </a>
-                    <a href="/api/docs" target="_blank" class="btn btn-outline btn-sm justify-start gap-3 normal-case font-normal">
-                        <i class="fa-solid fa-book-open text-primary"></i> API Documentation
+                    
+                    <!-- APIs -->
+                    <a href="/api/docs" target="_blank" class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
+                        <div class="card-body items-center text-center py-4">
+                            <i class="fa-solid fa-book-open text-2xl text-primary mb-1"></i>
+                            <h4 class="card-title text-xs font-medium">APIs</h4>
+                        </div>
                     </a>
-                    <a href="/admin/" target="_blank" class="btn btn-outline btn-sm justify-start gap-3 normal-case font-normal">
-                        <i class="fa-solid fa-user-shield text-secondary"></i> Admin Panel
+
+                    <!-- Admin -->
+                    <a href="/admin/" target="_blank" class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
+                        <div class="card-body items-center text-center py-4">
+                            <i class="fa-solid fa-user-shield text-2xl text-secondary mb-1"></i>
+                            <h4 class="card-title text-xs font-medium">Admin</h4>
+                        </div>
                     </a>
-                    <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank" class="btn btn-outline btn-sm justify-start gap-3 normal-case font-normal">
-                        <i class="fa-brands fa-github text-accent"></i> Source Code
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank" class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
+                        <div class="card-body items-center text-center py-4">
+                            <i class="fa-brands fa-github text-2xl text-accent mb-1"></i>
+                            <h4 class="card-title text-xs font-medium">GitHub</h4>
+                        </div>
                     </a>
                 </div>
             </div>

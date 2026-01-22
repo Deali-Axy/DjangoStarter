@@ -114,7 +114,7 @@ def docs_index(request: HttpRequest) -> HttpResponse:
 
 
     context = {
-        "page_title": "文档中心",
+        "title": "文档中心",
         "breadcrumbs": [
             {"text": "首页", "url": "/"},
             {"text": "文档中心", "url": None},
@@ -140,7 +140,7 @@ def docs_detail(request: HttpRequest, slug: str) -> HttpResponse:
     prev_page, next_page = _get_prev_next_pages(slug, pages)
     
     context = {
-        "page_title": active_page.title,
+        "title": active_page.title,
         "breadcrumbs": [
             {"text": "首页", "url": "/"},
             {"text": "文档中心", "url": reverse("djs_docs:index")},
