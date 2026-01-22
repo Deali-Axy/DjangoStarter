@@ -89,44 +89,82 @@
                 </div>
             </div>
 
-            <!-- Recent Activity Timeline -->
+            <!-- Recent Activity List -->
             <div class="card bg-base-100 shadow-sm border border-base-200">
-                <div class="card-body">
-                    <h3 class="card-title text-lg mb-4">
-                        <i class="fa-solid fa-clock-rotate-left text-secondary"></i>
-                        近期活动
-                    </h3>
-                    <ul class="timeline timeline-vertical timeline-compact -ml-2">
-                        <li>
-                            <div class="timeline-middle">
-                                <i class="fa-solid fa-circle-check text-success"></i>
-                            </div>
-                            <div class="timeline-end timeline-box bg-base-100 shadow-none border-0 p-0 pl-2 mb-4">
-                                <div class="font-bold text-sm">系统登录成功</div>
-                                <div class="text-xs text-base-content/60">{{ user.last_login|date:"Y-m-d H:i" }}</div>
-                            </div>
-                            <hr class="bg-base-300"/>
+                <div class="card-body p-0">
+                    <div class="p-4 border-b border-base-200 flex justify-between items-center">
+                        <h3 class="card-title text-lg">
+                            <i class="fa-solid fa-clock-rotate-left text-secondary"></i>
+                            近期活动
+                        </h3>
+                        <button class="btn btn-ghost btn-xs text-base-content/60">查看全部</button>
+                    </div>
+                    
+                    <ul class="menu w-full p-0">
+                        <!-- Login Activity -->
+                        <li class="hover:bg-base-200/50 transition-colors border-b border-base-200/50 last:border-0">
+                            <a class="flex gap-4 py-4 px-6 items-start active:!bg-transparent active:!text-base-content">
+                                <div class="avatar placeholder">
+                                    <div class="bg-success/10 text-success rounded-lg w-10 h-10 flex items-center justify-center">
+                                        <i class="fa-solid fa-arrow-right-to-bracket text-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-semibold text-sm">系统登录成功</span>
+                                        <span class="text-xs text-base-content/50">{{ user.last_login|date:"M d, H:i" }}</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/70">
+                                        检测到新的登录会话 (IP: 127.0.0.1)
+                                    </p>
+                                </div>
+                            </a>
                         </li>
-                        <li>
-                            <hr class="bg-base-300"/>
-                            <div class="timeline-middle">
-                                <i class="fa-solid fa-user-pen text-primary"></i>
-                            </div>
-                            <div class="timeline-end timeline-box bg-base-100 shadow-none border-0 p-0 pl-2 mb-4">
-                                <div class="font-bold text-sm">更新个人资料</div>
-                                <div class="text-xs text-base-content/60">{{ user.date_joined|date:"Y-m-d H:i" }}</div>
-                            </div>
-                            <hr class="bg-base-300"/>
+
+                        <!-- Profile Update -->
+                        <li class="hover:bg-base-200/50 transition-colors border-b border-base-200/50 last:border-0">
+                            <a class="flex gap-4 py-4 px-6 items-start active:!bg-transparent active:!text-base-content">
+                                <div class="avatar placeholder">
+                                    <div class="bg-primary/10 text-primary rounded-lg w-10 h-10 flex items-center justify-center">
+                                        <i class="fa-solid fa-user-pen text-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-semibold text-sm">更新个人资料</span>
+                                        <span class="text-xs text-base-content/50">{{ user.date_joined|date:"M d, H:i" }}</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/70">
+                                        修改了头像和基本信息
+                                    </p>
+                                </div>
+                            </a>
                         </li>
-                        <li>
-                            <hr class="bg-base-300"/>
-                            <div class="timeline-middle">
-                                <i class="fa-solid fa-shield-halved text-warning"></i>
-                            </div>
-                            <div class="timeline-end timeline-box bg-base-100 shadow-none border-0 p-0 pl-2">
-                                <div class="font-bold text-sm">建议开启双因素认证</div>
-                                <div class="text-xs text-base-content/60">安全提示</div>
-                            </div>
+
+                        <!-- Security Alert -->
+                        <li class="hover:bg-base-200/50 transition-colors border-b border-base-200/50 last:border-0">
+                            <a href="{% url 'account:settings' %}" 
+                               hx-get="{% url 'account:settings' %}" 
+                               hx-target="#account-main" 
+                               hx-push-url="true"
+                               hx-swap="innerHTML transition:true"
+                               class="flex gap-4 py-4 px-6 items-start active:!bg-transparent active:!text-base-content group">
+                                <div class="avatar placeholder">
+                                    <div class="bg-warning/10 text-warning rounded-lg w-10 h-10 flex items-center justify-center group-hover:bg-warning group-hover:text-warning-content transition-colors">
+                                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-semibold text-sm">安全建议</span>
+                                        <span class="badge badge-warning badge-xs">建议</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/70">
+                                        您的账户尚未开启双因素认证 (2FA)，建议立即开启以提升安全性。
+                                    </p>
+                                </div>
+                                <i class="fa-solid fa-chevron-right text-xs opacity-0 group-hover:opacity-50 self-center transition-opacity"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>
