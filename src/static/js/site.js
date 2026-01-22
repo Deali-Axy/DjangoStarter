@@ -1,30 +1,61 @@
-// 检查用户偏好的主题并应用
+// 初始化主题
 function initTheme() {
-    const theme = localStorage.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'business' : 'corporate');
+    // 1. 获取当前主题 (优先从 localStorage 获取，否则跟随系统偏好)
+    const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'business' : 'corporate');
+    
+    // 2. 应用主题
+    applyTheme(theme);
+    
+    // 3. 同步 UI 状态 (选中对应的单选按钮)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => syncThemeUI(theme));
+    } else {
+        syncThemeUI(theme);
+    }
+}
+
+// 应用主题并持久化
+function applyTheme(theme) {
+    // 设置 data-theme 属性 (DaisyUI 核心)
     document.documentElement.setAttribute('data-theme', theme);
-    if (theme === 'business') {
+    
+    // 保存到 localStorage
+    localStorage.setItem('theme', theme);
+    
+    // 处理 Tailwind 的 dark 类 (用于兼容部分依赖 dark 类的工具类)
+    const darkThemes = [
+        'business', 'dark', 'synthwave', 'halloween', 'forest', 'aqua', 
+        'black', 'luxury', 'dracula', 'night', 'coffee', 'dim', 'sunset'
+    ];
+    
+    if (darkThemes.includes(theme)) {
         document.documentElement.classList.add('dark');
     } else {
         document.documentElement.classList.remove('dark');
     }
 }
+
+// 同步 UI 选中状态
+function syncThemeUI(theme) {
+    const themeRadios = document.querySelectorAll('.theme-controller');
+    themeRadios.forEach(radio => {
+        if (radio.value === theme) {
+            radio.checked = true;
+        }
+    });
+}
+
+// 初始化
 initTheme();
 
-// 主题切换函数
-function toggleDarkMode() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'business' ? 'corporate' : 'business';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.theme = newTheme;
-    
-    if (newTheme === 'business') {
-        html.classList.add('dark');
-    } else {
-        html.classList.remove('dark');
+// 监听主题切换事件
+// DaisyUI 的 theme-controller 会自动更新 DOM，但我们需要拦截事件以进行持久化
+document.addEventListener('change', (e) => {
+    if (e.target.classList.contains('theme-controller')) {
+        const newTheme = e.target.value;
+        applyTheme(newTheme);
     }
-}
+});
 
 /**
  * 语言切换功能
