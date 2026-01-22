@@ -124,6 +124,43 @@
                 <p class="text-base-content/70 text-sm mt-1">查看账户余额、充值记录及管理账单信息。</p>
             </div>
         </a>
+
+        <!-- Notifications -->
+        <div class="card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group border border-base-200 cursor-pointer">
+            <div class="card-body">
+                <div class="flex items-start justify-between">
+                    <div class="p-3 bg-warning/10 rounded-2xl text-warning group-hover:bg-warning group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-bell text-xl"></i>
+                    </div>
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-base-300 group-hover:text-warning transition-colors duration-300 bg-base-200/50 group-hover:bg-warning/10">
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </div>
+                </div>
+                <h2 class="card-title mt-4 group-hover:text-warning transition-colors">消息通知</h2>
+                <p class="text-base-content/70 text-sm mt-1">查看系统公告、活动提醒及重要通知。</p>
+            </div>
+        </div>
+
+        <!-- Developer API -->
+        <a href="{% url 'account:settings-developer' %}" 
+           hx-get="{% url 'account:settings-developer' %}" 
+           hx-target="#account-main" 
+           hx-push-url="true"
+           hx-swap="innerHTML transition:true"
+           class="card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group border border-base-200">
+            <div class="card-body">
+                <div class="flex items-start justify-between">
+                    <div class="p-3 bg-success/10 rounded-2xl text-success group-hover:bg-success group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-code text-xl"></i>
+                    </div>
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-base-300 group-hover:text-success transition-colors duration-300 bg-base-200/50 group-hover:bg-success/10">
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </div>
+                </div>
+                <h2 class="card-title mt-4 group-hover:text-success transition-colors">开发者 API</h2>
+                <p class="text-base-content/70 text-sm mt-1">管理 API 密钥，查看文档并进行接口调试。</p>
+            </div>
+        </a>
     </div>
 
     <!-- Footer Meta Info -->
