@@ -49,7 +49,7 @@ uv run ./src/manage.py migrate
 pnpm install
 
 # Copy frontend assets
-gulp move
+pnpm gulp:move
 ```
 
 ### Development
