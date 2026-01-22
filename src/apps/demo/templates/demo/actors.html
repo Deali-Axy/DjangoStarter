@@ -6,16 +6,16 @@
 {% block content %}
     {% page_header title breadcrumbs %}
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+    <div class="card bg-base-100 shadow-xl border border-base-200 overflow-hidden">
         <!-- Header / Toolbar -->
-        <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <h2 class="text-lg font-bold text-gray-900 dark:text-white">All Actors</h2>
-            <div class="flex gap-3">
-                <button class="px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors flex items-center">
-                    <i class="fa-solid fa-filter mr-2 text-gray-400"></i>
+        <div class="p-6 border-b border-base-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <h2 class="text-lg font-bold text-base-content">All Actors</h2>
+            <div class="join">
+                <button class="btn btn-sm btn-outline join-item">
+                    <i class="fa-solid fa-filter mr-2"></i>
                     Filter
                 </button>
-                <button class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm flex items-center">
+                <button class="btn btn-sm btn-primary join-item">
                     <i class="fa-solid fa-plus mr-2"></i>
                     Add Actor
                 </button>
@@ -24,63 +24,57 @@
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="table table-zebra w-full">
                 <thead>
-                    <tr class="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
-                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Actor</th>
-                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Role</th>
-                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Country</th>
-                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
+                    <tr class="bg-base-200">
+                        <th>Actor</th>
+                        <th>Role</th>
+                        <th>Country</th>
+                        <th>Status</th>
+                        <th class="text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                <tbody>
                     {% for actor in actors %}
-                    <tr class="group hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                        <td class="px-6 py-4">
+                    <tr class="hover">
+                        <td>
                             <div class="flex items-center gap-4">
-                                <div class="relative">
-                                    <img src="{{ actor.avatar }}" alt="{{ actor.name }}" class="w-10 h-10 rounded-full object-cover ring-2 ring-white dark:ring-gray-800">
+                                <div class="avatar indicator">
                                     {% if actor.status == 'Available' %}
-                                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                                        <span class="indicator-item badge badge-success badge-xs border-base-100"></span>
                                     {% elif actor.status == 'Busy' %}
-                                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-red-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                                        <span class="indicator-item badge badge-error badge-xs border-base-100"></span>
                                     {% else %}
-                                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-yellow-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                                        <span class="indicator-item badge badge-warning badge-xs border-base-100"></span>
                                     {% endif %}
+                                    <div class="w-10 h-10 rounded-full ring ring-base-200 ring-offset-base-100 ring-offset-2">
+                                        <img src="{{ actor.avatar }}" alt="{{ actor.name }}" />
+                                    </div>
                                 </div>
                                 <div>
-                                    <div class="font-medium text-gray-900 dark:text-white">{{ actor.name }}</div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">ID: #{{ forloop.counter|add:"1000" }}</div>
+                                    <div class="font-bold text-base-content">{{ actor.name }}</div>
+                                    <div class="text-xs text-base-content/50">ID: #{{ forloop.counter|add:"1000" }}</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4">
-                            <span class="text-sm text-gray-600 dark:text-gray-300">{{ actor.role }}</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                                <i class="fa-solid fa-earth-americas text-gray-400"></i>
+                        <td class="text-base-content/70">{{ actor.role }}</td>
+                        <td>
+                            <div class="flex items-center gap-2 text-base-content/70">
+                                <i class="fa-solid fa-earth-americas text-base-content/40"></i>
                                 {{ actor.country }}
                             </div>
                         </td>
-                        <td class="px-6 py-4">
+                        <td>
                             {% if actor.status == 'Available' %}
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                                    Available
-                                </span>
+                                <div class="badge badge-success badge-soft gap-2">Available</div>
                             {% elif actor.status == 'Busy' %}
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
-                                    Busy
-                                </span>
+                                <div class="badge badge-error badge-soft gap-2">Busy</div>
                             {% else %}
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
-                                    On Set
-                                </span>
+                                <div class="badge badge-warning badge-soft gap-2">On Set</div>
                             {% endif %}
                         </td>
-                        <td class="px-6 py-4 text-right">
-                            <button class="text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30">
+                        <td class="text-right">
+                            <button class="btn btn-ghost btn-xs btn-circle">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                         </td>
@@ -91,17 +85,13 @@
         </div>
         
         <!-- Pagination -->
-        <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
-            <div class="text-sm text-gray-500 dark:text-gray-400">
-                Showing <span class="font-medium text-gray-900 dark:text-white">1</span> to <span class="font-medium text-gray-900 dark:text-white">4</span> of <span class="font-medium text-gray-900 dark:text-white">4</span> results
+        <div class="p-4 border-t border-base-200 flex items-center justify-between">
+            <div class="text-sm text-base-content/60">
+                Showing <span class="font-bold text-base-content">1</span> to <span class="font-bold text-base-content">4</span> of <span class="font-bold text-base-content">4</span> results
             </div>
-            <div class="flex gap-2">
-                <button class="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50" disabled>
-                    Previous
-                </button>
-                <button class="px-3 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50" disabled>
-                    Next
-                </button>
+            <div class="join">
+                <button class="join-item btn btn-sm" disabled>Previous</button>
+                <button class="join-item btn btn-sm" disabled>Next</button>
             </div>
         </div>
     </div>

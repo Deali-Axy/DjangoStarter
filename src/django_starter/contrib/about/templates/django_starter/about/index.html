@@ -7,37 +7,37 @@
 {% block title %}{% trans "关于我们" %}{% endblock %}
 
 {% block content %}
-    <section class="relative overflow-hidden rounded-3xl border border-slate-200/10 bg-white/60 shadow-sm ring-1 ring-slate-900/5 backdrop-blur-sm dark:bg-slate-950/30 dark:ring-white/10">
+    <section class="relative overflow-hidden card bg-base-100 shadow-xl border border-base-200">
         <div class="pointer-events-none absolute inset-0">
-            <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl"></div>
-            <div class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl"></div>
+            <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
+            <div class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-secondary/10 blur-3xl"></div>
         </div>
 
         <div class="relative px-6 py-14 sm:px-10 sm:py-20">
             <div class="mx-auto max-w-6xl">
                 <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
                     <div class="lg:col-span-7">
-                        <div class="inline-flex items-center gap-2 rounded-full border border-slate-200/15 bg-white/70 px-4 py-2 text-sm text-slate-700 shadow-sm dark:bg-slate-900/40 dark:text-slate-200">
-                            <i class="fa-solid fa-sparkles text-indigo-600 dark:text-indigo-400"></i>
+                        <div class="badge badge-lg badge-ghost gap-2 p-4">
+                            <i class="fa-solid fa-sparkles text-primary"></i>
                             <span>{% trans "以工程化最佳实践，交付可靠产品" %}</span>
                         </div>
 
-                        <h1 class="mt-6 text-4xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-base-content sm:text-5xl">
                             {% trans "关于我们" %}
                         </h1>
 
-                        <p class="mt-4 max-w-prose text-base leading-7 text-slate-600 dark:text-slate-300">
+                        <p class="mt-4 max-w-prose text-base leading-7 text-base-content/70">
                             {{ about.story }}
                         </p>
 
                         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
                             <a href="#values"
-                               class="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-md transition duration-200 ease-out hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/30">
+                               class="btn btn-primary rounded-full px-8">
                                 <i class="fa-solid fa-arrow-right"></i>
                                 {% trans "了解我们的价值观" %}
                             </a>
                             <a href="#milestones"
-                               class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200/20 bg-white/50 px-6 py-3 text-sm font-medium text-slate-800 shadow-sm transition duration-200 ease-out hover:bg-white/80 focus:outline-none focus:ring-4 focus:ring-slate-900/10 dark:bg-slate-900/30 dark:text-slate-200 dark:hover:bg-slate-900/50">
+                               class="btn btn-outline rounded-full px-8">
                                 <i class="fa-solid fa-timeline"></i>
                                 {% trans "查看里程碑" %}
                             </a>
@@ -45,67 +45,67 @@
 
                         <dl class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
                             {% for metric in metrics %}
-                                <div class="rounded-2xl border border-slate-200/10 bg-white/50 p-5 shadow-sm dark:bg-slate-900/30" data-aos="fade-up" data-aos-delay="{{ forloop.counter|multiply:50 }}">
-                                    <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-                                        <i class="{{ metric.icon }} text-indigo-600 dark:text-indigo-400"></i>
+                                <div class="card bg-base-200/50 border border-base-200 p-5" data-aos="fade-up" data-aos-delay="{{ forloop.counter|multiply:50 }}">
+                                    <div class="flex items-center gap-2 text-sm text-base-content/70">
+                                        <i class="{{ metric.icon }} text-primary"></i>
                                         <dt>{{ metric.label }}</dt>
                                     </div>
-                                    <dd class="counter mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white" data-count="{{ metric.value }}">0</dd>
+                                    <dd class="counter mt-3 text-3xl font-bold tracking-tight text-base-content" data-count="{{ metric.value }}">0</dd>
                                 </div>
                             {% endfor %}
                         </dl>
                     </div>
 
                     <div class="lg:col-span-5">
-                        <div class="rounded-3xl border border-slate-200/10 bg-white/70 p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10" data-aos="fade-left">
+                        <div class="card bg-base-200/50 border border-base-200 p-6 shadow-sm" data-aos="fade-left">
                             <div class="flex items-start justify-between gap-4">
                                 <div>
-                                    <p class="text-sm font-medium text-slate-900 dark:text-white">{{ about.title }}</p>
-                                    <p class="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{% trans "我们相信清晰的设计与扎实的工程可以相互成就。" %}</p>
+                                    <p class="text-sm font-medium text-base-content">{{ about.title }}</p>
+                                    <p class="mt-1 text-sm leading-6 text-base-content/70">{% trans "我们相信清晰的设计与扎实的工程可以相互成就。" %}</p>
                                 </div>
-                                <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                                     <i class="fa-solid fa-shield-halved"></i>
                                 </div>
                             </div>
 
                             <div class="mt-6 space-y-4">
-                                <div class="flex items-center gap-3 rounded-2xl border border-slate-200/10 bg-white/60 p-4 dark:bg-slate-900/30">
-                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900/5 text-slate-700 dark:bg-white/10 dark:text-slate-200">
+                                <div class="flex items-center gap-3 rounded-2xl border border-base-200 bg-base-100 p-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-base-200 text-base-content">
                                         <i class="fa-solid fa-envelope"></i>
                                     </div>
                                     <div class="min-w-0">
-                                        <p class="text-xs text-slate-500 dark:text-slate-400">{% trans "联系邮箱" %}</p>
-                                        <p class="truncate text-sm font-medium text-slate-900 dark:text-white">{{ about.email }}</p>
+                                        <p class="text-xs text-base-content/50">{% trans "联系邮箱" %}</p>
+                                        <p class="truncate text-sm font-medium text-base-content">{{ about.email }}</p>
                                     </div>
                                 </div>
 
-                                <div class="flex items-center gap-3 rounded-2xl border border-slate-200/10 bg-white/60 p-4 dark:bg-slate-900/30">
-                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900/5 text-slate-700 dark:bg-white/10 dark:text-slate-200">
+                                <div class="flex items-center gap-3 rounded-2xl border border-base-200 bg-base-100 p-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-base-200 text-base-content">
                                         <i class="fa-solid fa-phone"></i>
                                     </div>
                                     <div class="min-w-0">
-                                        <p class="text-xs text-slate-500 dark:text-slate-400">{% trans "联系电话" %}</p>
-                                        <p class="truncate text-sm font-medium text-slate-900 dark:text-white">{{ about.phone }}</p>
+                                        <p class="text-xs text-base-content/50">{% trans "联系电话" %}</p>
+                                        <p class="truncate text-sm font-medium text-base-content">{{ about.phone }}</p>
                                     </div>
                                 </div>
 
-                                <div class="flex items-start gap-3 rounded-2xl border border-slate-200/10 bg-white/60 p-4 dark:bg-slate-900/30">
-                                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-900/5 text-slate-700 dark:bg-white/10 dark:text-slate-200">
+                                <div class="flex items-start gap-3 rounded-2xl border border-base-200 bg-base-100 p-4">
+                                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-base-200 text-base-content">
                                         <i class="fa-solid fa-location-dot"></i>
                                     </div>
                                     <div class="min-w-0">
-                                        <p class="text-xs text-slate-500 dark:text-slate-400">{% trans "办公地址" %}</p>
-                                        <p class="text-sm font-medium leading-6 text-slate-900 dark:text-white">{{ about.address }}</p>
+                                        <p class="text-xs text-base-content/50">{% trans "办公地址" %}</p>
+                                        <p class="text-sm font-medium leading-6 text-base-content">{{ about.address }}</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="mt-6 flex items-center justify-between gap-3">
-                                <a href="#faq" class="text-sm font-medium text-indigo-700 underline-offset-4 transition hover:text-indigo-600 hover:underline dark:text-indigo-300 dark:hover:text-indigo-200">
+                                <a href="#faq" class="link link-primary text-sm font-medium">
                                     {% trans "常见问题" %}
                                 </a>
                                 <a href="{% url 'djs_about:contact' %}"
-                                   class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200/20 bg-white/50 px-5 py-2.5 text-sm font-medium text-slate-800 shadow-sm transition duration-200 ease-out hover:bg-white/80 focus:outline-none focus:ring-4 focus:ring-slate-900/10 dark:bg-slate-900/30 dark:text-slate-200 dark:hover:bg-slate-900/50">
+                                   class="btn btn-sm btn-outline rounded-full">
                                     <i class="fa-solid fa-message"></i>
                                     {% trans "联系我们" %}
                                 </a>
@@ -118,13 +118,13 @@
     </section>
 
     <section class="mt-12">
-        <div class="flex items-center gap-3 overflow-x-auto rounded-2xl border border-slate-200/10 bg-white/60 px-4 py-3 shadow-sm dark:bg-slate-950/30 lg:hidden" aria-label="{% trans '页内目录' %}">
-            <a href="#mission" class="whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">{% trans "使命" %}</a>
-            <a href="#values" class="whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">{% trans "价值观" %}</a>
-            <a href="#capabilities" class="whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">{% trans "能力" %}</a>
-            <a href="#milestones" class="whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">{% trans "里程碑" %}</a>
-            <a href="#team" class="whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">{% trans "团队" %}</a>
-            <a href="#faq" class="whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">{% trans "FAQ" %}</a>
+        <div class="flex items-center gap-3 overflow-x-auto rounded-box border border-base-200 bg-base-100 px-4 py-3 shadow-sm lg:hidden" aria-label="{% trans '页内目录' %}">
+            <a href="#mission" class="btn btn-sm btn-ghost rounded-full">{% trans "使命" %}</a>
+            <a href="#values" class="btn btn-sm btn-ghost rounded-full">{% trans "价值观" %}</a>
+            <a href="#capabilities" class="btn btn-sm btn-ghost rounded-full">{% trans "能力" %}</a>
+            <a href="#milestones" class="btn btn-sm btn-ghost rounded-full">{% trans "里程碑" %}</a>
+            <a href="#team" class="btn btn-sm btn-ghost rounded-full">{% trans "团队" %}</a>
+            <a href="#faq" class="btn btn-sm btn-ghost rounded-full">{% trans "FAQ" %}</a>
         </div>
     </section>
 
@@ -133,33 +133,33 @@
             <section id="mission" class="scroll-mt-24" data-aos="fade-up">
                 <div class="flex items-start justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{% trans "使命与愿景" %}</h2>
-                        <p class="mt-2 max-w-prose text-base leading-7 text-slate-600 dark:text-slate-300">{% trans "我们用稳定的技术与克制的设计，持续输出可复用的生产力。" %}</p>
+                        <h2 class="text-2xl font-bold tracking-tight text-base-content">{% trans "使命与愿景" %}</h2>
+                        <p class="mt-2 max-w-prose text-base leading-7 text-base-content/70">{% trans "我们用稳定的技术与克制的设计，持续输出可复用的生产力。" %}</p>
                     </div>
-                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                         <i class="fa-solid fa-compass"></i>
                     </div>
                 </div>
 
                 <div class="mt-8 grid gap-6 md:grid-cols-2">
-                    <div class="rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10" data-aos="fade-up">
+                    <div class="card bg-base-100 border border-base-200 p-6 shadow-sm" data-aos="fade-up">
                         <div class="flex items-center gap-3">
-                            <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white shadow-sm">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary text-primary-content shadow-sm">
                                 <i class="fa-solid fa-bolt"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{% trans "我们的使命" %}</h3>
+                            <h3 class="text-lg font-bold text-base-content">{% trans "我们的使命" %}</h3>
                         </div>
-                        <p class="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">{{ about.mission }}</p>
+                        <p class="mt-4 text-base leading-7 text-base-content/70">{{ about.mission }}</p>
                     </div>
 
-                    <div class="rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10" data-aos="fade-up" data-aos-delay="80">
+                    <div class="card bg-base-100 border border-base-200 p-6 shadow-sm" data-aos="fade-up" data-aos-delay="80">
                         <div class="flex items-center gap-3">
-                            <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-900/5 text-slate-700 ring-1 ring-slate-900/10 dark:bg-white/10 dark:text-slate-200">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-base-200 text-base-content">
                                 <i class="fa-solid fa-lightbulb"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{% trans "我们的愿景" %}</h3>
+                            <h3 class="text-lg font-bold text-base-content">{% trans "我们的愿景" %}</h3>
                         </div>
-                        <p class="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">{{ about.vision }}</p>
+                        <p class="mt-4 text-base leading-7 text-base-content/70">{{ about.vision }}</p>
                     </div>
                 </div>
             </section>
@@ -167,36 +167,36 @@
             <section id="values" class="mt-14 scroll-mt-24" data-aos="fade-up">
                 <div class="flex items-start justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{% trans "价值观" %}</h2>
-                        <p class="mt-2 max-w-prose text-base leading-7 text-slate-600 dark:text-slate-300">{% trans "用可解释的原则做决策，用可落地的标准做交付。" %}</p>
+                        <h2 class="text-2xl font-bold tracking-tight text-base-content">{% trans "价值观" %}</h2>
+                        <p class="mt-2 max-w-prose text-base leading-7 text-base-content/70">{% trans "用可解释的原则做决策，用可落地的标准做交付。" %}</p>
                     </div>
-                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900/5 text-slate-700 ring-1 ring-slate-900/10 dark:bg-white/10 dark:text-slate-200">
+                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-base-200 text-base-content">
                         <i class="fa-solid fa-gem"></i>
                     </div>
                 </div>
 
                 <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {% for value in about.values %}
-                        <div class="group rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 transition duration-200 ease-out hover:bg-white/80 hover:shadow-md dark:bg-slate-950/30 dark:ring-white/10 dark:hover:bg-slate-950/45"
+                        <div class="card bg-base-100 border border-base-200 p-6 shadow-sm hover:shadow-md transition-shadow"
                              data-aos="fade-up" data-aos-delay="{{ forloop.counter|multiply:60 }}">
-                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                                 <i class="{{ value.icon }}"></i>
                             </div>
-                            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">{{ value.title }}</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ value.description }}</p>
+                            <h3 class="mt-5 text-lg font-bold text-base-content">{{ value.title }}</h3>
+                            <p class="mt-2 text-sm leading-6 text-base-content/70">{{ value.description }}</p>
                         </div>
                     {% endfor %}
                 </div>
             </section>
 
             <section id="capabilities" class="mt-14 scroll-mt-24" data-aos="fade-up">
-                <div class="rounded-3xl border border-slate-200/10 bg-white/60 p-8 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10">
+                <div class="card bg-base-100 border border-base-200 p-8 shadow-sm">
                     <div class="flex items-start justify-between gap-4">
                         <div>
-                            <h2 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{% trans "能力与差异化" %}</h2>
-                            <p class="mt-2 max-w-prose text-base leading-7 text-slate-600 dark:text-slate-300">{% trans "在体验、可维护性与交付速度之间，做长期正确的平衡。" %}</p>
+                            <h2 class="text-2xl font-bold tracking-tight text-base-content">{% trans "能力与差异化" %}</h2>
+                            <p class="mt-2 max-w-prose text-base leading-7 text-base-content/70">{% trans "在体验、可维护性与交付速度之间，做长期正确的平衡。" %}</p>
                         </div>
-                        <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                        <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                             <i class="fa-solid fa-layer-group"></i>
                         </div>
                     </div>
@@ -205,53 +205,53 @@
                         <div class="lg:col-span-7">
                             <ul class="space-y-4">
                                 <li class="flex gap-3">
-                                    <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                                    <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary">
                                         <i class="fa-solid fa-check text-xs"></i>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-semibold text-slate-900 dark:text-white">{% trans "一致的设计语言" %}</p>
-                                        <p class="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{% trans "统一配色、圆角、阴影与交互态，保证整体高级感与可扩展。" %}</p>
+                                        <p class="text-sm font-bold text-base-content">{% trans "一致的设计语言" %}</p>
+                                        <p class="mt-1 text-sm leading-6 text-base-content/70">{% trans "统一配色、圆角、阴影与交互态，保证整体高级感与可扩展。" %}</p>
                                     </div>
                                 </li>
                                 <li class="flex gap-3">
-                                    <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                                    <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary">
                                         <i class="fa-solid fa-check text-xs"></i>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-semibold text-slate-900 dark:text-white">{% trans "服务端渲染 + 局部刷新" %}</p>
-                                        <p class="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{% trans "页面保持 SSR 稳定性，同时用 HTMX 实现无刷新加载与更流畅体验。" %}</p>
+                                        <p class="text-sm font-bold text-base-content">{% trans "服务端渲染 + 局部刷新" %}</p>
+                                        <p class="mt-1 text-sm leading-6 text-base-content/70">{% trans "页面保持 SSR 稳定性，同时用 HTMX 实现无刷新加载与更流畅体验。" %}</p>
                                     </div>
                                 </li>
                                 <li class="flex gap-3">
-                                    <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                                    <div class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary">
                                         <i class="fa-solid fa-check text-xs"></i>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-semibold text-slate-900 dark:text-white">{% trans "可访问性与可用性" %}</p>
-                                        <p class="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{% trans "语义化结构、合理对比度、键盘可达与清晰焦点样式。" %}</p>
+                                        <p class="text-sm font-bold text-base-content">{% trans "可访问性与可用性" %}</p>
+                                        <p class="mt-1 text-sm leading-6 text-base-content/70">{% trans "语义化结构、合理对比度、键盘可达与清晰焦点样式。" %}</p>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                         <div class="lg:col-span-5">
-                            <div class="rounded-3xl border border-slate-200/10 bg-slate-950/5 p-6 ring-1 ring-slate-900/5 dark:bg-white/5 dark:ring-white/10">
-                                <p class="text-sm font-semibold text-slate-900 dark:text-white">{% trans "交付标准" %}</p>
+                            <div class="card bg-base-200/50 border border-base-200 p-6">
+                                <p class="text-sm font-bold text-base-content">{% trans "交付标准" %}</p>
                                 <div class="mt-4 flex flex-wrap gap-2">
-                                    <span class="rounded-full border border-slate-200/15 bg-white/60 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-900/40 dark:text-slate-200">Material Design 3</span>
-                                    <span class="rounded-full border border-slate-200/15 bg-white/60 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-900/40 dark:text-slate-200">Tailwind v3+</span>
-                                    <span class="rounded-full border border-slate-200/15 bg-white/60 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-900/40 dark:text-slate-200">HTMX</span>
-                                    <span class="rounded-full border border-slate-200/15 bg-white/60 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-900/40 dark:text-slate-200">AOS</span>
-                                    <span class="rounded-full border border-slate-200/15 bg-white/60 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-900/40 dark:text-slate-200">Font Awesome</span>
+                                    <span class="badge badge-outline bg-base-100">Material Design 3</span>
+                                    <span class="badge badge-outline bg-base-100">Tailwind v4+</span>
+                                    <span class="badge badge-outline bg-base-100">HTMX</span>
+                                    <span class="badge badge-outline bg-base-100">AOS</span>
+                                    <span class="badge badge-outline bg-base-100">Font Awesome</span>
                                 </div>
 
-                                <div class="mt-6 rounded-2xl border border-slate-200/10 bg-white/60 p-4 dark:bg-slate-900/30">
+                                <div class="mt-6 rounded-2xl border border-base-200 bg-base-100 p-4">
                                     <div class="flex items-center justify-between">
-                                        <p class="text-xs text-slate-500 dark:text-slate-400">{% trans "默认动效时长" %}</p>
-                                        <p class="text-sm font-semibold text-slate-900 dark:text-white">600ms</p>
+                                        <p class="text-xs text-base-content/50">{% trans "默认动效时长" %}</p>
+                                        <p class="text-sm font-bold text-base-content">600ms</p>
                                     </div>
                                     <div class="mt-3 flex items-center justify-between">
-                                        <p class="text-xs text-slate-500 dark:text-slate-400">{% trans "缓动" %}</p>
-                                        <p class="text-sm font-semibold text-slate-900 dark:text-white">ease-out</p>
+                                        <p class="text-xs text-base-content/50">{% trans "缓动" %}</p>
+                                        <p class="text-sm font-bold text-base-content">ease-out</p>
                                     </div>
                                 </div>
                             </div>
@@ -263,25 +263,25 @@
             <section id="milestones" class="mt-14 scroll-mt-24" data-aos="fade-up">
                 <div class="flex items-start justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{% trans "里程碑" %}</h2>
-                        <p class="mt-2 max-w-prose text-base leading-7 text-slate-600 dark:text-slate-300">{% trans "用可验证的成果，记录每一次成长。" %}</p>
+                        <h2 class="text-2xl font-bold tracking-tight text-base-content">{% trans "里程碑" %}</h2>
+                        <p class="mt-2 max-w-prose text-base leading-7 text-base-content/70">{% trans "用可验证的成果，记录每一次成长。" %}</p>
                     </div>
-                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900/5 text-slate-700 ring-1 ring-slate-900/10 dark:bg-white/10 dark:text-slate-200">
+                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-base-200 text-base-content">
                         <i class="fa-solid fa-flag-checkered"></i>
                     </div>
                 </div>
 
                 <ul id="milestoneList" class="mt-8 space-y-4">
                     {% for milestone in milestones_initial %}
-                        <li class="rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10" data-aos="fade-up" data-aos-delay="{{ forloop.counter|multiply:50 }}">
+                        <li class="card bg-base-100 border border-base-200 p-6 shadow-sm" data-aos="fade-up" data-aos-delay="{{ forloop.counter|multiply:50 }}">
                             <div class="flex items-start gap-4">
-                                <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                                <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                                     <i class="fa-solid fa-timeline"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">{{ milestone.year }}</p>
-                                    <p class="mt-1 text-base font-semibold text-slate-900 dark:text-white">{{ milestone.title }}</p>
-                                    <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ milestone.description }}</p>
+                                    <p class="text-xs font-bold uppercase tracking-wide text-primary">{{ milestone.year }}</p>
+                                    <p class="mt-1 text-base font-bold text-base-content">{{ milestone.title }}</p>
+                                    <p class="mt-2 text-sm leading-6 text-base-content/70">{{ milestone.description }}</p>
                                 </div>
                             </div>
                         </li>
@@ -297,13 +297,13 @@
                             hx-swap="beforeend"
                             hx-on:htmx:beforeRequest="this.querySelector('[data-spinner]').classList.remove('hidden'); this.querySelector('[data-label]').classList.add('hidden'); this.disabled = true;"
                             hx-on:htmx:afterRequest="this.querySelector('[data-spinner]').classList.add('hidden'); this.querySelector('[data-label]').classList.remove('hidden');"
-                            class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200/20 bg-white/60 px-6 py-3 text-sm font-medium text-slate-800 shadow-sm transition duration-200 ease-out hover:bg-white/80 focus:outline-none focus:ring-4 focus:ring-slate-900/10 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-slate-900/30 dark:text-slate-200 dark:hover:bg-slate-900/50">
+                            class="btn btn-outline rounded-full w-full sm:w-auto">
                             <span data-label class="inline-flex items-center gap-2">
                                 <i class="fa-solid fa-plus"></i>
                                 {% trans "展开更多" %}
                             </span>
                             <span data-spinner class="hidden inline-flex items-center gap-2">
-                                <i class="fa-solid fa-circle-notch animate-spin"></i>
+                                <span class="loading loading-spinner loading-sm"></span>
                                 {% trans "加载中" %}
                             </span>
                         </button>
@@ -314,40 +314,42 @@
             <section id="team" class="mt-14 scroll-mt-24" data-aos="fade-up">
                 <div class="flex items-start justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{% trans "团队" %}</h2>
-                        <p class="mt-2 max-w-prose text-base leading-7 text-slate-600 dark:text-slate-300">{% trans "跨职能协作，让产品更快更稳地落地。" %}</p>
+                        <h2 class="text-2xl font-bold tracking-tight text-base-content">{% trans "团队" %}</h2>
+                        <p class="mt-2 max-w-prose text-base leading-7 text-base-content/70">{% trans "跨职能协作，让产品更快更稳地落地。" %}</p>
                     </div>
-                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-600/10 text-indigo-700 ring-1 ring-indigo-600/15 dark:text-indigo-300">
+                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                         <i class="fa-solid fa-people-group"></i>
                     </div>
                 </div>
 
                 <div id="teamGrid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {% for member in team_initial %}
-                        <div class="rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 transition duration-200 ease-out hover:bg-white/80 hover:shadow-md dark:bg-slate-950/30 dark:ring-white/10 dark:hover:bg-slate-950/45" data-aos="fade-up" data-aos-delay="{{ forloop.counter|multiply:40 }}">
+                        <div class="card bg-base-100 border border-base-200 p-6 shadow-sm hover:shadow-md transition-shadow" data-aos="fade-up" data-aos-delay="{{ forloop.counter|multiply:40 }}">
                             <div class="flex items-center gap-4">
-                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600/20 to-sky-600/20 text-sm font-semibold text-slate-900 ring-1 ring-slate-900/5 dark:text-white dark:ring-white/10">
-                                    {{ member.name|slice:":1" }}
+                                <div class="avatar placeholder">
+                                    <div class="bg-neutral text-neutral-content rounded-full w-12">
+                                        <span class="text-lg">{{ member.name|slice:":1" }}</span>
+                                    </div>
                                 </div>
                                 <div class="min-w-0">
-                                    <p class="truncate text-sm font-semibold text-slate-900 dark:text-white">{{ member.name }}</p>
-                                    <p class="truncate text-xs text-slate-500 dark:text-slate-400">{{ member.role }}</p>
+                                    <p class="truncate text-sm font-bold text-base-content">{{ member.name }}</p>
+                                    <p class="truncate text-xs text-base-content/50">{{ member.role }}</p>
                                 </div>
                             </div>
-                            <p class="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ member.bio }}</p>
-                            <div class="mt-5 flex items-center gap-3 text-slate-500 dark:text-slate-300">
+                            <p class="mt-4 text-sm leading-6 text-base-content/70">{{ member.bio }}</p>
+                            <div class="mt-5 flex items-center gap-3 text-base-content/50">
                                 {% if member.links.github %}
-                                    <a class="rounded-full p-2 transition hover:bg-slate-900/5 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-900/10 dark:hover:bg-white/10 dark:hover:text-white" href="{{ member.links.github }}" aria-label="GitHub">
+                                    <a class="btn btn-ghost btn-circle btn-sm" href="{{ member.links.github }}" aria-label="GitHub">
                                         <i class="fa-brands fa-github"></i>
                                     </a>
                                 {% endif %}
                                 {% if member.links.x %}
-                                    <a class="rounded-full p-2 transition hover:bg-slate-900/5 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-900/10 dark:hover:bg-white/10 dark:hover:text-white" href="{{ member.links.x }}" aria-label="X">
+                                    <a class="btn btn-ghost btn-circle btn-sm" href="{{ member.links.x }}" aria-label="X">
                                         <i class="fa-brands fa-x-twitter"></i>
                                     </a>
                                 {% endif %}
                                 {% if member.links.website %}
-                                    <a class="rounded-full p-2 transition hover:bg-slate-900/5 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-900/10 dark:hover:bg-white/10 dark:hover:text-white" href="{{ member.links.website }}" aria-label="Website">
+                                    <a class="btn btn-ghost btn-circle btn-sm" href="{{ member.links.website }}" aria-label="Website">
                                         <i class="fa-solid fa-link"></i>
                                     </a>
                                 {% endif %}
@@ -365,13 +367,13 @@
                             hx-swap="beforeend"
                             hx-on:htmx:beforeRequest="this.querySelector('[data-spinner]').classList.remove('hidden'); this.querySelector('[data-label]').classList.add('hidden'); this.disabled = true;"
                             hx-on:htmx:afterRequest="this.querySelector('[data-spinner]').classList.add('hidden'); this.querySelector('[data-label]').classList.remove('hidden');"
-                            class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200/20 bg-white/60 px-6 py-3 text-sm font-medium text-slate-800 shadow-sm transition duration-200 ease-out hover:bg-white/80 focus:outline-none focus:ring-4 focus:ring-slate-900/10 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-slate-900/30 dark:text-slate-200 dark:hover:bg-slate-900/50">
+                            class="btn btn-outline rounded-full w-full sm:w-auto">
                             <span data-label class="inline-flex items-center gap-2">
                                 <i class="fa-solid fa-user-plus"></i>
                                 {% trans "查看更多成员" %}
                             </span>
                             <span data-spinner class="hidden inline-flex items-center gap-2">
-                                <i class="fa-solid fa-circle-notch animate-spin"></i>
+                                <span class="loading loading-spinner loading-sm"></span>
                                 {% trans "加载中" %}
                             </span>
                         </button>
@@ -382,25 +384,25 @@
             <section id="faq" class="mt-14 scroll-mt-24" data-aos="fade-up">
                 <div class="flex items-start justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{% trans "FAQ" %}</h2>
-                        <p class="mt-2 max-w-prose text-base leading-7 text-slate-600 dark:text-slate-300">{% trans "常见问题，快速定位答案。" %}</p>
+                        <h2 class="text-2xl font-bold tracking-tight text-base-content">{% trans "FAQ" %}</h2>
+                        <p class="mt-2 max-w-prose text-base leading-7 text-base-content/70">{% trans "常见问题，快速定位答案。" %}</p>
                     </div>
-                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900/5 text-slate-700 ring-1 ring-slate-900/10 dark:bg-white/10 dark:text-slate-200">
+                    <div class="hidden sm:flex h-11 w-11 items-center justify-center rounded-2xl bg-base-200 text-base-content">
                         <i class="fa-solid fa-circle-question"></i>
                     </div>
                 </div>
 
                 <div id="faqList" class="mt-8 space-y-4">
                     {% for item in faqs_initial %}
-                        <details class="group rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 transition duration-200 ease-out hover:bg-white/80 dark:bg-slate-950/30 dark:ring-white/10">
-                            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
-                                <span class="text-sm font-semibold text-slate-900 dark:text-white">{{ item.q }}</span>
-                                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/5 text-slate-700 transition group-open:rotate-180 dark:bg-white/10 dark:text-slate-200">
-                                    <i class="fa-solid fa-chevron-down text-xs"></i>
-                                </span>
-                            </summary>
-                            <div class="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ item.a }}</div>
-                        </details>
+                        <div class="collapse collapse-arrow bg-base-100 border border-base-200 rounded-box">
+                            <input type="checkbox" /> 
+                            <div class="collapse-title text-sm font-bold text-base-content">
+                                {{ item.q }}
+                            </div>
+                            <div class="collapse-content text-sm text-base-content/70"> 
+                                <p>{{ item.a }}</p>
+                            </div>
+                        </div>
                     {% endfor %}
                 </div>
 
@@ -413,13 +415,13 @@
                             hx-swap="beforeend"
                             hx-on:htmx:beforeRequest="this.querySelector('[data-spinner]').classList.remove('hidden'); this.querySelector('[data-label]').classList.add('hidden'); this.disabled = true;"
                             hx-on:htmx:afterRequest="this.querySelector('[data-spinner]').classList.add('hidden'); this.querySelector('[data-label]').classList.remove('hidden');"
-                            class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200/20 bg-white/60 px-6 py-3 text-sm font-medium text-slate-800 shadow-sm transition duration-200 ease-out hover:bg-white/80 focus:outline-none focus:ring-4 focus:ring-slate-900/10 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-slate-900/30 dark:text-slate-200 dark:hover:bg-slate-900/50">
+                            class="btn btn-outline rounded-full w-full sm:w-auto">
                             <span data-label class="inline-flex items-center gap-2">
                                 <i class="fa-solid fa-plus"></i>
                                 {% trans "查看更多问题" %}
                             </span>
                             <span data-spinner class="hidden inline-flex items-center gap-2">
-                                <i class="fa-solid fa-circle-notch animate-spin"></i>
+                                <span class="loading loading-spinner loading-sm"></span>
                                 {% trans "加载中" %}
                             </span>
                         </button>
@@ -428,19 +430,19 @@
             </section>
 
             <section class="mt-14" data-aos="fade-up">
-                <div class="rounded-3xl bg-indigo-600 px-8 py-10 text-white shadow-md">
+                <div class="card bg-primary text-primary-content shadow-lg p-8">
                     <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                         <div>
-                            <p class="text-sm font-medium text-white/90">{% trans "下一步" %}</p>
-                            <p class="mt-2 text-2xl font-semibold tracking-tight">{% trans "把想法变成可交付的产品" %}</p>
-                            <p class="mt-2 max-w-2xl text-sm leading-6 text-white/90">{% trans "如果你在搭建 Django 生产级项目骨架，DjangoStarter 可以帮你更快起步。" %}</p>
+                            <p class="text-sm font-bold opacity-90">{% trans "下一步" %}</p>
+                            <p class="mt-2 text-2xl font-bold tracking-tight">{% trans "把想法变成可交付的产品" %}</p>
+                            <p class="mt-2 max-w-2xl text-sm leading-6 opacity-90">{% trans "如果你在搭建 Django 生产级项目骨架，DjangoStarter 可以帮你更快起步。" %}</p>
                         </div>
                         <div class="flex flex-col gap-3 sm:flex-row">
-                            <a href="{% url 'djs_about:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-indigo-700 shadow-sm transition duration-200 ease-out hover:bg-white/90 focus:outline-none focus:ring-4 focus:ring-white/30">
+                            <a href="{% url 'djs_about:contact' %}" class="btn btn-neutral rounded-full text-primary bg-white hover:bg-white/90 border-0">
                                 <i class="fa-solid fa-paper-plane"></i>
                                 {% trans "联系团队" %}
                             </a>
-                            <a href="#mission" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-medium text-white shadow-sm transition duration-200 ease-out hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20">
+                            <a href="#mission" class="btn btn-outline text-white hover:bg-white/10 hover:text-white rounded-full">
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                 {% trans "回到顶部" %}
                             </a>
@@ -451,38 +453,38 @@
         </div>
 
         <aside class="col-span-12 hidden lg:col-span-4 lg:block" aria-label="{% trans '页内目录' %}">
-            <div class="sticky top-24 rounded-3xl border border-slate-200/10 bg-white/60 p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950/30 dark:ring-white/10">
-                <p class="text-sm font-semibold text-slate-900 dark:text-white">{% trans "目录" %}</p>
+            <div class="sticky top-24 card bg-base-100 border border-base-200 p-6 shadow-sm">
+                <p class="text-sm font-bold text-base-content">{% trans "目录" %}</p>
                 <nav class="mt-4 space-y-1">
-                    <a href="#mission" class="flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <a href="#mission" class="flex items-center justify-between rounded-box px-3 py-2 text-sm text-base-content/70 hover:bg-base-200 transition">
                         <span>{% trans "使命与愿景" %}</span>
-                        <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                        <i class="fa-solid fa-arrow-right text-xs opacity-50"></i>
                     </a>
-                    <a href="#values" class="flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <a href="#values" class="flex items-center justify-between rounded-box px-3 py-2 text-sm text-base-content/70 hover:bg-base-200 transition">
                         <span>{% trans "价值观" %}</span>
-                        <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                        <i class="fa-solid fa-arrow-right text-xs opacity-50"></i>
                     </a>
-                    <a href="#capabilities" class="flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <a href="#capabilities" class="flex items-center justify-between rounded-box px-3 py-2 text-sm text-base-content/70 hover:bg-base-200 transition">
                         <span>{% trans "能力与差异化" %}</span>
-                        <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                        <i class="fa-solid fa-arrow-right text-xs opacity-50"></i>
                     </a>
-                    <a href="#milestones" class="flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <a href="#milestones" class="flex items-center justify-between rounded-box px-3 py-2 text-sm text-base-content/70 hover:bg-base-200 transition">
                         <span>{% trans "里程碑" %}</span>
-                        <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                        <i class="fa-solid fa-arrow-right text-xs opacity-50"></i>
                     </a>
-                    <a href="#team" class="flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <a href="#team" class="flex items-center justify-between rounded-box px-3 py-2 text-sm text-base-content/70 hover:bg-base-200 transition">
                         <span>{% trans "团队" %}</span>
-                        <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                        <i class="fa-solid fa-arrow-right text-xs opacity-50"></i>
                     </a>
-                    <a href="#faq" class="flex items-center justify-between rounded-2xl px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10">
+                    <a href="#faq" class="flex items-center justify-between rounded-box px-3 py-2 text-sm text-base-content/70 hover:bg-base-200 transition">
                         <span>{% trans "FAQ" %}</span>
-                        <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+                        <i class="fa-solid fa-arrow-right text-xs opacity-50"></i>
                     </a>
                 </nav>
 
-                <div class="mt-6 rounded-2xl border border-slate-200/10 bg-white/60 p-4 dark:bg-slate-900/30">
-                    <p class="text-xs text-slate-500 dark:text-slate-400">{% trans "需要进一步沟通？" %}</p>
-                    <a href="{% url 'djs_about:contact' %}" class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 underline-offset-4 transition hover:text-indigo-600 hover:underline dark:text-indigo-300 dark:hover:text-indigo-200">
+                <div class="mt-6 rounded-2xl border border-base-200 bg-base-200/50 p-4">
+                    <p class="text-xs text-base-content/50">{% trans "需要进一步沟通？" %}</p>
+                    <a href="{% url 'djs_about:contact' %}" class="mt-2 inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline">
                         <i class="fa-solid fa-message"></i>
                         {% trans "打开联系页面" %}
                     </a>

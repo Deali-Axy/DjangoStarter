@@ -22,81 +22,74 @@
     {% page_header title breadcrumbs %}
 
     <!-- Controls Toolbar -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 bg-base-100 p-4 rounded-box shadow-sm border border-base-200">
         <!-- Search -->
-        <div class="relative w-full md:w-96">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+        <div class="join w-full md:w-auto">
+            <div class="relative w-full md:w-96">
+                <input type="text" 
+                       class="input input-bordered join-item w-full pl-10" 
+                       placeholder="Search movies..."
+                       hx-trigger="keyup changed delay:500ms"
+                       name="search">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/50">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
             </div>
-            <input type="text" 
-                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
-                   placeholder="Search movies..."
-                   hx-trigger="keyup changed delay:500ms"
-                   name="search">
+            <button class="btn btn-primary join-item">Search</button>
         </div>
 
         <!-- Filters -->
-        <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
-            <button class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors whitespace-nowrap">
-                All Movies
-            </button>
-            <button class="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors whitespace-nowrap">
-                Action
-            </button>
-            <button class="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors whitespace-nowrap">
-                Sci-Fi
-            </button>
-            <button class="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors whitespace-nowrap">
-                Drama
-            </button>
+        <div class="join w-full md:w-auto overflow-x-auto">
+            <button class="btn btn-sm btn-active join-item">All Movies</button>
+            <button class="btn btn-sm join-item">Action</button>
+            <button class="btn btn-sm join-item">Sci-Fi</button>
+            <button class="btn btn-sm join-item">Drama</button>
         </div>
     </div>
 
     <!-- Movies Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {% for movie in movies %}
-        <div class="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-            <!-- Image with Overlay -->
-            <div class="aspect-[2/3] relative overflow-hidden bg-gray-200">
-                <img src="{{ movie.image }}" alt="{{ movie.title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+        <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+            <figure class="aspect-[2/3] relative">
+                <img src="{{ movie.image }}" alt="{{ movie.title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 
-                <!-- Overlay Gradient -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                <!-- Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                 
-                <!-- Top Right Badge -->
-                <div class="absolute top-3 right-3 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-md shadow-lg flex items-center gap-1">
+                <!-- Rating Badge -->
+                <div class="absolute top-3 right-3 badge badge-warning gap-1 font-bold shadow-lg">
                     <i class="fa-solid fa-star text-[10px]"></i>
                     {{ movie.rating }}
                 </div>
-            </div>
 
-            <!-- Content -->
-            <div class="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <div class="text-indigo-300 text-xs font-medium uppercase tracking-wider mb-1">{{ movie.genre }}</div>
-                <h3 class="text-xl font-bold text-white leading-tight mb-2">{{ movie.title }}</h3>
-                <div class="flex items-center justify-between text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                <!-- Play Button -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button class="btn btn-circle btn-lg btn-ghost text-white bg-white/20 backdrop-blur-sm border-0 hover:bg-white/40">
+                        <i class="fa-solid fa-play text-xl ml-1"></i>
+                    </button>
+                </div>
+            </figure>
+            
+            <div class="card-body p-5">
+                <div class="text-xs font-bold uppercase tracking-wider text-primary">{{ movie.genre }}</div>
+                <h2 class="card-title text-base-content">{{ movie.title }}</h2>
+                <div class="flex items-center justify-between text-base-content/70 text-sm mt-2">
                     <span>{{ movie.year }}</span>
-                    <button class="text-white hover:text-indigo-300 transition-colors">
+                    <button class="btn btn-ghost btn-sm btn-circle text-error">
                         <i class="fa-regular fa-heart"></i>
                     </button>
                 </div>
             </div>
-            
-            <!-- Quick Action (Hidden by default, visible on hover) -->
-            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
-                <button class="bg-white/20 backdrop-blur-sm hover:bg-white text-white hover:text-indigo-600 rounded-full p-4 transition-all transform scale-75 group-hover:scale-100">
-                    <i class="fa-solid fa-play text-xl ml-1"></i>
-                </button>
-            </div>
         </div>
         {% endfor %}
         
-        <!-- Add New Card (Dashed) -->
-        <button class="group flex flex-col items-center justify-center aspect-[2/3] border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl hover:border-indigo-500 dark:hover:border-indigo-500 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-300">
-            <div class="h-16 w-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900 transition-colors">
-                <i class="fa-solid fa-plus text-gray-400 group-hover:text-indigo-600 dark:text-gray-400 dark:group-hover:text-indigo-400 text-2xl"></i>
+        <!-- Add New Card -->
+        <button class="card bg-base-100 border-2 border-dashed border-base-300 hover:border-primary hover:bg-base-200 transition-all duration-300 aspect-[2/3] flex items-center justify-center gap-4 group">
+            <div class="w-16 h-16 rounded-full bg-base-200 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                <i class="fa-solid fa-plus text-2xl text-base-content/50 group-hover:text-primary"></i>
             </div>
-            <span class="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">Add Movie</span>
+            <span class="font-medium text-base-content/70 group-hover:text-primary">Add Movie</span>
         </button>
     </div>
 {% endblock %}
