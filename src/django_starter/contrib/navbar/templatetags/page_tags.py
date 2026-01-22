@@ -40,11 +40,14 @@ def page_header(title, breadcrumbs=None):
     }
 
 @register.inclusion_tag('django_starter/components/breadcrumbs_items.html')
-def render_breadcrumbs(breadcrumbs):
+def render_breadcrumbs(breadcrumbs, show_icon=False):
     """
     仅渲染面包屑导航列表项 (<li>...</li>)
     用于 navbar 等需要单独显示面包屑的地方
+    
+    :param show_icon: 是否显示图标，默认为 False
     """
     return {
         'breadcrumbs': _normalize_breadcrumbs(breadcrumbs),
+        'show_icon': show_icon,
     }

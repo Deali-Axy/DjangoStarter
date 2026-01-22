@@ -2,12 +2,12 @@
     <li>
         {% if item.url and not forloop.last %}
             <a href="{{ item.url }}" class="hover:text-primary transition-colors flex items-center gap-2">
-                {% if item.icon %}<i class="{{ item.icon }}"></i>{% endif %}
+                {% if show_icon and item.icon %}<i class="{{ item.icon }}"></i>{% endif %}
                 {{ item.text }}
             </a>
         {% else %}
             <span class="text-base-content font-semibold flex items-center gap-2">
-                {% if item.icon %}<i class="{{ item.icon }}"></i>{% endif %}
+                {% if show_icon and item.icon %}<i class="{{ item.icon }}"></i>{% endif %}
                 {{ item.text }}
             </span>
         {% endif %}
