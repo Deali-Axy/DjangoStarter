@@ -1,79 +1,145 @@
 {% load i18n %}
-<div class="navbar bg-base-100/80 backdrop-blur-md border-b border-base-200 sticky top-0 z-30 h-16">
-    <div class="flex-1">
+<!-- 
+    Modern Minimalist Navbar (Apple/Glassmorphism Style)
+    - High backdrop blur for depth
+    - Subtle borders and shadows
+    - Improved touch targets and accessibility
+    - Responsive layout with clear hierarchy
+-->
+<div class="navbar bg-base-100/80 backdrop-blur-xl border-b border-base-content/5 sticky top-0 z-30 h-16 transition-all duration-300 supports-[backdrop-filter]:bg-base-100/60"
+     x-data="{ scrolled: false }"
+     @scroll.window="scrolled = (window.pageYOffset > 20)"
+     :class="{ 'shadow-sm': scrolled }">
+    
+    <!-- Left Section: Navigation & Branding -->
+    <div class="navbar-start w-auto lg:w-1/2">
         <!-- Mobile Sidebar Toggle -->
-        <label for="app-drawer" class="btn btn-square btn-ghost lg:hidden mr-2">
+        <label for="app-drawer" 
+               class="btn btn-square btn-ghost btn-sm lg:hidden mr-2 transition-transform active:scale-95"
+               aria-label="{% trans 'Toggle Sidebar' %}">
             <i class="fa-solid fa-bars text-lg"></i>
         </label>
 
         <!-- Desktop Sidebar Toggle -->
-        <button class="btn btn-square btn-ghost hidden lg:inline-flex mr-2" @click="toggleSidebar()">
-            <i class="fa-solid text-lg" :class="sidebarOpen ? 'fa-bars-staggered' : 'fa-bars'"></i>
+        <button class="btn btn-square btn-ghost btn-sm hidden lg:inline-flex mr-2 transition-transform active:scale-95 hover:bg-base-200" 
+                @click="toggleSidebar()"
+                aria-label="{% trans 'Toggle Sidebar' %}">
+            <i class="fa-solid text-lg transition-all duration-300" 
+               :class="sidebarOpen ? 'fa-bars-staggered' : 'fa-bars'"></i>
         </button>
 
-        <!-- Breadcrumbs (Optional) -->
-        <div class="text-sm breadcrumbs hidden md:block ml-2 opacity-70">
-            <ul>
-                <li><a href="/">App</a></li>
-                <li class="font-semibold text-base-content">{{ title|default:"Dashboard" }}</li>
-            </ul>
+        <!-- Breadcrumbs / Page Title -->
+        <div class="hidden md:flex flex-col justify-center ml-2 transition-opacity duration-300">
+            <div class="text-sm breadcrumbs p-0 text-base-content/60 font-medium">
+                <ul>
+                    <li><a href="/" class="hover:text-primary transition-colors">App</a></li>
+                    {% if title %}
+                    <li class="text-base-content font-semibold">{{ title }}</li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
+        <!-- Mobile Title (Visible only on small screens if needed) -->
+        <span class="md:hidden font-semibold text-lg text-base-content ml-2 truncate max-w-[150px]">
+            {{ title|default:"Dashboard" }}
+        </span>
     </div>
 
-    <div class="flex-none gap-2">
+    <!-- Right Section: Actions & Profile -->
+    <div class="navbar-end flex-1 gap-2 lg:gap-3">
+        
         <!-- Theme Controller -->
-        <label class="swap swap-rotate btn btn-ghost btn-circle text-base-content/70 hover:text-primary">
-            <!-- this hidden checkbox controls the state -->
-            <input type="checkbox" class="theme-controller" value="business"/>
-
-            <!-- sun icon -->
-            <i class="fa-solid fa-sun swap-off w-5 h-5"></i>
-
-            <!-- moon icon -->
-            <i class="fa-solid fa-moon swap-on w-5 h-5"></i>
-        </label>
+        <div class="tooltip tooltip-bottom" data-tip="{% trans 'Toggle Theme' %}">
+            <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm hover:bg-base-200 transition-colors">
+                <input type="checkbox" class="theme-controller" value="business"/>
+                <!-- Sun icon -->
+                <i class="fa-solid fa-sun swap-off w-5 h-5 text-amber-500"></i>
+                <!-- Moon icon -->
+                <i class="fa-solid fa-moon swap-on w-5 h-5 text-indigo-400"></i>
+            </label>
+        </div>
 
         <!-- Notifications -->
-        <button class="btn btn-ghost btn-circle text-base-content/70">
-            <div class="indicator">
-                <i class="fa-regular fa-bell w-5 h-5"></i>
-                <span class="badge badge-xs badge-primary indicator-item"></span>
-            </div>
-        </button>
+        <div class="tooltip tooltip-bottom" data-tip="{% trans 'Notifications' %}">
+            <button class="btn btn-ghost btn-circle btn-sm hover:bg-base-200 transition-colors relative"
+                    aria-label="{% trans 'Notifications' %}">
+                <div class="indicator">
+                    <i class="fa-regular fa-bell w-5 h-5 opacity-80"></i>
+                    <span class="badge badge-xs badge-primary indicator-item ring-2 ring-base-100 animate-pulse"></span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="h-8 w-px bg-base-content/10 mx-1 hidden sm:block"></div>
 
         <!-- Profile Dropdown -->
         {% if user.is_authenticated %}
-            <div class="dropdown dropdown-end">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                    <div class="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <div class="dropdown dropdown-end" x-data="{ open: false }">
+                <div tabindex="0" 
+                     role="button" 
+                     class="btn btn-ghost btn-circle avatar transition-transform active:scale-95 hover:ring-2 hover:ring-primary/20 hover:ring-offset-2"
+                     @click="open = !open"
+                     @click.outside="open = false"
+                     aria-label="{% trans 'User Menu' %}">
+                    <div class="w-9 rounded-full ring ring-base-200 ring-offset-base-100 ring-offset-2 overflow-hidden">
                         {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" alt="avatar"/>
+                            <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="object-cover"/>
                         {% else %}
-                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random"
-                                 alt="avatar"/>
+                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random&color=fff" 
+                                 alt="{{ user.username }}"/>
                         {% endif %}
                     </div>
                 </div>
-                <ul tabindex="0"
-                    class="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-200">
-                    <li class="menu-title px-4 py-2 border-b border-base-200 mb-2">
-                        <span class="font-bold text-base-content">{{ user.username }}</span>
-                        <span class="text-xs font-normal opacity-60">{{ user.email }}</span>
+                
+                <!-- Dropdown Menu -->
+                <ul tabindex="0" 
+                    class="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-60 border border-base-200/50 backdrop-blur-md transform transition-all duration-200 origin-top-right"
+                    x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-95">
+                    
+                    <li class="menu-title px-4 py-3 border-b border-base-200/50 mb-2 bg-base-200/30 -mx-2 -mt-2 rounded-t-box">
+                        <div class="flex flex-col gap-1">
+                            <span class="font-bold text-base text-base-content">{{ user.username }}</span>
+                            <span class="text-xs font-normal opacity-60 truncate">{{ user.email }}</span>
+                        </div>
                     </li>
-                    <li><a href="{% url 'account:index' %}"><i class="fa-solid fa-user opacity-70"></i> Profile</a></li>
-                    <li><a href="{% url 'account:settings' %}"><i class="fa-solid fa-sliders opacity-70"></i>
-                        Settings</a></li>
+                    
+                    <li>
+                        <a href="{% url 'account:index' %}" class="py-2 active:bg-primary/10 active:text-primary">
+                            <i class="fa-solid fa-user opacity-70 w-5"></i> {% trans 'Profile' %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'account:settings' %}" class="py-2 active:bg-primary/10 active:text-primary">
+                            <i class="fa-solid fa-sliders opacity-70 w-5"></i> {% trans 'Settings' %}
+                        </a>
+                    </li>
+                    
                     {% if user.is_staff %}
-                        <li><a href="{% url 'admin:index' %}"><i class="fa-solid fa-shield-halved opacity-70"></i> Admin</a>
+                        <li>
+                            <a href="{% url 'admin:index' %}" class="py-2 active:bg-primary/10 active:text-primary">
+                                <i class="fa-solid fa-shield-halved opacity-70 w-5"></i> {% trans 'Admin Panel' %}
+                            </a>
                         </li>
                     {% endif %}
-                    <li class="mt-2 border-t border-base-200 pt-2 text-error">
-                        <a href="{% url 'account:logout' %}"><i class="fa-solid fa-power-off"></i> Logout</a>
+                    
+                    <li class="mt-2 border-t border-base-200/50 pt-2">
+                        <a href="{% url 'account:logout' %}" class="py-2 text-error hover:bg-error/10 hover:text-error">
+                            <i class="fa-solid fa-power-off w-5"></i> {% trans 'Logout' %}
+                        </a>
                     </li>
                 </ul>
             </div>
         {% else %}
-            <a href="{% url 'account:login' %}" class="btn btn-primary btn-sm">Sign In</a>
+            <div class="flex gap-2">
+                <a href="{% url 'account:login' %}" class="btn btn-ghost btn-sm">{% trans 'Login' %}</a>
+                <a href="{% url 'account:sign-up' %}" class="btn btn-primary btn-sm shadow-md shadow-primary/30">{% trans 'Sign Up' %}</a>
+            </div>
         {% endif %}
     </div>
 </div>
