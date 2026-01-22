@@ -2,117 +2,69 @@
 
 {% block title %}个人资料{% endblock %}
 
-{% block breadcrumb_title %}修改资料{% endblock %}
-
 {% block sub_content %}
-    {# Modern Profile Edit Header #}
-    <div class="mb-8">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl">
-                <i class="fa-solid fa-user-edit text-white text-xl"></i>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">修改个人资料</h3>
-                <p class="text-gray-600 dark:text-gray-400">更新您的个人信息和偏好设置</p>
-            </div>
-        </div>
-        <div class="h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full w-20"></div>
+    <div class="mb-6 border-b border-base-200 pb-4">
+        <h2 class="text-2xl font-bold flex items-center gap-2">
+            <i class="fa-solid fa-user-edit text-primary"></i>
+            修改个人资料
+        </h2>
+        <p class="text-base-content/60 mt-1">更新您的个人信息和偏好设置</p>
     </div>
 
-    {# Modern Form Container #}
-    <div class="max-w-2xl mx-auto">
-        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
-            <div class="p-8">
-                <form method="POST" class="space-y-6">
-                    {% csrf_token %}
-                    
-                    {# Form Fields with Modern Design #}
-                    {% for field in form %}
-                        <div class="group">
-                            <label for="{{ field.id_for_label }}"
-                                   class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-200 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400">
-                                {{ field.label }}
-                                {% if field.field.required %}
-                                    <span class="text-red-500 ml-1">*</span>
-                                {% endif %}
-                            </label>
-                            
-                            <div class="relative">
-                                {% if field.field.widget.input_type == 'text' or field.field.widget.input_type == 'email' %}
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        {% if 'email' in field.name %}
-                                            <i class="fa-solid fa-envelope text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200"></i>
-                                        {% elif 'name' in field.name %}
-                                            <i class="fa-solid fa-user text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200"></i>
-                                        {% elif 'phone' in field.name %}
-                                            <i class="fa-solid fa-phone text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200"></i>
-                                        {% else %}
-                                            <i class="fa-solid fa-pen text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200"></i>
-                                        {% endif %}
-                                    </div>
-                                    <input type="{{ field.field.widget.input_type }}" 
-                                           name="{{ field.name }}" 
-                                           id="{{ field.id_for_label }}"
-                                           value="{{ field.value|default:'' }}"
-                                           class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/70 dark:bg-gray-700/70 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
-                                           placeholder="请输入{{ field.label }}">
-                                {% elif field.field.widget.input_type == 'select' %}
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fa-solid fa-list text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200"></i>
-                                    </div>
-                                    <select name="{{ field.name }}" 
-                                            id="{{ field.id_for_label }}"
-                                            class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white/70 dark:bg-gray-700/70 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 backdrop-blur-sm appearance-none">
-                                        {% for choice in field.field.choices %}
-                                            <option value="{{ choice.0 }}" {% if choice.0 == field.value %}selected{% endif %}>{{ choice.1 }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                        <i class="fa-solid fa-chevron-down text-gray-400"></i>
-                                    </div>
-                                {% else %}
-                                    {{ field }}
-                                {% endif %}
-                            </div>
-                            
-                            {# Error Messages #}
-                            {% if field.errors %}
-                                <div class="mt-2 flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
-                                    <i class="fa-solid fa-exclamation-circle"></i>
-                                    <span>{{ field.errors.0 }}</span>
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-
-                    {# Action Buttons #}
-                    <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
-                        <button type="submit"
-                                class="group relative flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800">
-                            <i class="fa-solid fa-save group-hover:scale-110 transition-transform duration-200"></i>
-                            <span>保存资料</span>
-                            <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-                        </button>
-                        
-                        <a href="{% url 'account:index' %}"
-                           class="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 border border-gray-300 dark:border-gray-600">
-                            <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform duration-200"></i>
-                            <span>返回</span>
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <form method="POST" class="space-y-6 max-w-2xl">
+        {% csrf_token %}
         
-        {# Help Section #}
-        <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-            <div class="flex items-start gap-3">
-                <i class="fa-solid fa-info-circle text-blue-500 mt-0.5"></i>
-                <div>
-                    <h4 class="font-semibold text-blue-900 dark:text-blue-300 mb-1">温馨提示</h4>
-                    <p class="text-sm text-blue-700 dark:text-blue-400">请确保您的个人信息准确无误，这将有助于我们为您提供更好的服务。标有 <span class="text-red-500">*</span> 的字段为必填项。</p>
-                </div>
+        {% for field in form %}
+            <div class="form-control">
+                <label class="label" for="{{ field.id_for_label }}">
+                    <span class="label-text font-medium">{{ field.label }}</span>
+                    {% if field.field.required %}
+                        <span class="label-text-alt text-error">*</span>
+                    {% endif %}
+                </label>
+                
+                {% if field.field.widget.input_type == 'select' %}
+                    <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="select select-bordered w-full">
+                        {% for choice in field.field.choices %}
+                            <option value="{{ choice.0 }}" {% if choice.0 == field.value %}selected{% endif %}>{{ choice.1 }}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input type="{{ field.field.widget.input_type }}" 
+                           name="{{ field.name }}" 
+                           id="{{ field.id_for_label }}"
+                           value="{{ field.value|default:'' }}"
+                           class="input input-bordered w-full"
+                           placeholder="请输入{{ field.label }}">
+                {% endif %}
+                
+                {% if field.errors %}
+                    <div class="label">
+                        <span class="label-text-alt text-error flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            {{ field.errors.0 }}
+                        </span>
+                    </div>
+                {% endif %}
             </div>
+        {% endfor %}
+
+        <div class="flex gap-4 pt-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-save"></i>
+                保存资料
+            </button>
+            <a href="{% url 'account:index' %}" class="btn btn-ghost">
+                返回
+            </a>
+        </div>
+    </form>
+
+    <div class="alert alert-info mt-8 shadow-sm">
+        <i class="fa-solid fa-circle-info"></i>
+        <div>
+            <h3 class="font-bold">温馨提示</h3>
+            <div class="text-xs">请确保您的个人信息准确无误，这将有助于我们为您提供更好的服务。标有 <span class="text-error">*</span> 的字段为必填项。</div>
         </div>
     </div>
 {% endblock %}

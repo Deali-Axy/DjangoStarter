@@ -235,10 +235,10 @@
     - [x] 适配 `_base.html` 的 Drawer 布局 (Landing Page 默认隐藏侧边栏)。
 - [x] **Dashboard 重构 (Home)**:
     - [x] 新建 `dashboard.html`，实现 Stats, Quick Actions, Activity Feed。
-- [ ] **业务应用重构 (Apps)**:
-    - [ ] **Account (`src/apps/account`)**:
-        - [ ] Auth: 重构登录、注册、找回密码页面。
-        - [ ] Profile: 重构个人中心。
+- [x] **业务应用重构 (Apps)**:
+    - [x] **Account (`src/apps/account`)**:
+        - [x] Auth: 重构登录、注册、找回密码页面 (使用 DaisyUI Card, Input)。
+        - [x] Profile: 重构个人中心与设置页 (使用 DaisyUI Menu, Card, Toggle)。
     - [ ] **Demo (`src/apps/demo`)**:
         - [ ] Data Display: 重构电影/音乐列表页。
         - [ ] HTMX: 验证 HTMX 交互。

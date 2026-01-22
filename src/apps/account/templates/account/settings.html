@@ -1,57 +1,41 @@
 {% extends 'account/_profile_layout.html' %}
 
-{% block breadcrumb_title %}设置{% endblock %}
+{% block title %}设置{% endblock %}
 
 {% block sub_content %}
-    {# Modern Settings Header #}
-    <div class="mb-8">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="p-3 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl">
-                <i class="fa-solid fa-gear text-white text-xl"></i>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">个人设置</h3>
-                <p class="text-gray-600 dark:text-gray-400">管理您的账户偏好和隐私设置</p>
-            </div>
-        </div>
-        <div class="h-1 bg-gradient-to-r from-orange-500 to-red-600 rounded-full w-20"></div>
+    <div class="mb-6 border-b border-base-200 pb-4">
+        <h2 class="text-2xl font-bold flex items-center gap-2">
+            <i class="fa-solid fa-gear text-secondary"></i>
+            个人设置
+        </h2>
+        <p class="text-base-content/60 mt-1">管理您的账户偏好和隐私设置</p>
     </div>
 
-    {# Settings Categories #}
-    <div class="space-y-6">
+    <div class="space-y-8">
         {# Account Settings #}
-        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
-            <div class="p-6">
-                <div class="flex items-center gap-3 mb-4">
-                    <i class="fa-solid fa-user-cog text-blue-500 text-xl"></i>
-                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">账户设置</h4>
-                </div>
+        <div class="card bg-base-100 shadow-sm border border-base-200">
+            <div class="card-body">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-user-cog text-primary"></i>
+                    账户设置
+                </h3>
                 <div class="space-y-4">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-envelope text-gray-500 dark:text-gray-400"></i>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start gap-4">
+                            <input type="checkbox" class="toggle toggle-primary" checked />
                             <div>
-                                <p class="font-medium text-gray-900 dark:text-white">邮箱通知</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">接收重要更新和通知</p>
+                                <span class="label-text font-medium block">邮箱通知</span>
+                                <span class="label-text-alt text-base-content/60">接收重要更新和通知</span>
                             </div>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only peer" checked>
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
                     </div>
-                    
-                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-mobile-alt text-gray-500 dark:text-gray-400"></i>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start gap-4">
+                            <input type="checkbox" class="toggle toggle-primary" />
                             <div>
-                                <p class="font-medium text-gray-900 dark:text-white">短信通知</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">接收验证码和安全提醒</p>
+                                <span class="label-text font-medium block">短信通知</span>
+                                <span class="label-text-alt text-base-content/60">接收验证码和安全提醒</span>
                             </div>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
                     </div>
                 </div>
@@ -59,39 +43,34 @@
         </div>
 
         {# Privacy Settings #}
-        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
-            <div class="p-6">
-                <div class="flex items-center gap-3 mb-4">
-                    <i class="fa-solid fa-shield-alt text-green-500 text-xl"></i>
-                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">隐私设置</h4>
-                </div>
+        <div class="card bg-base-100 shadow-sm border border-base-200">
+            <div class="card-body">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-alt text-success"></i>
+                    隐私设置
+                </h3>
                 <div class="space-y-4">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-eye text-gray-500 dark:text-gray-400"></i>
-                            <div>
-                                <p class="font-medium text-gray-900 dark:text-white">个人资料可见性</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">控制谁可以查看您的个人信息</p>
-                            </div>
-                        </div>
-                        <select class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
+                    <div class="form-control w-full max-w-md">
+                        <label class="label">
+                            <span class="label-text font-medium">个人资料可见性</span>
+                        </label>
+                        <select class="select select-bordered">
                             <option>公开</option>
                             <option selected>仅好友</option>
                             <option>私密</option>
                         </select>
+                        <label class="label">
+                            <span class="label-text-alt text-base-content/60">控制谁可以查看您的个人信息</span>
+                        </label>
                     </div>
                     
-                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-user-friends text-gray-500 dark:text-gray-400"></i>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start gap-4">
+                            <input type="checkbox" class="toggle toggle-success" checked />
                             <div>
-                                <p class="font-medium text-gray-900 dark:text-white">好友请求</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">允许其他用户向您发送好友请求</p>
+                                <span class="label-text font-medium block">允许好友请求</span>
+                                <span class="label-text-alt text-base-content/60">允许其他用户向您发送好友请求</span>
                             </div>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only peer" checked>
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
                     </div>
                 </div>
@@ -99,92 +78,43 @@
         </div>
 
         {# Security Settings #}
-        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
-            <div class="p-6">
-                <div class="flex items-center gap-3 mb-4">
-                    <i class="fa-solid fa-lock text-red-500 text-xl"></i>
-                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">安全设置</h4>
-                </div>
+        <div class="card bg-base-100 shadow-sm border border-base-200">
+            <div class="card-body">
+                <h3 class="card-title text-lg mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-error"></i>
+                    安全设置
+                </h3>
                 <div class="space-y-4">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-key text-gray-500 dark:text-gray-400"></i>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">修改密码</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">定期更新密码以保护账户安全</p>
-                                </div>
-                            </div>
-                            <button class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200">
-                                修改
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-mobile-alt text-gray-500 dark:text-gray-400"></i>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">两步验证</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">为您的账户添加额外的安全保护</p>
-                                </div>
-                            </div>
-                            <button class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-200">
-                                启用
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {# Theme Settings #}
-        <div class="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg overflow-hidden">
-            <div class="p-6">
-                <div class="flex items-center gap-3 mb-4">
-                    <i class="fa-solid fa-palette text-purple-500 text-xl"></i>
-                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">主题设置</h4>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div class="flex items-center justify-between p-4 bg-base-200 rounded-lg">
                         <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-moon text-gray-500 dark:text-gray-400"></i>
+                            <i class="fa-solid fa-key text-base-content/50 text-xl"></i>
                             <div>
-                                <p class="font-medium text-gray-900 dark:text-white">暗色模式</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">切换到暗色主题以减少眼部疲劳</p>
+                                <div class="font-medium">修改密码</div>
+                                <div class="text-xs text-base-content/60">定期更新密码以保护账户安全</div>
                             </div>
                         </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                        </label>
+                        <button class="btn btn-sm btn-outline">修改</button>
                     </div>
                     
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                        <div class="flex items-center gap-3 mb-3">
-                            <i class="fa-solid fa-language text-gray-500 dark:text-gray-400"></i>
+                    <div class="flex items-center justify-between p-4 bg-base-200 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-mobile-screen text-base-content/50 text-xl"></i>
                             <div>
-                                <p class="font-medium text-gray-900 dark:text-white">语言设置</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">选择您偏好的界面语言</p>
+                                <div class="font-medium">两步验证</div>
+                                <div class="text-xs text-base-content/60">为您的账户添加额外的安全保护</div>
                             </div>
                         </div>
-                        <select class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-3 py-2">
-                            <option selected>简体中文</option>
-                            <option>繁體中文</option>
-                            <option>English</option>
-                            <option>日本語</option>
-                        </select>
+                        <button class="btn btn-sm btn-success text-white">启用</button>
                     </div>
                 </div>
             </div>
         </div>
 
         {# Save Button #}
-        <div class="flex justify-end pt-6">
-            <button class="group inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
-                <i class="fa-solid fa-save group-hover:scale-110 transition-transform duration-200"></i>
-                <span>保存设置</span>
+        <div class="flex justify-end pt-4">
+            <button class="btn btn-primary btn-lg">
+                <i class="fa-solid fa-save"></i>
+                保存设置
             </button>
         </div>
     </div>

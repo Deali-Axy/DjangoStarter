@@ -5,152 +5,59 @@
 {% block content %}
     {% include 'account/components/profile_header.html' %}
 
-    {# Modern Breadcrumb with Glass Effect #}
-    <nav class="flex py-6 px-4 lg:px-0" aria-label="Breadcrumb" id="profile-breadcrumb">
-        <div class="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 rounded-xl px-4 py-3 border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-            <ol class="inline-flex items-center space-x-2 md:space-x-3">
-                <li class="inline-flex items-center">
-                    <a href="{% url 'djs_guide:index' %}"
-                       class="inline-flex gap-2 items-center text-sm font-medium text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
-                        <i class="fa-solid fa-house-chimney text-blue-500"></i>
-                        主页
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-chevron-right text-gray-400 mx-2"></i>
-                        <a href="{% url 'account:index' %}"
-                           class="text-sm font-medium text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
-                            个人中心
-                        </a>
-                    </div>
-                </li>
-                <li aria-current="page">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-chevron-right text-gray-400 mx-2"></i>
-                        <span class="text-sm font-medium text-blue-600 dark:text-blue-400">
-                            {% block breadcrumb_title %}{% endblock %}
-                        </span>
-                    </div>
-                </li>
-            </ol>
-        </div>
-    </nav>
-
-    <div class="md:flex px-4 lg:px-0 gap-6">
-        {# Modern Sidebar with Glass Effect #}
-        <div class="md:w-80 lg:w-96 mb-6 md:mb-0">
-            <div class="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl overflow-hidden">
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-sliders text-blue-500"></i>
+    <div class="flex flex-col lg:flex-row gap-6 mt-6">
+        {# Sidebar Navigation #}
+        <div class="lg:w-80 flex-none">
+            <div class="card bg-base-100 shadow-sm border border-base-200">
+                <div class="card-body p-4">
+                    <h3 class="font-bold px-4 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-primary"></i>
                         功能导航
                     </h3>
-                    <ul class="space-y-3">
+                    <ul class="menu w-full rounded-box">
                         <li>
                             {% url 'account:profile' as profile_url %}
-                            {% if request.path == profile_url %}
-                                <div class="relative group">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl opacity-100 group-hover:opacity-90 transition-opacity duration-300"></div>
-                                    <button type="button"
-                                            class="relative inline-flex gap-3 items-center px-4 py-4 text-white rounded-xl w-full font-medium shadow-lg"
-                                            aria-current="page">
-                                        <i class="fa-solid fa-circle-user text-xl"></i>
-                                        <span>个人资料</span>
-                                        <i class="fa-solid fa-chevron-right ml-auto text-sm"></i>
-                                    </button>
-                                </div>
-                            {% else %}
-                                <a href="{{ profile_url }}#profile-breadcrumb"
-                                   class="group inline-flex gap-3 items-center px-4 py-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 w-full transition-all duration-300 hover:shadow-md">
-                                    <i class="fa-solid fa-circle-user text-gray-500 dark:text-gray-400 text-xl group-hover:text-blue-500 transition-colors duration-300"></i>
-                                    <span class="text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white font-medium">个人资料</span>
-                                    <i class="fa-solid fa-chevron-right ml-auto text-sm text-gray-400 group-hover:text-blue-500 transition-colors duration-300"></i>
-                                </a>
-                            {% endif %}
+                            <a href="{{ profile_url }}" class="{% if request.path == profile_url %}active{% endif %}">
+                                <i class="fa-solid fa-circle-user text-lg"></i>
+                                个人资料
+                            </a>
                         </li>
                         <li>
                             {% url 'account:dashboard' as dashboard_url %}
-                            {% if request.path == dashboard_url %}
-                                <div class="relative group">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl opacity-100 group-hover:opacity-90 transition-opacity duration-300"></div>
-                                    <button type="button"
-                                            class="relative inline-flex gap-3 items-center px-4 py-4 text-white rounded-xl w-full font-medium shadow-lg"
-                                            aria-current="page">
-                                        <i class="fa-solid fa-grip text-xl"></i>
-                                        <span>控制台</span>
-                                        <i class="fa-solid fa-chevron-right ml-auto text-sm"></i>
-                                    </button>
-                                </div>
-                            {% else %}
-                                <a href="{{ dashboard_url }}#profile-breadcrumb"
-                                   class="group inline-flex gap-3 items-center px-4 py-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 w-full transition-all duration-300 hover:shadow-md">
-                                    <i class="fa-solid fa-grip text-gray-500 dark:text-gray-400 text-xl group-hover:text-emerald-500 transition-colors duration-300"></i>
-                                    <span class="text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white font-medium">控制台</span>
-                                    <i class="fa-solid fa-chevron-right ml-auto text-sm text-gray-400 group-hover:text-emerald-500 transition-colors duration-300"></i>
-                                </a>
-                            {% endif %}
+                            <a href="{{ dashboard_url }}" class="{% if request.path == dashboard_url %}active{% endif %}">
+                                <i class="fa-solid fa-grip text-lg"></i>
+                                控制台
+                            </a>
                         </li>
                         <li>
                             {% url 'account:settings' as settings_url %}
-                            {% if request.path == settings_url %}
-                                <div class="relative group">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl opacity-100 group-hover:opacity-90 transition-opacity duration-300"></div>
-                                    <button type="button"
-                                            class="relative inline-flex gap-3 items-center px-4 py-4 text-white rounded-xl w-full font-medium shadow-lg"
-                                            aria-current="page">
-                                        <i class="fa-solid fa-gear text-xl"></i>
-                                        <span>设置</span>
-                                        <i class="fa-solid fa-chevron-right ml-auto text-sm"></i>
-                                    </button>
-                                </div>
-                            {% else %}
-                                <a href="{{ settings_url }}#profile-breadcrumb"
-                                   class="group inline-flex gap-3 items-center px-4 py-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 w-full transition-all duration-300 hover:shadow-md">
-                                    <i class="fa-solid fa-gear text-gray-500 dark:text-gray-400 text-xl group-hover:text-orange-500 transition-colors duration-300"></i>
-                                    <span class="text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white font-medium">设置</span>
-                                    <i class="fa-solid fa-chevron-right ml-auto text-sm text-gray-400 group-hover:text-orange-500 transition-colors duration-300"></i>
-                                </a>
-                            {% endif %}
+                            <a href="{{ settings_url }}" class="{% if request.path == settings_url %}active{% endif %}">
+                                <i class="fa-solid fa-gear text-lg"></i>
+                                设置
+                            </a>
                         </li>
                         <li>
                             {% url 'account:charge' as charge_url %}
-                            {% if request.path == charge_url %}
-                                <div class="relative group">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-xl opacity-100 group-hover:opacity-90 transition-opacity duration-300"></div>
-                                    <button type="button"
-                                            class="relative inline-flex gap-3 items-center px-4 py-4 text-white rounded-xl w-full font-medium shadow-lg"
-                                            aria-current="page">
-                                        <i class="fa-solid fa-bolt text-xl"></i>
-                                        <span>充电</span>
-                                        <i class="fa-solid fa-chevron-right ml-auto text-sm"></i>
-                                    </button>
-                                </div>
-                            {% else %}
-                                <a href="{{ charge_url }}#profile-breadcrumb"
-                                   class="group inline-flex gap-3 items-center px-4 py-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 w-full transition-all duration-300 hover:shadow-md">
-                                    <i class="fa-solid fa-bolt text-gray-500 dark:text-gray-400 text-xl group-hover:text-yellow-500 transition-colors duration-300"></i>
-                                    <span class="text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white font-medium">充电</span>
-                                    <i class="fa-solid fa-chevron-right ml-auto text-sm text-gray-400 group-hover:text-yellow-500 transition-colors duration-300"></i>
-                                </a>
-                            {% endif %}
+                            <a href="{{ charge_url }}" class="{% if request.path == charge_url %}active{% endif %}">
+                                <i class="fa-solid fa-bolt text-lg"></i>
+                                充电
+                            </a>
                         </li>
                         <li>
-                            <div class="inline-flex gap-3 items-center px-4 py-4 text-gray-400 dark:text-gray-500 rounded-xl cursor-not-allowed bg-gray-100/50 dark:bg-gray-700/30 w-full">
-                                <i class="fa-solid fa-circle-xmark text-xl"></i>
-                                <span class="font-medium">隐藏功能</span>
-                                <i class="fa-solid fa-lock ml-auto text-sm"></i>
-                            </div>
+                            <a class="disabled opacity-50">
+                                <i class="fa-solid fa-lock text-lg"></i>
+                                隐藏功能
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
         
-        {# Modern Content Area with Glass Effect #}
-        <div class="flex-1">
-            <div class="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl overflow-hidden">
-                <div class="p-8">
+        {# Main Content Area #}
+        <div class="flex-1 min-w-0">
+            <div class="card bg-base-100 shadow-sm border border-base-200">
+                <div class="card-body">
                     {% block sub_content %}{% endblock %}
                 </div>
             </div>
