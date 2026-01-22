@@ -30,16 +30,16 @@ paths.minJsDist = paths.js + "**/*.min.js";//匹配所有 js 对应压缩后的�
 paths.concatJsDist = paths.js + "app.min.js";//将所有的 js 压缩到一个 js 文件后的路径
 
 
-//使用 npm 下载的前端组件包
-const libs = [];
-
-// 使用 npm 下载的前端组件，自定义存放位置
-const customLibs = [
-    {name: 'font-awesome', dist: './node_modules/@fortawesome/fontawesome-free/**/*.*'},
-    {name: 'aos', dist: './node_modules/aos/dist/**/*.*'},
-    {name: 'htmx', dist: './node_modules/htmx.org/dist/**/*.js'},
-    {name: 'alpinejs', dist: './node_modules/alpinejs/dist/**/*.js'},
-]
+// 使用 npm 下载的前端组件包配置
+// name: 组件名称，将作为 static/lib 下的目录名
+// src: 组件源码路径（node_modules 中）
+// dest: (可选) 输出子目录，默认为空，即直接输出到 static/lib/{name}。如需保留原 libs 行为可设为 'dist'
+const npmDependencies = [
+    { name: 'font-awesome', src: './node_modules/@fortawesome/fontawesome-free/**/*.*' },
+    { name: 'aos', src: './node_modules/aos/dist/**/*.*' },
+    { name: 'htmx', src: './node_modules/htmx.org/dist/**/*.js' },
+    { name: 'alpinejs', src: './node_modules/alpinejs/dist/**/*.js' },
+];
 
 //清除压缩后的文件
 gulp.task("clean:css", done => rimraf(paths.minCssDist, done));
@@ -47,21 +47,16 @@ gulp.task("clean:js", done => rimraf(paths.minJsDist, done));
 
 gulp.task("clean", gulp.series(["clean:js", "clean:css"]));
 
-//移动 npm 下载的前端组件包到 wwwroot 路径下
-gulp.task("move:dist", done => {
-    libs.forEach(item => {
-        gulp.src(item.dist)
-            .pipe(gulp.dest(paths.lib + item.name + "/dist"));
+// 移动 npm 下载的前端组件包到 static/lib 路径下
+gulp.task("move:libs", done => {
+    npmDependencies.forEach(item => {
+        // 构建目标路径: static/lib/ + name + (optional dest)
+        const destPath = paths.lib + item.name + (item.dest ? '/' + item.dest : '');
+        gulp.src(item.src)
+            .pipe(gulp.dest(destPath));
     });
-    done()
-})
-gulp.task("move:custom", done => {
-    customLibs.forEach(item => {
-        gulp.src(item.dist)
-            .pipe(gulp.dest(paths.lib + item.name))
-    })
-    done()
-})
+    done();
+});
 
 //每一个 css 文件压缩到对应的 min.css
 gulp.task("min:css", () => {
@@ -100,7 +95,7 @@ gulp.task("concat:js", () => {
 });
 
 
-gulp.task('move', gulp.series(['move:dist', 'move:custom']))
+gulp.task('move', gulp.series(['move:libs']))
 gulp.task("min", gulp.series(["min:js", "min:css"]))
 gulp.task("concat", gulp.series(["concat:js", "concat:css"]))
 
