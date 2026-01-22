@@ -2,7 +2,7 @@
 
 <!-- Main Content (Target of HTMX) -->
 <!-- Page Header (Breadcrumbs) -->
-{% page_header page_title breadcrumbs %}
+{% page_header page_title breadcrumbs show_title=False %}
 
 <!-- Mobile Toggle -->
 <div class="lg:hidden px-4 mb-4">
@@ -14,9 +14,9 @@
 <!-- Content Container -->
 <div class="flex flex-col xl:flex-row px-0 lg:px-4 py-6">
     <!-- Doc Content -->
-    <div class="flex-1 min-w-0 px-4 lg:px-8">
+    <div class="flex-1 min-w-0">
         <!-- Search -->
-        <div class="mb-8 max-w-2xl mx-auto {% if not active_page and not search_results %}text-center{% endif %}">
+        <div class="mb-8 {% if not active_page and not search_results %}text-center{% endif %}">
             <form method="get" action="{% url 'djs_docs:index' %}" hx-boost="true" hx-target="#doc-main-content" hx-push-url="true">
                 <div class="join w-full shadow-sm">
                     <input name="q" value="{{ search_query }}" placeholder="搜索文档、关键字..." class="input input-bordered join-item w-full focus:outline-none" />
