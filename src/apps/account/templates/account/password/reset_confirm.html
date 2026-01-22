@@ -1,0 +1,54 @@
+{% extends '_base.html' %}
+
+{% block title %}设置新密码{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-md">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body gap-6">
+            <div class="space-y-1">
+                <h1 class="card-title text-2xl">设置新密码</h1>
+                <p class="text-sm opacity-70">请输入新密码并确认。</p>
+            </div>
+
+            {% if validlink %}
+                <form method="post" class="space-y-4" novalidate>
+                    {% csrf_token %}
+
+                    <div class="space-y-1">
+                        <label class="label" for="new_password1">
+                            <span class="label-text">新密码</span>
+                        </label>
+                        <input id="new_password1" name="new_password1" type="password" autocomplete="new-password"
+                               class="input input-bordered w-full" required>
+                        {% if form.new_password1.errors %}
+                            <p class="text-sm text-error">{{ form.new_password1.errors|join:', ' }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="label" for="new_password2">
+                            <span class="label-text">确认新密码</span>
+                        </label>
+                        <input id="new_password2" name="new_password2" type="password" autocomplete="new-password"
+                               class="input input-bordered w-full" required>
+                        {% if form.new_password2.errors %}
+                            <p class="text-sm text-error">{{ form.new_password2.errors|join:', ' }}</p>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">保存新密码</button>
+                </form>
+            {% else %}
+                <div role="alert" class="alert alert-error">
+                    <span>链接已失效或已使用。请重新发起找回密码。</span>
+                </div>
+                <div class="card-actions justify-end">
+                    <a class="btn btn-ghost" href="{% url 'account:password-forgot' %}">重新找回</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

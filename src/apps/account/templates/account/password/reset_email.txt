@@ -1,0 +1,10 @@
+{% autoescape off %}
+你收到这封邮件是因为有人请求重置 {{ site_name }} 的账号密码。
+
+请点击链接设置新密码：
+{{ protocol }}://{{ domain }}{% url 'account:password-reset-confirm' uidb64=uid token=token %}
+
+如果你没有发起该请求，请忽略此邮件。
+
+{% endautoescape %}
+

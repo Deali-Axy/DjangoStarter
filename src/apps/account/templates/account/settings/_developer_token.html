@@ -1,0 +1,23 @@
+{% if token %}
+    <div class="alert alert-success">
+        <span>已生成 Token（有效期 {{ token.exp }} 秒）。</span>
+    </div>
+
+    <div class="mt-3 space-y-2" x-data="{ copied: false }">
+        <div class="join w-full">
+            <input class="input input-bordered join-item w-full" readonly value="{{ token.token }}">
+            <button type="button" class="btn btn-outline join-item"
+                    @click="navigator.clipboard.writeText($el.closest('.join').querySelector('input').value).then(() => { copied = true; setTimeout(() => copied = false, 1200) })">
+                复制
+            </button>
+        </div>
+        <template x-if="copied">
+            <p class="text-sm text-success">已复制到剪贴板</p>
+        </template>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        <span>输入密码后生成 Token。</span>
+    </div>
+{% endif %}
+

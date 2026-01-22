@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+
+{% block title %}找回密码{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-md">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body gap-6">
+            <div class="space-y-1">
+                <h1 class="card-title text-2xl">找回密码</h1>
+                <p class="text-sm opacity-70">输入注册邮箱，我们会发送重置链接。</p>
+            </div>
+
+            <form method="post" class="space-y-4" novalidate>
+                {% csrf_token %}
+
+                <div class="space-y-1">
+                    <label class="label" for="{{ form.email.id_for_label }}">
+                        <span class="label-text">邮箱</span>
+                    </label>
+                    <input id="{{ form.email.id_for_label }}" name="email" type="email" autocomplete="email"
+                           class="input input-bordered w-full" placeholder="name@example.com" required>
+                    {% if form.email.errors %}
+                        <p class="text-sm text-error">{{ form.email.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">发送重置邮件</button>
+            </form>
+
+            <p class="text-sm opacity-80">
+                <a class="link link-hover" href="{% url 'account:login' %}">返回登录</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

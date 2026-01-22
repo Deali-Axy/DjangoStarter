@@ -1,0 +1,36 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block title %}双因素认证验证{% endblock %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="mx-auto w-full max-w-md">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body gap-6">
+            <div class="space-y-1">
+                <h1 class="card-title text-2xl">二次验证</h1>
+                <p class="text-sm opacity-70">输入验证码或恢复码以完成登录。</p>
+            </div>
+
+            <form method="post" class="space-y-4" novalidate>
+                {% csrf_token %}
+                <div class="space-y-1">
+                    <label class="label" for="token">
+                        <span class="label-text">验证码 / 恢复码</span>
+                    </label>
+                    <input id="token" name="token" autocomplete="one-time-code"
+                           class="input input-bordered w-full" placeholder="请输入验证码或恢复码" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">验证并登录</button>
+            </form>
+
+            <p class="text-xs opacity-70">
+                验证成功后将跳转至：{{ next }}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,79 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block title %}个人资料{% endblock %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="card bg-base-100 shadow-sm border border-base-200 lg:col-span-2">
+        <div class="card-body">
+            <h2 class="card-title">基本信息</h2>
+            <form method="post" class="space-y-4" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+
+                <div class="space-y-1">
+                    <label class="label" for="{{ form.full_name.id_for_label }}">
+                        <span class="label-text">{{ form.full_name.label }}</span>
+                    </label>
+                    {{ form.full_name }}
+                    {% if form.full_name.errors %}
+                        <p class="text-sm text-error">{{ form.full_name.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="space-y-1">
+                    <label class="label" for="{{ form.gender.id_for_label }}">
+                        <span class="label-text">{{ form.gender.label }}</span>
+                    </label>
+                    {{ form.gender }}
+                    {% if form.gender.errors %}
+                        <p class="text-sm text-error">{{ form.gender.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="space-y-1">
+                    <label class="label" for="{{ form.phone.id_for_label }}">
+                        <span class="label-text">{{ form.phone.label }}</span>
+                    </label>
+                    {{ form.phone }}
+                    {% if form.phone.errors %}
+                        <p class="text-sm text-error">{{ form.phone.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="card-actions justify-end">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <h2 class="card-title">账号信息</h2>
+            <div class="space-y-3 text-sm">
+                <div class="flex items-center justify-between gap-4">
+                    <span class="opacity-70">用户名</span>
+                    <span class="font-medium">{{ request.user.username }}</span>
+                </div>
+                <div class="flex items-center justify-between gap-4">
+                    <span class="opacity-70">邮箱</span>
+                    <span class="font-medium">{{ request.user.email|default:"—" }}</span>
+                </div>
+                <div class="flex items-center justify-between gap-4">
+                    <span class="opacity-70">加入时间</span>
+                    <span class="font-medium">{{ request.user.date_joined|date:"Y-m-d H:i" }}</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <a class="btn btn-ghost btn-block" href="{% url 'account:settings' %}">
+                <i class="fa-solid fa-gear"></i>
+                打开设置
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

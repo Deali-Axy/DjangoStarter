@@ -1,0 +1,13 @@
+<div class="space-y-1">
+    <label class="label" for="{{ field.id_for_label }}">
+        <span class="label-text">{{ label|default:field.label }}</span>
+    </label>
+    {{ field }}
+    {% if help_text %}
+        <p class="text-sm opacity-70">{{ help_text|safe }}</p>
+    {% endif %}
+    {% if field.errors %}
+        <p class="text-sm text-error">{{ field.errors|join:', ' }}</p>
+    {% endif %}
+</div>
+

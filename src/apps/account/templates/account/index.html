@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block title %}用户中心{% endblock %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <h2 class="card-title">个人资料</h2>
+            <p class="text-sm opacity-70">更新姓名、手机号等基本信息。</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-primary" href="{% url 'account:profile' %}">打开</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <h2 class="card-title">账户设置</h2>
+            <p class="text-sm opacity-70">密码、会话、双因素认证等安全设置。</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-primary" href="{% url 'account:settings' %}">打开</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <h2 class="card-title">仪表盘</h2>
+            <p class="text-sm opacity-70">查看近期活动与状态概览。</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-primary" href="{% url 'account:dashboard' %}">打开</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

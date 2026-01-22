@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+{% block title %}密码已重置{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-md">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body gap-4">
+            <h1 class="card-title text-2xl">密码已重置</h1>
+            <p class="text-sm opacity-70">你可以使用新密码登录。</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-primary" href="{% url 'account:login' %}">去登录</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

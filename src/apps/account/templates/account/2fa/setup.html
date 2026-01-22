@@ -1,0 +1,76 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block title %}启用双因素认证{% endblock %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="mx-auto w-full max-w-3xl space-y-4">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body gap-6">
+            <div class="space-y-1">
+                <h1 class="card-title text-2xl">启用双因素认证（2FA）</h1>
+                <p class="text-sm opacity-70">使用 Google Authenticator、Microsoft Authenticator 等应用扫码添加。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                <div class="card bg-base-200/40 border border-base-300">
+                    <div class="card-body gap-3">
+                        <h2 class="font-semibold">1）扫码添加</h2>
+                        <div class="flex justify-center">
+                            <img src="{{ qr_data_uri }}" alt="2FA QR Code" class="rounded-lg border border-base-300 bg-base-100 p-2">
+                        </div>
+                        <div class="text-sm opacity-70">
+                            <p class="font-medium">手动输入密钥</p>
+                            <p class="font-mono break-all">{{ secret }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-base-200/40 border border-base-300">
+                    <div class="card-body gap-3">
+                        <h2 class="font-semibold">2）输入验证码确认</h2>
+                        <form method="post" class="space-y-3" novalidate>
+                            {% csrf_token %}
+                            <div class="space-y-1">
+                                <label class="label" for="token">
+                                    <span class="label-text">验证码</span>
+                                </label>
+                                <input id="token" name="token" inputmode="numeric" autocomplete="one-time-code"
+                                       class="input input-bordered w-full" placeholder="6 位数字" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">确认启用</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% if recovery_codes %}
+                <div class="divider"></div>
+                <div class="card bg-base-200/40 border border-base-300">
+                    <div class="card-body gap-3" x-data="{ copied: false }">
+                        <div class="flex items-center justify-between gap-4">
+                            <h2 class="font-semibold">恢复码（仅显示一次）</h2>
+                            <button type="button" class="btn btn-outline btn-sm"
+                                    @click="navigator.clipboard.writeText(Array.from($el.closest('.card-body').querySelectorAll('code')).map(e => e.innerText).join('\\n')).then(() => { copied = true; setTimeout(() => copied = false, 1200) })">
+                                复制全部
+                            </button>
+                        </div>
+                        <template x-if="copied">
+                            <p class="text-sm text-success">已复制到剪贴板</p>
+                        </template>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {% for code in recovery_codes %}
+                                <code class="px-3 py-2 rounded-lg bg-base-100 border border-base-300 font-mono text-sm">{{ code }}</code>
+                            {% endfor %}
+                        </div>
+                        <p class="text-sm opacity-70">请妥善保存恢复码，遗失后可能无法找回账号。</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

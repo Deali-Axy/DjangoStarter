@@ -1,0 +1,15 @@
+<ul class="menu menu-md gap-1">
+    <li>
+        <a href="{% url 'account:settings' %}" class="{% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
+            <i class="fa-solid fa-gear w-5 text-center"></i>
+            <span>安全与会话</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'account:settings-developer' %}" class="{% if request.resolver_match.url_name == 'settings-developer' %}active{% endif %}">
+            <i class="fa-solid fa-code w-5 text-center"></i>
+            <span>Developer / API</span>
+        </a>
+    </li>
+</ul>
+

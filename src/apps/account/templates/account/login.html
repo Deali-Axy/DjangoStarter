@@ -1,0 +1,72 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block title %}登录{% endblock %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="mx-auto w-full max-w-md">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body gap-6">
+            <div class="space-y-1">
+                <h1 class="card-title text-2xl">登录</h1>
+                <p class="text-sm opacity-70">使用你的账号登录并继续。</p>
+            </div>
+
+            {% if sso_url %}
+                <a class="btn btn-outline btn-block" href="{{ sso_url }}">
+                    <i class="fa-solid fa-building-shield"></i>
+                    企业单点登录
+                </a>
+                <div class="divider">或</div>
+            {% endif %}
+
+            <form method="post" class="space-y-4" novalidate>
+                {% csrf_token %}
+
+                {% include 'account/_components/form_field.html' with field=form.username %}
+
+                <div class="space-y-1" x-data="{ show: false }">
+                    <div class="flex items-center justify-between">
+                        <label class="label" for="{{ form.password.id_for_label }}">
+                            <span class="label-text">{{ form.password.label }}</span>
+                        </label>
+                        <a class="link link-hover text-sm" href="{% url 'account:password-forgot' %}">忘记密码？</a>
+                    </div>
+                    <div class="join w-full">
+                        <div class="flex-1">
+                            {{ form.password }}
+                        </div>
+                        <button type="button" class="btn btn-ghost join-item" @click="show = !show"
+                                :aria-pressed="show.toString()"
+                                :title="show ? '隐藏密码' : '显示密码'"
+                                x-init="$nextTick(() => { $el.closest('.join').querySelector('input').type = show ? 'text' : 'password' })"
+                                x-effect="$el.closest('.join').querySelector('input').type = show ? 'text' : 'password'">
+                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
+                    {% if form.password.errors %}
+                        <p class="text-sm text-error">{{ form.password.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+
+                {% if form.non_field_errors %}
+                    <div role="alert" class="alert alert-error">
+                        <span>{{ form.non_field_errors|join:', ' }}</span>
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    登录
+                </button>
+            </form>
+
+            <p class="text-sm opacity-80">
+                还没有账号？
+                <a class="link link-primary" href="{% url 'account:sign-up' %}">注册</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

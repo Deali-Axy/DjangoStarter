@@ -13,13 +13,15 @@ class UserProfileForm(forms.ModelForm):
         }
         widgets = {
             'full_name': forms.TextInput(attrs={
-                'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                'class': 'input input-bordered w-full',
+                'autocomplete': 'name',
             }),
             'gender': forms.Select(attrs={
-                'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                'class': 'select select-bordered w-full',
             }),
             'phone': forms.TextInput(attrs={
-                'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                'class': 'input input-bordered w-full',
+                'autocomplete': 'tel',
             }),
         }
 
@@ -28,43 +30,58 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         label='用户名',
         widget=forms.TextInput(attrs={
-            'class': 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+            'class': 'input input-bordered w-full',
             'placeholder': '请输入用户名',
+            'autocomplete': 'username',
         }),
         min_length=4,
     )
     password = forms.CharField(
         label='密码',
         widget=forms.PasswordInput(attrs={
-            'class': 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+            'class': 'input input-bordered w-full',
             'placeholder': '请输入密码',
+            'autocomplete': 'current-password',
         }),
         min_length=4,
     )
 
 
 class RegisterForm(forms.Form):
+    email = forms.EmailField(
+        label='邮箱',
+        widget=forms.EmailInput(attrs={
+            'class': 'input input-bordered w-full',
+            'placeholder': 'name@example.com',
+            'autocomplete': 'email',
+        }),
+    )
     username = forms.CharField(
         label='用户名',
         widget=forms.TextInput(attrs={
-            'class': 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+            'class': 'input input-bordered w-full',
             'placeholder': '请输入用户名',
+            'autocomplete': 'username',
         }),
         min_length=4,
     )
     password = forms.CharField(
         label='密码',
         widget=forms.PasswordInput(attrs={
-            'class': 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+            'class': 'input input-bordered w-full',
             'placeholder': '请输入密码',
+            'autocomplete': 'new-password',
+            'x-model': 'pw',
         }),
         min_length=4,
     )
     confirm_password = forms.CharField(
         label='确认密码',
         widget=forms.PasswordInput(attrs={
-            'class': 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+            'class': 'input input-bordered w-full',
             'placeholder': '请输入确认密码',
+            'autocomplete': 'new-password',
+            'x-model': 'confirm',
         }),
         min_length=4,
     )

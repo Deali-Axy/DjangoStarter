@@ -29,9 +29,12 @@ INSTALLED_APPS: Tuple[str, ...] = (
     'captcha',
     'corsheaders',
     'simple_history',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
 
     # 我们自己的应用
-    'apps.account',
+    'apps.account.apps.AccountConfig',
     'apps.demo',
     'apps.home',
 )

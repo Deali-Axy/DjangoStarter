@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+
+{% block title %}重置邮件已发送{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-md">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body gap-4">
+            <h1 class="card-title text-2xl">重置邮件已发送</h1>
+            <p class="text-sm opacity-70">
+                如果该邮箱已注册，你会收到一封包含重置链接的邮件。请检查收件箱与垃圾邮件。
+            </p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-ghost" href="{% url 'account:login' %}">返回登录</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

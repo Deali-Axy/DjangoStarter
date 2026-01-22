@@ -14,7 +14,13 @@ class UserProfile(UserProfileAbstract):
         verbose_name_plural = verbose_name
 
 
-# 创建用户的时候自动创建 profile
-# @receiver(signals.post_save, sender=User, dispatch_uid='django_user_post_save')
-# def create_user_profile(sender: User, instance: User, created, **kwargs):
-#     profile, created = UserProfile.objects.get_or_create(user=instance)
+@receiver(signals.post_save, sender=User, dispatch_uid='account_user_post_save_create_profile')
+def create_user_profile(sender: type[User], instance: User, created: bool, **kwargs):
+    """
+    确保 UserProfile 存在。
+
+    账号体系的多处逻辑依赖 `user.profile`，因此在用户创建时创建 profile，
+    并在后续保存时保证其存在。
+    """
+    if created:
+        UserProfile.objects.get_or_create(user=instance)

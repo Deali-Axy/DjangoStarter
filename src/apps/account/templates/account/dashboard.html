@@ -1,0 +1,64 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block title %}仪表盘{% endblock %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <h2 class="card-title text-base">活跃会话</h2>
+                <i class="fa-solid fa-laptop opacity-60"></i>
+            </div>
+            <p class="text-3xl font-semibold">—</p>
+            <p class="text-sm opacity-70">在“设置”中查看与管理。</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-ghost" href="{% url 'account:settings' %}">管理</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <h2 class="card-title text-base">安全</h2>
+                <i class="fa-solid fa-shield-halved opacity-60"></i>
+            </div>
+            <p class="text-3xl font-semibold">—</p>
+            <p class="text-sm opacity-70">建议启用双因素认证提升安全性。</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-ghost" href="{% url 'account:settings' %}">打开</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <h2 class="card-title text-base">Developer</h2>
+                <i class="fa-solid fa-code opacity-60"></i>
+            </div>
+            <p class="text-3xl font-semibold">—</p>
+            <p class="text-sm opacity-70">生成 JWT 访问 API（开发用途）。</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-ghost" href="{% url 'account:settings-developer' %}">打开</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-6 card bg-base-100 shadow-sm border border-base-200">
+    <div class="card-body">
+        <h2 class="card-title text-base">近期活动</h2>
+        <ul class="steps steps-vertical lg:steps-horizontal">
+            <li class="step step-primary">登录</li>
+            <li class="step">更新资料</li>
+            <li class="step">安全设置</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+

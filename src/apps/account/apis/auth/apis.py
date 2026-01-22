@@ -40,6 +40,9 @@ def register(request, data: RegisterSchema):
     if User.objects.filter(username=data.username).exists():
         return _resp.bad_request(request, '用户名已存在！')
 
+    if User.objects.filter(email=data.email).exists():
+        return _resp.bad_request(request, '邮箱已存在！')
+
     if data.phone:
         phone_pattern = '^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$'
         if not re.match(phone_pattern, data.phone):
@@ -51,7 +54,7 @@ def register(request, data: RegisterSchema):
     if data.password != data.confirm_password:
         return _resp.bad_request(request, '密码不一致！')
 
-    user_obj: User = User.objects.create_user(data.username, None, data.password)
+    user_obj: User = User.objects.create_user(data.username, data.email, data.password)
 
     if data.phone:
         user_obj.profile.phone = data.phone

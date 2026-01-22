@@ -15,6 +15,7 @@ class LoginToken(Schema):
 
 
 class RegisterSchema(Schema):
+    email: str
     username: str
     password: str
     confirm_password: str
