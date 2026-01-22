@@ -2,273 +2,299 @@
 {% load page_tags i18n static %}
 
 {% block content %}
-<div data-aos="fade-down">
-    {% page_header title breadcrumbs %}
-</div>
 
-<!-- Overview Stats -->
-<div class="stats shadow-sm w-full mb-8 bg-base-100 border border-base-200" data-aos="fade-up">
-  
-  <div class="stat place-items-center">
-    <div class="stat-figure text-primary">
-      <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-          <i class="fa-solid fa-users text-xl"></i>
-      </div>
-    </div>
-    <div class="stat-title">Total Users</div>
-    <div class="stat-value text-primary">25.6K</div>
-    <div class="stat-desc text-success flex items-center gap-1">
-        <i class="fa-solid fa-arrow-trend-up"></i> 21% more than last month
-    </div>
-  </div>
-  
-  <div class="stat place-items-center">
-    <div class="stat-figure text-secondary">
-      <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
-          <i class="fa-solid fa-bolt text-xl"></i>
-      </div>
-    </div>
-    <div class="stat-title">Page Views</div>
-    <div class="stat-value text-secondary">2.6M</div>
-    <div class="stat-desc text-success flex items-center gap-1">
-        <i class="fa-solid fa-arrow-trend-up"></i> 14% more than last month
-    </div>
-  </div>
-  
-  <div class="stat place-items-center">
-    <div class="stat-figure text-accent">
-        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-            <i class="fa-solid fa-tasks text-xl"></i>
-        </div>
-    </div>
-    <div class="stat-title">Tasks Done</div>
-    <div class="stat-value">86%</div>
-    <div class="stat-desc text-base-content/60">31 tasks remaining</div>
-  </div>
-  
-</div>
+    <!-- Overview Stats -->
+    <div class="stats shadow-sm w-full mb-8 bg-base-100 border border-base-200" data-aos="fade-up">
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- Main Content / Quick Actions -->
-    <div class="lg:col-span-2 space-y-6">
-        <!-- Quick Actions -->
-        <div class="card bg-base-100 shadow-sm border border-base-200" data-aos="fade-up" data-aos-delay="100">
-            <div class="card-body">
-                <h3 class="card-title text-base mb-4 font-bold">Quick Actions</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <a href="#" class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-primary hover:bg-primary/5 group transition-all">
-                        <i class="fa-solid fa-plus-circle text-2xl text-primary group-hover:scale-110 transition-transform"></i>
-                        <span class="font-normal text-xs">New Project</span>
-                    </a>
-                    <a href="#" class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-secondary hover:bg-secondary/5 group transition-all">
-                        <i class="fa-solid fa-user-plus text-2xl text-secondary group-hover:scale-110 transition-transform"></i>
-                        <span class="font-normal text-xs">Invite Team</span>
-                    </a>
-                    <a href="#" class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-accent hover:bg-accent/5 group transition-all">
-                        <i class="fa-solid fa-file-invoice text-2xl text-accent group-hover:scale-110 transition-transform"></i>
-                        <span class="font-normal text-xs">Invoices</span>
-                    </a>
-                    <a href="#" class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-neutral hover:bg-neutral/5 group transition-all">
-                        <i class="fa-solid fa-cog text-2xl text-neutral group-hover:scale-110 transition-transform"></i>
-                        <span class="font-normal text-xs">Settings</span>
-                    </a>
+        <div class="stat place-items-center">
+            <div class="stat-figure text-primary">
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                    <i class="fa-solid fa-users text-xl"></i>
                 </div>
+            </div>
+            <div class="stat-title">Total Users</div>
+            <div class="stat-value text-primary">25.6K</div>
+            <div class="stat-desc text-success flex items-center gap-1">
+                <i class="fa-solid fa-arrow-trend-up"></i> 21% more than last month
             </div>
         </div>
 
-        <!-- Recent Projects Table -->
-        <div class="card bg-base-100 shadow-sm border border-base-200" data-aos="fade-up" data-aos-delay="200">
-            <div class="card-body p-0">
-                <div class="p-4 border-b border-base-200 flex justify-between items-center">
-                    <h3 class="card-title text-base font-bold">Recent Projects</h3>
-                    <button class="btn btn-xs btn-ghost">View All</button>
+        <div class="stat place-items-center">
+            <div class="stat-figure text-secondary">
+                <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+                    <i class="fa-solid fa-bolt text-xl"></i>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="table table-zebra">
-                        <thead>
+            </div>
+            <div class="stat-title">Page Views</div>
+            <div class="stat-value text-secondary">2.6M</div>
+            <div class="stat-desc text-success flex items-center gap-1">
+                <i class="fa-solid fa-arrow-trend-up"></i> 14% more than last month
+            </div>
+        </div>
+
+        <div class="stat place-items-center">
+            <div class="stat-figure text-accent">
+                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                    <i class="fa-solid fa-tasks text-xl"></i>
+                </div>
+            </div>
+            <div class="stat-title">Tasks Done</div>
+            <div class="stat-value">86%</div>
+            <div class="stat-desc text-base-content/60">31 tasks remaining</div>
+        </div>
+
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Main Content / Quick Actions -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Quick Actions -->
+            <div class="card bg-base-100 shadow-sm border border-base-200" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-body">
+                    <h3 class="card-title text-base mb-4 font-bold">Quick Actions</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <a href="#"
+                           class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-primary hover:bg-primary/5 group transition-all">
+                            <i class="fa-solid fa-plus-circle text-2xl text-primary group-hover:scale-110 transition-transform"></i>
+                            <span class="font-normal text-xs">New Project</span>
+                        </a>
+                        <a href="#"
+                           class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-secondary hover:bg-secondary/5 group transition-all">
+                            <i class="fa-solid fa-user-plus text-2xl text-secondary group-hover:scale-110 transition-transform"></i>
+                            <span class="font-normal text-xs">Invite Team</span>
+                        </a>
+                        <a href="#"
+                           class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-accent hover:bg-accent/5 group transition-all">
+                            <i class="fa-solid fa-file-invoice text-2xl text-accent group-hover:scale-110 transition-transform"></i>
+                            <span class="font-normal text-xs">Invoices</span>
+                        </a>
+                        <a href="#"
+                           class="btn h-auto py-4 flex flex-col gap-2 btn-ghost border border-base-200 hover:border-neutral hover:bg-neutral/5 group transition-all">
+                            <i class="fa-solid fa-cog text-2xl text-neutral group-hover:scale-110 transition-transform"></i>
+                            <span class="font-normal text-xs">Settings</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Projects Table -->
+            <div class="card bg-base-100 shadow-sm border border-base-200" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-body p-0">
+                    <div class="p-4 border-b border-base-200 flex justify-between items-center">
+                        <h3 class="card-title text-base font-bold">Recent Projects</h3>
+                        <button class="btn btn-xs btn-ghost">View All</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra">
+                            <thead>
                             <tr class="bg-base-200/50">
                                 <th>Project</th>
                                 <th>Status</th>
                                 <th>Progress</th>
                                 <th>Team</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr class="hover">
                                 <td class="font-medium">Website Redesign</td>
-                                <td><div class="badge badge-success badge-sm badge-outline">Active</div></td>
-                                <td><progress class="progress progress-success w-20" value="70" max="100"></progress></td>
+                                <td>
+                                    <div class="badge badge-success badge-sm badge-outline">Active</div>
+                                </td>
+                                <td>
+                                    <progress class="progress progress-success w-20" value="70" max="100"></progress>
+                                </td>
                                 <td>
                                     <div class="avatar-group -space-x-3 rtl:space-x-reverse">
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>D</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center">
+                                                <span>D</span></div>
                                         </div>
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>A</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center">
+                                                <span>A</span></div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="hover">
                                 <td class="font-medium">Mobile App</td>
-                                <td><div class="badge badge-warning badge-sm badge-outline">Pending</div></td>
-                                <td><progress class="progress progress-warning w-20" value="40" max="100"></progress></td>
+                                <td>
+                                    <div class="badge badge-warning badge-sm badge-outline">Pending</div>
+                                </td>
+                                <td>
+                                    <progress class="progress progress-warning w-20" value="40" max="100"></progress>
+                                </td>
                                 <td>
                                     <div class="avatar placeholder border-base-100">
-                                        <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>M</span></div>
+                                        <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center">
+                                            <span>M</span></div>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="hover">
                                 <td class="font-medium">Marketing Campaign</td>
-                                <td><div class="badge badge-ghost badge-sm badge-outline">Done</div></td>
-                                <td><progress class="progress w-20" value="100" max="100"></progress></td>
+                                <td>
+                                    <div class="badge badge-ghost badge-sm badge-outline">Done</div>
+                                </td>
+                                <td>
+                                    <progress class="progress w-20" value="100" max="100"></progress>
+                                </td>
                                 <td>
                                     <div class="avatar-group -space-x-3 rtl:space-x-reverse">
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>J</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center">
+                                                <span>J</span></div>
                                         </div>
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>K</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center">
+                                                <span>K</span></div>
                                         </div>
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>+2</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center">
+                                                <span>+2</span></div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Right Sidebar -->
-    <div class="space-y-6">
-        <!-- Developer Tools -->
-        <div class="card bg-base-100 shadow-sm border border-base-200 h-fit" data-aos="fade-up" data-aos-delay="250">
-            <div class="card-body">
-                <h3 class="card-title text-base font-bold mb-4">
-                    <i class="fa-solid fa-toolbox text-primary mr-2"></i> Developer Tools
-                </h3>
-                <div class="grid grid-cols-2 gap-3">
-                    <!-- Docs -->
-                    <a href="{% url 'djs_docs:index' %}" class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
-                        <div class="card-body items-center text-center py-4">
-                            <i class="fa-solid fa-file-lines text-2xl text-info mb-1"></i>
-                            <h4 class="card-title text-xs font-medium">Docs</h4>
-                        </div>
-                    </a>
-                    
-                    <!-- APIs -->
-                    <a href="/api/docs" target="_blank" class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
-                        <div class="card-body items-center text-center py-4">
-                            <i class="fa-solid fa-book-open text-2xl text-primary mb-1"></i>
-                            <h4 class="card-title text-xs font-medium">APIs</h4>
-                        </div>
-                    </a>
-
-                    <!-- Admin -->
-                    <a href="/admin/" target="_blank" class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
-                        <div class="card-body items-center text-center py-4">
-                            <i class="fa-solid fa-user-shield text-2xl text-secondary mb-1"></i>
-                            <h4 class="card-title text-xs font-medium">Admin</h4>
-                        </div>
-                    </a>
-
-                    <!-- GitHub -->
-                    <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank" class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
-                        <div class="card-body items-center text-center py-4">
-                            <i class="fa-brands fa-github text-2xl text-accent mb-1"></i>
-                            <h4 class="card-title text-xs font-medium">GitHub</h4>
-                        </div>
-                    </a>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Activity Feed -->
-        <div class="card bg-base-100 shadow-sm border border-base-200 h-fit" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-body p-0">
-            <!-- Header -->
-            <div class="p-4 border-b border-base-200 flex justify-between items-center">
-                <h3 class="card-title text-base font-bold">Activity Feed</h3>
-                <button class="btn btn-ghost btn-xs btn-circle" aria-label="Feed Options">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </button>
+        <!-- Right Sidebar -->
+        <div class="space-y-6">
+            <!-- Developer Tools -->
+            <div class="card bg-base-100 shadow-sm border border-base-200 h-fit" data-aos="fade-up"
+                 data-aos-delay="250">
+                <div class="card-body">
+                    <h3 class="card-title text-base font-bold mb-4">
+                        <i class="fa-solid fa-toolbox text-primary mr-2"></i> Developer Tools
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Docs -->
+                        <a href="{% url 'djs_docs:index' %}"
+                           class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
+                            <div class="card-body items-center text-center py-4">
+                                <i class="fa-solid fa-file-lines text-2xl text-info mb-1"></i>
+                                <h4 class="card-title text-xs font-medium">Docs</h4>
+                            </div>
+                        </a>
+
+                        <!-- APIs -->
+                        <a href="/api/docs" target="_blank"
+                           class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
+                            <div class="card-body items-center text-center py-4">
+                                <i class="fa-solid fa-book-open text-2xl text-primary mb-1"></i>
+                                <h4 class="card-title text-xs font-medium">APIs</h4>
+                            </div>
+                        </a>
+
+                        <!-- Admin -->
+                        <a href="/admin/" target="_blank"
+                           class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
+                            <div class="card-body items-center text-center py-4">
+                                <i class="fa-solid fa-user-shield text-2xl text-secondary mb-1"></i>
+                                <h4 class="card-title text-xs font-medium">Admin</h4>
+                            </div>
+                        </a>
+
+                        <!-- GitHub -->
+                        <a href="https://github.com/Deali-Axy/DjangoStarter" target="_blank"
+                           class="card card-compact bg-base-200 hover:bg-base-300 transition-colors border border-base-300">
+                            <div class="card-body items-center text-center py-4">
+                                <i class="fa-brands fa-github text-2xl text-accent mb-1"></i>
+                                <h4 class="card-title text-xs font-medium">GitHub</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Feed List -->
-            <div class="flex flex-col">
-                <!-- Item 1: Deployment -->
-                <div class="group flex gap-3 p-4 border-b border-base-100 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
-                    <div class="shrink-0">
-                        <div class="w-10 h-10 rounded-full bg-success/10 text-success flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <i class="fa-solid fa-rocket"></i>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-1 min-w-0 w-full">
-                        <p class="text-sm text-base-content leading-tight">
-                            Deployed to <span class="font-semibold text-base-content">Production</span>
-                        </p>
-                        <p class="text-xs text-base-content/60 flex items-center gap-1">
-                            <i class="fa-regular fa-clock text-[10px]"></i> 2 hours ago
-                        </p>
-                    </div>
-                </div>
 
-                <!-- Item 2: Commit -->
-                <div class="group flex gap-3 p-4 border-b border-base-100 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
-                    <div class="shrink-0">
-                        <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <i class="fa-solid fa-code-commit"></i>
-                        </div>
+            <!-- Activity Feed -->
+            <div class="card bg-base-100 shadow-sm border border-base-200 h-fit" data-aos="fade-up"
+                 data-aos-delay="300">
+                <div class="card-body p-0">
+                    <!-- Header -->
+                    <div class="p-4 border-b border-base-200 flex justify-between items-center">
+                        <h3 class="card-title text-base font-bold">Activity Feed</h3>
+                        <button class="btn btn-ghost btn-xs btn-circle" aria-label="Feed Options">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </button>
                     </div>
-                    <div class="flex flex-col gap-1 min-w-0 w-full">
-                        <p class="text-sm text-base-content leading-tight">
-                            New commit on <span class="font-mono text-xs bg-base-200 px-1.5 py-0.5 rounded text-primary">main</span>
-                        </p>
-                        <div class="flex items-center justify-between mt-0.5">
-                            <p class="text-xs text-base-content/60 flex items-center gap-1">
-                                <i class="fa-regular fa-clock text-[10px]"></i> 4 hours ago
-                            </p>
-                            <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-primary font-medium">View Diff</span>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Item 3: New User -->
-                <div class="group flex gap-3 p-4 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
-                    <div class="shrink-0">
-                        <div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <i class="fa-solid fa-user-plus"></i>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-1 min-w-0 w-full">
-                        <p class="text-sm text-base-content leading-tight">
-                            <span class="font-semibold">New user</span> registered
-                        </p>
-                        <div class="flex items-center gap-2 mt-1">
-                            <div class="avatar placeholder">
-                                <div class="bg-neutral text-neutral-content rounded-full w-5 h-5 text-[10px] flex items-center justify-center">
-                                    <span>U</span>
+                    <!-- Feed List -->
+                    <div class="flex flex-col">
+                        <!-- Item 1: Deployment -->
+                        <div class="group flex gap-3 p-4 border-b border-base-100 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
+                            <div class="shrink-0">
+                                <div class="w-10 h-10 rounded-full bg-success/10 text-success flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-rocket"></i>
                                 </div>
                             </div>
-                            <p class="text-xs text-base-content/60">Yesterday</p>
+                            <div class="flex flex-col gap-1 min-w-0 w-full">
+                                <p class="text-sm text-base-content leading-tight">
+                                    Deployed to <span class="font-semibold text-base-content">Production</span>
+                                </p>
+                                <p class="text-xs text-base-content/60 flex items-center gap-1">
+                                    <i class="fa-regular fa-clock text-[10px]"></i> 2 hours ago
+                                </p>
+                            </div>
                         </div>
+
+                        <!-- Item 2: Commit -->
+                        <div class="group flex gap-3 p-4 border-b border-base-100 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
+                            <div class="shrink-0">
+                                <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-code-commit"></i>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1 min-w-0 w-full">
+                                <p class="text-sm text-base-content leading-tight">
+                                    New commit on <span
+                                        class="font-mono text-xs bg-base-200 px-1.5 py-0.5 rounded text-primary">main</span>
+                                </p>
+                                <div class="flex items-center justify-between mt-0.5">
+                                    <p class="text-xs text-base-content/60 flex items-center gap-1">
+                                        <i class="fa-regular fa-clock text-[10px]"></i> 4 hours ago
+                                    </p>
+                                    <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-primary font-medium">View Diff</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: New User -->
+                        <div class="group flex gap-3 p-4 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
+                            <div class="shrink-0">
+                                <div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1 min-w-0 w-full">
+                                <p class="text-sm text-base-content leading-tight">
+                                    <span class="font-semibold">New user</span> registered
+                                </p>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <div class="avatar placeholder">
+                                        <div class="bg-neutral text-neutral-content rounded-full w-5 h-5 text-[10px] flex items-center justify-center">
+                                            <span>U</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-base-content/60">Yesterday</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="p-2 border-t border-base-200 bg-base-50/50 rounded-b-box">
+                        <button class="btn btn-ghost btn-block btn-sm text-xs font-medium text-base-content/70 hover:text-primary transition-colors">
+                            View Full History
+                        </button>
                     </div>
                 </div>
             </div>
-            
-            <!-- Footer -->
-            <div class="p-2 border-t border-base-200 bg-base-50/50 rounded-b-box">
-                <button class="btn btn-ghost btn-block btn-sm text-xs font-medium text-base-content/70 hover:text-primary transition-colors">
-                    View Full History
-                </button>
-            </div>
         </div>
     </div>
-    </div>
-</div>
 {% endblock %}
