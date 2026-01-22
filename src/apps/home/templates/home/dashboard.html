@@ -101,10 +101,10 @@
                                 <td>
                                     <div class="avatar-group -space-x-3 rtl:space-x-reverse">
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6"><span>D</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>D</span></div>
                                         </div>
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6"><span>A</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>A</span></div>
                                         </div>
                                     </div>
                                 </td>
@@ -115,7 +115,7 @@
                                 <td><progress class="progress progress-warning w-20" value="40" max="100"></progress></td>
                                 <td>
                                     <div class="avatar placeholder border-base-100">
-                                        <div class="bg-neutral text-neutral-content w-6"><span>M</span></div>
+                                        <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>M</span></div>
                                     </div>
                                 </td>
                             </tr>
@@ -126,13 +126,13 @@
                                 <td>
                                     <div class="avatar-group -space-x-3 rtl:space-x-reverse">
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6"><span>J</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>J</span></div>
                                         </div>
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6"><span>K</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>K</span></div>
                                         </div>
                                         <div class="avatar placeholder border-base-100">
-                                            <div class="bg-neutral text-neutral-content w-6"><span>+2</span></div>
+                                            <div class="bg-neutral text-neutral-content w-6 flex items-center justify-center"><span>+2</span></div>
                                         </div>
                                     </div>
                                 </td>
@@ -146,42 +146,83 @@
 
     <!-- Right Sidebar / Activity Feed -->
     <div class="card bg-base-100 shadow-sm border border-base-200 h-fit" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-body">
-            <h3 class="card-title text-base mb-4 font-bold">Activity Feed</h3>
+        <div class="card-body p-0">
+            <!-- Header -->
+            <div class="p-4 border-b border-base-200 flex justify-between items-center">
+                <h3 class="card-title text-base font-bold">Activity Feed</h3>
+                <button class="btn btn-ghost btn-xs btn-circle" aria-label="Feed Options">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+            </div>
             
-            <ul class="timeline timeline-vertical timeline-compact -ml-4">
-                <li>
-                    <div class="timeline-middle">
-                        <i class="fa-solid fa-check-circle text-success"></i>
+            <!-- Feed List -->
+            <div class="flex flex-col">
+                <!-- Item 1: Deployment -->
+                <div class="group flex gap-3 p-4 border-b border-base-100 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
+                    <div class="shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-success/10 text-success flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
                     </div>
-                    <div class="timeline-end timeline-box bg-transparent shadow-none border-none p-2 pt-0">
-                        <p class="text-sm font-medium">Deployed to production</p>
-                        <p class="text-xs text-base-content/60">2 hours ago</p>
+                    <div class="flex flex-col gap-1 min-w-0 w-full">
+                        <p class="text-sm text-base-content leading-tight">
+                            Deployed to <span class="font-semibold text-base-content">Production</span>
+                        </p>
+                        <p class="text-xs text-base-content/60 flex items-center gap-1">
+                            <i class="fa-regular fa-clock text-[10px]"></i> 2 hours ago
+                        </p>
                     </div>
-                    <hr class="bg-base-200"/>
-                </li>
-                <li>
-                    <hr class="bg-base-200"/>
-                    <div class="timeline-middle">
-                        <i class="fa-solid fa-code-commit text-primary"></i>
+                </div>
+
+                <!-- Item 2: Commit -->
+                <div class="group flex gap-3 p-4 border-b border-base-100 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
+                    <div class="shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-code-commit"></i>
+                        </div>
                     </div>
-                    <div class="timeline-end timeline-box bg-transparent shadow-none border-none p-2 pt-0">
-                        <p class="text-sm font-medium">New commit on main</p>
-                        <p class="text-xs text-base-content/60">4 hours ago</p>
+                    <div class="flex flex-col gap-1 min-w-0 w-full">
+                        <p class="text-sm text-base-content leading-tight">
+                            New commit on <span class="font-mono text-xs bg-base-200 px-1.5 py-0.5 rounded text-primary">main</span>
+                        </p>
+                        <div class="flex items-center justify-between mt-0.5">
+                            <p class="text-xs text-base-content/60 flex items-center gap-1">
+                                <i class="fa-regular fa-clock text-[10px]"></i> 4 hours ago
+                            </p>
+                            <span class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-primary font-medium">View Diff</span>
+                        </div>
                     </div>
-                    <hr class="bg-base-200"/>
-                </li>
-                <li>
-                    <hr class="bg-base-200"/>
-                    <div class="timeline-middle">
-                        <i class="fa-solid fa-user-plus text-secondary"></i>
+                </div>
+
+                <!-- Item 3: New User -->
+                <div class="group flex gap-3 p-4 hover:bg-base-200/40 transition-all duration-300 cursor-pointer">
+                    <div class="shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
                     </div>
-                    <div class="timeline-end timeline-box bg-transparent shadow-none border-none p-2 pt-0">
-                        <p class="text-sm font-medium">New user registered</p>
-                        <p class="text-xs text-base-content/60">Yesterday</p>
+                    <div class="flex flex-col gap-1 min-w-0 w-full">
+                        <p class="text-sm text-base-content leading-tight">
+                            <span class="font-semibold">New user</span> registered
+                        </p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <div class="avatar placeholder">
+                                <div class="bg-neutral text-neutral-content rounded-full w-5 h-5 text-[10px] flex items-center justify-center">
+                                    <span>U</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-base-content/60">Yesterday</p>
+                        </div>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="p-2 border-t border-base-200 bg-base-50/50 rounded-b-box">
+                <button class="btn btn-ghost btn-block btn-sm text-xs font-medium text-base-content/70 hover:text-primary transition-colors">
+                    View Full History
+                </button>
+            </div>
         </div>
     </div>
 </div>
