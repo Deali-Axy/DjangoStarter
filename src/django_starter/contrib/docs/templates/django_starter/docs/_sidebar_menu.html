@@ -1,0 +1,30 @@
+<!-- Mobile Header -->
+<div class="lg:hidden mb-6 px-2 flex items-center justify-between">
+    <span class="font-bold text-lg">文档导航</span>
+    <label for="docs-drawer" class="btn btn-sm btn-ghost btn-circle"><i class="fas fa-times"></i></label>
+</div>
+
+{% for item in categories %}
+    <details open class="group">
+        <summary class="font-bold opacity-60 hover:opacity-100 group-open:text-primary transition-colors">{{ item.category.title }}</summary>
+        <ul>
+            {% for page in item.pages %}
+            <li>
+                <a href="{% url 'djs_docs:detail' slug=page.slug %}" 
+                   hx-get="{% url 'djs_docs:detail' slug=page.slug %}"
+                   hx-target="#doc-main-content"
+                   hx-push-url="true"
+                   hx-swap="innerHTML"
+                   class="{% if active_page and page.slug == active_page.slug %}active font-medium{% endif %} border-l-2 border-transparent {% if active_page and page.slug == active_page.slug %}border-primary{% endif %}">
+                    {{ page.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </details>
+{% endfor %}
+
+<div class="divider my-4"></div>
+<ul class="menu-title px-2">快捷链接</ul>
+<li><a href="/api/docs" target="_blank"><i class="fas fa-code w-4"></i> API 文档</a></li>
+<li><a href="/admin" target="_blank"><i class="fas fa-cogs w-4"></i> 管理后台</a></li>

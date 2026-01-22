@@ -90,6 +90,13 @@ def _get_prev_next_pages(current_slug: str, pages: List[DocPage]) -> Tuple[Optio
     return None, None
 
 
+def _get_template_name(request: HttpRequest) -> str:
+    """Determine template name based on HTMX request."""
+    if request.headers.get("HX-Request") == "true":
+        return "django_starter/docs/_doc_content.html"
+    return "django_starter/docs/index.html"
+
+
 def docs_index(request: HttpRequest) -> HttpResponse:
     """Render documentation index with default or search result."""
     pages = get_doc_pages()
@@ -112,9 +119,8 @@ def docs_index(request: HttpRequest) -> HttpResponse:
         active_html, toc = _render_markdown(_load_markdown(active_page.path))
         prev_page, next_page = _get_prev_next_pages(active_page.slug, pages)
 
-
     context = {
-        "title": "文档中心",
+        "page_title": "文档中心",
         "breadcrumbs": [
             {"text": "首页", "url": "/"},
             {"text": "文档中心", "url": None},
@@ -128,7 +134,7 @@ def docs_index(request: HttpRequest) -> HttpResponse:
         "search_query": query,
         "search_results": search_results,
     }
-    return render(request, "django_starter/docs/index.html", context)
+    return render(request, _get_template_name(request), context)
 
 
 def docs_detail(request: HttpRequest, slug: str) -> HttpResponse:
@@ -140,7 +146,7 @@ def docs_detail(request: HttpRequest, slug: str) -> HttpResponse:
     prev_page, next_page = _get_prev_next_pages(slug, pages)
     
     context = {
-        "title": active_page.title,
+        "page_title": active_page.title,
         "breadcrumbs": [
             {"text": "首页", "url": "/"},
             {"text": "文档中心", "url": reverse("djs_docs:index")},
@@ -155,4 +161,4 @@ def docs_detail(request: HttpRequest, slug: str) -> HttpResponse:
         "search_query": "",
         "search_results": [],
     }
-    return render(request, "django_starter/docs/index.html", context)
+    return render(request, _get_template_name(request), context)
