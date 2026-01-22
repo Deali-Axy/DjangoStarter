@@ -107,13 +107,12 @@
 
             <!-- Sidebar Menu -->
             <div class="flex-grow flex justify-center overflow-y-auto custom-scrollbar overflow-x-hidden transition-all duration-300"
-                 :class="!isExpanded ? 'px-2 py-4' : 'p-4'">
-                <ul class="menu menu-md gap-1">
+                 :class="!isExpanded ? 'px-0 py-4' : 'p-4'">
+                <ul class="menu menu-md gap-1 flex-grow">
                     <li>
                         <a href="{% url 'home:index' %}"
                            class="flex-nowrap {% if request.resolver_match.app_name == 'home' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
-                           :data-tip="isExpanded ? '' : 'Home'">
+                           :class="!isExpanded ? 'justify-center px-0' : ''">
                             <i class="fa-solid fa-home w-5 text-center"></i> 
                             <span x-show="isExpanded">Home</span>
                         </a>
@@ -121,8 +120,7 @@
                     <li>
                         <a href="{% url 'djs_about:index' %}"
                            class="flex-nowrap {% if request.resolver_match.app_name == 'djs_about' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
-                           :data-tip="isExpanded ? '' : 'About'">
+                           :class="!isExpanded ? 'justify-center px-0' : ''">
                             <i class="fa-solid fa-info-circle w-5 text-center"></i>
                             <span x-show="isExpanded">About</span>
                         </a>
@@ -137,8 +135,7 @@
                     <li>
                         <a href="{% url 'demo:index' %}"
                            class="flex-nowrap {% if request.resolver_match.app_name == 'demo' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
-                           :data-tip="isExpanded ? '' : 'Components Demo'">
+                           :class="!isExpanded ? 'justify-center px-0' : ''">
                             <i class="fa-solid fa-layer-group w-5 text-center"></i>
                             <span x-show="isExpanded">Components Demo</span>
                         </a>
@@ -157,8 +154,7 @@
                         <li>
                             <a href="{% url 'account:index' %}" 
                                class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
-                               :data-tip="isExpanded ? '' : 'Profile'">
+                               :class="!isExpanded ? 'justify-center px-0' : ''">
                                 <i class="fa-solid fa-user w-5 text-center"></i>
                                 <span x-show="isExpanded">Profile</span>
                             </a>
@@ -166,8 +162,7 @@
                         <li>
                             <a href="{% url 'account:settings' %}" 
                                class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
-                               :data-tip="isExpanded ? '' : 'Settings'">
+                               :class="!isExpanded ? 'justify-center px-0' : ''">
                                 <i class="fa-solid fa-cog w-5 text-center"></i>
                                 <span x-show="isExpanded">Settings</span>
                             </a>
@@ -176,8 +171,7 @@
                         <li>
                             <a href="{% url 'account:login' %}" 
                                class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center px-0 tooltip tooltip-right z-50' : ''"
-                               :data-tip="isExpanded ? '' : 'Login'">
+                               :class="!isExpanded ? 'justify-center px-0' : ''">
                                 <i class="fa-solid fa-sign-in-alt w-5 text-center"></i>
                                 <span x-show="isExpanded">Login</span>
                             </a>
