@@ -1,41 +1,129 @@
 {% extends '_base.html' %}
-{% load page_tags %}
+{% load page_tags static %}
 
-{% block title %}用户中心{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 {% page_header title breadcrumbs %}
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-    <div class="card bg-base-100 shadow-sm border border-base-200">
-        <div class="card-body">
-            <h2 class="card-title">个人资料</h2>
-            <p class="text-sm opacity-70">更新姓名、手机号等基本信息。</p>
-            <div class="card-actions justify-end">
-                <a class="btn btn-primary" href="{% url 'account:profile' %}">打开</a>
+<!-- User Profile Hero Section -->
+<div class="mb-8 fade-in-up">
+    <div class="card bg-base-100 shadow-xl image-full overflow-hidden">
+        <figure><div class="w-full h-48 bg-gradient-to-r from-primary/80 to-secondary/80"></div></figure> 
+        <div class="card-body flex-row items-center gap-6 pt-8 pb-8">
+            <div class="avatar placeholder">
+                <div class="bg-neutral text-neutral-content rounded-full w-24 ring ring-primary ring-offset-base-100 ring-offset-2 shadow-lg">
+                    {% if user.profile.avatar %}
+                        <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" />
+                    {% else %}
+                        <span class="text-3xl font-bold">{{ user.username|slice:":1"|upper }}</span>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="card bg-base-100 shadow-sm border border-base-200">
-        <div class="card-body">
-            <h2 class="card-title">账户设置</h2>
-            <p class="text-sm opacity-70">密码、会话、双因素认证等安全设置。</p>
-            <div class="card-actions justify-end">
-                <a class="btn btn-primary" href="{% url 'account:settings' %}">打开</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card bg-base-100 shadow-sm border border-base-200">
-        <div class="card-body">
-            <h2 class="card-title">仪表盘</h2>
-            <p class="text-sm opacity-70">查看近期活动与状态概览。</p>
-            <div class="card-actions justify-end">
-                <a class="btn btn-primary" href="{% url 'account:dashboard' %}">打开</a>
+            <div class="text-white">
+                <h2 class="card-title text-3xl font-bold drop-shadow-md">{{ user.username }}</h2>
+                <p class="opacity-90 font-medium">{{ user.profile.title|default:"用户" }}</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                    <div class="badge badge-outline text-white gap-2">
+                        <i class="fa-solid fa-envelope text-xs"></i> {{ user.email }}
+                    </div>
+                    {% if user.is_staff %}
+                    <div class="badge badge-secondary gap-2">
+                        <i class="fa-solid fa-shield-halved text-xs"></i> 管理员
+                    </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
 
+<!-- Main Grid Navigation -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Personal Profile -->
+    <a href="{% url 'account:profile' %}" class="card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group border border-base-200">
+        <div class="card-body">
+            <div class="flex items-start justify-between">
+                <div class="p-3 bg-primary/10 rounded-2xl text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <i class="fa-solid fa-user-pen text-xl"></i>
+                </div>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-base-300 group-hover:text-primary transition-colors duration-300 bg-base-200/50 group-hover:bg-primary/10">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </div>
+            <h2 class="card-title mt-4 group-hover:text-primary transition-colors">个人资料</h2>
+            <p class="text-base-content/70 text-sm mt-1">更新头像、简介、职位等基本信息，完善您的个人档案。</p>
+        </div>
+    </a>
+
+    <!-- Account Settings -->
+    <a href="{% url 'account:settings' %}" class="card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group border border-base-200">
+        <div class="card-body">
+            <div class="flex items-start justify-between">
+                <div class="p-3 bg-secondary/10 rounded-2xl text-secondary group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-base-300 group-hover:text-secondary transition-colors duration-300 bg-base-200/50 group-hover:bg-secondary/10">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </div>
+            <h2 class="card-title mt-4 group-hover:text-secondary transition-colors">账户设置</h2>
+            <p class="text-base-content/70 text-sm mt-1">修改密码、配置双因素认证 (2FA) 及管理活跃的登录会话。</p>
+        </div>
+    </a>
+
+    <!-- Dashboard -->
+    <a href="{% url 'account:dashboard' %}" class="card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group border border-base-200">
+        <div class="card-body">
+            <div class="flex items-start justify-between">
+                <div class="p-3 bg-accent/10 rounded-2xl text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                    <i class="fa-solid fa-gauge-high text-xl"></i>
+                </div>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-base-300 group-hover:text-accent transition-colors duration-300 bg-base-200/50 group-hover:bg-accent/10">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </div>
+            <h2 class="card-title mt-4 group-hover:text-accent transition-colors">仪表盘</h2>
+            <p class="text-base-content/70 text-sm mt-1">查看系统概览、近期活动记录及关键统计指标。</p>
+        </div>
+    </a>
+    
+    <!-- Wallet/Charge -->
+    <a href="{% url 'account:charge' %}" class="card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group border border-base-200">
+        <div class="card-body">
+             <div class="flex items-start justify-between">
+                <div class="p-3 bg-info/10 rounded-2xl text-info group-hover:bg-info group-hover:text-white transition-colors duration-300">
+                    <i class="fa-solid fa-wallet text-xl"></i>
+                </div>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-base-300 group-hover:text-info transition-colors duration-300 bg-base-200/50 group-hover:bg-info/10">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </div>
+            <h2 class="card-title mt-4 group-hover:text-info transition-colors">充值中心</h2>
+            <p class="text-base-content/70 text-sm mt-1">查看账户余额、充值记录及管理账单信息。</p>
+        </div>
+    </a>
+</div>
+
+<!-- Footer Meta Info -->
+<div class="text-center text-xs text-base-content/40 pb-8 flex justify-center gap-4">
+    <span class="flex items-center gap-1"><i class="fa-regular fa-calendar"></i> 注册于 {{ user.date_joined|date:"Y年m月d日" }}</span>
+    <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 上次登录 {{ user.last_login|date:"Y年m月d日 H:i" }}</span>
+</div>
+
+<style>
+    .fade-in-up {
+        animation: fadeInUp 0.5s ease-out forwards;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
