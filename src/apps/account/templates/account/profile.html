@@ -24,7 +24,7 @@
                 </label>
                 
                 {% if field.field.widget.input_type == 'select' %}
-                    <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="select select-bordered w-full">
+                    <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="select w-full">
                         {% for choice in field.field.choices %}
                             <option value="{{ choice.0 }}" {% if choice.0 == field.value %}selected{% endif %}>{{ choice.1 }}</option>
                         {% endfor %}
@@ -34,7 +34,7 @@
                            name="{{ field.name }}" 
                            id="{{ field.id_for_label }}"
                            value="{{ field.value|default:'' }}"
-                           class="input input-bordered w-full"
+                           class="input w-full"
                            placeholder="请输入{{ field.label }}">
                 {% endif %}
                 

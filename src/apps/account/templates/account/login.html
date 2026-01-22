@@ -66,7 +66,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
         inputs.forEach(input => {
-            input.classList.add('input', 'input-bordered', 'w-full');
+            input.classList.add('input', 'w-full');
             // 移除可能存在的旧类名
             input.classList.remove('border-gray-300', 'focus:ring-primary-300');
         });

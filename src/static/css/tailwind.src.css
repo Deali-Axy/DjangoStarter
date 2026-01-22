@@ -2,6 +2,7 @@
 @source "../../templates";
 @source "../../apps";
 @source "../../django_starter";
+@source "../../static/js";
 
 @plugin "daisyui" {
   themes: corporate --default, business;
