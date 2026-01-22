@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@source "../../templates";
+@source "../../apps";
+@source "../../django_starter";
+
 @plugin "daisyui" {
   themes: corporate --default, business;
 }
