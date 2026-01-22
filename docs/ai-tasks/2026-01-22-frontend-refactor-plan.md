@@ -77,8 +77,8 @@
 
 | 模块 | 当前状态 (Old) | 目标状态 (New) | 优势 |
 | :--- | :--- | :--- | :--- |
-| **CSS 框架** | Tailwind CSS + Flowbite Plugin | Tailwind CSS + **DaisyUI Plugin** | 代码量减少 ~70%，语义更清晰 |
-| **组件库** | Flowbite (HTML + JS) | **DaisyUI** (Pure CSS) | 移除 JS 依赖，性能更好，定制更易 |
+| **CSS 框架** | Tailwind CSS v3 + Flowbite Plugin | Tailwind CSS **v4** + **DaisyUI v5 Plugin** | 代码量减少 ~70%，语义更清晰，构建更快 |
+| **组件库** | Flowbite (HTML + JS) | **DaisyUI v5** (Pure CSS) | 移除 JS 依赖，性能更好，定制更易 |
 | **交互逻辑** | Flowbite JS / Vanilla JS | **Alpine.js** | 声明式语法，轻量级，易维护 |
 | **布局系统** | 自定义 Flex/Grid 布局 | **DaisyUI Drawer** 组件 | 原生支持移动端侧滑菜单，结构更稳固 |
 | **主题切换** | 手动 JS 控制 DOM Class | **Theme Controller** (CSS only) | 无闪烁，配置简单，支持多主题 |
@@ -253,7 +253,7 @@
     *   **Guide (`contrib.guide`)**: 确认首页内容已迁移至 `Home` 应用，清理旧代码。
 
 ### Phase 4: 清理与收尾
-1.  **移除 Flowbite**: 删除 `node_modules` 中的 flowbite，移除 `tailwind.config.js` 中的 flowbite 插件。
+1.  **移除 Flowbite**: 删除 `node_modules` 中的 flowbite。
 2.  **清理静态资源**: 删除 `src/static/lib/flowbite`；执行 `pnpm gulp:move` 确保最终产物干净。
 3.  **全局测试**: 确保 Light/Dark 切换正常，移动端菜单正常，所有 HTMX 交互正常。
 
