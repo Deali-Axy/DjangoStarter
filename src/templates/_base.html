@@ -67,6 +67,7 @@
         {% include '_components/navbar.html' %}
 
         <!-- Alerts / Messages -->
+        {% block messages_area %}
         <div class="container mx-auto px-4 pt-4">
             {% if messages %}
                 {% for message in messages %}
@@ -74,14 +75,17 @@
                 {% endfor %}
             {% endif %}
         </div>
+        {% endblock %}
 
         <!-- Page Content -->
-        <main class="flex-grow p-4 lg:p-8" data-aos="fade-up" data-aos-delay="100">
+        <main class="flex-grow {% block main_padding %}p-4 lg:p-8{% endblock %}" data-aos="fade-up" data-aos-delay="100">
             {% block content %}{% endblock %}
         </main>
 
         <!-- Footer -->
+        {% block footer %}
         {% include '_components/footer.html' %}
+        {% endblock %}
     </div>
 
     <!-- Sidebar -->

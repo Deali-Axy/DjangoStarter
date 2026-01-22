@@ -1,13 +1,17 @@
 {% extends '_base.html' %}
 {% load page_tags static %}
 
+{% block messages_area %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block main_padding %}p-0{% endblock %}
+
 {% block content %}
-<div class="drawer lg:drawer-open min-h-[calc(100vh-4rem)] bg-base-200/30">
+<div class="drawer lg:drawer-open h-[calc(100vh-4rem)] overflow-hidden bg-base-200/30">
     <input id="account-drawer" type="checkbox" class="drawer-toggle" />
     
-    <div class="drawer-content flex flex-col">
+    <div class="drawer-content flex flex-col h-full overflow-hidden">
         <!-- Mobile Header for Drawer Toggle -->
-        <div class="w-full navbar bg-base-100 lg:hidden border-b border-base-200">
+        <div class="w-full navbar bg-base-100 lg:hidden border-b border-base-200 flex-none z-20">
             <div class="flex-none">
                 <label for="account-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
                     <i class="fa-solid fa-bars"></i>
@@ -17,9 +21,9 @@
         </div>
 
         <!-- Main Content Container -->
-        <main class="flex-1 p-4 md:p-8" id="account-main">
+        <main class="flex-1 p-4 md:p-8 overflow-y-auto custom-scrollbar relative" id="account-main">
             {% if messages %}
-            <div class="toast toast-top toast-center z-50">
+            <div class="toast toast-top toast-center z-50 sticky top-4">
                 {% for message in messages %}
                 <div class="alert alert-{{ message.tags|default:'info' }} shadow-lg">
                     <span>{{ message }}</span>
@@ -32,9 +36,9 @@
         </main>
     </div> 
     
-    <div class="drawer-side z-40">
+    <div class="drawer-side z-40 h-full">
         <label for="account-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
-        <aside class="bg-base-100 min-h-full w-80 p-4 border-r border-base-200 flex flex-col">
+        <aside class="bg-base-100 h-full w-80 p-4 border-r border-base-200 flex flex-col overflow-y-auto custom-scrollbar">
             <!-- Sidebar Header / User Info -->
             <div class="flex flex-col items-center justify-center py-6 border-b border-base-200/50 mb-4">
                 <div class="avatar placeholder mb-3">
