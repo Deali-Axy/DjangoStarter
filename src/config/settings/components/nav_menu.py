@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 NAV_MENU = [
     {
         'name': _('Home'),
-        'url': reverse_lazy('djs_guide:index'),
+        'url': reverse_lazy('home:index'),
         'icon': 'fa-solid fa-house-laptop'
     },
     {
