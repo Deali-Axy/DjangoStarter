@@ -20,23 +20,20 @@ def _normalize_breadcrumbs(breadcrumbs):
     return processed_breadcrumbs
 
 @register.inclusion_tag('django_starter/components/page_header.html')
-def page_header(title, breadcrumbs=None):
+def page_header(title, breadcrumbs=None, show_title=True, show_breadcrumbs=True):
     """
     渲染标准页面标题和面包屑导航
     
     :param title: 页面主标题
-    :param breadcrumbs: 面包屑导航列表，格式为：
-        [
-            {'text': '主页', 'url': '/admin/', 'icon': 'fa-solid fa-house'},
-            {'text': '视频中台', 'url': '/admin/video/', 'icon': 'fa-solid fa-video'},
-            {'text': '批量生成设备ID', 'url': None, 'icon': 'fa-solid fa-gears'},
-        ]
-        
-        icon参数可选，如不提供则不显示图标
+    :param breadcrumbs: 面包屑导航列表
+    :param show_title: 是否显示标题区域，默认为 True
+    :param show_breadcrumbs: 是否显示面包屑导航，默认为 True
     """
     return {
         'title': title,
         'breadcrumbs': _normalize_breadcrumbs(breadcrumbs),
+        'show_title': show_title,
+        'show_breadcrumbs': show_breadcrumbs,
     }
 
 @register.inclusion_tag('django_starter/components/breadcrumbs_items.html')

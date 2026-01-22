@@ -25,6 +25,7 @@
 
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <!-- 标题区域 -->
+        {% if show_title %}
         <div>
             <h1 class="text-3xl font-bold tracking-tight flex items-center gap-3">
                 {% if icon %}
@@ -36,6 +37,7 @@
                 <p class="text-base-content/60 mt-1 font-medium">{{ subtitle }}</p>
             {% endif %}
         </div>
+        {% endif %}
 
         <!-- 操作按钮 -->
         {% if actions %}
