@@ -1,44 +1,45 @@
-{% extends '_base.html' %}
+{% extends base_template %}
 {% load page_tags %}
 
 {% block title %}关闭双因素认证{% endblock %}
 
-{% block content %}
-{% page_header title breadcrumbs %}
+{% block account_content %}
+<div class="fade-in-up">
+    {% page_header title breadcrumbs %}
 
-<div class="mx-auto w-full max-w-md">
-    <div class="card bg-base-100 shadow-sm border border-base-200">
-        <div class="card-body gap-6">
-            <div class="space-y-1">
-                <h1 class="card-title text-2xl">关闭双因素认证</h1>
-                <p class="text-sm opacity-70">需要验证密码与验证码，避免误操作。</p>
-            </div>
-
-            <form method="post" class="space-y-4" novalidate>
+    <div class="card bg-base-100 shadow-sm border border-base-200 max-w-xl mx-auto">
+        <div class="card-body">
+            <h2 class="card-title text-error mb-2">关闭双因素认证</h2>
+            <p class="text-base-content/70 mb-6">这将降低您的账户安全性。您确定要继续吗？</p>
+            
+            <form method="post" class="space-y-4">
                 {% csrf_token %}
-                <div class="space-y-1">
-                    <label class="label" for="password">
-                        <span class="label-text">密码</span>
+                
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold">当前密码</span>
                     </label>
-                    <input id="password" name="password" type="password" autocomplete="current-password"
-                           class="input input-bordered w-full" required>
-                </div>
-                <div class="space-y-1">
-                    <label class="label" for="token">
-                        <span class="label-text">验证码 / 恢复码</span>
-                    </label>
-                    <input id="token" name="token" autocomplete="one-time-code"
-                           class="input input-bordered w-full" required>
+                    <input type="password" name="password" class="input input-bordered" required />
                 </div>
 
-                <button type="submit" class="btn btn-error btn-block">确认关闭</button>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold">2FA 验证码</span>
+                    </label>
+                    <input type="text" name="token" placeholder="输入 6 位验证码" class="input input-bordered text-center tracking-widest" maxlength="6" pattern="[0-9]*" required />
+                </div>
+
+                <div class="card-actions justify-end mt-4">
+                    <a href="{% url 'account:settings' %}" 
+                       hx-get="{% url 'account:settings' %}"
+                       hx-target="#account-main" 
+                       hx-push-url="true"
+                       hx-swap="innerHTML transition:true"
+                       class="btn btn-ghost">取消</a>
+                    <button type="submit" class="btn btn-error">确认关闭</button>
+                </div>
             </form>
-
-            <div class="card-actions justify-end">
-                <a class="btn btn-ghost" href="{% url 'account:settings' %}">返回设置</a>
-            </div>
         </div>
     </div>
 </div>
 {% endblock %}
-

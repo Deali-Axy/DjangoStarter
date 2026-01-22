@@ -1,56 +1,61 @@
-{% extends 'account/_settings_base.html' %}
+{% extends base_template %}
+{% load page_tags %}
 
 {% block title %}个人资料{% endblock %}
 
-{% block settings_content %}
-<div class="card bg-base-100 shadow-sm border border-base-200">
-    <div class="card-body">
-        <h2 class="card-title text-xl mb-4">基本信息</h2>
-        
-        <form method="post" enctype="multipart/form-data" novalidate class="space-y-6">
-            {% csrf_token %}
+{% block account_content %}
+<div class="fade-in-up">
+    {% page_header title breadcrumbs %}
+    
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4">基本信息</h2>
             
-            <!-- Avatar Section -->
-            <div class="flex flex-col sm:flex-row items-center gap-6">
-                <div class="avatar placeholder">
+            <form method="post" enctype="multipart/form-data" novalidate class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Avatar Section -->
+                <div class="flex flex-col sm:flex-row items-center gap-6">
+                    <div class="avatar placeholder">
                     <div class="w-24 rounded-full bg-neutral text-neutral-content ring ring-base-200 ring-offset-base-100 ring-offset-2 overflow-hidden">
                         {% if user.profile.avatar %}
                             <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" class="object-cover" />
                         {% else %}
-                            <span class="text-3xl">{{ user.username|slice:":1"|upper }}</span>
+                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random&color=fff&size=128" alt="{{ user.username }}" class="object-cover" />
                         {% endif %}
                     </div>
                 </div>
-                <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                        <span class="label-text font-medium">更换头像</span>
-                    </label>
-                    {{ form.avatar }}
-                    {% if form.avatar.errors %}
-                        <p class="text-sm text-error mt-1">{{ form.avatar.errors|join:', ' }}</p>
-                    {% endif %}
-                    <p class="text-xs text-base-content/50 mt-1">支持 JPG, PNG, GIF 格式。</p>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text font-medium">更换头像</span>
+                        </label>
+                        {{ form.avatar }}
+                        {% if form.avatar.errors %}
+                            <p class="text-sm text-error mt-1">{{ form.avatar.errors|join:', ' }}</p>
+                        {% endif %}
+                        <p class="text-xs text-base-content/50 mt-1">支持 JPG, PNG, GIF 格式。</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="divider"></div>
+                <div class="divider"></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {% include 'account/_components/form_field.html' with field=form.full_name %}
-                {% include 'account/_components/form_field.html' with field=form.title %}
-            </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% include 'account/_components/form_field.html' with field=form.full_name %}
+                    {% include 'account/_components/form_field.html' with field=form.title %}
+                </div>
 
-            {% include 'account/_components/form_field.html' with field=form.bio %}
+                {% include 'account/_components/form_field.html' with field=form.bio %}
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {% include 'account/_components/form_field.html' with field=form.phone %}
-                {% include 'account/_components/form_field.html' with field=form.gender %}
-            </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% include 'account/_components/form_field.html' with field=form.phone %}
+                    {% include 'account/_components/form_field.html' with field=form.gender %}
+                </div>
 
-            <div class="card-actions justify-end mt-4">
-                <button type="submit" class="btn btn-primary">保存更改</button>
-            </div>
-        </form>
+                <div class="card-actions justify-end mt-4">
+                    <button type="submit" class="btn btn-primary">保存更改</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

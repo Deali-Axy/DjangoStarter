@@ -1,19 +1,25 @@
-{% extends '_base.html' %}
+{% extends base_template %}
 {% load page_tags %}
 
 {% block title %}充值{% endblock %}
 
-{% block content %}
-{% page_header title breadcrumbs %}
+{% block account_content %}
+<div class="fade-in-up">
+    {% page_header title breadcrumbs %}
 
-<div class="card bg-base-100 shadow-sm border border-base-200">
-    <div class="card-body">
-        <h2 class="card-title">充值</h2>
-        <p class="text-sm opacity-70">此页面作为占位示例，你可以在此接入支付与订阅体系。</p>
-        <div class="card-actions justify-end">
-            <a class="btn btn-ghost" href="{% url 'account:dashboard' %}">返回仪表盘</a>
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <h2 class="card-title">充值</h2>
+            <p class="text-sm opacity-70">此页面作为占位示例，你可以在此接入支付与订阅体系。</p>
+            <div class="card-actions justify-end">
+                <a class="btn btn-ghost" 
+                   href="{% url 'account:dashboard' %}"
+                   hx-get="{% url 'account:dashboard' %}" 
+                   hx-target="#account-main" 
+                   hx-push-url="true"
+                   hx-swap="innerHTML transition:true">返回仪表盘</a>
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
-

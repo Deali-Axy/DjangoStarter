@@ -1,0 +1,147 @@
+{% extends '_base.html' %}
+{% load page_tags static %}
+
+{% block content %}
+<div class="drawer lg:drawer-open min-h-[calc(100vh-4rem)] bg-base-200/30">
+    <input id="account-drawer" type="checkbox" class="drawer-toggle" />
+    
+    <div class="drawer-content flex flex-col">
+        <!-- Mobile Header for Drawer Toggle -->
+        <div class="w-full navbar bg-base-100 lg:hidden border-b border-base-200">
+            <div class="flex-none">
+                <label for="account-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+                    <i class="fa-solid fa-bars"></i>
+                </label>
+            </div>
+            <div class="flex-1 px-2 mx-2 font-bold text-lg">用户中心</div>
+        </div>
+
+        <!-- Main Content Container -->
+        <main class="flex-1 p-4 md:p-8" id="account-main">
+            {% if messages %}
+            <div class="toast toast-top toast-center z-50">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags|default:'info' }} shadow-lg">
+                    <span>{{ message }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% block account_content %}{% endblock %}
+        </main>
+    </div> 
+    
+    <div class="drawer-side z-40">
+        <label for="account-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
+        <aside class="bg-base-100 min-h-full w-80 p-4 border-r border-base-200 flex flex-col">
+            <!-- Sidebar Header / User Info -->
+            <div class="flex flex-col items-center justify-center py-6 border-b border-base-200/50 mb-4">
+                <div class="avatar placeholder mb-3">
+                    <div class="bg-neutral text-neutral-content rounded-full w-20 ring ring-primary ring-offset-base-100 ring-offset-2">
+                        {% if user.profile.avatar %}
+                            <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" />
+                        {% else %}
+                             <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random&color=fff&size=128" alt="{{ user.username }}" />
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="font-bold text-lg">{{ user.username }}</h3>
+                <p class="text-xs text-base-content/60">{{ user.email }}</p>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="menu menu-lg gap-2 w-full">
+                <li>
+                    <a href="{% url 'account:index' %}" 
+                       hx-get="{% url 'account:index' %}" 
+                       hx-target="#account-main" 
+                       hx-push-url="true"
+                       hx-swap="innerHTML transition:true"
+                       class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                        <i class="fa-solid fa-house w-6 text-center"></i>
+                        概览
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'account:dashboard' %}" 
+                       hx-get="{% url 'account:dashboard' %}" 
+                       hx-target="#account-main" 
+                       hx-push-url="true"
+                       hx-swap="innerHTML transition:true"
+                       class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                        <i class="fa-solid fa-chart-line w-6 text-center"></i>
+                        仪表盘
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'account:profile' %}" 
+                       hx-get="{% url 'account:profile' %}" 
+                       hx-target="#account-main" 
+                       hx-push-url="true"
+                       hx-swap="innerHTML transition:true"
+                       class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                        <i class="fa-solid fa-user-pen w-6 text-center"></i>
+                        个人资料
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'account:settings' %}" 
+                       hx-get="{% url 'account:settings' %}" 
+                       hx-target="#account-main" 
+                       hx-push-url="true"
+                       hx-swap="innerHTML transition:true"
+                       class="{% if 'settings' in request.resolver_match.url_name %}active{% endif %}">
+                        <i class="fa-solid fa-shield-halved w-6 text-center"></i>
+                        账户设置
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'account:charge' %}" 
+                       hx-get="{% url 'account:charge' %}" 
+                       hx-target="#account-main" 
+                       hx-push-url="true"
+                       hx-swap="innerHTML transition:true"
+                       class="{% if request.resolver_match.url_name == 'charge' %}active{% endif %}">
+                        <i class="fa-solid fa-wallet w-6 text-center"></i>
+                        充值中心
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="mt-auto pt-4 border-t border-base-200/50">
+                 <ul class="menu w-full">
+                    <li>
+                        <a href="{% url 'account:logout' %}" class="text-error hover:bg-error/10">
+                            <i class="fa-solid fa-arrow-right-from-bracket w-6 text-center"></i>
+                            退出登录
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Script to handle active state updates for HTMX navigation -->
+<script>
+    document.body.addEventListener('htmx:afterOnLoad', function(evt) {
+        // Update active class on sidebar links
+        const currentPath = window.location.pathname;
+        const links = document.querySelectorAll('.menu a');
+        links.forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // Close drawer on mobile after navigation
+        const drawerCheckbox = document.getElementById('account-drawer');
+        if (drawerCheckbox && window.innerWidth < 1024) {
+            drawerCheckbox.checked = false;
+        }
+    });
+</script>
+{% endblock %}

@@ -22,10 +22,20 @@ import qrcode
 from django_starter.contrib.auth.services import generate_token
 
 
+def get_template_base(request):
+    """
+    Determine the base template based on whether the request is an HTMX request.
+    """
+    if request.headers.get('HX-Request'):
+        return 'account/_account_partial.html'
+    return 'account/_account_shell.html'
+
+
 @login_required()
 def index(request):
     return render(request, 'account/index.html', {
         'title': '用户中心',
+        'base_template': get_template_base(request),
         'breadcrumbs': [
             {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
             {'text': '用户中心', 'url': None, 'icon': 'fa-solid fa-user'},
@@ -46,6 +56,7 @@ def profile(request):
     ctx = {
         'form': form,
         'title': '个人资料',
+        'base_template': get_template_base(request),
         'breadcrumbs': [
             {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
             {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
@@ -59,6 +70,7 @@ def profile(request):
 def charge(request):
     return render(request, 'account/charge.html', {
         'title': '充值',
+        'base_template': get_template_base(request),
         'breadcrumbs': [
             {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
             {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
@@ -71,6 +83,7 @@ def charge(request):
 def dashboard(request):
     return render(request, 'account/dashboard.html', {
         'title': '仪表盘',
+        'base_template': get_template_base(request),
         'breadcrumbs': [
             {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
             {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
@@ -391,6 +404,7 @@ def two_factor_setup(request: HttpRequest) -> HttpResponse:
 
             return render(request, 'account/2fa/setup.html', {
                 'title': '启用双因素认证',
+                'base_template': get_template_base(request),
                 'qr_data_uri': _qr_data_uri(device.config_url),
                 'secret': device.key,
                 'recovery_codes': recovery_codes,
@@ -407,6 +421,7 @@ def two_factor_setup(request: HttpRequest) -> HttpResponse:
 
     return render(request, 'account/2fa/setup.html', {
         'title': '启用双因素认证',
+        'base_template': get_template_base(request),
         'qr_data_uri': _qr_data_uri(device.config_url),
         'secret': device.key,
         'recovery_codes': None,
@@ -483,6 +498,7 @@ def two_factor_disable(request: HttpRequest) -> HttpResponse:
 
     return render(request, 'account/2fa/disable.html', {
         'title': '关闭双因素认证',
+        'base_template': get_template_base(request),
         'breadcrumbs': [
             {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
             {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
