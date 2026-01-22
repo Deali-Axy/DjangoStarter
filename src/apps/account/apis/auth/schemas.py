@@ -3,16 +3,12 @@ from django.contrib.auth.models import User, Group
 from ninja import ModelSchema
 from ninja.schema import Schema
 
+from django_starter.contrib.auth.schemas import LoginToken
+
 
 class LoginSchema(Schema):
     username: str
     password: str
-
-
-class LoginToken(Schema):
-    token: str
-    exp: int
-
 
 class RegisterSchema(Schema):
     email: str

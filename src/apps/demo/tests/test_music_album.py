@@ -1,3 +1,4 @@
+import json
 from django.test import TestCase
 from django.urls import reverse_lazy
 from apps.demo.models import MusicAlbum
@@ -21,7 +22,7 @@ class Test(TestCase):
         data = self.seeder.seed(MusicAlbum)
         resp = self.client.post(
             reverse_lazy('api:demo/music_album/create'),
-            data=data,
+            data=json.dumps(data),
             content_type='application/json'
         )
         self.assertEqual(resp.status_code, 200)
@@ -44,7 +45,7 @@ class Test(TestCase):
         data = self.seeder.seed(MusicAlbum)
         resp = self.client.put(
             reverse_lazy('api:demo/music_album/update', kwargs={'item_id': item['data']['id']}),
-            data=data,
+            data=json.dumps(data),
             content_type='application/json'
         )
         self.assertEqual(resp.status_code, 200)
@@ -55,7 +56,7 @@ class Test(TestCase):
         data = self.seeder.seed(MusicAlbum)
         resp = self.client.patch(
             reverse_lazy('api:demo/music_album/partial_update', kwargs={'item_id': item['data']['id']}),
-            data=data,
+            data=json.dumps(data),
             content_type='application/json'
         )
         self.assertEqual(resp.status_code, 200)

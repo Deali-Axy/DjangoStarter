@@ -7,7 +7,7 @@ class MusicIn(ModelSchema):
 
     class Meta:
         model = Music
-        fields = ['is_deleted', 'created_time', 'updated_time', 'name', 'singer', 'genre', 'rating', ]
+        fields = ['name', 'singer', 'genre', 'rating', ]
 
 
 class MusicOut(ModelSchema):

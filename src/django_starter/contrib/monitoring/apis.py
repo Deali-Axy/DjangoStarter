@@ -72,11 +72,20 @@ def get_uptime():
         try:
             # 使用系统命令获取启动时间（单位：秒）
             cmd = ['net', 'statistics', 'workstation']
-            output = subprocess.check_output(cmd).decode()
+            output = subprocess.check_output(cmd).decode(errors='ignore')
             for line in output.splitlines():
-                if 'Statistics since' in line:
+                if 'Statistics since' in line or '统计开始于' in line:
                     # 解析日期时间并转换为时间戳
-                    date_str = line.split('Statistics since')[1].strip()
+                    # 英文: Statistics since 1/23/2025 12:00:00 AM
+                    # 中文: 统计开始于 2025/1/23 12:00:00
+                    parts = line.split('Statistics since')
+                    if len(parts) < 2:
+                        parts = line.split('统计开始于')
+                    
+                    if len(parts) < 2:
+                        continue
+                        
+                    date_str = parts[1].strip()
                     try:
                         # 尝试解析英文格式日期 (例如: "1/2/2023 12:34:56 AM")
                         boot_time = time.mktime(time.strptime(date_str, "%m/%d/%Y %I:%M:%S %p"))
@@ -86,14 +95,17 @@ def get_uptime():
                             boot_time = time.mktime(time.strptime(date_str, "%Y/%m/%d %H:%M:%S"))
                         except ValueError:
                             # 如果以上格式都不匹配，尝试使用locale设置的默认格式
-                            boot_time = time.mktime(time.strptime(date_str))
+                            try:
+                                boot_time = time.mktime(time.strptime(date_str))
+                            except ValueError:
+                                return 0
                     return time.time() - boot_time
             return 0
-        except (subprocess.SubprocessError, ValueError, IndexError):
+        except (subprocess.SubprocessError, ValueError, IndexError, FileNotFoundError, OSError):
             try:
                 # 备选方法：使用wmic命令获取系统启动时间
                 cmd = ['wmic', 'os', 'get', 'lastbootuptime']
-                output = subprocess.check_output(cmd).decode()
+                output = subprocess.check_output(cmd).decode(errors='ignore')
                 boot_time_str = output.strip().split('\n')[1].strip()
                 # 格式通常为：20230101123456.789012+000
                 year = int(boot_time_str[0:4])
@@ -104,7 +116,7 @@ def get_uptime():
                 second = int(boot_time_str[12:14])
                 boot_time = time.mktime((year, month, day, hour, minute, second, 0, 0, 0))
                 return time.time() - boot_time
-            except (subprocess.SubprocessError, ValueError, IndexError):
+            except (subprocess.SubprocessError, ValueError, IndexError, FileNotFoundError, OSError):
                 return 0
     else:
         return 0  # 不支持的系统返回0

@@ -1,16 +1,14 @@
 import logging
 import uuid
 from typing import Optional
+
 import jwt
-from django.contrib.auth.models import User
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.utils import timezone
 
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-
-from apps.account.apis.auth.schemas import LoginToken
+from .schemas import LoginToken
 
 logger = logging.getLogger('common')
 
@@ -63,8 +61,7 @@ def decode(token: str) -> Optional[dict]:
     """
 
     try:
-        # 第三个参数代表是否校验，如果设置为False，那么只要有token，就能够对其进行解码
-        info = jwt.decode(token, salt, verify=True, algorithms=[algo])
+        info = jwt.decode(token, salt, algorithms=[algo])
         return info
     except jwt.ExpiredSignatureError as e:
         logger.error(e)

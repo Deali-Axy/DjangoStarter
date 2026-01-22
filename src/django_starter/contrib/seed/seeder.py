@@ -68,7 +68,7 @@ class Seeder(object):
                 elif field.protocol == 'IPv6':
                     fake_data[field.name] = self.fake.ipv6()
             elif field_class == models.JSONField:
-                fake_data[field.name] = self.fake.pydict()
+                fake_data[field.name] = self.fake.pydict(value_types=[str, int, float, bool])
             elif field_class == models.ForeignKey:
                 related_model = field.related_model
                 if related_model == model and field.null:

@@ -46,6 +46,8 @@ license = {text = "MIT"}
 dev = [
     "django-debug-toolbar>=6.1.0",
     "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-django>=4.11.1",
 ]
 
 [tool.pdm.scripts]
@@ -58,4 +60,7 @@ granian-wsgi = "granian --interface wsgi config.wsgi:application --static-path-r
 # 使用 Granian 开启 HTTP/2（如果代理或客户端支持）
 granian-http2 = "granian --interface asgi --http 2 config.asgi:application --static-path-route /static --static-path-mount ./static-dist"
 
-
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+pythonpath = ["src"]
