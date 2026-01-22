@@ -50,12 +50,14 @@
         
         <!-- Theme Controller -->
         <div class="tooltip tooltip-bottom" data-tip="{% trans 'Toggle Theme' %}">
-            <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm hover:bg-base-200 transition-colors">
-                <input type="checkbox" class="theme-controller" value="business"/>
-                <!-- Sun icon -->
-                <i class="fa-solid fa-sun swap-off w-5 h-5 text-amber-500"></i>
-                <!-- Moon icon -->
-                <i class="fa-solid fa-moon swap-on w-5 h-5 text-indigo-400"></i>
+            <label class="btn btn-ghost btn-circle btn-sm hover:bg-base-200 transition-colors">
+                <div class="swap swap-rotate">
+                    <input type="checkbox" class="theme-controller" value="business"/>
+                    <!-- Sun icon -->
+                    <i class="fa-solid fa-sun swap-off text-xl text-amber-500"></i>
+                    <!-- Moon icon -->
+                    <i class="fa-solid fa-moon swap-on text-xl text-indigo-400"></i>
+                </div>
             </label>
         </div>
 
@@ -64,7 +66,7 @@
             <button class="btn btn-ghost btn-circle btn-sm hover:bg-base-200 transition-colors relative"
                     aria-label="{% trans 'Notifications' %}">
                 <div class="indicator">
-                    <i class="fa-regular fa-bell w-5 h-5 opacity-80"></i>
+                    <i class="fa-regular fa-bell text-xl opacity-80"></i>
                     <span class="badge badge-xs badge-primary indicator-item ring-2 ring-base-100 animate-pulse"></span>
                 </div>
             </button>
