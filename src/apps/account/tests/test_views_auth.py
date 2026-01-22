@@ -38,11 +38,11 @@ class AccountAuthViewsTestCase(TestCase):
         self.assertTrue("_auth_user_id" in self.client.session)
 
     def test_signup_creates_user_and_logs_in(self):
-        resp = self.client.get(reverse("account:sign-up"))
+        resp = self.client.get(reverse("account:signup"))
         self.assertEqual(resp.status_code, 200)
 
         resp = self.client.post(
-            reverse("account:sign-up"),
+            reverse("account:signup"),
             data={
                 "email": "new@example.com",
                 "username": "newuser",
@@ -56,7 +56,7 @@ class AccountAuthViewsTestCase(TestCase):
 
     def test_signup_duplicate_username_or_email(self):
         resp = self.client.post(
-            reverse("account:sign-up"),
+            reverse("account:signup"),
             data={
                 "email": "another@example.com",
                 "username": "test",
@@ -67,7 +67,7 @@ class AccountAuthViewsTestCase(TestCase):
         self.assertEqual(resp.status_code, 200)
 
         resp = self.client.post(
-            reverse("account:sign-up"),
+            reverse("account:signup"),
             data={
                 "email": "test@example.com",
                 "username": "another",

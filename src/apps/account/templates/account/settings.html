@@ -1,162 +1,144 @@
-{% extends '_base.html' %}
-{% load page_tags %}
+{% extends 'account/_settings_base.html' %}
 
-{% block title %}设置{% endblock %}
+{% block title %}安全中心{% endblock %}
 
-{% block content %}
-{% page_header title breadcrumbs %}
+{% block settings_content %}
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-    <div class="card bg-base-100 shadow-sm border border-base-200 lg:col-span-2">
-        <div class="card-body">
-            <h2 class="card-title">安全</h2>
+<!-- Password Change -->
+<div class="card bg-base-100 shadow-sm border border-base-200">
+    <div class="card-body">
+        <h2 class="card-title text-xl">修改密码</h2>
+        <p class="text-sm opacity-70 mb-4">确保您的密码足够复杂，并定期更换。</p>
+        
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="change_password">
+            
+            {% for field in password_form %}
+                {% include 'account/_components/form_field.html' with field=field %}
+            {% endfor %}
 
-            <div class="mt-2 space-y-4">
-                <div class="card bg-base-200/40 border border-base-300">
-                    <div class="card-body gap-4">
-                        <div class="flex items-center justify-between gap-4">
-                            <div>
-                                <h3 class="font-semibold">双因素认证（2FA）</h3>
-                                <p class="text-sm opacity-70">使用验证器应用提升账号安全性。</p>
-                            </div>
-                            {% if is_2fa_enabled %}
-                                <span class="badge badge-success">已启用</span>
-                            {% else %}
-                                <span class="badge badge-ghost">未启用</span>
-                            {% endif %}
-                        </div>
-
-                        <div class="flex flex-wrap gap-2">
-                            {% if is_2fa_enabled %}
-                                <a class="btn btn-outline btn-sm" href="{% url 'account:2fa-disable' %}">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                    关闭 2FA
-                                </a>
-                            {% else %}
-                                <a class="btn btn-primary btn-sm" href="{% url 'account:2fa-setup' %}">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                    启用 2FA
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card bg-base-200/40 border border-base-300">
-                    <div class="card-body gap-4">
-                        <div>
-                            <h3 class="font-semibold">修改密码</h3>
-                            <p class="text-sm opacity-70">建议定期更新密码，并避免重复使用。</p>
-                        </div>
-
-                        <form method="post" class="space-y-4" novalidate>
-                            {% csrf_token %}
-                            <input type="hidden" name="action" value="change_password">
-
-                            <div class="space-y-1">
-                                <label class="label" for="{{ password_form.old_password.id_for_label }}">
-                                    <span class="label-text">{{ password_form.old_password.label }}</span>
-                                </label>
-                                {{ password_form.old_password }}
-                                {% if password_form.old_password.errors %}
-                                    <p class="text-sm text-error">{{ password_form.old_password.errors|join:', ' }}</p>
-                                {% endif %}
-                            </div>
-
-                            <div class="space-y-1">
-                                <label class="label" for="{{ password_form.new_password1.id_for_label }}">
-                                    <span class="label-text">{{ password_form.new_password1.label }}</span>
-                                </label>
-                                {{ password_form.new_password1 }}
-                                {% if password_form.new_password1.help_text %}
-                                    <p class="text-sm opacity-70">{{ password_form.new_password1.help_text|safe }}</p>
-                                {% endif %}
-                                {% if password_form.new_password1.errors %}
-                                    <p class="text-sm text-error">{{ password_form.new_password1.errors|join:', ' }}</p>
-                                {% endif %}
-                            </div>
-
-                            <div class="space-y-1">
-                                <label class="label" for="{{ password_form.new_password2.id_for_label }}">
-                                    <span class="label-text">{{ password_form.new_password2.label }}</span>
-                                </label>
-                                {{ password_form.new_password2 }}
-                                {% if password_form.new_password2.errors %}
-                                    <p class="text-sm text-error">{{ password_form.new_password2.errors|join:', ' }}</p>
-                                {% endif %}
-                            </div>
-
-                            <div class="card-actions justify-end">
-                                <button type="submit" class="btn btn-primary">保存密码</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card bg-base-200/40 border border-base-300">
-                    <div class="card-body gap-4">
-                        <div>
-                            <h3 class="font-semibold">会话管理</h3>
-                            <p class="text-sm opacity-70">查看当前账号的活跃会话并执行退出。</p>
-                        </div>
-
-                        <div class="overflow-x-auto">
-                            <table class="table table-zebra">
-                                <thead>
-                                <tr>
-                                    <th>状态</th>
-                                    <th>过期时间</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for s in sessions %}
-                                    <tr>
-                                        <td>
-                                            {% if s.is_current %}
-                                                <span class="badge badge-primary">当前设备</span>
-                                            {% else %}
-                                                <span class="badge badge-ghost">其它设备</span>
-                                            {% endif %}
-                                        </td>
-                                        <td>{{ s.expire_date|date:"Y-m-d H:i" }}</td>
-                                    </tr>
-                                {% empty %}
-                                    <tr>
-                                        <td colspan="2" class="opacity-70">暂无会话</td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="flex flex-wrap gap-2 justify-end">
-                            <form method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="action" value="logout_others">
-                                <button type="submit" class="btn btn-outline btn-sm">退出其它设备</button>
-                            </form>
-                            <form method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="action" value="logout_all">
-                                <button type="submit" class="btn btn-error btn-sm">退出所有设备</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div class="card-actions justify-end">
+                <button type="submit" class="btn btn-primary">更新密码</button>
             </div>
-        </div>
+        </form>
     </div>
+</div>
 
-    <div class="card bg-base-100 shadow-sm border border-base-200">
-        <div class="card-body">
-            <h2 class="card-title">设置导航</h2>
-            {% include 'account/_components/settings_nav.html' %}
-            <div class="divider"></div>
-            <a class="btn btn-ghost justify-start w-full" href="{% url 'account:profile' %}">
-                <i class="fa-solid fa-id-card w-5 text-center"></i>
-                个人资料
-            </a>
+<!-- Two-Factor Authentication -->
+<div class="card bg-base-100 shadow-sm border border-base-200">
+    <div class="card-body">
+        <div class="flex items-start justify-between">
+            <div>
+                <h2 class="card-title text-xl">双因素认证 (2FA)</h2>
+                <p class="text-sm opacity-70 mt-1">
+                    通过要求在登录时输入验证码来增加额外的安全层。
+                </p>
+            </div>
+            {% if is_2fa_enabled %}
+                <div class="badge badge-success gap-2 p-3">
+                    <i class="fa-solid fa-check"></i> 已启用
+                </div>
+            {% else %}
+                <div class="badge badge-ghost gap-2 p-3">
+                    未启用
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-4">
+            {% if is_2fa_enabled %}
+                <div class="alert alert-success bg-success/10 text-success-content border-success/20">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>您的账户受双因素认证保护。</span>
+                </div>
+                <div class="mt-4 flex gap-2">
+                    <a href="{% url 'account:2fa-disable' %}" class="btn btn-outline btn-error btn-sm">
+                        关闭 2FA
+                    </a>
+                </div>
+            {% else %}
+                <div class="alert alert-warning bg-warning/10 text-warning-content border-warning/20">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>为了您的账户安全，建议启用双因素认证。</span>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'account:2fa-setup' %}" class="btn btn-primary btn-sm">
+                        立即启用
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
+
+<!-- Active Sessions -->
+<div class="card bg-base-100 shadow-sm border border-base-200">
+    <div class="card-body">
+        <h2 class="card-title text-xl">活跃会话</h2>
+        <p class="text-sm opacity-70 mb-4">管理当前登录到您账户的设备和浏览器。</p>
+
+        <div class="overflow-x-auto">
+            <table class="table table-zebra">
+                <thead>
+                    <tr>
+                        <th>设备/IP</th>
+                        <th>最后活跃</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in sessions %}
+                    <tr>
+                        <td>
+                            <div class="flex items-center gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="w-8 h-8 rounded-full bg-base-200 flex items-center justify-center">
+                                        <i class="fa-solid fa-desktop opacity-50"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="font-bold">Session</div>
+                                    <div class="text-xs opacity-50">{{ session.session_key|slice:":8" }}...</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-sm">{{ session.expire_date|date:"Y-m-d H:i" }} (Expires)</div>
+                        </td>
+                        <td>
+                            {% if session.is_current %}
+                                <span class="badge badge-primary badge-sm">当前设备</span>
+                            {% else %}
+                                <span class="badge badge-ghost badge-sm">活跃</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="flex gap-4 flex-wrap">
+            <form method="post" action="{% url 'account:settings' %}" onsubmit="return confirm('确定要退出除当前设备外的所有设备吗？');">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="logout_others">
+                <button type="submit" class="btn btn-outline">
+                    退出其它设备
+                </button>
+            </form>
+
+            <form method="post" action="{% url 'account:settings' %}" onsubmit="return confirm('确定要退出所有设备（包括当前设备）吗？');">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="logout_all">
+                <button type="submit" class="btn btn-outline btn-error">
+                    退出所有设备
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

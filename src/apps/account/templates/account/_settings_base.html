@@ -1,0 +1,39 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block content %}
+<div class="container mx-auto max-w-6xl">
+    {% page_header title breadcrumbs %}
+
+    <div class="flex flex-col lg:flex-row gap-6">
+        <!-- Sidebar -->
+        <div class="lg:w-1/4">
+            <ul class="menu bg-base-100 rounded-box shadow-sm border border-base-200 p-2">
+                <li>
+                    <a href="{% url 'account:profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                        <i class="fa-solid fa-user w-5 text-center opacity-70"></i>
+                        个人资料
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'account:settings' %}" class="{% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
+                        <i class="fa-solid fa-shield-halved w-5 text-center opacity-70"></i>
+                        安全中心
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'account:settings-developer' %}" class="{% if 'developer' in request.resolver_match.url_name %}active{% endif %}">
+                        <i class="fa-solid fa-code w-5 text-center opacity-70"></i>
+                        开发者设置
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="lg:w-3/4 space-y-6">
+            {% block settings_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

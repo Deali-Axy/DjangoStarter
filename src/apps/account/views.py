@@ -300,7 +300,7 @@ def signup_view(request):
         form = RegisterForm(request.POST, request.FILES)
         ctx['form'] = form
         if not form.is_valid():
-            return render(request, 'account/sign-up.html', ctx)
+            return render(request, 'account/signup.html', ctx)
 
         email = form.cleaned_data['email']
         username = form.cleaned_data['username']
@@ -309,22 +309,22 @@ def signup_view(request):
 
         if password != confirm_password:
             messages.error(request, '两次输入的密码不一致！')
-            return render(request, 'account/sign-up.html', ctx)
+            return render(request, 'account/signup.html', ctx)
 
         if User.objects.filter(username=username).exists():
             messages.warning(request, '用户名已存在。')
-            return render(request, 'account/sign-up.html', ctx)
+            return render(request, 'account/signup.html', ctx)
 
         if User.objects.filter(email=email).exists():
             messages.warning(request, '邮箱已存在。')
-            return render(request, 'account/sign-up.html', ctx)
+            return render(request, 'account/signup.html', ctx)
 
         user: User = User.objects.create_user(username=username, email=email, password=password)
         messages.success(request, f'注册成功！欢迎 {user.username}')
         login(request, user)
         return redirect(reverse('account:index'))
 
-    return render(request, 'account/sign-up.html', ctx)
+    return render(request, 'account/signup.html', ctx)
 
 
 @login_required()

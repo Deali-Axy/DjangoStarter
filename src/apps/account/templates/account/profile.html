@@ -1,79 +1,56 @@
-{% extends '_base.html' %}
-{% load page_tags %}
+{% extends 'account/_settings_base.html' %}
 
 {% block title %}个人资料{% endblock %}
 
-{% block content %}
-{% page_header title breadcrumbs %}
-
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-    <div class="card bg-base-100 shadow-sm border border-base-200 lg:col-span-2">
-        <div class="card-body">
-            <h2 class="card-title">基本信息</h2>
-            <form method="post" class="space-y-4" enctype="multipart/form-data" novalidate>
-                {% csrf_token %}
-
-                <div class="space-y-1">
-                    <label class="label" for="{{ form.full_name.id_for_label }}">
-                        <span class="label-text">{{ form.full_name.label }}</span>
+{% block settings_content %}
+<div class="card bg-base-100 shadow-sm border border-base-200">
+    <div class="card-body">
+        <h2 class="card-title text-xl mb-4">基本信息</h2>
+        
+        <form method="post" enctype="multipart/form-data" novalidate class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- Avatar Section -->
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+                <div class="avatar placeholder">
+                    <div class="w-24 rounded-full bg-neutral text-neutral-content ring ring-base-200 ring-offset-base-100 ring-offset-2 overflow-hidden">
+                        {% if user.profile.avatar %}
+                            <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" class="object-cover" />
+                        {% else %}
+                            <span class="text-3xl">{{ user.username|slice:":1"|upper }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                        <span class="label-text font-medium">更换头像</span>
                     </label>
-                    {{ form.full_name }}
-                    {% if form.full_name.errors %}
-                        <p class="text-sm text-error">{{ form.full_name.errors|join:', ' }}</p>
+                    {{ form.avatar }}
+                    {% if form.avatar.errors %}
+                        <p class="text-sm text-error mt-1">{{ form.avatar.errors|join:', ' }}</p>
                     {% endif %}
-                </div>
-
-                <div class="space-y-1">
-                    <label class="label" for="{{ form.gender.id_for_label }}">
-                        <span class="label-text">{{ form.gender.label }}</span>
-                    </label>
-                    {{ form.gender }}
-                    {% if form.gender.errors %}
-                        <p class="text-sm text-error">{{ form.gender.errors|join:', ' }}</p>
-                    {% endif %}
-                </div>
-
-                <div class="space-y-1">
-                    <label class="label" for="{{ form.phone.id_for_label }}">
-                        <span class="label-text">{{ form.phone.label }}</span>
-                    </label>
-                    {{ form.phone }}
-                    {% if form.phone.errors %}
-                        <p class="text-sm text-error">{{ form.phone.errors|join:', ' }}</p>
-                    {% endif %}
-                </div>
-
-                <div class="card-actions justify-end">
-                    <button type="submit" class="btn btn-primary">保存</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="card bg-base-100 shadow-sm border border-base-200">
-        <div class="card-body">
-            <h2 class="card-title">账号信息</h2>
-            <div class="space-y-3 text-sm">
-                <div class="flex items-center justify-between gap-4">
-                    <span class="opacity-70">用户名</span>
-                    <span class="font-medium">{{ request.user.username }}</span>
-                </div>
-                <div class="flex items-center justify-between gap-4">
-                    <span class="opacity-70">邮箱</span>
-                    <span class="font-medium">{{ request.user.email|default:"—" }}</span>
-                </div>
-                <div class="flex items-center justify-between gap-4">
-                    <span class="opacity-70">加入时间</span>
-                    <span class="font-medium">{{ request.user.date_joined|date:"Y-m-d H:i" }}</span>
+                    <p class="text-xs text-base-content/50 mt-1">支持 JPG, PNG, GIF 格式。</p>
                 </div>
             </div>
+
             <div class="divider"></div>
-            <a class="btn btn-ghost btn-block" href="{% url 'account:settings' %}">
-                <i class="fa-solid fa-gear"></i>
-                打开设置
-            </a>
-        </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% include 'account/_components/form_field.html' with field=form.full_name %}
+                {% include 'account/_components/form_field.html' with field=form.title %}
+            </div>
+
+            {% include 'account/_components/form_field.html' with field=form.bio %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% include 'account/_components/form_field.html' with field=form.phone %}
+                {% include 'account/_components/form_field.html' with field=form.gender %}
+            </div>
+
+            <div class="card-actions justify-end mt-4">
+                <button type="submit" class="btn btn-primary">保存更改</button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}
-

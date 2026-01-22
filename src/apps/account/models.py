@@ -1,3 +1,4 @@
+from django.db import models
 from django.db.models import signals
 from django.dispatch import receiver
 from django.contrib.auth.models import User
@@ -8,6 +9,10 @@ from django_starter.utilities import table_name_wrapper
 
 # Create your models here.
 class UserProfile(UserProfileAbstract):
+    avatar = models.ImageField('头像', upload_to='avatars/%Y/%m/', blank=True, null=True)
+    title = models.CharField('职位/头衔', max_length=100, blank=True, default='')
+    bio = models.TextField('个人简介', blank=True, default='')
+
     class Meta:
         db_table = table_name_wrapper('user_profile')
         verbose_name = '用户资料'

@@ -50,6 +50,6 @@ urlpatterns = [
     path('settings/developer/token/', views.settings_developer_token, name='settings-developer-token'),
     path('profile/', views.profile, name='profile'),
     path('login/sso/', views.login_sso, name='login-sso'),
-    path('sign-up/', views.signup_view, name='sign-up'),
+    path('signup/', views.signup_view, name='signup'),
     path('logout/', views.logout_view, name='logout'),
 ]

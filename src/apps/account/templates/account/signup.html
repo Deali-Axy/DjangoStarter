@@ -1,0 +1,92 @@
+{% extends '_auth_base.html' %}
+
+{% block title %}注册{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="space-y-2">
+        <h2 class="text-3xl font-bold">创建账号</h2>
+        <p class="text-base-content/60">开始您的 SaaS 之旅。</p>
+    </div>
+
+    <form method="post" class="space-y-4" novalidate>
+        {% csrf_token %}
+
+        {% include 'account/_components/form_field.html' with field=form.username %}
+        {% include 'account/_components/form_field.html' with field=form.email %}
+
+        <div class="form-control w-full space-y-1" x-data="{ show: false }">
+            <label class="label p-0" for="{{ form.password.id_for_label }}">
+                <span class="label-text font-medium">{{ form.password.label }}</span>
+            </label>
+            <div class="relative">
+                <input :type="show ? 'text' : 'password'" 
+                       name="{{ form.password.name }}" 
+                       id="{{ form.password.id_for_label }}"
+                       class="input input-bordered w-full pr-10 {% if form.password.errors %}input-error{% endif %}"
+                       required>
+                <button type="button" 
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
+                        @click="show = !show"
+                        tabindex="-1">
+                    <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </button>
+            </div>
+            {% if form.password.errors %}
+                <p class="text-sm text-error mt-1">{{ form.password.errors|join:', ' }}</p>
+            {% endif %}
+            <div class="text-xs text-base-content/50 mt-1">
+                密码长度至少为 8 位，包含字母和数字。
+            </div>
+        </div>
+
+        <div class="form-control w-full space-y-1" x-data="{ show: false }">
+            <label class="label p-0" for="{{ form.confirm_password.id_for_label }}">
+                <span class="label-text font-medium">{{ form.confirm_password.label }}</span>
+            </label>
+            <div class="relative">
+                <input :type="show ? 'text' : 'password'" 
+                       name="{{ form.confirm_password.name }}" 
+                       id="{{ form.confirm_password.id_for_label }}"
+                       class="input input-bordered w-full pr-10 {% if form.confirm_password.errors %}input-error{% endif %}"
+                       required>
+                <button type="button" 
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
+                        @click="show = !show"
+                        tabindex="-1">
+                    <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </button>
+            </div>
+            {% if form.confirm_password.errors %}
+                <p class="text-sm text-error mt-1">{{ form.confirm_password.errors|join:', ' }}</p>
+            {% endif %}
+        </div>
+
+        {% if form.non_field_errors %}
+            <div role="alert" class="alert alert-error text-sm py-2">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>{{ form.non_field_errors|join:', ' }}</span>
+            </div>
+        {% endif %}
+
+        <div class="form-control">
+            <label class="cursor-pointer flex gap-3 items-center">
+                <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" required />
+                <span class="text-sm text-base-content/80">
+                    我同意 <a href="#" class="link link-primary">服务条款</a> 和 <a href="#" class="link link-primary">隐私政策</a>
+                </span>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg mt-6">
+            创建账号
+            <i class="fa-solid fa-arrow-right ml-2"></i>
+        </button>
+    </form>
+
+    <p class="text-center text-sm text-base-content/70">
+        已有账号？
+        <a class="link link-primary font-bold" href="{% url 'account:login' %}">直接登录</a>
+    </p>
+</div>
+{% endblock %}

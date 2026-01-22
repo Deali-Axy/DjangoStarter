@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DjangoStarter{% endblock %} - SaaS Template</title>
+
+    <!-- Tailwind & DaisyUI (Production Build) -->
+    <link rel="stylesheet" href="{% static 'css/tailwind.prod.css' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'lib/font-awesome/css/all.min.css' %}">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- HTMX & Alpine.js -->
+    <script src="{% static 'lib/htmx/htmx.min.js' %}"></script>
+    <script src="{% static 'lib/alpinejs/cdn.min.js' %}" defer></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-base-100 text-base-content antialiased font-body min-h-screen flex flex-col lg:flex-row">
+
+    <!-- Left Side: Brand / Hero -->
+    <div class="lg:w-1/2 bg-neutral text-neutral-content relative hidden lg:flex flex-col justify-between p-12 overflow-hidden">
+        <!-- Background Pattern/Image -->
+        <div class="absolute inset-0 bg-gradient-to-br from-primary to-secondary opacity-20"></div>
+        <div class="absolute inset-0 bg-[url('https://source.unsplash.com/random/1600x900/?technology,abstract')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
+        
+        <!-- Logo -->
+        <div class="relative z-10 flex items-center gap-2 text-2xl font-bold">
+            <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-primary-content">
+                <i class="fa-brands fa-python"></i>
+            </div>
+            <span>DjangoStarter</span>
+        </div>
+
+        <!-- Hero Text -->
+        <div class="relative z-10 max-w-lg">
+            <h1 class="text-4xl font-bold mb-6" data-aos="fade-up">Build your next SaaS faster.</h1>
+            <p class="text-lg opacity-80" data-aos="fade-up" data-aos-delay="100">
+                The ultimate Django starter kit for modern web applications. 
+                Focus on your business logic, not the boilerplate.
+            </p>
+        </div>
+
+        <!-- Footer / Credits -->
+        <div class="relative z-10 text-sm opacity-60">
+            &copy; {% now "Y" %} DjangoStarter. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Right Side: Auth Form -->
+    <div class="lg:w-1/2 w-full flex items-center justify-center p-6 lg:p-12 relative">
+        <!-- Mobile Header (Visible only on small screens) -->
+        <div class="absolute top-6 left-6 lg:hidden flex items-center gap-2 font-bold text-xl">
+            <div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-primary-content">
+                <i class="fa-brands fa-python"></i>
+            </div>
+            <span>DjangoStarter</span>
+        </div>
+
+        <div class="w-full max-w-md" data-aos="fade-in">
+            {% if messages %}
+                <div class="mb-6 space-y-2">
+                    {% for message in messages %}
+                        {% include '_components/alert.html' with message=message %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 600,
+            easing: 'ease-out-cubic',
+            once: true,
+        });
+    </script>
+</body>
+</html>

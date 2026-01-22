@@ -1,54 +1,48 @@
-{% extends '_base.html' %}
-{% load page_tags %}
+{% extends 'account/_settings_base.html' %}
 
 {% block title %}Developer / API{% endblock %}
 
-{% block content %}
-{% page_header title breadcrumbs %}
+{% block settings_content %}
+<div class="card bg-base-100 shadow-sm border border-base-200">
+    <div class="card-body gap-4">
+        <div>
+            <h2 class="card-title">生成 JWT（开发用途）</h2>
+            <p class="text-sm opacity-70">用于调用 `/api/account/auth/current-user` 等需要 Bearer Token 的接口。</p>
+        </div>
 
-<div class="mx-auto w-full max-w-2xl space-y-4">
-    <div class="card bg-base-100 shadow-sm border border-base-200">
-        <div class="card-body gap-4">
-            <div>
-                <h2 class="card-title">生成 JWT（开发用途）</h2>
-                <p class="text-sm opacity-70">用于调用 `/api/account/auth/current-user` 等需要 Bearer Token 的接口。</p>
+        <form method="post"
+              hx-post="{% url 'account:settings-developer-token' %}"
+              hx-target="#token-result"
+              hx-swap="innerHTML"
+              class="space-y-3"
+              novalidate>
+            {% csrf_token %}
+
+            <div class="space-y-1">
+                <label class="label" for="password">
+                    <span class="label-text">确认密码</span>
+                </label>
+                <input id="password" name="password" type="password" autocomplete="current-password"
+                       class="input input-bordered w-full" placeholder="请输入当前密码" required>
             </div>
 
-            <form method="post"
-                  hx-post="{% url 'account:settings-developer-token' %}"
-                  hx-target="#token-result"
-                  hx-swap="innerHTML"
-                  class="space-y-3"
-                  novalidate>
-                {% csrf_token %}
-
-                <div class="space-y-1">
-                    <label class="label" for="password">
-                        <span class="label-text">确认密码</span>
-                    </label>
-                    <input id="password" name="password" type="password" autocomplete="current-password"
-                           class="input input-bordered w-full" placeholder="请输入当前密码" required>
-                </div>
-
-                <div class="card-actions justify-end">
-                    <button type="submit" class="btn btn-primary">生成 Token</button>
-                </div>
-            </form>
-
-            <div id="token-result">
-                {% include 'account/settings/_developer_token.html' with token=None %}
+            <div class="card-actions justify-end">
+                <button type="submit" class="btn btn-primary">生成 Token</button>
             </div>
+        </form>
+
+        <div id="token-result">
+            {% include 'account/settings/_developer_token.html' with token=None %}
         </div>
     </div>
+</div>
 
-    <div class="card bg-base-100 shadow-sm border border-base-200">
-        <div class="card-body">
-            <h2 class="card-title text-base">示例请求</h2>
-            <div class="mockup-code">
-                <pre data-prefix="$"><code>curl -H \"Authorization: Bearer &lt;TOKEN&gt;\" {{ request.scheme }}://{{ request.get_host }}/api/account/auth/current-user</code></pre>
-            </div>
+<div class="card bg-base-100 shadow-sm border border-base-200">
+    <div class="card-body">
+        <h2 class="card-title text-base">示例请求</h2>
+        <div class="mockup-code">
+            <pre data-prefix="$"><code>curl -H "Authorization: Bearer &lt;TOKEN&gt;" {{ request.scheme }}://{{ request.get_host }}/api/account/auth/current-user</code></pre>
         </div>
     </div>
 </div>
 {% endblock %}
-

@@ -5,16 +5,30 @@ from .models import UserProfile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['full_name', 'gender', 'phone']
+        fields = ['avatar', 'full_name', 'title', 'bio', 'gender', 'phone']
         labels = {
+            'avatar': '头像',
             'full_name': '姓名',
+            'title': '职位/头衔',
+            'bio': '个人简介',
             'gender': '性别',
             'phone': '手机号',
         }
         widgets = {
+            'avatar': forms.FileInput(attrs={
+                'class': 'file-input file-input-bordered w-full',
+                'accept': 'image/*',
+            }),
             'full_name': forms.TextInput(attrs={
                 'class': 'input input-bordered w-full',
                 'autocomplete': 'name',
+            }),
+            'title': forms.TextInput(attrs={
+                'class': 'input input-bordered w-full',
+                'autocomplete': 'organization-title',
+            }),
+            'bio': forms.Textarea(attrs={
+                'class': 'textarea textarea-bordered w-full h-24',
             }),
             'gender': forms.Select(attrs={
                 'class': 'select select-bordered w-full',
