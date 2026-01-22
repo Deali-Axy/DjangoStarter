@@ -118,74 +118,11 @@
             <div class="flex-grow flex justify-center overflow-y-auto custom-scrollbar overflow-x-hidden transition-all duration-300"
                  :class="!isExpanded ? 'px-0 py-4' : 'p-4'">
                 <ul class="menu menu-md gap-1 flex-grow">
-                    <li>
-                        <a href="{% url 'home:index' %}"
-                           class="flex-nowrap {% if request.resolver_match.app_name == 'home' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center px-0' : ''">
-                            <i class="fa-solid fa-home w-5 text-center"></i>
-                            <span x-show="isExpanded">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'djs_about:index' %}"
-                           class="flex-nowrap {% if request.resolver_match.app_name == 'djs_about' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center px-0' : ''">
-                            <i class="fa-solid fa-info-circle w-5 text-center"></i>
-                            <span x-show="isExpanded">About</span>
-                        </a>
-                    </li>
-
-                    <li class="menu-title mt-4 uppercase tracking-wider font-bold opacity-60 text-xs whitespace-nowrap overflow-hidden transition-all duration-300"
-                        :class="!isExpanded ? 'px-0 text-center' : ''">
-                        <span x-show="isExpanded">Applications</span>
-                        <span x-show="!isExpanded"><i class="fa-solid fa-ellipsis"></i></span>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'demo:index' %}"
-                           class="flex-nowrap {% if request.resolver_match.app_name == 'demo' %}active{% endif %}"
-                           :class="!isExpanded ? 'justify-center px-0' : ''">
-                            <i class="fa-solid fa-layer-group w-5 text-center"></i>
-                            <span x-show="isExpanded">Components Demo</span>
-                        </a>
-                    </li>
+                    {% load nav_menu_tags %}
+                    {% render_sidebar_menu %}
 
                     <!-- App Specific Sidebar Items -->
                     {% block sidebar_menu %}{% endblock %}
-
-                    <li class="menu-title mt-4 uppercase tracking-wider font-bold opacity-60 text-xs whitespace-nowrap overflow-hidden transition-all duration-300"
-                        :class="!isExpanded ? 'px-0 text-center' : ''">
-                        <span x-show="isExpanded">Account</span>
-                        <span x-show="!isExpanded"><i class="fa-solid fa-ellipsis"></i></span>
-                    </li>
-
-                    {% if user.is_authenticated %}
-                        <li>
-                            <a href="{% url 'account:index' %}"
-                               class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center px-0' : ''">
-                                <i class="fa-solid fa-user w-5 text-center"></i>
-                                <span x-show="isExpanded">Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'account:settings' %}"
-                               class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center px-0' : ''">
-                                <i class="fa-solid fa-cog w-5 text-center"></i>
-                                <span x-show="isExpanded">Settings</span>
-                            </a>
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{% url 'account:login' %}"
-                               class="flex-nowrap"
-                               :class="!isExpanded ? 'justify-center px-0' : ''">
-                                <i class="fa-solid fa-sign-in-alt w-5 text-center"></i>
-                                <span x-show="isExpanded">Login</span>
-                            </a>
-                        </li>
-                    {% endif %}
                 </ul>
             </div>
 
