@@ -48,6 +48,20 @@ NAV_MENU = [
                 "permissions": ['is_authenticated']
             },
             {
+                "name": _('Notifications'),
+                "url": reverse_lazy('djs_notifications:index'),
+                "icon": 'fa-regular fa-bell',
+                "match_app": 'djs_notifications',
+                "permissions": ['is_authenticated']
+            },
+            {
+                "name": _('Tasks'),
+                "url": reverse_lazy('djs_notifications:tasks'),
+                "icon": 'fa-solid fa-list-check',
+                "match_app": 'djs_notifications',
+                "permissions": ['is_authenticated']
+            },
+            {
                 "name": _('Login'),
                 "url": reverse_lazy('account:login'),
                 "icon": 'fa-solid fa-sign-in-alt',

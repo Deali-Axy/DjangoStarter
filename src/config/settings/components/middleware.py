@@ -1,3 +1,4 @@
+import os
 from typing import Tuple
 
 MIDDLEWARE: Tuple[str, ...] = (
@@ -14,3 +15,6 @@ MIDDLEWARE: Tuple[str, ...] = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
 )
+
+if os.environ.get('PROMETHEUS_ENABLED', 'false') == 'true':
+    MIDDLEWARE = MIDDLEWARE + ('django_starter.middleware.prometheus.PrometheusMiddleware',)

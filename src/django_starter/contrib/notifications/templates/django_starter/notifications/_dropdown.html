@@ -1,0 +1,54 @@
+{% load i18n %}
+
+<div class="dropdown dropdown-end">
+    <div class="tooltip tooltip-bottom" data-tip="{% trans 'Notifications' %}">
+        <label tabindex="0" class="btn btn-ghost btn-circle btn-sm hover:bg-base-200 transition-colors relative"
+               aria-label="{% trans 'Notifications' %}">
+            <div class="indicator">
+                <i class="fa-regular fa-bell text-xl opacity-80"></i>
+                {% if unread_count %}
+                    <span class="badge badge-xs badge-primary indicator-item ring-2 ring-base-100 animate-pulse"></span>
+                {% endif %}
+            </div>
+        </label>
+    </div>
+
+    <div tabindex="0"
+         class="mt-3 z-[1] p-3 shadow-xl dropdown-content bg-base-100 rounded-box w-80 border border-base-200/50 backdrop-blur-md">
+        <div class="flex items-center justify-between mb-2">
+            <a href="{{ index_url }}" class="font-semibold hover:underline">{% trans 'Notifications' %}</a>
+            {% if unread_count %}
+                <form method="post" action="{{ mark_all_read_url }}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-ghost btn-xs">{% trans 'Mark all read' %}</button>
+                </form>
+            {% endif %}
+        </div>
+
+        {% if recent %}
+            <ul class="menu menu-sm">
+                {% for n in recent %}
+                    <li>
+                        <a href="{{ index_url }}" class="flex items-start gap-3">
+                            <span class="mt-1 {% if n.read_time %}opacity-30{% else %}text-primary{% endif %}">
+                                <i class="fa-solid fa-circle text-[6px]"></i>
+                            </span>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="font-medium line-clamp-1">{{ n.title }}</span>
+                                    <span class="text-xs opacity-60 whitespace-nowrap">{{ n.created_time|date:"m/d H:i" }}</span>
+                                </div>
+                                {% if n.content %}
+                                    <div class="text-xs opacity-70 line-clamp-2">{{ n.content }}</div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="text-sm opacity-70 py-4 text-center">{% trans 'No notifications' %}</div>
+        {% endif %}
+    </div>
+</div>
+

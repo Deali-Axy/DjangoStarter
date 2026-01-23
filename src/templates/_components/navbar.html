@@ -1,4 +1,4 @@
-{% load i18n page_tags %}
+{% load i18n page_tags notifications_tags %}
 
 <!-- 
     Modern Minimalist Navbar (Apple/Glassmorphism Style)
@@ -94,16 +94,7 @@
             </ul>
         </div>
 
-        <!-- Notifications -->
-        <div class="tooltip tooltip-bottom" data-tip="{% trans 'Notifications' %}">
-            <button class="btn btn-ghost btn-circle btn-sm hover:bg-base-200 transition-colors relative"
-                    aria-label="{% trans 'Notifications' %}">
-                <div class="indicator">
-                    <i class="fa-regular fa-bell text-xl opacity-80"></i>
-                    <span class="badge badge-xs badge-primary indicator-item ring-2 ring-base-100 animate-pulse"></span>
-                </div>
-            </button>
-        </div>
+        {% notifications_dropdown %}
 
         <!-- Divider -->
         <div class="h-8 w-px bg-base-content/10 mx-1 hidden sm:block"></div>

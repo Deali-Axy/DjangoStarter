@@ -12,55 +12,118 @@
     <form method="post" class="space-y-4" novalidate>
         {% csrf_token %}
 
-        {% include 'account/_components/form_field.html' with field=form.username %}
-        {% include 'account/_components/form_field.html' with field=form.email %}
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
 
-        <div class="form-control w-full space-y-1" x-data="{ show: false }">
-            <label class="label p-0" for="{{ form.password.id_for_label }}">
-                <span class="label-text font-medium">{{ form.password.label }}</span>
-            </label>
-            <div class="relative">
-                <input :type="show ? 'text' : 'password'" 
-                       name="{{ form.password.name }}" 
-                       id="{{ form.password.id_for_label }}"
-                       class="input input-bordered w-full pr-10 {% if form.password.errors %}input-error{% endif %}"
-                       required>
-                <button type="button" 
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
-                        @click="show = !show"
-                        tabindex="-1">
-                    <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
-                </button>
-            </div>
-            {% if form.password.errors %}
-                <p class="text-sm text-error mt-1">{{ form.password.errors|join:', ' }}</p>
-            {% endif %}
-            <div class="text-xs text-base-content/50 mt-1">
-                密码长度至少为 8 位，包含字母和数字。
-            </div>
-        </div>
+        {% if form.username %}
+            {% include 'account/_components/form_field.html' with field=form.username %}
+        {% endif %}
+        {% if form.email %}
+            {% include 'account/_components/form_field.html' with field=form.email %}
+        {% endif %}
 
-        <div class="form-control w-full space-y-1" x-data="{ show: false }">
-            <label class="label p-0" for="{{ form.confirm_password.id_for_label }}">
-                <span class="label-text font-medium">{{ form.confirm_password.label }}</span>
-            </label>
-            <div class="relative">
-                <input :type="show ? 'text' : 'password'" 
-                       name="{{ form.confirm_password.name }}" 
-                       id="{{ form.confirm_password.id_for_label }}"
-                       class="input input-bordered w-full pr-10 {% if form.confirm_password.errors %}input-error{% endif %}"
-                       required>
-                <button type="button" 
-                        class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
-                        @click="show = !show"
-                        tabindex="-1">
-                    <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
-                </button>
+        {% if form.password1 %}
+            {% with pw=form.password1 %}
+                <div class="form-control w-full space-y-1" x-data="{ show: false }">
+                    <label class="label p-0" for="{{ pw.id_for_label }}">
+                        <span class="label-text font-medium">{{ pw.label }}</span>
+                    </label>
+                    <div class="relative">
+                        <input :type="show ? 'text' : 'password'" 
+                               name="{{ pw.name }}" 
+                               id="{{ pw.id_for_label }}"
+                               class="input input-bordered w-full pr-10 {% if pw.errors %}input-error{% endif %}"
+                               required>
+                        <button type="button" 
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
+                                @click="show = !show"
+                                tabindex="-1">
+                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
+                    {% if pw.errors %}
+                        <p class="text-sm text-error mt-1">{{ pw.errors|join:', ' }}</p>
+                    {% endif %}
+                    <div class="text-xs text-base-content/50 mt-1">
+                        密码长度至少为 8 位，包含字母和数字。
+                    </div>
+                </div>
+            {% endwith %}
+        {% else %}
+            <div class="form-control w-full space-y-1" x-data="{ show: false }">
+                <label class="label p-0" for="{{ form.password.id_for_label }}">
+                    <span class="label-text font-medium">{{ form.password.label }}</span>
+                </label>
+                <div class="relative">
+                    <input :type="show ? 'text' : 'password'" 
+                           name="{{ form.password.name }}" 
+                           id="{{ form.password.id_for_label }}"
+                           class="input input-bordered w-full pr-10 {% if form.password.errors %}input-error{% endif %}"
+                           required>
+                    <button type="button" 
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
+                            @click="show = !show"
+                            tabindex="-1">
+                        <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                    </button>
+                </div>
+                {% if form.password.errors %}
+                    <p class="text-sm text-error mt-1">{{ form.password.errors|join:', ' }}</p>
+                {% endif %}
+                <div class="text-xs text-base-content/50 mt-1">
+                    密码长度至少为 8 位，包含字母和数字。
+                </div>
             </div>
-            {% if form.confirm_password.errors %}
-                <p class="text-sm text-error mt-1">{{ form.confirm_password.errors|join:', ' }}</p>
-            {% endif %}
-        </div>
+        {% endif %}
+
+        {% if form.password2 %}
+            {% with cpw=form.password2 %}
+                <div class="form-control w-full space-y-1" x-data="{ show: false }">
+                    <label class="label p-0" for="{{ cpw.id_for_label }}">
+                        <span class="label-text font-medium">{{ cpw.label }}</span>
+                    </label>
+                    <div class="relative">
+                        <input :type="show ? 'text' : 'password'" 
+                               name="{{ cpw.name }}" 
+                               id="{{ cpw.id_for_label }}"
+                               class="input input-bordered w-full pr-10 {% if cpw.errors %}input-error{% endif %}"
+                               required>
+                        <button type="button" 
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
+                                @click="show = !show"
+                                tabindex="-1">
+                            <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
+                    {% if cpw.errors %}
+                        <p class="text-sm text-error mt-1">{{ cpw.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+            {% endwith %}
+        {% else %}
+            <div class="form-control w-full space-y-1" x-data="{ show: false }">
+                <label class="label p-0" for="{{ form.confirm_password.id_for_label }}">
+                    <span class="label-text font-medium">{{ form.confirm_password.label }}</span>
+                </label>
+                <div class="relative">
+                    <input :type="show ? 'text' : 'password'" 
+                           name="{{ form.confirm_password.name }}" 
+                           id="{{ form.confirm_password.id_for_label }}"
+                           class="input input-bordered w-full pr-10 {% if form.confirm_password.errors %}input-error{% endif %}"
+                           required>
+                    <button type="button" 
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/50 hover:text-base-content"
+                            @click="show = !show"
+                            tabindex="-1">
+                        <i class="fa-solid" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                    </button>
+                </div>
+                {% if form.confirm_password.errors %}
+                    <p class="text-sm text-error mt-1">{{ form.confirm_password.errors|join:', ' }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
 
         {% if form.non_field_errors %}
             <div role="alert" class="alert alert-error text-sm py-2">

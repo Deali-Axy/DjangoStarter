@@ -1,3 +1,4 @@
+import os
 from typing import Tuple
 
 # 应用定义
@@ -23,6 +24,7 @@ INSTALLED_APPS: Tuple[str, ...] = (
     'django_starter.contrib.docs',
     'django_starter.contrib.guide',
     'django_starter.contrib.navbar',
+    'django_starter.contrib.notifications',
     'django_starter.contrib.seed',
 
     # 第三方组件
@@ -38,3 +40,18 @@ INSTALLED_APPS: Tuple[str, ...] = (
     'apps.demo',
     'apps.home',
 )
+
+if os.environ.get('ALLAUTH_ENABLED', 'false') == 'true':
+    providers = [
+        p.strip()
+        for p in (os.environ.get('ALLAUTH_PROVIDERS', '').split(','))
+        if p.strip()
+    ]
+    provider_apps = tuple(f'allauth.socialaccount.providers.{p}' for p in providers)
+    INSTALLED_APPS = INSTALLED_APPS + (
+        'django.contrib.sites',
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
+        *provider_apps,
+    )

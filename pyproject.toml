@@ -8,6 +8,7 @@ authors = [
 dependencies = [
     "django[argon2]>=6.0",
     "django-ninja>=1.5.3",
+    "django-allauth>=0.63.0",
     "django-otp>=1.6.1",
     "django-multi-captcha-admin>=2.0.0",
     "django-simple-captcha>=0.6.3",

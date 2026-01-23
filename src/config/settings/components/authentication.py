@@ -1,6 +1,8 @@
 # Django authentication system
 # https://docs.djangoproject.com/en/4.2/topics/auth/
 
+import os
+
 from config.settings.components.common import URL_PREFIX
 
 
@@ -25,3 +27,23 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LOGIN_URL = f"/{URL_PREFIX}accounts/login"
+
+if os.environ.get('ALLAUTH_ENABLED', 'false') == 'true':
+    AUTHENTICATION_BACKENDS = AUTHENTICATION_BACKENDS + (
+        'allauth.account.auth_backends.AuthenticationBackend',
+    )
+
+    SITE_ID = int(os.environ.get('SITE_ID', '1'))
+
+    ACCOUNT_AUTHENTICATION_METHOD = os.environ.get('ACCOUNT_AUTHENTICATION_METHOD', 'username_email')
+    ACCOUNT_EMAIL_REQUIRED = os.environ.get('ACCOUNT_EMAIL_REQUIRED', 'true') == 'true'
+    ACCOUNT_USERNAME_REQUIRED = os.environ.get('ACCOUNT_USERNAME_REQUIRED', 'true') == 'true'
+    ACCOUNT_EMAIL_VERIFICATION = os.environ.get('ACCOUNT_EMAIL_VERIFICATION', 'optional')
+
+    SOCIALACCOUNT_AUTO_SIGNUP = os.environ.get('SOCIALACCOUNT_AUTO_SIGNUP', 'true') == 'true'
+    SOCIALACCOUNT_QUERY_EMAIL = os.environ.get('SOCIALACCOUNT_QUERY_EMAIL', 'true') == 'true'
+
+    ACCOUNT_FORMS = {
+        'login': 'apps.account.allauth_forms.LoginForm',
+        'signup': 'apps.account.allauth_forms.SignupForm',
+    }

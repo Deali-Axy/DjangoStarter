@@ -1,0 +1,74 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="flex items-center justify-between mb-4">
+    <a class="btn btn-ghost btn-sm" href="{% url 'djs_notifications:index' %}">
+        <i class="fa-regular fa-bell"></i>
+        通知中心
+    </a>
+    <form method="post" action="{% url 'djs_notifications:enqueue-test-notification' %}">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-sm" type="submit">
+            <i class="fa-solid fa-paper-plane"></i>
+            创建测试任务
+        </button>
+    </form>
+</div>
+
+<div class="card bg-base-100 shadow-xl">
+    <div class="card-body p-0">
+        {% if tasks %}
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>任务</th>
+                            <th>状态</th>
+                            <th>创建时间</th>
+                            <th>开始</th>
+                            <th>结束</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in tasks %}
+                            <tr>
+                                <td class="font-mono text-xs">{{ t.id }}</td>
+                                <td>{{ t.name }}</td>
+                                <td>
+                                    {% if t.status == 'success' %}
+                                        <span class="badge badge-success badge-sm">success</span>
+                                    {% elif t.status == 'failed' %}
+                                        <span class="badge badge-error badge-sm">failed</span>
+                                    {% elif t.status == 'running' %}
+                                        <span class="badge badge-info badge-sm">running</span>
+                                    {% else %}
+                                        <span class="badge badge-ghost badge-sm">queued</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-sm opacity-70">{{ t.created_time|date:'Y-m-d H:i:s' }}</td>
+                                <td class="text-sm opacity-70">{{ t.started_time|date:'Y-m-d H:i:s' }}</td>
+                                <td class="text-sm opacity-70">{{ t.finished_time|date:'Y-m-d H:i:s' }}</td>
+                            </tr>
+                            {% if t.error %}
+                                <tr>
+                                    <td colspan="6" class="text-xs text-error whitespace-pre-wrap">{{ t.error }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="p-8 text-center opacity-70">暂无任务记录</div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

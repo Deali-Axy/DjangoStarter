@@ -1,0 +1,67 @@
+{% extends '_base.html' %}
+{% load page_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+{% page_header title breadcrumbs %}
+
+<div class="flex items-center justify-between mb-4">
+    <div class="text-sm opacity-70">未读 {{ unread_count }} 条</div>
+    <div class="flex gap-2">
+        <a class="btn btn-ghost btn-sm" href="{% url 'djs_notifications:tasks' %}">
+            <i class="fa-solid fa-list-check"></i>
+            任务中心
+        </a>
+        {% if unread_count %}
+            <form method="post" action="{% url 'djs_notifications:mark-all-read' %}">
+                {% csrf_token %}
+                <button class="btn btn-outline btn-sm" type="submit">
+                    <i class="fa-regular fa-circle-check"></i>
+                    全部已读
+                </button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card bg-base-100 shadow-xl">
+    <div class="card-body p-0">
+        {% if notifications %}
+            <div class="divide-y divide-base-200">
+                {% for n in notifications %}
+                    <div class="p-4 flex items-start gap-4">
+                        <div class="mt-1 {% if n.read_time %}opacity-30{% else %}text-primary{% endif %}">
+                            <i class="fa-solid fa-circle text-[8px]"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="font-semibold truncate">{{ n.title }}</div>
+                                <div class="text-xs opacity-60 whitespace-nowrap">{{ n.created_time|date:'Y-m-d H:i' }}</div>
+                            </div>
+                            {% if n.content %}
+                                <div class="text-sm opacity-80 mt-1 whitespace-pre-line">{{ n.content }}</div>
+                            {% endif %}
+                            <div class="mt-3 flex items-center gap-2">
+                                {% if not n.read_time %}
+                                    <form method="post" action="{% url 'djs_notifications:mark-read' n.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-ghost btn-xs">标记已读</button>
+                                    </form>
+                                {% endif %}
+                                {% if n.link %}
+                                    <a class="btn btn-link btn-xs" href="{{ n.link }}" target="_blank" rel="noreferrer">打开链接</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="p-8 text-center opacity-70">暂无通知</div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

@@ -28,7 +28,15 @@
     <form method="post" class="space-y-4" novalidate>
         {% csrf_token %}
 
-        {% include 'account/_components/form_field.html' with field=form.username %}
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+
+        {% if form.login %}
+            {% include 'account/_components/form_field.html' with field=form.login label='用户名 / 邮箱' %}
+        {% else %}
+            {% include 'account/_components/form_field.html' with field=form.username %}
+        {% endif %}
 
         <div class="form-control w-full space-y-1" x-data="{ show: false }">
             <div class="flex items-center justify-between">

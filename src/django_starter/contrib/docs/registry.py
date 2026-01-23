@@ -37,6 +37,8 @@ def get_doc_pages() -> List[DocPage]:
     """Return ordered documentation pages."""
     base_dir = Path(settings.BASE_DIR)
     local_docs_dir = Path(__file__).resolve().parent / "markdown"
+    repo_roadmap_path = base_dir.parent / "docs" / "roadmap.md"
+    roadmap_path = repo_roadmap_path if repo_roadmap_path.exists() else local_docs_dir / "roadmap.md"
     return [
         DocPage(
             slug="overview",
@@ -99,7 +101,7 @@ def get_doc_pages() -> List[DocPage]:
             title="路线图",
             summary="项目里程碑与未来计划",
             category="planning",
-            path=local_docs_dir / "roadmap.md",
+            path=roadmap_path,
             order=1,
         ),
     ]

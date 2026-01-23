@@ -7,12 +7,13 @@
 ### M0 基础稳固（1–2周）
 - 结构化日志（JSON）与统一错误码/错误响应体
 - 健康（`/health`）与就绪（`/ready`）探针
+- Prometheus 指标闭环（`/metrics` + 中间件），附基础告警建议
 - 配置分层与 FeatureFlag 基础设施
 - 管理后台视图：Usage/Job/FeatureFlag/Audit 面板
 
-### M1 认证与多租户
-- 集成 `django-allauth`、JWT 与 API Key（作用域与过期）
-- Org/Team/Project 模型与 RBAC（角色-权限映射）
+### M1 认证与身份接入（SSO）
+- 统一身份接入层：保留现有微信/企微 OAuth2 能力，并可选集成 `django-allauth`
+- JWT 与 API Key（作用域与过期）
 - 设备与会话管理，支持登出全部设备
 
 ### M2 AI 核心能力
@@ -25,8 +26,10 @@
 - 文档摄入管线（分块/索引/元数据），评估与 A/B 测试
 - 示例：知识库问答与项目文档检索
 
-### M4 队列与作业
-- Celery 集成、定时任务与重试策略
+### M4 任务与作业
+- Django Tasks（内置）集成、定时任务与重试策略（后端可配置）
+- 通知中心（站内/邮件）与任务通知
+- 可选：Celery 集成（需要分布式队列时）
 - Job 进度上报与取消，前端进度条与重试按钮
 - 队列监控面板（失败任务审计）
 
@@ -57,6 +60,8 @@
 
 ## TODO 清单（执行项）
 
+- [ ] Prometheus 指标闭环（/metrics + 中间件启用）与告警建议
+- [ ] 统一身份接入层：现有微信/企微 OAuth2 + 可选 `django-allauth`
 - [ ] LLMProvider 适配层（OpenAI/Azure/Gemini/Ollama），统一接口
 - [ ] 流式响应抽象（SSE/WebSocket），支持函数/工具调用
 - [ ] Prompt Store（版本化/变更审计/A/B 测试）
@@ -65,10 +70,11 @@
 - [ ] pgvector 集成与向量检索接口（可插拔后端）
 - [ ] 文档摄入管线（分块/索引/元数据），管理后台操作
 - [ ] RAG 评估框架（正确率/覆盖率/延迟），基线数据集
-- [ ] Celery 集成与任务进度上报（后台与前端）
+- [ ] Django Tasks 集成与任务进度上报（后台与前端），可选 Celery 升级
 - [ ] 队列监控面板与失败任务重试策略
 - [ ] API Key（作用域）与使用量配额/限流策略
-- [ ] Org/Team/Project 多租户与 RBAC，审计日志
+- [ ] （Deferred）Org/Team/Project 多租户与 RBAC，审计日志
+- [ ] （Deferred）高级审计事件中心、合规导出与数据保留策略
 - [ ] 支付集成（Stripe/微信/支付宝），订阅与权限映射
 - [ ] 计量与账单报表（Usage 统计/导出/告警）
 - [ ] 安全策略：CSP/速率限制/密钥轮换/依赖扫描
@@ -89,7 +95,7 @@
 ## 优先级建议
 
 - 第一优先：LLMProvider 适配层、流式抽象、Prompt Store、会话持久化
-- 第二优先：pgvector/RAG 管线、Celery 与进度机制、API Key/配额
+- 第二优先：pgvector/RAG 管线、Django Tasks/Celery 与进度机制、API Key/配额
 - 第三优先：支付与订阅、观测与安全、CLI 与开发者体验
 - 第四优先：前端示例与一键部署、文档与合规
 

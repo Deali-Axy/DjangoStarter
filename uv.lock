@@ -318,6 +318,19 @@ argon2 = [
 ]
 
 [[package]]
+name = "django-allauth"
+version = "65.14.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asgiref" },
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/23/9b/061a6ac65c602eb721b13fbf9c665b20fb900f113a03ec8521b5fcf16b83/django_allauth-65.14.0.tar.gz", hash = "sha256:5529227aba2b1377d900e9274a3f24496c645e65400fbae3cad5789944bc4d0b", size = 1991909, upload-time = "2026-01-17T18:43:12.928Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ce/c8/2f959ff8466913d95ba72eb4a29bd7998d28a559786033a97b5bbdda2b81/django_allauth-65.14.0-py3-none-any.whl", hash = "sha256:448f5f7877f95fcbe1657256510fe7822d7871f202521a29e23ef937f3325a97", size = 1793052, upload-time = "2026-01-17T18:43:08.954Z" },
+]
+
+[[package]]
 name = "django-cors-headers"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -463,6 +476,7 @@ dependencies = [
     { name = "anyio" },
     { name = "daphne" },
     { name = "django", extra = ["argon2"] },
+    { name = "django-allauth" },
     { name = "django-cors-headers" },
     { name = "django-jazzmin" },
     { name = "django-multi-captcha-admin" },
@@ -506,6 +520,7 @@ requires-dist = [
     { name = "anyio", specifier = ">=4.12.0" },
     { name = "daphne", specifier = ">=4.2.1" },
     { name = "django", extras = ["argon2"], specifier = ">=6.0" },
+    { name = "django-allauth", specifier = ">=0.63.0" },
     { name = "django-cors-headers", specifier = ">=4.9.0" },
     { name = "django-jazzmin", specifier = ">=3.0.1" },
     { name = "django-multi-captcha-admin", specifier = ">=2.0.0" },
