@@ -7,10 +7,36 @@
 <div class="fade-in-up">
     {% page_header title breadcrumbs %}
 
-    <div class="card bg-base-100 shadow-sm border border-base-200">
+    <div class="card bg-base-100 shadow-sm border border-base-200 mb-4">
         <div class="card-body">
-            <h2 class="card-title">充值</h2>
-            <p class="text-sm opacity-70">此页面作为占位示例，你可以在此接入支付与订阅体系。</p>
+            <h2 class="card-title">账户概览</h2>
+            <div class="stats stats-vertical lg:stats-horizontal shadow-sm border border-base-200 bg-base-100">
+                <div class="stat">
+                    <div class="stat-title">余额</div>
+                    <div class="stat-value text-primary">{{ wallet.balance|floatformat:2 }} {{ wallet.currency }}</div>
+                    <div class="stat-desc">后台充值/支付成功后自动入账</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-title">当前套餐</div>
+                    {% if current_subscription %}
+                        <div class="stat-value">{{ current_subscription.plan.name }}</div>
+                        <div class="stat-desc">
+                            状态：{{ current_subscription.get_status_display }}
+                            {% if current_subscription.current_period_end %}
+                                · 到期：{{ current_subscription.current_period_end|date:"Y-m-d H:i" }}
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="stat-value">Free</div>
+                        <div class="stat-desc">未开通订阅</div>
+                    {% endif %}
+                </div>
+                <div class="stat">
+                    <div class="stat-title">充值方式</div>
+                    <div class="stat-value">后台充值</div>
+                    <div class="stat-desc">Stripe/支付宝：待接入</div>
+                </div>
+            </div>
             <div class="card-actions justify-end">
                 <a class="btn btn-ghost" 
                    href="{% url 'account:dashboard' %}"
@@ -19,6 +45,75 @@
                    hx-push-url="true"
                    hx-swap="innerHTML transition:true">返回仪表盘</a>
             </div>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm border border-base-200 mb-4">
+        <div class="card-body">
+            <h2 class="card-title">在线充值</h2>
+            <p class="text-sm opacity-70">
+                当前版本已支持后台为用户充值并生成充值记录；在线支付（Stripe/支付宝）会在后续版本通过 Webhook/回调实现自动入账。
+            </p>
+            <div class="alert">
+                <span>在线支付尚未开放，如需充值请联系管理员。</span>
+            </div>
+            <div class="card-actions justify-end">
+                <button class="btn btn-primary" disabled>选择充值套餐</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-sm border border-base-200">
+        <div class="card-body">
+            <h2 class="card-title">最近充值记录</h2>
+            {% if topups %}
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>金额</th>
+                                <th>状态</th>
+                                <th>渠道</th>
+                                <th>创建时间</th>
+                                <th>成功时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for t in topups %}
+                                <tr>
+                                    <td>#{{ t.id }}</td>
+                                    <td>{{ t.amount|floatformat:2 }} {{ t.currency }}</td>
+                                    <td>
+                                        {% if t.status == 'succeeded' %}
+                                            <span class="badge badge-success">{{ t.get_status_display }}</span>
+                                        {% elif t.status == 'pending' %}
+                                            <span class="badge badge-warning">{{ t.get_status_display }}</span>
+                                        {% elif t.status == 'failed' %}
+                                            <span class="badge badge-error">{{ t.get_status_display }}</span>
+                                        {% else %}
+                                            <span class="badge">{{ t.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ t.get_channel_display }}</td>
+                                    <td>{{ t.created_time|date:"Y-m-d H:i" }}</td>
+                                    <td>
+                                        {% if t.succeeded_time %}
+                                            {{ t.succeeded_time|date:"Y-m-d H:i" }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <span>暂无充值记录。</span>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

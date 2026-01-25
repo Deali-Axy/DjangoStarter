@@ -21,6 +21,8 @@ import qrcode
 
 from django_starter.contrib.auth.services import generate_token
 
+from apps.billing.models import Wallet, TopUp, Subscription
+
 
 def get_template_base(request):
     """
@@ -68,9 +70,23 @@ def profile(request):
 
 @login_required()
 def charge(request):
+    wallet, _created = Wallet.objects.get_or_create(user=request.user, currency='CNY')
+    current_subscription = (
+        Subscription.objects.filter(user=request.user, is_current=True)
+        .select_related('plan')
+        .first()
+    )
+    topups = (
+        TopUp.objects.filter(user=request.user)
+        .select_related('wallet')
+        .order_by('-id')[:20]
+    )
     return render(request, 'account/charge.html', {
         'title': '充值',
         'base_template': get_template_base(request),
+        'wallet': wallet,
+        'current_subscription': current_subscription,
+        'topups': topups,
         'breadcrumbs': [
             {'text': '主页', 'url': reverse('home:index'), 'icon': 'fa-solid fa-home'},
             {'text': '用户中心', 'url': reverse('account:index'), 'icon': 'fa-solid fa-user'},
