@@ -37,7 +37,7 @@ DEFAULTS = {
         {
             'TYPE': 'dockerhub', # 可选项：dockerhub 或 private
             'URL': '',  # 仅在 TYPE 为 private 时需要
-            'NAMESPACE': 'deali',
+            'NAMESPACE': 'dealiaxy',
             'IMAGE_NAME': 'django-starter',
         },
     ],
