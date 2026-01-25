@@ -59,11 +59,9 @@ RUN gulp move
 # tailwindcss 构建（置于 gulp 之后，使用已复制的前端依赖）
 FROM node:$NODE_BASE AS tailwind_builder
 
-# 复制依赖文件
-COPY tailwind.config.js /project/
 COPY src/static/css/tailwind.src.css /project/src/static/css/
 
-# 复制用于扫描的模板与脚本（满足 tailwind.config.js 的 content 路径）
+# 复制用于扫描的模板与脚本（满足 Tailwind v4 在 CSS 中声明的 @source 路径）
 COPY src/templates/ /project/src/templates/
 COPY src/apps/ /project/src/apps/
 COPY src/django_starter/ /project/src/django_starter/
@@ -76,7 +74,7 @@ COPY --from=gulp_builder /project/src/static/ /project/src/static/
 
 # 构建 tailwindcss
 WORKDIR /project
-RUN npx tailwindcss -c ./tailwind.config.js -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify
+RUN ./node_modules/.bin/tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify
 
 # django 构建
 FROM python:$PYTHON_BASE AS django_builder
