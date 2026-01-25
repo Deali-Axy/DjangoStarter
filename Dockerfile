@@ -1,4 +1,4 @@
-ARG PYTHON_BASE=3.12
+ARG PYTHON_BASE=3.14
 ARG NODE_BASE=22
 
 # python 构建
@@ -6,22 +6,19 @@ FROM python:$PYTHON_BASE AS python_builder
 
 # 设置 python 环境变量
 ENV PYTHONUNBUFFERED=1
-# 禁用更新检查
-ENV PDM_CHECK_UPDATE=false
+ENV UV_PROJECT_ENVIRONMENT=/project/.venv
+ENV UV_INDEX_URL=https://mirrors.cloud.tencent.com/pypi/simple/
 
 # 设置国内源
 RUN pip config set global.index-url https://mirrors.cloud.tencent.com/pypi/simple/ && \
-    # 安装 pdm
-    pip install -U pdm && \
-    # 配置镜像
-    pdm config pypi.url "https://mirrors.cloud.tencent.com/pypi/simple/"
+    pip install -U uv
 
 # 复制文件
-COPY pyproject.toml pdm.lock /project/
+COPY pyproject.toml uv.lock /project/
 
 # 安装依赖项和项目到本地包目录
 WORKDIR /project
-RUN pdm install --check --prod --no-editable
+RUN uv sync --frozen --no-dev --no-install-project
 
 
 # node 构建
