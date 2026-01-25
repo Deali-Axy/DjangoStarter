@@ -154,7 +154,28 @@ def run_cmd(cmd: str, progress_display: Optional[ProgressDisplay] = None) -> Tup
     执行命令并实时显示输出，同时捕获输出内容。
     返回状态码、stdout和stderr。
     """
+    return run_cmd_ex(cmd, progress_display, exit_on_error=True)
+
+
+def run_cmd_ex(
+    cmd: str,
+    progress_display: Optional[ProgressDisplay] = None,
+    *,
+    exit_on_error: bool = True,
+    extra_env: Optional[dict[str, str]] = None,
+) -> Tuple[int, str, str]:
+    """
+    执行命令并实时显示输出，同时捕获输出内容。
+    返回状态码、stdout和stderr。
+
+    - exit_on_error=True 时，失败会 sys.exit(1)
+    - extra_env 可用于临时注入环境变量（例如禁用 BuildKit）
+    """
     print(f"执行命令: {cmd}")
+
+    env = os.environ.copy()
+    if extra_env:
+        env.update(extra_env)
 
     process = subprocess.Popen(
         cmd,
@@ -165,7 +186,8 @@ def run_cmd(cmd: str, progress_display: Optional[ProgressDisplay] = None) -> Tup
         bufsize=1,
         universal_newlines=True,
         encoding='utf-8',
-        errors='replace'  # 遇到无法解码的字符时用替换字符代替
+        errors='replace',  # 遇到无法解码的字符时用替换字符代替
+        env=env,
     )
 
     stdout_lines = []
@@ -191,7 +213,7 @@ def run_cmd(cmd: str, progress_display: Optional[ProgressDisplay] = None) -> Tup
     stdout = ''.join(stdout_lines)
     stderr = ''.join(stderr_lines)
 
-    if returncode != 0:
+    if returncode != 0 and exit_on_error:
         if progress_display:
             progress_display.print_output(f"\n❌ 命令执行失败 (返回码: {returncode})\n")
         else:
@@ -242,15 +264,14 @@ def main():
     env_vars = load_env_file(str(env_file))
     build_args = build_args_from_env(env_vars)
     progress.set_status(f"📦 构建Docker镜像...（注入 {len(env_vars)} 个 build-args）")
-    run_cmd(
-        f"docker buildx build "
-        f"--platform {get_config('PLATFORMS')} "
+    build_cmd = (
+        f"docker build "
         f"--file {get_config('DOCKERFILE')} "
         f"{build_args} "
         f"--tag {image_name}:latest "
-        f".",
-        progress
+        f"."
     )
+    run_cmd_ex(build_cmd, progress, exit_on_error=True, extra_env={"DOCKER_BUILDKIT": "0"})
     progress.finish_step("✅ Docker镜像构建完成")
 
     # 3. 打tag & 推送
