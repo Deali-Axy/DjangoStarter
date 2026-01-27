@@ -44,7 +44,7 @@ DEFAULTS = {
     ],
     'REMOTE_HOST': '',  # 远程服务器地址或~/.ssh/config中的Host别名
     'REMOTE_PROJECT_PATH': '',
-    "ENABLED_DEPLOY": True,
+    "ENABLED_DEPLOY": False,
     'ENV_FILE': './.env',
 }
 
