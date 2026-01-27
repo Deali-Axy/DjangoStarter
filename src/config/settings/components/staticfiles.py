@@ -18,3 +18,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+
+# 使用 ManifestStaticFilesStorage 来给静态文件添加哈希后缀，防止浏览器缓存问题
+# 仅在非 DEBUG 模式下启用（通常在生产环境）
+if not config.settings.DEBUG:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'

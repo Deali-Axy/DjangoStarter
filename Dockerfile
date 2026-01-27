@@ -69,6 +69,9 @@ COPY --from=node_builder /project/node_modules/ /project/node_modules
 # 引入 gulp 阶段生成的静态资源（包含 flowbite 等依赖）
 COPY --from=gulp_builder /project/src/static/ /project/src/static/
 
+# 添加 CACHEBUST 参数，用于在 CI/CD 中强制触发构建
+ARG CACHEBUST=1
+
 # 构建 tailwindcss
 WORKDIR /project
 RUN ./node_modules/.bin/tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify
@@ -137,4 +140,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
 EXPOSE 8000
 
 # 设置默认命令
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "-v", "3", "--proxy-headers", "config.asgi:application"]
+CMD ["granian", "--interface", "asgi", "--host", "0.0.0.0", "--port", "8000", "--static-path-route", "/static", "--static-path-mount", "/project/static-dist", "config.asgi:application"]

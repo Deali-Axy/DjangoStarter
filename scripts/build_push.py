@@ -26,6 +26,7 @@ import os
 import sys
 import subprocess
 import threading
+import time
 from typing import Optional, Tuple
 
 # 默认配置
@@ -268,6 +269,9 @@ def main():
         f"docker build "
         f"--file {get_config('DOCKERFILE')} "
         f"{build_args} "
+        # 传入当前时间戳作为 CACHEBUST 参数，强制使 Dockerfile 中该指令之后的步骤（CSS构建）缓存失效
+        # 这样既能利用依赖包的缓存（加速构建），又能确保每次都生成最新的 CSS（解决样式不更新问题）
+        f"--build-arg CACHEBUST={int(time.time())} "
         f"--tag {image_name}:latest "
         f"."
     )
