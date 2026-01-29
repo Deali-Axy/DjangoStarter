@@ -4,10 +4,20 @@ import asyncio
 from typing import AsyncGenerator
 from django.http import StreamingHttpResponse
 from ninja import Router
-from apps.dailist.services.llm_service import get_llm_service
-
 
 router = Router(tags=['流式响应示例'])
+
+# Mock LLM Service
+class MockLLMService:
+    def polish_text(self, text: str) -> str:
+        """
+        模拟文本润色功能，实际只是简单地添加一些修饰词
+        """
+        return f"经过智能润色后的内容：{text} (更加专业、流畅、有说服力)"
+
+def get_llm_service():
+    return MockLLMService()
+
 llm_service = get_llm_service()
 
 

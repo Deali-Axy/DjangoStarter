@@ -9,6 +9,7 @@ from .music_album.apis import router as music_album_router
 
 from .music.apis import router as music_router
 
+from .sse.streaming import router as streaming_router
 
 router = Router(tags=['demo'])
 
@@ -20,3 +21,5 @@ router.add_router('actor', actor_router)
 router.add_router('music_album', music_album_router)
 
 router.add_router('music', music_router)
+
+router.add_router('streaming', streaming_router)

@@ -241,19 +241,19 @@
                 
                 switch(this.mode) {
                     case 'chat':
-                        url = `/api/dailist/streaming/stream/chat?message=${encodedText}`;
+                        url = `/api/demo/streaming/stream/chat?message=${encodedText}`;
                         break;
                     case 'polish':
-                        url = `/api/dailist/streaming/stream/llm-polish?text=${encodedText}`;
+                        url = `/api/demo/streaming/stream/llm-polish?text=${encodedText}`;
                         break;
                     case 'text':
-                        url = `/api/dailist/streaming/stream/text?text=${encodedText}`;
+                        url = `/api/demo/streaming/stream/text?text=${encodedText}`;
                         break;
                     case 'counter':
-                        url = `/api/dailist/streaming/stream/counter`;
+                        url = `/api/demo/streaming/stream/counter`;
                         break;
                     case 'realtime':
-                        url = `/api/dailist/streaming/stream/realtime`;
+                        url = `/api/demo/streaming/stream/realtime`;
                         break;
                     default:
                         this.handleError(msgId, 'Unknown mode');
