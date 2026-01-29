@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DjangoStarter AI Chat{% endblock %}</title>
+
+    <!-- Tailwind & DaisyUI (Production Build) -->
+    <link rel="stylesheet" href="{% static 'css/tailwind.prod.css' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'lib/font-awesome/css/all.min.css' %}">
+
+    <!-- HTMX & Alpine.js -->
+    <script src="{% static 'lib/htmx/htmx.min.js' %}"></script>
+    <script src="{% static 'lib/alpinejs/cdn.min.js' %}" defer></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        /* Custom scrollbar for chat areas */
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.3);
+            border-radius: 20px;
+        }
+        .chat-scroll:hover::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+        }
+    </style>
+
+    <!-- CSRF for HTMX -->
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <script>
+        document.addEventListener('htmx:configRequest', (event) => {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+            if (csrfToken) event.detail.headers['X-CSRFToken'] = csrfToken;
+        });
+    </script>
+
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-base-100 text-base-content antialiased h-screen overflow-hidden flex" x-data="{ sidebarOpen: false }">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div x-show="sidebarOpen" 
+         x-transition:enter="transition-opacity ease-linear duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition-opacity ease-linear duration-300"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="sidebarOpen = false"
+         class="fixed inset-0 bg-gray-900/80 z-40 lg:hidden" x-cloak>
+    </div>
+
+    <!-- Sidebar (History / Navigation) -->
+    <div class="fixed inset-y-0 left-0 z-50 w-72 bg-base-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 flex flex-col border-r border-base-300"
+         :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+        
+        <!-- Sidebar Header -->
+        <div class="p-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 font-bold text-xl px-2">
+                <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-content">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <span>AI Chat</span>
+            </a>
+            <button @click="sidebarOpen = false" class="btn btn-ghost btn-square btn-sm lg:hidden">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- New Chat Button -->
+        <div class="px-4 mb-4">
+            <button @click="$dispatch('new-chat'); sidebarOpen = false" class="btn btn-outline btn-block justify-start gap-3 normal-case text-sm border-base-300 hover:bg-base-300 hover:border-base-300 no-animation">
+                <i class="fa-solid fa-plus"></i>
+                New chat
+            </button>
+        </div>
+
+        <!-- History List (Scrollable) -->
+        <div class="flex-1 overflow-y-auto chat-scroll px-2 space-y-1">
+            {% block sidebar_history %}
+            <!-- History items will be injected here -->
+            <div class="text-xs font-semibold text-base-content/50 px-4 py-2 mt-2">Today</div>
+            <button class="btn btn-ghost btn-sm btn-block justify-start font-normal text-base-content/80 truncate px-4">
+                <i class="fa-regular fa-message w-4 opacity-70"></i>
+                Sample Conversation
+            </button>
+            {% endblock %}
+        </div>
+
+        <!-- User Profile / Settings -->
+        <div class="p-4 border-t border-base-300">
+            {% if user.is_authenticated %}
+                <div class="dropdown dropdown-top w-full">
+                    <label tabindex="0" class="btn btn-ghost btn-block justify-start gap-3 px-2 no-animation hover:bg-base-300">
+                        <div class="avatar placeholder">
+                            <div class="bg-neutral text-neutral-content rounded-full w-8">
+                                <span class="text-xs">{{ user.username|slice:":1"|upper }}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-start overflow-hidden">
+                            <span class="text-sm font-medium truncate w-full text-left">{{ user.username }}</span>
+                        </div>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full mb-2 border border-base-200">
+                        <li><a href="{% url 'account:index' %}"><i class="fa-solid fa-user text-xs"></i> Profile</a></li>
+                        <li><a href="/"><i class="fa-solid fa-house text-xs"></i> Back to Home</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <a href="{% url 'account:login' %}" class="btn btn-primary btn-block btn-sm">Log in</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Main Chat Area -->
+    <main class="flex-1 flex flex-col h-full relative min-w-0 bg-base-100">
+        
+        <!-- Top Navigation (Mobile) -->
+        <div class="sticky top-0 z-10 flex items-center p-2 lg:hidden bg-base-100 border-b border-base-200 text-base-content">
+            <button @click="sidebarOpen = true" class="btn btn-ghost btn-square btn-sm">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <span class="ml-2 font-semibold">Chat</span>
+        </div>
+
+        <!-- Mode Selector / Model Header -->
+        {% block chat_header %}
+        <div class="h-14 border-b border-base-200 flex items-center justify-between px-4 lg:px-8 bg-base-100/50 backdrop-blur-sm">
+            <div class="flex items-center gap-2">
+                <span class="font-medium">Model:</span>
+                <select class="select select-sm select-ghost w-auto max-w-xs font-normal focus:bg-base-200" 
+                        x-model="mode" 
+                        :disabled="isConnected"
+                        @change="$dispatch('mode-change', $event.target.value)">
+                    <option value="chat">GPT-4 (Chat)</option>
+                    <option value="polish">Text Polish</option>
+                    <option value="text">Text Generation</option>
+                    <option value="counter">Counter Demo</option>
+                    <option value="realtime">Realtime Data</option>
+                </select>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                 <div class="flex items-center gap-2 text-xs opacity-70" x-show="isConnected" x-transition>
+                    <span class="loading loading-spinner loading-xs text-primary"></span>
+                    <span x-text="statusText">Processing...</span>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+        <!-- Chat Messages (Scrollable) -->
+        <div class="flex-1 overflow-y-auto chat-scroll relative w-full" id="chat-container">
+            {% block chat_messages %}
+            <!-- Messages will be injected here via Alpine.js -->
+            {% endblock %}
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 lg:p-6 bg-gradient-to-t from-base-100 via-base-100 to-transparent">
+            <div class="max-w-3xl mx-auto">
+                {% block chat_input %}
+                <!-- Input form will be injected here -->
+                {% endblock %}
+                <div class="text-xs text-center mt-2 opacity-50">
+                    AI can make mistakes. Consider checking important information.
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Site Scripts -->
+    <script src="{% static 'js/site.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

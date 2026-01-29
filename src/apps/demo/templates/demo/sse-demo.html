@@ -1,150 +1,165 @@
-{% extends '_base.html' %}
+{% extends 'demo/_chat_base.html' %}
 {% load static %}
-{% load page_tags %}
 
-{% block title %}AI Chat Demo{% endblock %}
+{% block title %}DjangoStarter AI Chat{% endblock %}
 
-{% block content %}
-<div class="h-[calc(100vh-8rem)] flex flex-col" x-data="chatApp()">
+{% block chat_messages %}
+<div class="flex flex-col h-full" x-data="chatApp()">
     
-    <!-- Header / Toolbar -->
-    <div class="flex items-center justify-between p-4 bg-base-100 border-b border-base-200">
-        <div class="flex items-center gap-3">
-            <div class="p-2 bg-primary/10 rounded-lg text-primary">
-                <i class="fa-solid fa-robot text-xl"></i>
-            </div>
-            <div>
-                <h1 class="font-bold text-lg">AI Assistant</h1>
-                <div class="flex items-center gap-2 text-xs opacity-70">
-                    <span class="badge badge-xs" :class="isConnected ? 'badge-success' : 'badge-ghost'"></span>
-                    <span x-text="statusText"></span>
-                </div>
-            </div>
+    <!-- Empty State -->
+    <div class="flex-1 flex flex-col items-center justify-center p-8 text-center" 
+         x-show="messages.length === 0" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100">
+        
+        <div class="w-16 h-16 bg-base-200 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+            <i class="fa-solid fa-robot text-4xl text-base-content/70"></i>
         </div>
-
-        <!-- Mode Selector -->
-        <div class="flex items-center gap-2">
-            <select class="select select-sm select-bordered w-full max-w-xs" x-model="mode" :disabled="isConnected">
-                <option value="chat">💬 Chat Bot</option>
-                <option value="polish">✨ Text Polisher</option>
-                <option value="text">📝 Text Generator</option>
-                <option disabled>──────────</option>
-                <option value="counter">🔢 Counter Demo</option>
-                <option value="realtime">📊 Realtime Data</option>
-            </select>
-            <button class="btn btn-sm btn-ghost" @click="clearHistory" title="Clear History">
-                <i class="fa-solid fa-trash-can"></i>
+        <h2 class="text-2xl font-bold mb-2">How can I help you today?</h2>
+        <p class="text-base-content/60 max-w-md mb-8">This is a streaming demo using Server-Sent Events (SSE). Select a mode from the header to test different capabilities.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
+            <button @click="quickStart('Explain quantum computing in simple terms')" class="btn btn-outline border-base-300 hover:bg-base-200 hover:border-base-300 h-auto py-3 px-4 justify-start text-left font-normal normal-case group">
+                <div class="flex flex-col gap-1">
+                    <span class="font-semibold text-sm group-hover:text-primary transition-colors">Explain quantum computing</span>
+                    <span class="text-xs opacity-60">in simple terms</span>
+                </div>
+            </button>
+            <button @click="quickStart('Write a Python script to scrape a website')" class="btn btn-outline border-base-300 hover:bg-base-200 hover:border-base-300 h-auto py-3 px-4 justify-start text-left font-normal normal-case group">
+                <div class="flex flex-col gap-1">
+                    <span class="font-semibold text-sm group-hover:text-primary transition-colors">Write a Python script</span>
+                    <span class="text-xs opacity-60">to scrape a website</span>
+                </div>
+            </button>
+            <button @click="quickStart('How do I make an HTTP request in Javascript?')" class="btn btn-outline border-base-300 hover:bg-base-200 hover:border-base-300 h-auto py-3 px-4 justify-start text-left font-normal normal-case group">
+                <div class="flex flex-col gap-1">
+                    <span class="font-semibold text-sm group-hover:text-primary transition-colors">HTTP request in JS</span>
+                    <span class="text-xs opacity-60">using fetch or axios</span>
+                </div>
+            </button>
+            <button @click="quickStart('Tell me a fun fact about space')" class="btn btn-outline border-base-300 hover:bg-base-200 hover:border-base-300 h-auto py-3 px-4 justify-start text-left font-normal normal-case group">
+                <div class="flex flex-col gap-1">
+                    <span class="font-semibold text-sm group-hover:text-primary transition-colors">Fun fact about space</span>
+                    <span class="text-xs opacity-60">surprise me</span>
+                </div>
             </button>
         </div>
     </div>
 
-    <!-- Chat Area -->
-    <div id="chat-container" class="flex-grow overflow-y-auto p-4 space-y-4 scroll-smooth bg-base-200/30">
-        
-        <!-- Welcome Message -->
-        <template x-if="messages.length === 0">
-            <div class="flex flex-col items-center justify-center h-full text-base-content/50 space-y-4">
-                <div class="w-16 h-16 bg-base-200 rounded-2xl flex items-center justify-center">
-                    <i class="fa-solid fa-comments text-3xl"></i>
-                </div>
-                <p>Select a mode and start chatting!</p>
-                <div class="flex gap-2">
-                    <button @click="quickStart('Hello, who are you?')" class="btn btn-xs btn-outline">Hello</button>
-                    <button @click="quickStart('Tell me a joke')" class="btn btn-xs btn-outline">Joke</button>
-                </div>
-            </div>
-        </template>
-
-        <!-- Message Loop -->
-        <template x-for="msg in messages" :key="msg.id">
-            <div class="chat" :class="msg.role === 'user' ? 'chat-end' : 'chat-start'">
-                <div class="chat-image avatar">
-                    <div class="w-10 rounded-full border border-base-300">
-                        <template x-if="msg.role === 'user'">
-                            <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" />
-                        </template>
-                        <template x-if="msg.role === 'ai'">
-                            <div class="bg-primary text-primary-content grid place-items-center w-full h-full">
-                                <i class="fa-solid fa-robot"></i>
+    <!-- Message List -->
+    <div class="flex-1 overflow-y-auto chat-scroll p-4 lg:p-0" x-show="messages.length > 0">
+        <div class="max-w-3xl mx-auto py-6 space-y-6">
+            <template x-for="msg in messages" :key="msg.id">
+                <div class="group w-full text-base-content border-b border-black/5 dark:border-white/5 pb-6 last:border-0">
+                    <div class="flex gap-4 lg:gap-6 md:max-w-3xl lg:max-w-[40rem] xl:max-w-[48rem] mx-auto">
+                        
+                        <!-- Avatar -->
+                        <div class="flex-shrink-0 flex flex-col relative items-end">
+                            <div class="w-8 h-8 rounded-sm flex items-center justify-center overflow-hidden"
+                                 :class="msg.role === 'user' ? 'bg-base-300' : 'bg-primary text-primary-content'">
+                                <template x-if="msg.role === 'user'">
+                                    <i class="fa-solid fa-user text-sm opacity-60"></i>
+                                </template>
+                                <template x-if="msg.role === 'ai'">
+                                    <i class="fa-solid fa-robot text-sm"></i>
+                                </template>
                             </div>
-                        </template>
-                    </div>
-                </div>
-                
-                <div class="chat-header opacity-50 text-xs mb-1">
-                    <span x-text="msg.role === 'user' ? 'You' : 'Assistant'"></span>
-                    <time class="text-[10px] ml-1" x-text="formatTime(msg.timestamp)"></time>
-                </div>
-
-                <div class="chat-bubble shadow-sm" 
-                     :class="[
-                        msg.role === 'user' ? 'chat-bubble-primary' : 'chat-bubble-base-100 bg-base-100 text-base-content',
-                        msg.isError ? 'chat-bubble-error text-white' : ''
-                     ]">
-                    
-                    <!-- Content -->
-                    <div class="whitespace-pre-wrap leading-relaxed" x-text="msg.content"></div>
-                    
-                    <!-- Thinking Indicator -->
-                    <template x-if="msg.isThinking">
-                        <div class="flex items-center gap-2 mt-2 text-xs opacity-70 italic">
-                            <span class="loading loading-dots loading-xs"></span>
-                            <span x-text="msg.thinkingText || 'Thinking...'"></span>
                         </div>
-                    </template>
-                </div>
-                
-                <!-- Status Footer for AI -->
-                <template x-if="msg.role === 'ai' && msg.status && msg.status !== 'done'">
-                    <div class="chat-footer opacity-50 text-[10px] mt-1">
-                        <span x-text="msg.status"></span>
+
+                        <!-- Content -->
+                        <div class="relative flex-1 overflow-hidden">
+                            <!-- Author Name -->
+                            <div class="font-semibold text-sm mb-1 opacity-90" x-text="msg.role === 'user' ? 'You' : 'DjangoStarter AI'"></div>
+                            
+                            <!-- Message Body -->
+                            <div class="prose prose-sm max-w-none break-words leading-7" 
+                                 :class="msg.isError ? 'text-error' : ''">
+                                <div class="whitespace-pre-wrap" x-text="msg.content"></div>
+                                
+                                <!-- Thinking/Loading Indicator -->
+                                <template x-if="msg.isThinking">
+                                    <div class="flex items-center gap-2 mt-2 text-base-content/50 animate-pulse">
+                                        <div class="w-2 h-2 rounded-full bg-current"></div>
+                                        <span class="text-xs" x-text="msg.thinkingText || 'Thinking...'"></span>
+                                    </div>
+                                </template>
+
+                                <!-- Streaming Cursor -->
+                                <template x-if="msg.role === 'ai' && msg.status !== 'done' && !msg.isThinking">
+                                    <span class="inline-block w-2 h-4 align-middle bg-current animate-pulse ml-0.5"></span>
+                                </template>
+                            </div>
+
+                            <!-- Footer / Actions -->
+                            <div class="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity" x-show="!msg.isThinking && msg.status === 'done'">
+                                <button class="btn btn-ghost btn-xs btn-square text-base-content/50 hover:text-base-content" title="Copy">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                                <button class="btn btn-ghost btn-xs btn-square text-base-content/50 hover:text-base-content" title="Regenerate">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </template>
-            </div>
-        </template>
-
-        <!-- Invisible anchor for scrolling -->
-        <div id="scroll-anchor"></div>
-    </div>
-
-    <!-- Input Area -->
-    <div class="p-4 bg-base-100 border-t border-base-200">
-        <form @submit.prevent="submit" class="relative">
-            <div class="join w-full shadow-sm">
-                <textarea 
-                    x-model="input" 
-                    class="textarea textarea-bordered join-item w-full focus:outline-none resize-none h-14 min-h-[3.5rem] max-h-32 py-3 leading-tight"
-                    :placeholder="inputPlaceholder"
-                    @keydown.enter.prevent="if(!$event.shiftKey) submit()"
-                    :disabled="isConnected && !canInterrupt"
-                ></textarea>
-                
-                <div class="join-item border border-base-content/20 border-l-0 bg-base-100 flex flex-col justify-end p-1">
-                    <template x-if="!isConnected">
-                        <button type="submit" class="btn btn-primary btn-sm h-full rounded-r-lg" :disabled="!input.trim()">
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </template>
-                    <template x-if="isConnected">
-                        <button type="button" @click="stop" class="btn btn-error btn-sm h-full rounded-r-lg text-white">
-                            <i class="fa-solid fa-stop"></i>
-                        </button>
-                    </template>
                 </div>
-            </div>
-            <div class="text-xs text-center mt-2 opacity-50">
-                Press Enter to send, Shift+Enter for new line
-            </div>
-        </form>
+            </template>
+            <div id="scroll-anchor" class="h-12"></div>
+        </div>
     </div>
 
+    <!-- Input Area (Injected via Portal or fixed positioning in base) -->
+    <!-- We use Alpine to portal this to the base template's input block if needed, 
+         but since we are extending, we can just override the block -->
 </div>
+{% endblock %}
+
+{% block chat_input %}
+<!-- Input Form -->
+<form @submit.prevent="submit" class="relative w-full" x-data>
+    <div class="relative flex items-end w-full p-3 bg-base-100 border border-base-300 rounded-xl shadow-sm focus-within:ring-1 focus-within:ring-base-300 focus-within:border-base-300 overflow-hidden ring-offset-2 focus-within:ring-offset-1">
+        
+        <!-- File Upload (Mock) -->
+        <button type="button" class="btn btn-circle btn-ghost btn-sm text-base-content/50 hover:text-base-content hover:bg-base-200 mr-2" title="Attach files">
+            <i class="fa-solid fa-paperclip"></i>
+        </button>
+
+        <!-- Textarea -->
+        <textarea 
+            x-model="input" 
+            class="w-full max-h-[200px] py-2 bg-transparent border-0 focus:ring-0 resize-none outline-none text-base leading-6 scrollbar-hide placeholder:text-base-content/40" 
+            :placeholder="inputPlaceholder"
+            rows="1"
+            style="min-height: 24px;"
+            @input="$el.style.height = 'auto'; $el.style.height = $el.scrollHeight + 'px'"
+            @keydown.enter.prevent="if(!$event.shiftKey) submit()"
+            :disabled="isConnected && !canInterrupt"
+        ></textarea>
+
+        <!-- Send/Stop Button -->
+        <div class="ml-2 mb-0.5">
+            <template x-if="!isConnected">
+                <button type="submit" 
+                        class="btn btn-sm btn-square rounded-lg transition-all duration-200"
+                        :class="input.trim() ? 'btn-primary text-primary-content' : 'btn-ghost text-base-content/30 bg-base-200/50 cursor-not-allowed'"
+                        :disabled="!input.trim()">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </template>
+            <template x-if="isConnected">
+                <button type="button" @click="stop" class="btn btn-sm btn-square btn-neutral rounded-full animate-pulse text-white" title="Stop generating">
+                    <i class="fa-solid fa-stop text-xs"></i>
+                </button>
+            </template>
+        </div>
+    </div>
+</form>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    function chatApp() {
-        return {
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('chatApp', () => ({
             messages: [],
             input: '',
             mode: 'chat',
@@ -152,19 +167,31 @@
             eventSource: null,
             statusText: 'Ready',
             
+            init() {
+                // Listen for mode changes from header
+                window.addEventListener('mode-change', (e) => {
+                    this.mode = e.detail;
+                    this.clearHistory(false); // Clear history on mode switch? Optional.
+                });
+
+                // Listen for new chat event
+                window.addEventListener('new-chat', () => {
+                    this.clearHistory();
+                });
+            },
+
             get inputPlaceholder() {
                 const map = {
-                    'chat': 'Type your message...',
+                    'chat': 'Message ChatGPT...',
                     'polish': 'Enter text to polish...',
                     'text': 'Enter a prompt to generate text...',
-                    'counter': 'Click send to start counting (input ignored)...',
-                    'realtime': 'Click send to stream data (input ignored)...'
+                    'counter': 'Click send to start counting...',
+                    'realtime': 'Click send to stream data...'
                 };
-                return map[this.mode] || 'Type something...';
+                return map[this.mode] || 'Send a message...';
             },
 
             get canInterrupt() {
-                // Some modes might not be interruptible, but for now all are.
                 return true;
             },
 
@@ -173,9 +200,11 @@
                 return new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             },
 
-            clearHistory() {
-                if (confirm('Clear all chat history?')) {
+            clearHistory(confirmClear = true) {
+                if (!confirmClear || this.messages.length === 0 || confirm('Start a new chat? This will clear current history.')) {
                     this.messages = [];
+                    this.isConnected = false;
+                    if(this.eventSource) this.eventSource.close();
                 }
             },
 
@@ -186,9 +215,8 @@
 
             scrollToBottom() {
                 this.$nextTick(() => {
-                    const container = document.getElementById('chat-container');
                     const anchor = document.getElementById('scroll-anchor');
-                    if(anchor) anchor.scrollIntoView({ behavior: 'smooth' });
+                    if(anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'end' });
                 });
             },
 
@@ -196,8 +224,11 @@
                 if (this.isConnected) return;
                 
                 const text = this.input.trim();
-                // For counter/realtime, text is optional/ignored
                 if (!text && !['counter', 'realtime'].includes(this.mode)) return;
+
+                // Reset textarea height
+                const textarea = document.querySelector('textarea');
+                if(textarea) textarea.style.height = 'auto';
 
                 // 1. Add User Message
                 if (text) {
@@ -265,7 +296,7 @@
                 this.eventSource = new EventSource(url);
 
                 this.eventSource.onopen = () => {
-                    this.statusText = 'Streaming...';
+                    this.statusText = 'Generating...';
                     this.updateMsg(msgId, { status: 'Receiving...' });
                 };
 
@@ -285,12 +316,12 @@
 
                 this.eventSource.onerror = (err) => {
                     console.error('SSE Error:', err);
-                    // Check if readyState is CLOSED (2)
                     if (this.eventSource.readyState === 2) {
-                        // Sometimes browser closes it automatically
                         this.finishStream(msgId);
                     } else {
-                        this.handleError(msgId, 'Connection interrupted');
+                        // Don't show error immediately on simple close, wait for timeout or explicit error
+                        // But for now, let's just finish stream to be safe
+                        this.finishStream(msgId); 
                     }
                 };
             },
@@ -309,7 +340,6 @@
                         break;
                     
                     case 'result_chunk':
-                        // Specifically for polish which might return polished_text
                         msg.content += (data.polished_text || data.chunk || '');
                         msg.isThinking = false;
                         break;
@@ -330,7 +360,6 @@
                         
                     case 'complete':
                     case 'stream_end':
-                        // Optional: Append final message if content is empty
                         if (!msg.content && data.message) {
                             msg.content = `[System] ${data.message}`;
                         }
@@ -342,6 +371,7 @@
                         break;
                 }
                 
+                // Only scroll if we are near bottom or it's a new message
                 this.scrollToBottom();
             },
 
@@ -365,24 +395,22 @@
             handleError(msgId, errorText) {
                 this.finishStream(msgId);
                 this.updateMsg(msgId, { 
-                    content: this.messages.find(m => m.id === msgId).content + `\n[Error: ${errorText}]`,
+                    content: this.messages.find(m => m.id === msgId).content + `\n\n[System Error: ${errorText}]`,
                     isError: true 
                 });
             },
 
             stop() {
                 if (this.eventSource) {
-                    // Find current loading message
                     const currentMsg = this.messages.find(m => m.role === 'ai' && m.status !== 'done');
                     if (currentMsg) {
-                        this.handleError(currentMsg.id, 'Stopped by user');
-                    } else {
-                        this.eventSource.close();
-                        this.isConnected = false;
+                        this.updateMsg(currentMsg.id, { status: 'done', isThinking: false });
                     }
+                    this.eventSource.close();
+                    this.isConnected = false;
                 }
             }
-        }
-    }
+        }));
+    });
 </script>
 {% endblock %}
