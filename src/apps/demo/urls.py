@@ -10,6 +10,7 @@ urlpatterns = [
     path('actors/', views.actors, name='actors'),
     path('music/', views.music, name='music'),
     path('htmx/', views.htmx_test, name='htmx_test'),
+    path('sse/', views.sse_demo, name='sse_demo'),
     
     # Error pages tests
     path('test-403/', views.test_403, name='test_403'),

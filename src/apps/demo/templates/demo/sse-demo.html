@@ -1,0 +1,388 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load page_tags %}
+
+{% block title %}AI Chat Demo{% endblock %}
+
+{% block content %}
+<div class="h-[calc(100vh-8rem)] flex flex-col" x-data="chatApp()">
+    
+    <!-- Header / Toolbar -->
+    <div class="flex items-center justify-between p-4 bg-base-100 border-b border-base-200">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-primary/10 rounded-lg text-primary">
+                <i class="fa-solid fa-robot text-xl"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg">AI Assistant</h1>
+                <div class="flex items-center gap-2 text-xs opacity-70">
+                    <span class="badge badge-xs" :class="isConnected ? 'badge-success' : 'badge-ghost'"></span>
+                    <span x-text="statusText"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mode Selector -->
+        <div class="flex items-center gap-2">
+            <select class="select select-sm select-bordered w-full max-w-xs" x-model="mode" :disabled="isConnected">
+                <option value="chat">💬 Chat Bot</option>
+                <option value="polish">✨ Text Polisher</option>
+                <option value="text">📝 Text Generator</option>
+                <option disabled>──────────</option>
+                <option value="counter">🔢 Counter Demo</option>
+                <option value="realtime">📊 Realtime Data</option>
+            </select>
+            <button class="btn btn-sm btn-ghost" @click="clearHistory" title="Clear History">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Chat Area -->
+    <div id="chat-container" class="flex-grow overflow-y-auto p-4 space-y-4 scroll-smooth bg-base-200/30">
+        
+        <!-- Welcome Message -->
+        <template x-if="messages.length === 0">
+            <div class="flex flex-col items-center justify-center h-full text-base-content/50 space-y-4">
+                <div class="w-16 h-16 bg-base-200 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-comments text-3xl"></i>
+                </div>
+                <p>Select a mode and start chatting!</p>
+                <div class="flex gap-2">
+                    <button @click="quickStart('Hello, who are you?')" class="btn btn-xs btn-outline">Hello</button>
+                    <button @click="quickStart('Tell me a joke')" class="btn btn-xs btn-outline">Joke</button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Message Loop -->
+        <template x-for="msg in messages" :key="msg.id">
+            <div class="chat" :class="msg.role === 'user' ? 'chat-end' : 'chat-start'">
+                <div class="chat-image avatar">
+                    <div class="w-10 rounded-full border border-base-300">
+                        <template x-if="msg.role === 'user'">
+                            <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" />
+                        </template>
+                        <template x-if="msg.role === 'ai'">
+                            <div class="bg-primary text-primary-content grid place-items-center w-full h-full">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+                <div class="chat-header opacity-50 text-xs mb-1">
+                    <span x-text="msg.role === 'user' ? 'You' : 'Assistant'"></span>
+                    <time class="text-[10px] ml-1" x-text="formatTime(msg.timestamp)"></time>
+                </div>
+
+                <div class="chat-bubble shadow-sm" 
+                     :class="[
+                        msg.role === 'user' ? 'chat-bubble-primary' : 'chat-bubble-base-100 bg-base-100 text-base-content',
+                        msg.isError ? 'chat-bubble-error text-white' : ''
+                     ]">
+                    
+                    <!-- Content -->
+                    <div class="whitespace-pre-wrap leading-relaxed" x-text="msg.content"></div>
+                    
+                    <!-- Thinking Indicator -->
+                    <template x-if="msg.isThinking">
+                        <div class="flex items-center gap-2 mt-2 text-xs opacity-70 italic">
+                            <span class="loading loading-dots loading-xs"></span>
+                            <span x-text="msg.thinkingText || 'Thinking...'"></span>
+                        </div>
+                    </template>
+                </div>
+                
+                <!-- Status Footer for AI -->
+                <template x-if="msg.role === 'ai' && msg.status && msg.status !== 'done'">
+                    <div class="chat-footer opacity-50 text-[10px] mt-1">
+                        <span x-text="msg.status"></span>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- Invisible anchor for scrolling -->
+        <div id="scroll-anchor"></div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="p-4 bg-base-100 border-t border-base-200">
+        <form @submit.prevent="submit" class="relative">
+            <div class="join w-full shadow-sm">
+                <textarea 
+                    x-model="input" 
+                    class="textarea textarea-bordered join-item w-full focus:outline-none resize-none h-14 min-h-[3.5rem] max-h-32 py-3 leading-tight"
+                    :placeholder="inputPlaceholder"
+                    @keydown.enter.prevent="if(!$event.shiftKey) submit()"
+                    :disabled="isConnected && !canInterrupt"
+                ></textarea>
+                
+                <div class="join-item border border-base-content/20 border-l-0 bg-base-100 flex flex-col justify-end p-1">
+                    <template x-if="!isConnected">
+                        <button type="submit" class="btn btn-primary btn-sm h-full rounded-r-lg" :disabled="!input.trim()">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </template>
+                    <template x-if="isConnected">
+                        <button type="button" @click="stop" class="btn btn-error btn-sm h-full rounded-r-lg text-white">
+                            <i class="fa-solid fa-stop"></i>
+                        </button>
+                    </template>
+                </div>
+            </div>
+            <div class="text-xs text-center mt-2 opacity-50">
+                Press Enter to send, Shift+Enter for new line
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function chatApp() {
+        return {
+            messages: [],
+            input: '',
+            mode: 'chat',
+            isConnected: false,
+            eventSource: null,
+            statusText: 'Ready',
+            
+            get inputPlaceholder() {
+                const map = {
+                    'chat': 'Type your message...',
+                    'polish': 'Enter text to polish...',
+                    'text': 'Enter a prompt to generate text...',
+                    'counter': 'Click send to start counting (input ignored)...',
+                    'realtime': 'Click send to stream data (input ignored)...'
+                };
+                return map[this.mode] || 'Type something...';
+            },
+
+            get canInterrupt() {
+                // Some modes might not be interruptible, but for now all are.
+                return true;
+            },
+
+            formatTime(ts) {
+                if (!ts) return '';
+                return new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            },
+
+            clearHistory() {
+                if (confirm('Clear all chat history?')) {
+                    this.messages = [];
+                }
+            },
+
+            quickStart(text) {
+                this.input = text;
+                this.submit();
+            },
+
+            scrollToBottom() {
+                this.$nextTick(() => {
+                    const container = document.getElementById('chat-container');
+                    const anchor = document.getElementById('scroll-anchor');
+                    if(anchor) anchor.scrollIntoView({ behavior: 'smooth' });
+                });
+            },
+
+            submit() {
+                if (this.isConnected) return;
+                
+                const text = this.input.trim();
+                // For counter/realtime, text is optional/ignored
+                if (!text && !['counter', 'realtime'].includes(this.mode)) return;
+
+                // 1. Add User Message
+                if (text) {
+                    this.messages.push({
+                        id: Date.now(),
+                        role: 'user',
+                        content: text,
+                        timestamp: Date.now()
+                    });
+                }
+                
+                this.input = '';
+                this.scrollToBottom();
+
+                // 2. Start AI Stream
+                this.startStream(text);
+            },
+
+            startStream(inputText) {
+                this.isConnected = true;
+                this.statusText = 'Connecting...';
+                
+                // Create placeholder AI message
+                const msgId = Date.now() + 1;
+                const aiMsg = {
+                    id: msgId,
+                    role: 'ai',
+                    content: '',
+                    isThinking: false,
+                    thinkingText: '',
+                    status: 'Connecting...',
+                    isError: false,
+                    timestamp: Date.now()
+                };
+                this.messages.push(aiMsg);
+                this.scrollToBottom();
+
+                // Construct URL
+                let url = '';
+                const encodedText = encodeURIComponent(inputText);
+                
+                switch(this.mode) {
+                    case 'chat':
+                        url = `/api/dailist/streaming/stream/chat?message=${encodedText}`;
+                        break;
+                    case 'polish':
+                        url = `/api/dailist/streaming/stream/llm-polish?text=${encodedText}`;
+                        break;
+                    case 'text':
+                        url = `/api/dailist/streaming/stream/text?text=${encodedText}`;
+                        break;
+                    case 'counter':
+                        url = `/api/dailist/streaming/stream/counter`;
+                        break;
+                    case 'realtime':
+                        url = `/api/dailist/streaming/stream/realtime`;
+                        break;
+                    default:
+                        this.handleError(msgId, 'Unknown mode');
+                        return;
+                }
+
+                // Init SSE
+                if (this.eventSource) this.eventSource.close();
+                this.eventSource = new EventSource(url);
+
+                this.eventSource.onopen = () => {
+                    this.statusText = 'Streaming...';
+                    this.updateMsg(msgId, { status: 'Receiving...' });
+                };
+
+                this.eventSource.onmessage = (event) => {
+                    if (event.data === '[DONE]') {
+                        this.finishStream(msgId);
+                        return;
+                    }
+
+                    try {
+                        const data = JSON.parse(event.data);
+                        this.handleEvent(msgId, data);
+                    } catch (e) {
+                        console.error('Parse error:', e);
+                    }
+                };
+
+                this.eventSource.onerror = (err) => {
+                    console.error('SSE Error:', err);
+                    // Check if readyState is CLOSED (2)
+                    if (this.eventSource.readyState === 2) {
+                        // Sometimes browser closes it automatically
+                        this.finishStream(msgId);
+                    } else {
+                        this.handleError(msgId, 'Connection interrupted');
+                    }
+                };
+            },
+
+            handleEvent(msgId, data) {
+                const msgIndex = this.messages.findIndex(m => m.id === msgId);
+                if (msgIndex === -1) return;
+
+                const msg = this.messages[msgIndex];
+
+                switch (data.type) {
+                    case 'text_chunk':
+                    case 'response_chunk':
+                        msg.content += data.chunk || '';
+                        msg.isThinking = false;
+                        break;
+                    
+                    case 'result_chunk':
+                        // Specifically for polish which might return polished_text
+                        msg.content += (data.polished_text || data.chunk || '');
+                        msg.isThinking = false;
+                        break;
+
+                    case 'thinking':
+                    case 'processing':
+                        msg.isThinking = true;
+                        msg.thinkingText = data.message;
+                        break;
+
+                    case 'counter':
+                        msg.content += `Count: ${data.count}\n`;
+                        break;
+                    
+                    case 'real_time_data':
+                        msg.content += `[${data.timestamp}] Value: ${data.value} (${data.status})\n`;
+                        break;
+                        
+                    case 'complete':
+                    case 'stream_end':
+                        // Optional: Append final message if content is empty
+                        if (!msg.content && data.message) {
+                            msg.content = `[System] ${data.message}`;
+                        }
+                        this.finishStream(msgId);
+                        break;
+                        
+                    case 'error':
+                        this.handleError(msgId, data.message);
+                        break;
+                }
+                
+                this.scrollToBottom();
+            },
+
+            updateMsg(id, updates) {
+                const idx = this.messages.findIndex(m => m.id === id);
+                if (idx !== -1) {
+                    this.messages[idx] = { ...this.messages[idx], ...updates };
+                }
+            },
+
+            finishStream(msgId) {
+                if (this.eventSource) {
+                    this.eventSource.close();
+                    this.eventSource = null;
+                }
+                this.isConnected = false;
+                this.statusText = 'Ready';
+                this.updateMsg(msgId, { status: 'done', isThinking: false });
+            },
+
+            handleError(msgId, errorText) {
+                this.finishStream(msgId);
+                this.updateMsg(msgId, { 
+                    content: this.messages.find(m => m.id === msgId).content + `\n[Error: ${errorText}]`,
+                    isError: true 
+                });
+            },
+
+            stop() {
+                if (this.eventSource) {
+                    // Find current loading message
+                    const currentMsg = this.messages.find(m => m.role === 'ai' && m.status !== 'done');
+                    if (currentMsg) {
+                        this.handleError(currentMsg.id, 'Stopped by user');
+                    } else {
+                        this.eventSource.close();
+                        this.isConnected = false;
+                    }
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

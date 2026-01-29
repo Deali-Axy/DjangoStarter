@@ -130,6 +130,19 @@ def htmx_test(request):
     }
     return render(request, 'demo/htmx.html', context)
 
+def sse_demo(request):
+    """
+    Server-Sent Events (SSE) Demo Page
+    """
+    context = {
+        'title': 'SSE Chat Demo',
+        'breadcrumbs': [
+            {'text': 'Demo', 'url': reverse('demo:index'), 'icon': 'fa-solid fa-layer-group'},
+            {'text': 'SSE Chat', 'url': None, 'icon': 'fa-solid fa-comments'},
+        ]
+    }
+    return render(request, 'demo/sse-demo.html', context)
+
 def test_403(request):
     raise PermissionDenied()
 
