@@ -8,7 +8,7 @@ DjangoStarter 是下一代 Django 项目快速开发模板，专为提升开发�
 
 ### 后端
 
-- Python版本: 3.12
+- Python版本: 3.14
 - 包管理器: uv
 - Web框架: Django 6.0+ (with argon2)
 - API框架: Django-Ninja 1.5+
