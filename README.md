@@ -14,6 +14,22 @@
 - [DjangoStarter v3版本开发笔记](https://blog.deali.cn/Blog/Post/a21ab29f70708e15)
 - [AI 加持下的 DjangoStarter v3.1 版本开发](https://blog.deali.cn/Blog/Post/1f6ce0f31ba1214a)
 
+## v4.0 规划（草案）
+
+v4.0 计划将当前的“全栈一体”工程拆分为三段式分发形态，以降低耦合、减少重复实现，并同时满足「只做 API」与「全栈开箱即用」两类用户。
+
+- 核心（Core）：`django-starter-core`
+  - 定位：提供可复用的底座能力（例如模型基类、通用响应封装、认证/安全相关的通用实现与约定等）
+- API（API-only）：`django-starter-api`
+  - 定位：仅 API 的项目模板，依赖 Core，不包含前端渲染与静态资源构建链路
+- 全栈（Web）：`django-starter-web`
+  - 定位：保留 DjangoStarter 的全栈体验（模板渲染 + HTMX/Alpine/Tailwind/DaisyUI），依赖 Core，并在此基础上集成前端与页面能力
+
+命名说明（避免后续“改来改去”造成混乱）：
+
+- 上述名称用于对外分发与文档表达（发行包名/项目名）
+- Python import 命名空间与 Django app label 将作为公共 API 的一部分，尽量少改动、按大版本迁移策略演进
+
 ## 截图预览
 
 ### 主页
