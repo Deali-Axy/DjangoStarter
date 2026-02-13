@@ -1,0 +1,48 @@
+_answers_file: .copier-answers.yml
+_templates_suffix: .jinja
+_exclude:
+  - ".git"
+  - ".github"
+  - ".cursor"
+  - ".idea"
+  - ".trae"
+  - ".vscode"
+  - ".venv"
+  - ".pytest_cache"
+  - ".mypy_cache"
+  - ".ruff_cache"
+  - "__pycache__"
+  - "node_modules"
+  - "db.sqlite3"
+  - ".env"
+  - "copier.yml"
+
+project_title:
+  type: str
+  help: 生成项目对外展示名称
+  default: "DjangoStarter Web"
+
+project_description:
+  type: str
+  help: 生成项目描述（README/pyproject/package.json）
+  default: "Django fullstack starter"
+
+package_name:
+  type: str
+  help: 生成项目的包名/仓库名（建议小写 + 中划线）
+  default: "{{ project_title|lower|replace(' ', '-')|replace('_', '-') }}"
+
+author_name:
+  type: str
+  help: 作者名（pyproject/package.json）
+  default: "DealiAxy"
+
+author_email:
+  type: str
+  help: 作者邮箱（pyproject/package.json）
+  default: "dealiaxy@gmail.com"
+
+python_requires:
+  type: str
+  help: Python 版本约束（pyproject.toml -> [project].requires-python）
+  default: "==3.14.*"

@@ -1,0 +1,35 @@
+# {{ project_title }}（{{ package_name }}）
+
+`{{ package_name }}` 是 DjangoStarter 的全栈模板：Django + Django-Ninja（API）+ HTMX/Alpine/Tailwind（页面与交互），用于快速搭建可上线的 Web 应用。
+
+## 本地开发
+
+1）安装 Python 依赖：
+
+```bash
+uv sync
+```
+
+2）安装前端依赖（pnpm）：
+
+```bash
+pnpm i
+```
+
+3）构建静态资源（任选其一）：
+
+```bash
+pnpm run tw:build
+pnpm run build:assets
+```
+
+4）初始化数据库并启动：
+
+```bash
+uv run python .\\src\\manage.py migrate
+uv run python .\\src\\manage.py runserver
+```
+
+## Docker（可选）
+
+复制 `.env.example` 为 `.env`，调整 `APP_NAME/APP_PORT` 等变量后使用 compose 启动。

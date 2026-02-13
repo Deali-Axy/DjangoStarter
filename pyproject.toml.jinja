@@ -1,0 +1,63 @@
+[project]
+name = "{{ package_name }}"
+version = "0.1.0"
+description = "{{ project_description }}"
+authors = [
+    {name = "{{ author_name }}", email = "{{ author_email }}"},
+]
+dependencies = [
+    "django[argon2]>=6.0",
+    "django-ninja>=1.5.3",
+    "django-allauth>=0.63.0",
+    "django-otp>=1.6.1",
+    "django-multi-captcha-admin>=2.0.0",
+    "django-simple-captcha>=0.6.3",
+    "django-cors-headers>=4.9.0",
+    "django-ratelimit>=4.1.0",
+    "orjson>=3.11.5",
+    "pyjwt>=2.10.1",
+    "wechatpy>=1.8.18",
+    "django-redis>=6.0.0",
+    "pycryptodome>=3.23.0",
+    "tblib>=3.2.2",
+    "jinja2>=3.1.6",
+    "faker>=40.1.2",
+    "django-split-settings>=1.3.2",
+    "daphne>=4.2.1",
+    "prometheus-client>=0.24.1",
+    "requests>=2.32.5",
+    "redis>=7.1.0",
+    "pillow>=12.1.0",
+    "qrcode>=8.0",
+    "pydantic>=2.12.5",
+    "django-simple-history>=3.11.0",
+    "django-jazzmin>=3.0.1",
+    "granian>=2.6.1",
+    "gunicorn>=23.0.0",
+    "uvicorn>=0.40.0",
+    "anyio>=4.12.0",
+    "hypercorn>=0.18.0",
+    "markdown>=3.7",
+    "django-watchfiles>=1.4.0",
+]
+requires-python = "{{ python_requires }}"
+readme = "README.md"
+license = {text = "MIT"}
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar>=6.1.0",
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-django>=4.11.1",
+]
+
+[tool.pdm.scripts]
+granian-asgi = "granian --interface asgi config.asgi:application --static-path-route /static --static-path-mount ./static-dist"
+granian-wsgi = "granian --interface wsgi config.wsgi:application --static-path-route /static --static-path-mount ./static-dist"
+granian-http2 = "granian --interface asgi --http 2 config.asgi:application --static-path-route /static --static-path-mount ./static-dist"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+pythonpath = ["src"]

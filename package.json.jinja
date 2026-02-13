@@ -1,0 +1,37 @@
+{
+  "name": "{{ package_name|replace('-', '_') }}",
+  "version": "1.0.0",
+  "description": "{{ project_description }}",
+  "main": "index.js",
+  "repository": "https://github.com/Deali-Axy/DjangoStarter",
+  "author": "{{ author_name }} <{{ author_email }}>",
+  "license": "Apache License 2.0",
+  "scripts": {
+    "tw:watch": "tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --watch",
+    "tw:build": "tailwindcss -i ./src/static/css/tailwind.src.css -o ./src/static/css/tailwind.prod.css --minify",
+    "gulp:move": "gulp move",
+    "gulp:min": "gulp min",
+    "gulp:concat": "gulp concat",
+    "gulp:auto": "gulp auto",
+    "build:assets": "gulp move && gulp min && gulp concat"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "alpinejs": "^3.14.8",
+    "aos": "^3.0.0-beta.6",
+    "htmx.org": "^1.9.12"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.19",
+    "daisyui": "^5.5.14",
+    "gulp": "^4.0.2",
+    "gulp-changed": "^4.0.3",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^4.0.0"
+  }
+}
